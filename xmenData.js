@@ -1,4 +1,4 @@
-const data = [
+export const xMenData = [
     {
     name:"Elixir",
     Heals:10,

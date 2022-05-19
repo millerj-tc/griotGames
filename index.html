@@ -1,8 +1,11 @@
 <HTML>
     <head>
-        <script src="database.js"></script>
+        <script type="module">
+            import {database} from '/database.js';
+            window.db = new database();
+        </script>
     </head>
     <body>
-        <button onclick="run()">Test</button>
+        <button onclick="db.OutputDataClick()">Test</button>
     </body>
 </HTML>
