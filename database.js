@@ -15,11 +15,13 @@ class database
 //            
 //            $outputString += JSON.stringify(obj);
 //            
-            $outputString += "{";
+            $outputString += "<br><br>{";
             
             console.log(obj);
             
             for(const key in obj){
+                
+                $outputString += "<br>"
                 
                 $outputString += key + ":";
                 
@@ -35,14 +37,18 @@ class database
             }
             
             $outputString = $outputString.slice(0, -1);
+            
+            $outputString += "<br>";
                 
             $outputString += "}";
                 
             if(i != this.data.length -1) $outputString += ",";
         }
         
-        console.log($outputString);
+        
         console.table(this.data);
+        
+        document.body.innerHTML = $outputString;
     }
     
     AddNewData(name,prop,value){
@@ -88,4 +94,7 @@ for(let i = 0; i < $splitStr.length; i++){
 }
 
 
-window.onload = db.OutputData();
+function run(){
+    console.log("test");
+    db.OutputData();
+}
