@@ -1,5 +1,3 @@
-import {rosterLocScreen} from "./uiStrings.js";
-
 //export class cropper
 //{
 //    constructor(){}
@@ -39,45 +37,66 @@ export class uiHandler
         
     }
     
-    Start(){
-        
-        document.getElementById("content").innerHTML = rosterLocScreen;
-        
-        this.CreateLocationTable();
-        
-        this.CreateLocationRow("valakut");
-        
-        //document.getElementById("loc0lChar0Sel").innerHTML = this.SetSelectorToAvailableChars("loc0lChar0Sel");
-    }
-    
     CreateLocationTable(){
         
         this.locationTable = document.createElement("table");
-        document.getElementById("content").append(this.locationTable);
+        document.getElementById("content").innerHTML = "";
+        document.getElementById("content").prepend(this.locationTable);
+    }
+    
+    UpdateSelectorsAndCharImages(){
+        
+        const table = this.locationTable;  
+        
+        for(const row of table.rows) {
+            
+            for(const cell of row.cells){
+                
+                //console.log(cell);
+            }
+        }
+        
     }
     
     CreateLocationRow(img,charSlots){
         
-        const row = document.createElement("tr");
-        const col0 = document.createElement("td");
-        row.append(col0);
-        const col1 = document.createElement("td");
-        row.append(col1);
-        const col2 = document.createElement("td");
-        row.append(col2);
-        
-        $leftSideCharSelectorHTML = "";
-        $rightSideCharSelectorHTML = "";
+        const row = this.locationTable.insertRow(0);
+        const col0 = row.insertCell(0);
+        const col1 = row.insertCell(1);
+        const col2 = row.insertCell(2);
         
         for(let i = 0; i < charSlots; i++){
             
-            $leftSideCharSelectorHTML += `<span id="left`+ img + `Char` + i + `Select"></span><canvas id="left`+ img + `Char` + i + `Image" width="200px" height="200px"></canvas><br>`;
-            $rightSideCharSelectorHTML += `<span id="right`+ img + `Char` + i + `Select"></span><canvas id="right`+ img + `Char` + i + `Image" width="200px" height="200px"></canvas><br>`;
+            const $leftSelector = document.createElement("span");
+            $leftSelector.id = `left`+ img + `Char` + i + `Select`;
+            
+            $leftSelector.addEventListener("change", function() {
+                this.UpdateSelectorsAndCharImages();
+            });
+            
+            const $leftImage = document.createElement("canvas");
+            $leftImage.id = `left`+ img + `Char` + i + `Image`;
+            $leftImage.width = 200;
+            $leftImage.height = 200;
+            
+            col0.append($leftSelector);
+            col0.append($leftImage);
+            
+            const $rightSelector = document.createElement("span");
+            $rightSelector.id = `right`+ img + `Char` + i + `Select`;
+            
+            $rightSelector.addEventListener("change", function() {
+                this.UpdateSelectorsAndCharImages();
+            });
+            
+            const $rightImage = document.createElement("canvas");
+            $rightImage.id = `right`+ img + `Char` + i + `Image`;
+            $rightImage.width = 200;
+            $rightImage.height = 200;
+            
+            col2.append($rightSelector);
+            col2.append($rightImage);
         }
-        
-        col0.innerHTML = $leftSideCharSelectorHTML;
-        col1.innerHTML = `<img src="/images/` + img + `.png">`;
-        col2.innerHTML = $rightSideCharSelectorHTML;
         
         this.locationTable.append(row);
         

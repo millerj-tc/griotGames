@@ -8,23 +8,18 @@ export class database
         
         this.data = magicData;
     }
-    
-    Click(){
-        
-        //if(this.data == "") GetCardsFromScryfall(this);
-        
-        //this.data = BuildMagicData("Thalia");
-        
-        //console.log(this.data);
-        
-        //else 
-            
-            this.DisplayTable();
-    }
-    
+
     DisplayTable(){
         
         console.table(this.data);
+    }
+    
+    GetObjFromString(string){
+        
+        for(const obj of this.data){
+            
+            if(obj.name == string) return obj
+        }
     }
     
     OutputData(minProps = 0){

@@ -1,13 +1,13 @@
 <HTML>
     <head>
         <script type="module">
-            import {uiHandler} from '/ui.js';
-            window.uiHandler= new uiHandler();
+            import {gameHandler} from '/game.js';
+            window.gameHandler = new gameHandler();
         </script>
     </head>
     <body>
         <div id="content">
-            <button onclick="uiHandler.Start()">Start</button>
+            <button onclick="gameHandler.Start()">Start</button>
         </div>
     </body>
 </HTML>
