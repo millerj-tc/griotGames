@@ -8,7 +8,7 @@ export class cropper
         const ctx = canvas.getContext('2d');
 
         var image = new Image();
-        image.src = "./images/karn.jpg";
+        image.src = "./images/valakut.jpg";
         
         const $sourceX = image.width * 0.1;
         const $sourceY = image.height * 0.06;
