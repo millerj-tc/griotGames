@@ -9,37 +9,72 @@ export class scenarioEvaluator
     constructor(gameHandler){
         
         this.gameHandler = gameHandler;
-        this.leftTeamChars = ["Umezawa","Thalia","Chandra","Squee","Nicol Bolas"];
-        this.rightTeamChars = ["Nissa","Gideon","Jace","Mirri","Chainer"];
         
-        this.charData = magicData;
+        this.valakut = {characters:[]};
+        
+        this.AssignCharWithAlignmentToLoc("Umezawa","left",this.valakut);
+        this.AssignCharWithAlignmentToLoc("Thalia","left",this.valakut);
+        this.AssignCharWithAlignmentToLoc("Chandra","left",this.valakut);
+        this.AssignCharWithAlignmentToLoc("Squee","left",this.valakut);
+        this.AssignCharWithAlignmentToLoc("Nicol Bolas","left",this.valakut);
+        
+        this.AssignCharWithAlignmentToLoc("Nissa","right",this.valakut);
+        this.AssignCharWithAlignmentToLoc("Gideon","right",this.valakut);
+        this.AssignCharWithAlignmentToLoc("Jace","right",this.valakut);
+        this.AssignCharWithAlignmentToLoc("Mirri","right",this.valakut);
+        this.AssignCharWithAlignmentToLoc("Chainer","right",this.valakut);
+    }
+    
+    AssignCharWithAlignmentToLoc(char,align,loc){
+        
+        const $char = this.gameHandler.database.GetObjFromString(char);
+        $char.alignment = align;
+        loc.characters.push($char);
     }
     
     EvaluateBattleForValakut(){
         
-        $leftTeamValaPow = 0;
-        $rightTeamValaPow = 0;
+        let $toughest = this.GetStringOfCharsFromArray(this.GetGreatestPerCardValue("toughness",this.valakut.characters));
         
-        for(let i = 0; i < 1; i++){
-            
-            $leftTeamValaPow += this.GetPerCardValue("power",this.gameHandler.database.GetObjFromString(this.leftTeamChars[i]));
-            $rightTeamValaPow += this.GetPerCardValue("power",this.gameHandler.database.GetObjFromString(this.rightTeamChars[i]));
-        }
+        console.log($toughest + " has braved the fires of Valakut and gained invaluable information! His teammates will have a great tactical advantage.")
         
-        if($leftTeamValaPow > $rightTeamValaPow){
-            
-            
-        }
+//        if($leftTeamValaPow > $rightTeamValaPow){
+//            
+//            console.log(this.GetStringOfCharsAtLoc(this.valakut,"left") + " have defeated " + this.GetStringOfCharsAtLoc(this.valakut,"right") + "!");
+//        }
     }
     
-    GetStringOfCharsAtLoc(loc){
+    GetCharsAtLoc(loc,alignment = "any"){
         
-        let $nameArr = [];
+        let $returnArr = [];
         
         for(const char of loc.characters){
             
-            $nameArr.push(char.name);
+            if(alignment == "any") $returnArr.push(char);
+            else if(char.alignment == alignment) $returnArr.push(char);
         }
+        
+        return $returnArr
+    }
+    
+    GetStringOfCharsFromArray(array,alignment = "any"){
+        
+        let $nameArr = [];
+        
+        if(array.length == 1){
+            
+            if(alignment == "any") return array[0].name;
+            else if(array[0].alignment == alignment) return array.name;
+        }
+        
+        for(const char of array){
+            
+            if(alignment == "any") $nameArr.push(char.name) 
+            else if(char.alignment == alignment) $nameArr.push(char.name) 
+            
+        }
+        
+        //console.log($nameArr);
         
         let $returnString = "";
         
@@ -60,7 +95,7 @@ export class scenarioEvaluator
         return char[value]/char.cards
     }
     
-    GetGreatestPerCardValue(value){
+    GetGreatestPerCardValue(value,arrayOfChars){
         
         if(typeof value != "string") console.warn("scenarioEvaluator.GetGreatestPerCardValue(value) is not a string!!");
         
@@ -68,9 +103,7 @@ export class scenarioEvaluator
         
         let $returnedChars = [];
         
-        for(const char of arguments){
-            
-            if(char == arguments[0]) continue
+        for(const char of arrayOfChars){
             
             if(char[value]/char.cards > $highestValue){
                 
@@ -84,7 +117,7 @@ export class scenarioEvaluator
             }
         }
         
-        console.log($returnedChars);
+        //console.log($returnedChars);
         
        return $returnedChars;
     }

@@ -6,11 +6,13 @@ export class gameHandler
 {
     constructor(){
         
+        this.database = new database(this);
+        
         this.uiHandler = new uiHandler(this);
         
         this.scenarioEvaluator = new scenarioEvaluator(this);
         
-        this.database = new database(this);
+        
     }
     
     Start(){
@@ -21,6 +23,8 @@ export class gameHandler
         
         this.uiHandler.UpdateSelectorsAndCharImages();
         
-        this.scenarioEvaluator.GetGreatestPerCardValue("power",this.database.GetObjFromString("Ajani"),this.database.GetObjFromString("Chandra"));
+        //this.scenarioEvaluator.GetGreatestPerCardValue("power",this.database.GetObjFromString("Ajani"),this.database.GetObjFromString("Chandra"));
+        
+        this.scenarioEvaluator.EvaluateBattleForValakut();
     }
 }
