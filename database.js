@@ -9,7 +9,7 @@ export class database
         this.data = magicData;
     }
     
-    OutputDataClick(){
+    Click(){
         
         //if(this.data == "") GetCardsFromScryfall(this);
         

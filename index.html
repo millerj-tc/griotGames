@@ -1,11 +1,31 @@
 <HTML>
     <head>
         <script type="module">
-            import {database} from '/database.js';
-            window.db = new database();
+            import {cropper} from '/ui.js';
+            window.crpr= new cropper();
         </script>
     </head>
     <body>
-        <button onclick="db.OutputDataClick()">Test</button>
+        <div id="leftTeam" style="float:left">
+            <canvas id="loc0lImg" width="200px" height="200px"></canvas><br>
+            <canvas id="loc0lChar0" width="200px" height="200px"></canvas><br>
+            <canvas id="loc0lChar1" width="200px" height="200px"></canvas><br>
+            <canvas id="loc1lImg" width="200px" height="200px"></canvas><br>
+            <canvas id="loc1lChar0" width="200px" height="200px"></canvas><br>
+            <canvas id="loc1lChar1" width="200px" height="200px"></canvas><br>
+            <canvas id="loc2lImg" width="200px" height="200px"></canvas><br>
+            <canvas id="loc2lChar0" width="200px" height="200px"></canvas>
+        </div>
+        <div id="rightTeam" style="float:right">
+            <canvas id="loc0rImg" width="200px" height="200px"></canvas><br>
+            <canvas id="loc0rChar0" width="200px" height="200px"></canvas><br>
+            <canvas id="loc0rChar1" width="200px" height="200px"></canvas><br>
+            <canvas id="loc1rImg" width="200px" height="200px"></canvas><br>
+            <canvas id="loc1rChar0" width="200px" height="200px"></canvas><br>
+            <canvas id="loc1rChar1" width="200px" height="200px"></canvas><br>
+            <canvas id="loc2rImg" width="200px" height="200px"></canvas><br>
+            <canvas id="loc2rChar0" width="200px" height="200px"></canvas>
+        </div>
+        <button onclick="crpr.CropImg()">Test</button>
     </body>
 </HTML>
