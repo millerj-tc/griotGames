@@ -36,12 +36,8 @@ export class scenarioEvaluator
         
         let $toughest = this.GetStringOfCharsFromArray(this.GetGreatestPerCardValue("toughness",this.valakut.characters));
         
-        console.log($toughest + " has braved the fires of Valakut and gained invaluable information! His teammates will have a great tactical advantage.")
+        console.log($toughest + " has braved the fires of Valakut and gained invaluable information! Their teammates will have a great tactical advantage.")
         
-//        if($leftTeamValaPow > $rightTeamValaPow){
-//            
-//            console.log(this.GetStringOfCharsAtLoc(this.valakut,"left") + " have defeated " + this.GetStringOfCharsAtLoc(this.valakut,"right") + "!");
-//        }
     }
     
     GetCharsAtLoc(loc,alignment = "any"){
@@ -84,6 +80,7 @@ export class scenarioEvaluator
                 
                 $returnString += " and " + $nameArr[i];
             }
+            else if($nameArr.length == 2) $returnString += $nameArr[i]
             else $returnString += $nameArr[i] + ",";
         }
         
