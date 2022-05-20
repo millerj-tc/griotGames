@@ -1,4 +1,5 @@
 import {xMenData} from "./xmenData.js";
+import {GetCardsFromScryfall} from "./magicData.js";
 
 export class database
 {
@@ -9,7 +10,13 @@ export class database
     
     OutputDataClick(){
         
-        this.OutputData(3);
+        GetCardsFromScryfall();
+        
+        //this.data = BuildMagicData("Thalia");
+        
+        //console.log(this.data);
+        
+        this.OutputData();
     }
     
     OutputData(minProps = 0){
@@ -49,8 +56,6 @@ export class database
                 $keyString += ",";
             }
             
-            console.log($keyCount + " " + minProps);
-            
             if($keyCount >= minProps) $outputString += $keyString;
             else continue
             
@@ -64,7 +69,7 @@ export class database
         }
         
         
-        console.table(this.data);
+        //console.table(this.data);
         
         document.body.innerHTML = $outputString;
     }
@@ -109,10 +114,4 @@ for(let i = 0; i < $splitStr.length; i++){
     let $char = $splitStr[i];
     
     db.AddNewData($char,"Leadership",$splitStr.length-i);
-}
-
-
-function run(){
-    console.log("test");
-    db.OutputData();
 }
