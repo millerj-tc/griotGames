@@ -1,124 +1,258 @@
-export function GetCardsFromScryfall() {
-    
-    const name = "Umezawa";
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-        var txt = this.responseText;
-        var obj = JSON.parse(txt);
-        console.log(obj.data);
-        
-        console.log(BuildMagicData(name,obj.data));
-    }
-  };
-    xhttp.open("GET", `https://api.scryfall.com/cards/search?q=` + name + `&unique=cards`, true);
-    xhttp.send();
-}
-
-function GetCardPower(card){
-    
-    if(card.hasOwnProperty("power")) return Number(card.power);
-    else return 0
-}
-
-function GetCardToughness(card){
-    
-    if(card.hasOwnProperty("toughness")) return Number(card.toughness);
-    else return 0
-}
-
-function GetCardStrategy(card){
-    
-    if(card.hasOwnProperty("cmc")) return Number(card.cmc);
-    else return 0
-}
-
-function GetCardSpeed(card){
-    
-    const $typeLine = card.type_line.toLowerCase();
-    const $oracleText = GetOracleText(card).toLowerCase();
-    
-    if($typeLine.match("instant") !=null ||
-      $oracleText.match("/^flash$/") !=null) return 1;
-    else return 0
-}
-
-function GetCardRenown(card){
-    
-    const $legalities = card.legalities;
-    
-    let $renown = 0;
-    
-    if($legalities.commander == "not_legal") $renown++
-    if($legalities.legacy == "not_legal") $renown++
-    if($legalities.standard == "not_legal") $renown++
-    if($legalities.vintage == "not_legal") $renown++
-    if($legalities.modern == "not_legal") $renown++
-    
-    return $renown
-}
-
-function GetOracleText(card){
-    
-    if(card.hasOwnProperty("oracle_text")) return card.oracle_text
-    
-    if(card.hasOwnProperty("card_faces")) return card.card_faces[0].oracle_text + " " + card.card_faces[1].oracle_text
-    
-    else return ""
-}
-
-function SkipPartialNameMatch(name,card){
-    
-    const $testName = card.name.replace("'s","").replace(",","");
-    
-    if($testName.match(name) != null) return false
-    else{ 
-        //console.log("skipped " + $testName);
-        return true
-    }
-}
-
-function SkipSilverBorderCards(card){
-    
-    if(card.border_color == "silver") return true
-    else return false
-}
-
-function AssignCharacterTraits(name,list){
-    
-    let $obj = {name:name, cards:0, power:0, toughness:0, strategy:0, speed:0, renown:0};
-    
-    for(const card of list){
-        
-        if(SkipPartialNameMatch(name,card)) continue
-        if(SkipSilverBorderCards(card)) continue
-        
-        $obj.power += GetCardPower(card);
-        $obj.toughness += GetCardToughness(card);
-        $obj.strategy += GetCardStrategy(card);
-        $obj.speed += GetCardSpeed(card);
-        $obj.renown += GetCardRenown(card);
-        $obj.cards++;
-        
-    }
-    
-    return $obj
-}
-
-function BuildMagicData(name,list){
-    
-    
-    return AssignCharacterTraits(name,list);
-    
-}
-
-
-
 export const magicData = [
     
-     {
-
+    {
+    name:"Umezawa",
+    cards:7,
+    power:8,
+    toughness:12,
+    strategy:17,
+    speed:1,
+    renown:6,
+    cunning:9
     },
+    
+    {
+    name:"Thalia",
+    cards:5,
+    power:13,
+    toughness:9,
+    strategy:15,
+    speed:0,
+    renown:5,
+    cunning:0
+    },
+    
+    {
+    name:"Chandra",
+    cards:35,
+    power:18,
+    toughness:20,
+    strategy:141,
+    speed:5,
+    renown:34,
+    cunning:8
+    },
+    
+    {
+    name:"Urza",
+    cards:23,
+    power:7,
+    toughness:16,
+    strategy:62,
+    speed:1,
+    renown:35,
+    cunning:9
+    },
+    
+    {
+    name:"Nicol Bolas",
+    cards:14,
+    power:10,
+    toughness:11,
+    strategy:74,
+    speed:0,
+    renown:14,
+    cunning:26
+    },
+
+    {
+    name:"Olivia Voldaren",
+    cards:8,
+    power:19,
+    toughness:19,
+    strategy:30,
+    speed:1,
+    renown:6,
+    cunning:7
+    },
+    
+    {
+    name:"Sorin Markov",
+    cards:11,
+    power:4,
+    toughness:2,
+    strategy:51,
+    speed:1,
+    renown:10,
+    cunning:14
+    },
+    
+    {
+    name:"Teferi",
+    cards:28,
+    power:16,
+    toughness:21,
+    strategy:103,
+    speed:3,
+    renown:42,
+    cunning:28
+    },
+    
+    {
+    name:"Tezzeret",
+    cards:15,
+    power:5,
+    toughness:4,
+    strategy:67,
+    speed:0,
+    renown:14,
+    cunning:26
+    },
+    
+    {
+    name:"Nissa",
+    cards:21,
+    power:2,
+    toughness:3,
+    strategy:87,
+    speed:0,
+    renown:19,
+    cunning:10
+    },
+    
+    {
+    name:"Kaya",
+    cards:10,
+    power:0,
+    toughness:0,
+    strategy:35,
+    speed:2,
+    renown:8,
+    cunning:13
+    },
+    
+    {
+    name:"Garruk",
+    cards:17,
+    power:28,
+    toughness:24,
+    strategy:85,
+    speed:0,
+    renown:21,
+    cunning:10
+    },
+    
+    {
+    name:"Ajani",
+    cards:23,
+    power:9,
+    toughness:9,
+    strategy:83,
+    speed:1,
+    renown:23,
+    cunning:7
+    },
+    
+    {
+    name:"Liliana",
+    cards:30,
+    power:17,
+    toughness:14,
+    strategy:113,
+    speed:1,
+    renown:30,
+    cunning:34
+    },
+    
+    {
+    name:"Karn",
+    cards:7,
+    power:4,
+    toughness:4,
+    strategy:28,
+    speed:1,
+    renown:9,
+    cunning:4
+    },
+    
+   {
+    name:"Squee",
+    cards:6,
+    power:3,
+    toughness:2,
+    strategy:16,
+    speed:0,
+    renown:10,
+    cunning:2
+    },
+    
+    {
+    name:"Gideon",
+    cards:20,
+    power:6,
+    toughness:6,
+    strategy:68,
+    speed:5,
+    renown:20,
+    cunning:7
+    },
+    
+    {
+    name:"Chainer",
+    cards:4,
+    power:6,
+    toughness:5,
+    strategy:15,
+    speed:0,
+    renown:6,
+    cunning:5
+    },
+    
+    {
+    name:"Mirri",
+    cards:4,
+    power:8,
+    toughness:7,
+    strategy:11,
+    speed:0,
+    renown:6,
+    cunning:1
+    },
+    
+    {
+    name:"Jace",
+    cards:25,
+    power:10,
+    toughness:12,
+    strategy:91,
+    speed:3,
+    renown:24,
+    cunning:30
+    },
+    
+    {
+    name:"Gerrard",
+    cards:8,
+    power:10,
+    toughness:9,
+    strategy:25,
+    speed:1,
+    renown:15,
+    cunning:1
+    },
+    
+    {
+    name:"Oona",
+    cards:7,
+    power:13,
+    toughness:15,
+    strategy:22,
+    speed:3,
+    renown:8,
+    cunning:10
+    },
+    
+    {
+    name:"Anafenza",
+    cards:3,
+    power:7,
+    toughness:8,
+    strategy:6,
+    speed:0,
+    renown:3,
+    cunning:1
+    }
+    
     
     
 ]

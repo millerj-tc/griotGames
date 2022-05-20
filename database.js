@@ -1,25 +1,35 @@
 import {xMenData} from "./xmenData.js";
-import {GetCardsFromScryfall} from "./magicData.js";
+import {magicData} from "./magicData.js";
+import {GetCardsFromScryfall} from "./magicDataBuilder.js";
 
 export class database
 {
     constructor(){
         
-        this.data = xMenData;
+        this.data = magicData;
     }
     
     OutputDataClick(){
         
-        GetCardsFromScryfall();
+        //if(this.data == "") GetCardsFromScryfall(this);
         
         //this.data = BuildMagicData("Thalia");
         
         //console.log(this.data);
         
-        this.OutputData();
+        //else 
+            
+            this.DisplayTable();
+    }
+    
+    DisplayTable(){
+        
+        console.table(this.data);
     }
     
     OutputData(minProps = 0){
+        
+        console.log(this.data);
         
         let $outputString = "";
         
@@ -109,9 +119,9 @@ Emma Frost`;
 
 const $splitStr = $str.split(/\r?\n/);
 
-for(let i = 0; i < $splitStr.length; i++){
-    
-    let $char = $splitStr[i];
-    
-    db.AddNewData($char,"Leadership",$splitStr.length-i);
-}
+//for(let i = 0; i < $splitStr.length; i++){
+//    
+//    let $char = $splitStr[i];
+//    
+//    db.AddNewData($char,"Leadership",$splitStr.length-i);
+//}
