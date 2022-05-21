@@ -3,11 +3,39 @@
 // inlcude little call outs that give hints to stats
 
 /* what different fx can comparing numbers have that are interesting?
- - knock people out of evaluations
- - flip evaluation
- - group by x, evaluate by y
- - winning one stage makes the other team have to take the harder road on the other
+ 
+ 
+ EVAL METHODS
+ - group by x eval by y
+ 
+ NEUTRAL FX
+ - flip evaluation for stage
+ - characters rotate between locations
+ - change order of "stages"
+ - different stages take place at different locations (which have natural implications)
+ 
+ REWARDS FOR WINNING STAGES
+ - block a stage if you would lose it
+ - rotate extra character to another location/stage
+ - checkbox/hurdle for game win cons
+ - checkbox/hurdle for stage buffs (win, mod, etc) -- can be other location stage
+ - knock enemy characters out of evaluations
+ - sway dupe characters to fight for you (alignment-hope)
+ 
+  - special late optional stages that lower requirements for WINNING
+  
+  
+  
 */
+
+
+
+
+// make a "side switch"/betrayal call out between stages as well as a chars "refuse to participate" message
+
+// make victory message display after all others
+
+// add pronouns to characters
 
 import {magicData} from "./magicData.js";
 
