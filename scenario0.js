@@ -5,7 +5,8 @@
 /* what different fx can comparing numbers have that are interesting?
  - knock people out of evaluations
  - flip evaluation
- - 
+ - group by x, evaluate by y
+ - winning one stage makes the other team have to take the harder road on the other
 */
 
 import {magicData} from "./magicData.js";
