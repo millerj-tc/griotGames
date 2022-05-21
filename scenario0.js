@@ -2,6 +2,12 @@
 
 // inlcude little call outs that give hints to stats
 
+/* what different fx can comparing numbers have that are interesting?
+ - knock people out of evaluations
+ - flip evaluation
+ - 
+*/
+
 import {magicData} from "./magicData.js";
 
 export class scenarioEvaluator
