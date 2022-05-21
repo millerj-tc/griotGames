@@ -20,14 +20,10 @@ export class gameHandler
     
     Start(){
         
-        this.uiHandler.CreateLocationTable();
+        const $vala = this.scenarioHandler.SH.AddStage("valakut0");
         
-        this.uiHandler.CreateLocationRow("valakut",2);
+        console.log()
         
-        this.uiHandler.UpdateSelectorsAndCharImages();
-        
-        //this.scenarioEvaluator.GetGreatestPerCardValue("power",this.database.GetObjFromString("Ajani"),this.database.GetObjFromString("Chandra"));
-        
-        this.scenarioEvaluator.EvaluateBattleForValakut();
+        $vala._HighestValueWin(this.scenarioEvaluator.valakut.characters,"power");
     }
 }

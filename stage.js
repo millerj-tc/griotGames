@@ -28,22 +28,45 @@ class stage
         return
     }
     
-    _OneTeamWins
+    _OneTeamWins(winners){
+        
+        
+    }
     
     _HighestValueWin(pool,value){
         
-        let $highestVal = 0;
-        
-        let $winners = [];
+        let $leftSiders = [];
+        let $rightSiders = [];
         
         for(const obj of pool){
             
-            if(obj.hasOwnProperty(value)){
-                
-                if(obj[value] > $highestVal) $winners = [obj]
-                else if(obj[value] == $highestVal) $winners.push(obj)
-            }
+            if(obj.alignment == "left") $leftSiders.push(obj)
+            if(obj.alignment == "right") $rightSiders.push(obj)
         }
+        
+        $leftSiders.sort(function(a, b){return b[value] - a[value]});
+        $rightSiders.sort(function(a, b){return - b[value] - a[value]});
+        
+        //$leftSiders.reverse();
+        //$rightSiders.reverse();
+        
+        console.log($leftSiders);
+        console.log($rightSiders);
+        
+        // NEED TO ALTER THE MAGIC DATABASE SO THAT YOU DON'T HAVE TO PERFORM PER CARD OPERATIONS IN REAL TIME
+        
+//        let $highestVal = 0;
+//        
+//        let $winners = [];
+//        
+//        for(const obj of pool){
+//            
+//            if(obj.hasOwnProperty(value)){
+//                
+//                if(obj[value] > $highestVal) $winners = [obj]
+//                else if(obj[value] == $highestVal) $winners.push(obj)
+//            }
+//        }
         
         this._ReturnDisplayText($winners)
     }
@@ -56,7 +79,7 @@ export class stageHandler
         this.scenarioHandler = scenarioHandler;
         
         this.stages = [];
-        this.lastCreatedStage;
+        this.lastCreatedStage = undefined;
         this.currentStage;
     }
     
@@ -69,11 +92,13 @@ export class stageHandler
         
         const $stage = new stage(this,id);
         
-        this.lastCreatedStage.nextStage = $stage;
+        if(this.lastCreatedStage != undefined)this.lastCreatedStage.nextStage = $stage;
         
         this.stages.push($stage);
         
         this.lastCreatedStage = $stage;
+        
+        return $stage
     }
                 
     GetStageEvalMessage(stage){
