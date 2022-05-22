@@ -43,9 +43,10 @@ export class uiHandler
         
         this.locationTable = document.createElement("div");
         this.locationTable.style = `display: grid;
+            justify-items: center;
+            align-items: center;
             grid-template-columns: auto auto auto;
             gap: 10px;
-            background-color: #2196F3;
             padding: 10px;`;
         document.getElementById("content").innerHTML = "";
         document.getElementById("content").prepend(this.locationTable);
@@ -75,20 +76,25 @@ export class uiHandler
     CreateLocationRow(loc,charSlots){
         
         //const row = this.locationTable.insertRow(0);
-        const col0 = document.createElement("div");
-        this.locationTable.append(col0);
-        const col1 = document.createElement("div");
-        this.locationTable.append(col1);
-        const col2 = document.createElement("div");
-        this.locationTable.append(col2);
         
         //row.style = "fill:#1c87c9;";
-        col0.style="vertical-align:middle;";
+        
+        let col1 = document.createElement("div");
+        this.locationTable.append(col1);
         
         for(let i = 0; i < charSlots; i++){
             
-            console.log("ROW!!!");
-            console.warn("switch to CSS grid layout!!!! ")
+            let col0 = document.createElement("div");
+            col0.style = "vertical-align:middle;grid-column-start:1";
+            this.locationTable.append(col0);
+            
+            let col2 = document.createElement("div");
+            col2.style = "vertical-align:center;grid-column-start:3";
+            this.locationTable.append(col2);
+            
+            col0.style="vertical-align:middle;";
+            
+            //console.log("ROW!!!");
             
             let $leftSelector = {}; //= document.createElement("span");
             $leftSelector.id = this.SetSelectorId("left",loc.id,i);
@@ -97,6 +103,7 @@ export class uiHandler
             //console.log($leftSelector);
             
             const $leftImage = document.createElement("span");
+            $leftImage.style = "float:right";
             $leftImage.id = `left`+ loc.id + `Char` + i + `Image`;
             $leftImage.width = 200;
             $leftImage.height = 200;
@@ -118,6 +125,7 @@ export class uiHandler
             //console.log($leftSelector);
             
             const $rightImage = document.createElement("span");
+            $rightImage.style = "float:left";
             $rightImage.id = `right`+ loc.id + `Char` + i + `Image`;
             $rightImage.width = 200;
             $rightImage.height = 200;
@@ -138,6 +146,13 @@ export class uiHandler
         const $locImg = document.createElement("img");
         $locImg.src = loc.image;
         col1.append($locImg);
+        col1.style = `justify-items: center;
+            align-items: center;
+            vertical-align:center;
+            text-align:center;
+            grid-column-start: 2;
+            grid-row-start: 1;
+            grid-row-end:` + charSlots + `;`
         
         //this.locationTable.append(row);
         
@@ -155,7 +170,7 @@ export class uiHandler
         
         //console.log(id);
         
-        let $returnString = `<select name="Character" style="margin-top:50%" id="` + id + `">`;
+        let $returnString = `<select name="Character" style="margin-top:25%" id="` + id + `">`;
         
         for(const char of this.availableChars){
             
