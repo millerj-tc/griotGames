@@ -21,6 +21,14 @@ class location
         
         return $returnArr
     }
+    
+    AddChar(name,align){
+        
+        const $char = this.locationHandler.gameHandler.database.GetObjFromString(name);
+        $char.alignment = align;
+        $char.location = this;
+        this.chars.push($char);
+    }
 }
 
 export class locationHandler
@@ -35,5 +43,15 @@ export class locationHandler
         
         const $loc = new location(this,id,img);
         this.locations.push($loc);
+        
+        return $loc
+    }
+    
+    GetLocationById(id){
+        
+        for(const loc of this.locations){
+            
+            if(loc.id == id) return loc
+        }
     }
 }

@@ -29,12 +29,14 @@ class stage
     
     _ReturnDisplayText(winners){
         
+        //console.log(this.winText);
+        
         return this.winText.replace("[names]",GetStringOfCharsFromArray(winners));
     }
     
-    _OneTeamWins(winners){
+    _GetPool(){
         
-        
+        // remember some stages have no location
     }
     
     _GetNondebuffedChars(pool){
@@ -79,11 +81,18 @@ class stage
         $leftSiders.sort(function(a, b){return b[value] - a[value]});
         $rightSiders.sort(function(a, b){return - b[value] - a[value]});
         
-        //remove 1 char from evaluation per debuff
+        //--Remove 1 char from evaluation per debuff
         
-        for(let i = 0; i < this.leftDebuffCount; i++) $leftSiders.shift()
+        let $debuffedNames = [];
         
-        for(let i = 0; i < this.rightDebuffCount; i++) $rightSiders.shift()
+        for(let i = 0; i < this.leftDebuffCount; i++) $debuffedNames.push($leftSiders.shift())
+        
+        for(let i = 0; i < this.rightDebuffCount; i++) $debuffedNames.push($rightSiders.shift())
+        
+        //--Function to add debuff flavor to output should go right here
+        
+        //console.log($leftSiders);
+        //console.log($rightSiders);
         
         
         for(let i = 0; i < 50; i++){
@@ -113,7 +122,7 @@ class stage
         
         //console.log($winners);  
         
-        this._ReturnDisplayText($winners)
+        return this._ReturnDisplayText($winners)
     }
 }
 

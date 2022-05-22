@@ -15,7 +15,7 @@ export class charHandler
     
     IsDebuffed(){
         
-        console.log(this);
+        //console.log(this);
         
         return false
         

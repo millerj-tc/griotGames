@@ -2,6 +2,7 @@ import {scenarioEvaluator} from "./scenario0.js";
 import {uiHandler} from "./ui.js";
 import {database} from "./database.js";
 import {scenarioHandler} from "./scenario.js";
+import {locationHandler} from "./location.js";
 
 export class gameHandler
 {
@@ -13,7 +14,7 @@ export class gameHandler
         
         this.scenarioHandler = new scenarioHandler(this);
         
-        this.scenarioEvaluator = new scenarioEvaluator(this);
+        this.locationHandler = new locationHandler(this);
         
         
     }
@@ -21,11 +22,24 @@ export class gameHandler
     Start(){
         
         this.scenarioHandler.CH.AddFunctionsToCharacters();
+        
+        const $vala = this.locationHandler.AddLocation("valakut","/images/valakut.png");
+        
+        $vala.AddChar("Umezawa","left");
+        
+        $vala.AddChar("Thalia","left");
+        
+        $vala.AddChar("Nissa","right");
+        
+        $vala.AddChar("Gideon","right");
             
-        const $vala = this.scenarioHandler.SH.AddStage("valakut0");
+        const $vala0 = this.scenarioHandler.SH.AddStage("valakut0");
         
-        console.log()
+        $vala0.winText = "[names] braves the fires of Valakut, gaining valuable intelligence."
         
-        $vala._HighestValueWin(this.scenarioEvaluator.valakut.characters,"power");
+        $vala0.location = this.locationHandler.GetLocationById("valakut");
+        
+        console.log($vala0.GetDisplayText($vala.chars,"power"));
+    
     }
 }
