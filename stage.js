@@ -16,21 +16,42 @@ class stage
         this.id;
         this.nextStage;
         this.GetDisplayText = this._HighestValueWin;
+        this.displayText = "";
         this.winText = "";
         this.debuffText = "";
+        this.debuffedChar = false;
         
     }
     
+    //ReturnDisplayText is private because the public method is GetDisplayText as defined in constructor :)
+    
     _ReturnDisplayText(winners){
         
-        
-        
-        return
+        return this.winText.replace("[names]",GetStringOfCharsFromArray(winners));
     }
     
     _OneTeamWins(winners){
         
         
+    }
+    
+    _GetNondebuffedChars(pool){
+        
+        let $returnArr = [];
+        
+        for(const obj of pool){
+            
+            let $debuffCount = 0;
+            
+            for(const debuff of obj.debuffs){
+                
+                if(debuff.stageId == this.id) $debuffCount++
+            }
+            
+            if($debuffCount == 0) $returnArr.push(obj);
+        }
+        
+        return $returnArr
     }
     
     _HighestValueWin(pool,value){
@@ -40,7 +61,9 @@ class stage
         
         let $winners = [];
         
-        for(const obj of pool){
+        let $pool = this._GetNondebuffedChars(pool);
+        
+        for(const obj of $pool){
             
             if(obj.alignment == "left") $leftSiders.push(obj)
             if(obj.alignment == "right") $rightSiders.push(obj)

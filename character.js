@@ -4,4 +4,6 @@ export class charHandler
         
         this.scenarioHandler = scenarioHandler;
     }
+    
+    
 }
