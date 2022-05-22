@@ -19,6 +19,8 @@ export class gameHandler
     }
     
     Start(){
+        
+        this.scenarioHandler.CH.AddFunctionsToCharacters();
             
         const $vala = this.scenarioHandler.SH.AddStage("valakut0");
         
