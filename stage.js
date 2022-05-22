@@ -6,6 +6,14 @@
 
 // make victory message display after all others
 
+// interpersonal dynamics
+
+// clue text for when someone is the worst at a stage, etc.
+
+// chars buffed on certain locations like Chandra on Valakut and Teferi on Vesuva
+
+// 2v1 buff (opp must have two characters that overpower char in order to win that stage)
+
 import {GetStringOfCharsFromArray} from "./utils.js";
 
 class stage

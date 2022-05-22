@@ -1,12 +1,35 @@
+class charSlot
+{
+    constructor(location,alignment="left"){
+        
+        this.location = location;
+        this.alignment = alignment;
+        this.character;
+    }
+}
+
 class location
 {
     constructor(locationHandler,id,img)
     {
         this.id = id;
         this.image = img;
-        this.locationHandler = locationHandler
+        this.locationHandler = locationHandler;
         
-        this.chars = [];
+        this.charSlots = [];
+        
+        //this.chars = [];
+    }
+    
+    AddCharSlot(alignment){
+        
+        const $slot = new charSlot(this,alignment)
+        
+        this.charSlots.push($slot);
+        
+        //let $currLength = this.charSlotRows;
+        
+        //this.charSlotRows.push({rowId:$currLength,image:imageSlotId, selector:selectSlotId});
     }
     
     GetCharsHere(name="any",alignment="any"){
@@ -39,10 +62,17 @@ export class locationHandler
         this.locations = [];
     }
     
-    AddLocation(id,img){
+    AddLocation(id,img,charSlots){
         
         const $loc = new location(this,id,img);
         this.locations.push($loc);
+        
+        for(let i = 0; i < charSlots; i++){
+            
+            $loc.
+        }
+        
+        this.gameHandler.uiHandler.CreateLocationRow($loc,charSlots);
         
         return $loc
     }

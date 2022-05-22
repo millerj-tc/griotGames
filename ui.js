@@ -46,36 +46,13 @@ export class uiHandler
         document.getElementById("content").prepend(this.locationTable);
     }
     
-    UpdateCharImages(){
+    UpdateCharImage(span){
         
-        const table = this.locationTable;  
-        
-//        for(const row of table.rows) {
-//            
-//            for(const cell of row.cells){
-//                
-//                let $failToFind = false;
-//                
-//                let $i = 0;
-//                
-//                while(!$failToFind){
-//                    
-//                    if(cell.outerHTML.match(`\`` + $i + `Select`).index > 0){
-//                        
-//                        
-//                    }
-//                    else $failToFind = true
-//                    
-//                }
-//                console.log(cell.outerHTML);
-//                const $select = cell.outerHTML.match("\Select");
-//                console.log($select.index);
-//            }
-//        }
+        span
         
     }
     
-    CreateLocationRow(id,img,charSlots){
+    CreateLocationRow(loc,charSlots){
         
         const row = this.locationTable.insertRow(0);
         const col0 = row.insertCell(0);
@@ -85,31 +62,31 @@ export class uiHandler
         for(let i = 0; i < charSlots; i++){
             
             const $leftSelector = document.createElement("span");
-            $leftSelector.id = `left`+ id + `Char` + i + `Select`;
-            $leftSelector.innerHTML = this.SetSelectorToAvailableChars(id);
+            $leftSelector.id = `left`+ loc.id + `Char` + i + `Select`;
+            $leftSelector.innerHTML = this.SetSelectorToAvailableChars(loc.id);
             
-            $leftSelector.addEventListener("change", function() {
-                this.UpdateSelectorsAndCharImages();
-            });
-            
-            const $leftImage = document.createElement("canvas");
-            $leftImage.id = `left`+ id + `Char` + i + `Image`;
+            const $leftImage = document.createElement("span");
+            $leftImage.id = `left`+ loc.id + `Char` + i + `Image`;
             $leftImage.width = 200;
             $leftImage.height = 200;
+            
+            $leftSelector.addEventListener("change", function() {
+                this.UpdateCharImage($leftImage);
+            });
             
             col0.append($leftSelector);
             col0.append($leftImage);
             
             const $rightSelector = document.createElement("span");
-            $rightSelector.id = `right`+ id + `Char` + i + `Select`;
-            $rightSelector.innerHTML = this.SetSelectorToAvailableChars(id);
+            $rightSelector.id = `right`+ loc.id + `Char` + i + `Select`;
+            $rightSelector.innerHTML = this.SetSelectorToAvailableChars(loc.id);
             
             $rightSelector.addEventListener("change", function() {
                 this.UpdateSelectorsAndCharImages();
             });
             
             const $rightImage = document.createElement("canvas");
-            $rightImage.id = `right`+ id + `Char` + i + `Image`;
+            $rightImage.id = `right`+ loc.id + `Char` + i + `Image`;
             $rightImage.width = 200;
             $rightImage.height = 200;
             
@@ -118,17 +95,19 @@ export class uiHandler
         }
         
         const $locImg = document.createElement("img");
-        $locImg.src = img;
+        $locImg.src = loc.image;
         col1.append($locImg);
         
         this.locationTable.append(row);
         
-        this.UpdateSelectorsAndCharImages();
+        //this.UpdateSelectorsAndCharImages();
         
         
     }
         
     SetSelectorToAvailableChars(id){
+        
+        //console.log(id);
         
         let $returnString = `<select name="Character" id="` + id + `">`;
         

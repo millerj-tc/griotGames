@@ -25,9 +25,9 @@ export class gameHandler
         
         this.uiHandler.CreateLocationTable();
         
-        const $vala = this.locationHandler.AddLocation("valakut","/images/valakut.png");
+        const $vala = this.locationHandler.AddLocation("valakut","/images/valakut.png",2);
         
-        this.uiHandler.CreateLocationRow($vala.id,$vala.image,2);
+        //this.uiHandler.CreateLocationRow($vala.id,$vala.image,2);
         
 //        $vala.AddChar("Umezawa","left");
 //        
