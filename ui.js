@@ -41,7 +41,12 @@ export class uiHandler
     
     CreateLocationTable(){
         
-        this.locationTable = document.createElement("table");
+        this.locationTable = document.createElement("div");
+        this.locationTable.style = `display: grid;
+            grid-template-columns: auto auto auto;
+            gap: 10px;
+            background-color: #2196F3;
+            padding: 10px;`;
         document.getElementById("content").innerHTML = "";
         document.getElementById("content").prepend(this.locationTable);
     }
@@ -69,15 +74,21 @@ export class uiHandler
     
     CreateLocationRow(loc,charSlots){
         
-        const row = this.locationTable.insertRow(0);
-        const col0 = row.insertCell(0);
-        const col1 = row.insertCell(1);
-        const col2 = row.insertCell(2);
+        //const row = this.locationTable.insertRow(0);
+        const col0 = document.createElement("div");
+        this.locationTable.append(col0);
+        const col1 = document.createElement("div");
+        this.locationTable.append(col1);
+        const col2 = document.createElement("div");
+        this.locationTable.append(col2);
         
-        row.style = "fill:#1c87c9;";
+        //row.style = "fill:#1c87c9;";
         col0.style="vertical-align:middle;";
         
         for(let i = 0; i < charSlots; i++){
+            
+            console.log("ROW!!!");
+            console.warn("switch to CSS grid layout!!!! ")
             
             let $leftSelector = {}; //= document.createElement("span");
             $leftSelector.id = this.SetSelectorId("left",loc.id,i);
@@ -128,7 +139,7 @@ export class uiHandler
         $locImg.src = loc.image;
         col1.append($locImg);
         
-        this.locationTable.append(row);
+        //this.locationTable.append(row);
         
         //this.UpdateSelectorsAndCharImages();
         
