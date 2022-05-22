@@ -2,7 +2,7 @@ export const magicData = [
     
     {
     name:"Umezawa",
-    image: "umezawa.png",
+    image: "images/umezawa.png",
     cards:7,
     power:1.1428571428571428,
     toughness:1.7142857142857142,
@@ -21,6 +21,7 @@ export const magicData = [
 
     {
     name:"Thalia",
+    image: "images/thalia.png",
     cards:5,
     power:2.6,
     toughness:1.8,
@@ -39,6 +40,7 @@ export const magicData = [
 
     {
     name:"Chandra",
+    image: "images/chandra.png",
     cards:35,
     power:0.5142857142857142,
     toughness:0.5714285714285714,
@@ -57,6 +59,7 @@ export const magicData = [
 
     {
     name:"Urza",
+    image: "images/urza.png",
     cards:23,
     power:0.30434782608695654,
     toughness:0.6956521739130435,
@@ -74,6 +77,7 @@ export const magicData = [
 
     {
     name:"Nicol Bolas",
+    image: "images/nicol bolas.png",
     cards:14,
     power:0.7142857142857143,
     toughness:0.7857142857142857,
@@ -92,6 +96,7 @@ export const magicData = [
 
     {
     name:"Olivia Voldaren",
+    image: "images/olivia voldaren.png",
     cards:8,
     power:2.375,
     toughness:2.375,
@@ -109,6 +114,7 @@ export const magicData = [
 
     {
     name:"Sorin Markov",
+    image: "images/sorin markov.png",
     cards:11,
     power:0.36363636363636365,
     toughness:0.18181818181818182,
@@ -126,6 +132,7 @@ export const magicData = [
 
     {
     name:"Teferi",
+    image: "images/teferi.png",
     cards:28,
     power:0.5714285714285714,
     toughness:0.75,
@@ -143,6 +150,7 @@ export const magicData = [
 
     {
     name:"Tezzeret",
+    image: "images/tezzeret.png",
     cards:15,
     power:0.3333333333333333,
     toughness:0.26666666666666666,
@@ -160,6 +168,7 @@ export const magicData = [
 
     {
     name:"Nissa",
+    image: "images/nissa.png",
     cards:21,
     power:0.09523809523809523,
     toughness:0.14285714285714285,
@@ -178,6 +187,7 @@ export const magicData = [
 
     {
     name:"Kaya",
+    image: "images/kaya.png",
     cards:10,
     power:0,
     toughness:0,
@@ -195,6 +205,7 @@ export const magicData = [
 
     {
     name:"Garruk",
+    image: "images/garruk.png",
     cards:17,
     power:1.6470588235294117,
     toughness:1.411764705882353,
@@ -212,6 +223,7 @@ export const magicData = [
 
     {
     name:"Ajani",
+    image: "images/ajani.png",
     cards:23,
     power:0.391304347826087,
     toughness:0.391304347826087,
@@ -229,6 +241,7 @@ export const magicData = [
 
     {
     name:"Liliana",
+    image: "images/liliana.png",
     cards:30,
     power:0.5666666666666667,
     toughness:0.4666666666666667,
@@ -246,6 +259,7 @@ export const magicData = [
 
     {
     name:"Karn",
+    image: "images/karn.png",
     cards:7,
     power:0.5714285714285714,
     toughness:0.5714285714285714,
@@ -263,6 +277,7 @@ export const magicData = [
 
     {
     name:"Squee",
+    image: "images/squee.png",
     cards:6,
     power:0.5,
     toughness:0.3333333333333333,
@@ -281,6 +296,7 @@ export const magicData = [
 
     {
     name:"Gideon",
+    image: "images/gideon.png",
     cards:20,
     power:0.3,
     toughness:0.3,
@@ -299,6 +315,7 @@ export const magicData = [
 
     {
     name:"Chainer",
+    image: "images/chainer.png",
     cards:4,
     power:1.5,
     toughness:1.25,
@@ -317,6 +334,7 @@ export const magicData = [
 
     {
     name:"Mirri",
+    image: "images/mirri.png",
     cards:4,
     power:2,
     toughness:1.75,
@@ -335,6 +353,7 @@ export const magicData = [
 
     {
     name:"Jace",
+    image: "images/jace.png",
     cards:25,
     power:0.4,
     toughness:0.48,
@@ -353,6 +372,7 @@ export const magicData = [
 
     {
     name:"Gerrard",
+    image: "images/gerrard.png",
     cards:8,
     power:1.25,
     toughness:1.125,
@@ -370,6 +390,7 @@ export const magicData = [
 
     {
     name:"Oona",
+    image: "images/oona.png",
     cards:7,
     power:1.8571428571428572,
     toughness:2.142857142857143,
@@ -387,6 +408,7 @@ export const magicData = [
 
     {
     name:"Anafenza",
+    image: "images/anafenza.png",
     cards:3,
     power:2.3333333333333335,
     toughness:2.6666666666666665,

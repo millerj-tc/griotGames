@@ -23,9 +23,9 @@ class location
         //this.chars = [];
     }
     
-    AddCharSlot(alignment,spanId){
+    AddCharSlot(alignment,selectId,imageSpanId){
         
-        const $slot = new charSlot(this,alignment)
+        const $slot = new charSlot(this,alignment,selectId,imageSpanId)
         
         this.charSlots.push($slot);
         
