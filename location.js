@@ -1,9 +1,11 @@
 class charSlot
 {
-    constructor(location,alignment="left"){
+    constructor(location,alignment="left",selectId,imageSpanId){
         
         this.location = location;
         this.alignment = alignment;
+        this.imageSpanId = imageSpanId;
+        this.selectId = selectId;
         this.character;
     }
 }
@@ -21,7 +23,7 @@ class location
         //this.chars = [];
     }
     
-    AddCharSlot(alignment){
+    AddCharSlot(alignment,spanId){
         
         const $slot = new charSlot(this,alignment)
         
@@ -30,28 +32,30 @@ class location
         //let $currLength = this.charSlotRows;
         
         //this.charSlotRows.push({rowId:$currLength,image:imageSlotId, selector:selectSlotId});
+        
+        return $slot
     }
     
     GetCharsHere(name="any",alignment="any"){
         
         let $returnArr = [];
         
-        for(const char of this.chars){
+        for(const slot of this.charSlots){
             
-            if(name != "any" && char.name != name) continue
-            if(alignment == "any" || char.alignment == alignment) $returnArr.push(char)
+            if(name != "any" && slot.character.name != name) continue
+            if(alignment == "any" || slot.character.alignment == alignment) $returnArr.push(slot.character)
         }
         
         return $returnArr
     }
     
-    AddChar(name,align){
-        
-        const $char = this.locationHandler.gameHandler.database.GetObjFromString(name);
-        $char.alignment = align;
-        $char.location = this;
-        this.chars.push($char);
-    }
+//    AddChar(name,align){
+//        
+//        const $char = this.locationHandler.gameHandler.database.GetObjFromString(name);
+//        $char.alignment = align;
+//        $char.location = this;
+//        this.chars.push($char);
+//    }
 }
 
 export class locationHandler
@@ -66,11 +70,6 @@ export class locationHandler
         
         const $loc = new location(this,id,img);
         this.locations.push($loc);
-        
-        for(let i = 0; i < charSlots; i++){
-            
-            $loc.
-        }
         
         this.gameHandler.uiHandler.CreateLocationRow($loc,charSlots);
         

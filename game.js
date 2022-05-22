@@ -43,7 +43,7 @@ export class gameHandler
         
         $vala0.location = $vala;
         
-        console.log($vala0.GetDisplayText($vala.chars,"power"));
+        //console.log($vala0.GetDisplayText($vala.chars,"power"));
     
     }
 }

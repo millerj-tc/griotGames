@@ -33,7 +33,7 @@ export class uiHandler
         
         this.gameHandler = gameHandler;
         
-        this.availableChars = ["Ajani","Anafenza","Chainer","Chandra","Garruk","Gerrard","Gideon","Jace","Karn","Kaya","Liliana","Mirri","Nicol Bolas","Nissa","Olivia Voldaren","Oona","Sorin Markov","Squee","Teferi","Tezzeret","Thalia","Umezawa","Urza"];
+        this.availableChars = this.gameHandler.database.data;
         
         this.locationTable;
         
@@ -46,10 +46,20 @@ export class uiHandler
         document.getElementById("content").prepend(this.locationTable);
     }
     
-    UpdateCharImage(span){
+    UpdateCharImage(slot){
         
-        span
+        console.log(document.getElementById(slot.selectId));
+        console.log(document.getElementById(slot.selectId).value);
         
+        slot.character
+        
+        document.getElementById(slot.imageSpanId).innerHTML = `<img src="` + slot.character.image + `">`;
+        
+    }
+    
+    Test(){
+        
+        console.log("test");
     }
     
     CreateLocationRow(loc,charSlots){
@@ -61,17 +71,21 @@ export class uiHandler
         
         for(let i = 0; i < charSlots; i++){
             
-            const $leftSelector = document.createElement("span");
-            $leftSelector.id = `left`+ loc.id + `Char` + i + `Select`;
-            $leftSelector.innerHTML = this.SetSelectorToAvailableChars(loc.id);
+            let $leftSelector = {}; //= document.createElement("span");
+            $leftSelector.id = this.SetSelectorId(loc.id,i);
+            $leftSelector.innerHTML = this.GetSelectorHTML($leftSelector.id);
+            
+            console.log($leftSelector);
             
             const $leftImage = document.createElement("span");
             $leftImage.id = `left`+ loc.id + `Char` + i + `Image`;
             $leftImage.width = 200;
             $leftImage.height = 200;
             
-            $leftSelector.addEventListener("change", function() {
-                this.UpdateCharImage($leftImage);
+            let $leftSlot = loc.AddCharSlot("left",$leftSelector.id,$leftImage.id)
+            
+            document.getElementById($leftSelector.id).addEventListener("change", function() {
+                window.gameHandler.uiHandler.UpdateCharImage($leftSlot);
             });
             
             col0.append($leftSelector);
@@ -82,7 +96,9 @@ export class uiHandler
             $rightSelector.innerHTML = this.SetSelectorToAvailableChars(loc.id);
             
             $rightSelector.addEventListener("change", function() {
-                this.UpdateSelectorsAndCharImages();
+                
+                //console.log("inline test");
+                window.gameHandler.uiHandler.UpdateCharImage();
             });
             
             const $rightImage = document.createElement("canvas");
@@ -104,8 +120,13 @@ export class uiHandler
         
         
     }
+    
+    SetSelectorId(locId,slotNum){
         
-    SetSelectorToAvailableChars(id){
+        return locId + slotNum + `Selector`
+    }
+        
+    GetSelectorHTML(id){
         
         //console.log(id);
         
@@ -113,11 +134,11 @@ export class uiHandler
         
         for(const char of this.availableChars){
             
-            $returnString += `<option value="` + char.toLowerCase() + `">` + char + `</option>`;
+            $returnString += `<option value="` + char.name.toLowerCase() + `">` + char.name + `</option>`;
         }
         
         $returnString += `</select>`;
         
-        return $returnString
+        return $returnString;
     }
 }

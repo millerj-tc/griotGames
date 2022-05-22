@@ -2,6 +2,7 @@ export const magicData = [
     
     {
     name:"Umezawa",
+    image: "umezawa.png",
     cards:7,
     power:1.1428571428571428,
     toughness:1.7142857142857142,
