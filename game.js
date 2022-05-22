@@ -23,21 +23,25 @@ export class gameHandler
         
         this.scenarioHandler.CH.AddFunctionsToCharacters();
         
+        this.uiHandler.CreateLocationTable();
+        
         const $vala = this.locationHandler.AddLocation("valakut","/images/valakut.png");
         
-        $vala.AddChar("Umezawa","left");
+        this.uiHandler.CreateLocationRow($vala.id,$vala.image,2);
         
-        $vala.AddChar("Thalia","left");
-        
-        $vala.AddChar("Nissa","right");
-        
-        $vala.AddChar("Gideon","right");
+//        $vala.AddChar("Umezawa","left");
+//        
+//        $vala.AddChar("Thalia","left");
+//        
+//        $vala.AddChar("Nissa","right");
+//        
+//        $vala.AddChar("Gideon","right");
             
         const $vala0 = this.scenarioHandler.SH.AddStage("valakut0");
         
         $vala0.winText = "[names] braves the fires of Valakut, gaining valuable intelligence."
         
-        $vala0.location = this.locationHandler.GetLocationById("valakut");
+        $vala0.location = $vala;
         
         console.log($vala0.GetDisplayText($vala.chars,"power"));
     
