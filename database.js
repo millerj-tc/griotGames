@@ -97,26 +97,27 @@ export class database
         
         $modObj[prop] = value;
     }
+    
+    ModData(){
+        
+        for(const obj of this.data){
+            
+            obj.sumPower = obj.power;
+            obj.power = obj.sumPower/obj.cards;
+            obj.sumToughness = obj.toughness;
+            obj.toughness = obj.sumToughness/obj.cards;
+            obj.sumStrategy = obj.strategy;
+            obj.strategy = obj.sumStrategy/obj.cards;
+            obj.sumSpeed = obj.speed;
+            obj.speed = obj.sumSpeed/obj.cards;
+            obj.sumRenown = obj.renown;
+            obj.renown = obj.sumRenown/obj.cards;
+            obj.sumCunning = obj.cunning;
+            obj.cunning = obj.sumCunning/obj.cards;
+            
+        }
+        
+        this.OutputData();
+    }
 }
 
-const db = new database()
-
-const $str = `Charles Xavier
-Storm
-Cyclops
-Wolverine
-Jean Grey
-Kitty Pryde
-Magneto
-Cable
-Havok
-Emma Frost`;
-
-const $splitStr = $str.split(/\r?\n/);
-
-//for(let i = 0; i < $splitStr.length; i++){
-//    
-//    let $char = $splitStr[i];
-//    
-//    db.AddNewData($char,"Leadership",$splitStr.length-i);
-//}

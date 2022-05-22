@@ -38,6 +38,8 @@ class stage
         let $leftSiders = [];
         let $rightSiders = [];
         
+        let $winners = [];
+        
         for(const obj of pool){
             
             if(obj.alignment == "left") $leftSiders.push(obj)
@@ -47,26 +49,32 @@ class stage
         $leftSiders.sort(function(a, b){return b[value] - a[value]});
         $rightSiders.sort(function(a, b){return - b[value] - a[value]});
         
-        //$leftSiders.reverse();
-        //$rightSiders.reverse();
+        for(let i = 0; i < 50; i++){
+            
+            if($winners.length > 0 || (i > $leftSiders.length - 1 && i > $rightSiders.length - 1)) break
+            
+            if($leftSiders[i][value] > $rightSiders[i][value]){
+                
+                $winners.push($leftSiders[i]);
+                
+                for(const obj of $leftSiders){
+                    
+                    if(obj[value] == $leftSiders[i][value] && obj != $leftSiders[i]) $winners.push(obj)
+                }
+            }
+            
+            if($rightSiders[i][value] > $leftSiders[i][value]){
+                
+                $winners.push($rightSiders[i]);
+                
+                for(const obj of $rightSiders){
+                    
+                    if(obj[value] == $rightSiders[i][value] && obj != $rightSiders[i]) $winners.push(obj)
+                }
+            }
+        }
         
-        console.log($leftSiders);
-        console.log($rightSiders);
-        
-        // NEED TO ALTER THE MAGIC DATABASE SO THAT YOU DON'T HAVE TO PERFORM PER CARD OPERATIONS IN REAL TIME
-        
-//        let $highestVal = 0;
-//        
-//        let $winners = [];
-//        
-//        for(const obj of pool){
-//            
-//            if(obj.hasOwnProperty(value)){
-//                
-//                if(obj[value] > $highestVal) $winners = [obj]
-//                else if(obj[value] == $highestVal) $winners.push(obj)
-//            }
-//        }
+        //console.log($winners);  
         
         this._ReturnDisplayText($winners)
     }
