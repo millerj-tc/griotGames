@@ -42,7 +42,7 @@ export class gameHandler
         
         this.scenarioHandler.locationHandler.RandomizeStartingTeams();
         
-        this.scenarioHandler.rightTeamHope = 1;
+        //this.scenarioHandler.rightTeamHope = 1;
         
         
     
