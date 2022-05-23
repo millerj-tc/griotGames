@@ -44,11 +44,9 @@ export class uiHandler
         //console.log(document.getElementById(slot.selectId));
         //console.log(document.getElementById(slot.selectId).value);
         
-        const $selection = document.getElementById(slot.selectId).value;
+        const $character = this.gameHandler.database.GetObjFromString(document.getElementById(slot.selectId).value);
         
-        slot.character = this.gameHandler.database.GetObjFromString($selection);
-        
-        slot.character.alignment = slot.alignment;
+        //slot.UpdateChar($character);
         
         document.getElementById(slot.imageSpanId).innerHTML = `<img src="` + slot.character.image125 + `">`;
         
@@ -98,7 +96,6 @@ export class uiHandler
             let $leftSelector = document.createElement("select");
             $leftSelector.style = "position:relative;top:" + $leftSlotDiv.clientHeight/2 + "px;";
             $leftSelector.id = this.SetSelectorId("left",loc.id,i);
-            this.AddSelectorOptions($leftSelector);
             
             //console.log($leftSelector);
             
@@ -110,18 +107,24 @@ export class uiHandler
             
             let $leftSlot = loc.AddCharSlot("left",$leftSelector.id,$leftImage.id);
             
+            
             $leftSlotDiv.append($leftSelector);
             $leftSlotDiv.append($leftImage);
             
+            this.AddSelectorOptions($leftSelector,$leftSlot);
+            
             $leftSelector.addEventListener("change", function() {
                 //console.log("left slot event");
-                window.gameHandler.uiHandler.UpdateCharImage($leftSlot);
+                //window.gameHandler.uiHandler.UpdateCharImage($leftSlot);
+                //console.log(window.gameHandler.database.GetObjFromString($leftSelector.value));
+                const $charObj = window.gameHandler.database.GetObjFromString($leftSelector.value);
+                $leftSlot.UpdateChar($charObj);
             });
             
             let $rightSelector = document.createElement("select");
             $rightSelector.style = "position:relative;top:" + $rightSlotDiv.clientHeight/2 + "px;";
             $rightSelector.id = this.SetSelectorId("right",loc.id,i);
-            this.AddSelectorOptions($rightSelector);
+            
             
             //console.log($leftSelector);
             
@@ -136,12 +139,15 @@ export class uiHandler
             $rightSlotDiv.append($rightImage);
             $rightSlotDiv.append($rightSelector);
             
+            this.AddSelectorOptions($rightSelector,$rightSlot);
+            
             
             //col2.append($rightSlot);
             
             $rightSelector.addEventListener("change", function() {
                 //console.log("right slot event");
-                window.gameHandler.uiHandler.UpdateCharImage($rightSlot);
+                const $charObj = window.gameHandler.database.GetObjFromString($rightSelector.value);
+                $rightSlot.UpdateChar($charObj);
             });
             
 
@@ -177,8 +183,23 @@ export class uiHandler
         
         return alignment + locId + slotNum + `Selector`
     }
+    
+    SetSelectorToChar(selector,char){
         
-    AddSelectorOptions(selector){ 
+        //console.log(selector.length);
+        
+        for(let i=0; i < selector.length; i++){
+            
+            //console.log(selector.options[i]);
+            
+            if(selector.options[i].text == char.name){ 
+                console.log("setting " + selector + " to " + char.name);
+                selector.selectedIndex = i;
+            }
+        }
+    }
+        
+    AddSelectorOptions(selector,slot){ 
         
         for(const char of this.availableChars){
             
@@ -188,6 +209,10 @@ export class uiHandler
             
             selector.add($option);
         }
+        
+        //selector.selectedIndex = Math.floor(Math.random()*selector.length);
+        
+       // this.UpdateCharImage(slot);
         
         //$returnString += `</select>`;
         

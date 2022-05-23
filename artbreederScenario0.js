@@ -20,7 +20,7 @@ export function initializeArtbreederScenario0()
         
     $spires0.location = GH.scenarioHandler.locationHandler.GetLocationById("spires");
     
-    console.log($sanc0);
+    //console.log($sanc0);
     
-    console.log($spires0);
+    //console.log($spires0);
 }

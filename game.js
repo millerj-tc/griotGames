@@ -37,7 +37,7 @@ export class gameHandler
         
         this.scenarioHandler.charHandler.AddFunctionsToCharacters();
         
-        
+        this.scenarioHandler.locationHandler.RandomizeStartingTeams();
         
         
         

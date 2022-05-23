@@ -1,3 +1,5 @@
+import {ShuffleArray} from "./utils.js";
+
 class charSlot
 {
     constructor(location,alignment="left",selectId,imageSpanId){
@@ -7,6 +9,14 @@ class charSlot
         this.imageSpanId = imageSpanId;
         this.selectId = selectId;
         this.character;
+    }
+    
+    UpdateChar(character){
+        
+        this.character = character;
+        this.character.alignment = this.alignment;
+        
+        this.location.locationHandler.scenarioHandler.gameHandler.uiHandler.UpdateCharImage(this);
     }
 }
 
@@ -78,11 +88,36 @@ export class locationHandler
     
     GetLocationById(id){
         
-        console.log(this.locations);
+        //console.log(this.locations);
         
         for(const loc of this.locations){
             
             if(loc.id == id) return loc
         }
+    }
+    
+    RandomizeStartingTeams(){
+        
+        let $destructoArr = ShuffleArray(this.scenarioHandler.gameHandler.database.data);
+        
+        console.log($destructoArr);
+        
+        for(const loc of this.locations){
+            
+            for(const slot of loc.charSlots){
+                
+                let $chosenChar = $destructoArr.shift();
+                
+                const $selectorDOM = document.getElementById(slot.selectId);
+                
+                this.scenarioHandler.gameHandler.uiHandler.SetSelectorToChar($selectorDOM,$chosenChar);
+                
+                slot.UpdateChar($chosenChar);
+                
+                
+                //this.scenarioHandler.gameHandler.uiHandler.UpdateCharImage(slot);
+            }
+        }
+
     }
 }
