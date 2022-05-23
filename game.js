@@ -21,19 +21,23 @@ export class gameHandler
     
     Start(){
         
-        this.uiHandler.CreateLocationTable();
+        this.database.ModData();
         
-        const $vala = this.scenarioHandler.locationHandler.AddLocation("valakut","/images/valakut.png",2);
-        
-        const $urbo = this.scenarioHandler.locationHandler.AddLocation("urborg","/images/urborg.png",2);
-        
-        const $vesu = this.scenarioHandler.locationHandler.AddLocation("vesuva","/images/vesuva.png",1);
-        
-        initializeMagicScenario0();
-        
-        this.uiHandler.CreateEvalGoButton();
-        
-        this.scenarioHandler.charHandler.AddFunctionsToCharacters();
+//        console.table(this.database.data);
+//        
+//        this.uiHandler.CreateLocationTable();
+//        
+//        const $vala = this.scenarioHandler.locationHandler.AddLocation("valakut","/images/valakut.png",2);
+//        
+//        const $urbo = this.scenarioHandler.locationHandler.AddLocation("urborg","/images/urborg.png",2);
+//        
+//        const $vesu = this.scenarioHandler.locationHandler.AddLocation("vesuva","/images/vesuva.png",1);
+//        
+//        initializeMagicScenario0();
+//        
+//        this.uiHandler.CreateEvalGoButton();
+//        
+//        this.scenarioHandler.charHandler.AddFunctionsToCharacters();
         
         
         

@@ -1,12 +1,12 @@
 import {xMenData} from "./xmenData.js";
-import {magicData} from "./magicData.js";
+import {artbreederData} from "./artbreederData.js";
 import {GetCardsFromScryfall} from "./magicDataBuilder.js";
 
 export class database
 {
     constructor(){
         
-        this.data = magicData;
+        this.data = artbreederData;
     }
 
     DisplayTable(){
@@ -98,24 +98,39 @@ export class database
         $modObj[prop] = value;
     }
     
+    AddRankedList(list,prop){
+        
+        for(let i = 0; i < list.length; i++){
+            
+            this.AddNewData(list[i],prop,list.length-i);
+        }
+    }
+    
     ModData(){
         
-        for(const obj of this.data){
+        let $list = `Lizzeeta
+Aqee
+Vampiress Smim
+Hukho
+Sinch
+Keh
+Itaru
+Elm
+Lily
+Izmaela
+Viatrix
+Leigh
+Peneluz
+Dayaqa
+Brick
+Gerard
+Arelta`;
             
-            obj.sumPower = obj.power;
-            obj.power = obj.sumPower/obj.cards;
-            obj.sumToughness = obj.toughness;
-            obj.toughness = obj.sumToughness/obj.cards;
-            obj.sumStrategy = obj.strategy;
-            obj.strategy = obj.sumStrategy/obj.cards;
-            obj.sumSpeed = obj.speed;
-            obj.speed = obj.sumSpeed/obj.cards;
-            obj.sumRenown = obj.renown;
-            obj.renown = obj.sumRenown/obj.cards;
-            obj.sumCunning = obj.cunning;
-            obj.cunning = obj.sumCunning/obj.cards;
+        $list = $list.split("\n");
             
-        }
+        this.AddRankedList($list,"cume");
+            
+        
         
         this.OutputData();
     }
