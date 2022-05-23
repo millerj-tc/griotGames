@@ -86,6 +86,8 @@ class stage
         
         console.log($pool);
         
+        // -- EVALUATE HOPE, DEBUFF IF NO ONE WINS AND HAVE MATHCING
+        
         for(const obj of $pool){
             
             if(obj.IsDebuffed()) continue
