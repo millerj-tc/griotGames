@@ -27,6 +27,10 @@ export class gameHandler
         
         const $vala = this.locationHandler.AddLocation("valakut","/images/valakut.png",2);
         
+        const $urbo = this.locationHandler.AddLocation("urborg","/images/urborg.png",2);
+        
+        const $vesu = this.locationHandler.AddLocation("vesuva","/images/vesuva.png",1);
+        
         //this.uiHandler.CreateLocationRow($vala.id,$vala.image,2);
         
 //        $vala.AddChar("Umezawa","left");

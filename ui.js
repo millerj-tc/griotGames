@@ -27,15 +27,15 @@ export class uiHandler
     
     UpdateCharImage(slot){
         
-        console.log(slot);
-        console.log(document.getElementById(slot.selectId));
-        console.log(document.getElementById(slot.selectId).value);
+        //console.log(slot);
+        //console.log(document.getElementById(slot.selectId));
+        //console.log(document.getElementById(slot.selectId).value);
         
         const $selection = document.getElementById(slot.selectId).value;
         
         slot.character = this.gameHandler.database.GetObjFromString($selection);
         
-        console.log(slot.character);
+        //console.log(slot.character);
         
         document.getElementById(slot.imageSpanId).innerHTML = `<img src="` + slot.character.image + `">`;
         
@@ -52,26 +52,35 @@ export class uiHandler
         
         //row.style = "fill:#1c87c9;";
         
+        let col0 = document.createElement("div");
+        col0.style = "vertical-align:middle";
         let col1 = document.createElement("div");
+        col1.style = "vertical-align:middle";
+        let col2 = document.createElement("div");
+        col2.style = "vertical-align:middle";
+        
+        this.locationTable.append(col0);
         this.locationTable.append(col1);
+        this.locationTable.append(col2);
         
         for(let i = 0; i < charSlots; i++){
             
-            let col0 = document.createElement("div");
-            col0.style = "vertical-align:middle;grid-column-start:1";
-            this.locationTable.append(col0);
+            let $leftSlotDiv = document.createElement("div");
+            $leftSlotDiv.id = this.SetDivId("left",loc.id,i);
+            $leftSlotDiv.style = "min-height:250px;grid-column-start:1;";
+            col0.append($leftSlotDiv);
             
-            let col2 = document.createElement("div");
-            col2.style = "vertical-align:center;grid-column-start:3";
-            this.locationTable.append(col2);
-            
-            col0.style="vertical-align:middle;";
+            let $rightSlotDiv = document.createElement("div");
+            $rightSlotDiv.id = this.SetDivId("right",loc.id,i);
+            $rightSlotDiv.style = "min-height:250px;grid-column-start:3";
+            col2.append($rightSlotDiv);
             
             //console.log("ROW!!!");
             
-            let $leftSelector = {}; //= document.createElement("span");
+            let $leftSelector = document.createElement("select");
+            $leftSelector.style = "position:relative;top:" + $leftSlotDiv.clientHeight/2 + "px;";
             $leftSelector.id = this.SetSelectorId("left",loc.id,i);
-            $leftSelector.innerHTML = this.GetSelectorHTML($leftSelector.id);
+            this.AddSelectorOptions($leftSelector);
             
             //console.log($leftSelector);
             
@@ -83,17 +92,18 @@ export class uiHandler
             
             let $leftSlot = loc.AddCharSlot("left",$leftSelector.id,$leftImage.id);
             
-            col0.innerHTML = ($leftSelector.innerHTML);
-            col0.append($leftImage);
+            $leftSlotDiv.append($leftSelector);
+            $leftSlotDiv.append($leftImage);
             
-            document.getElementById($leftSelector.id).addEventListener("change", function() {
-                console.log("left slot event");
+            $leftSelector.addEventListener("change", function() {
+                //console.log("left slot event");
                 window.gameHandler.uiHandler.UpdateCharImage($leftSlot);
             });
             
-            let $rightSelector = {}; //= document.createElement("span");
+            let $rightSelector = document.createElement("select");
+            $rightSelector.style = "position:relative;top:" + $rightSlotDiv.clientHeight/2 + "px;";
             $rightSelector.id = this.SetSelectorId("right",loc.id,i);
-            $rightSelector.innerHTML = this.GetSelectorHTML($rightSelector.id);
+            this.AddSelectorOptions($rightSelector);
             
             //console.log($leftSelector);
             
@@ -105,18 +115,24 @@ export class uiHandler
             
             let $rightSlot = loc.AddCharSlot("right",$rightSelector.id,$rightImage.id);
             
-            col2.innerHTML = ($rightSelector.innerHTML);
-            col2.prepend($rightImage);
+            $rightSlotDiv.append($rightImage);
+            $rightSlotDiv.append($rightSelector);
             
-            document.getElementById($rightSelector.id).addEventListener("change", function() {
-                console.log("right slot event");
+            
+            //col2.append($rightSlot);
+            
+            $rightSelector.addEventListener("change", function() {
+                //console.log("right slot event");
                 window.gameHandler.uiHandler.UpdateCharImage($rightSlot);
             });
             
 
         }
         
-        const $locImg = document.createElement("img");
+        let $locCount = this.gameHandler.locationHandler.locations.length;
+        
+        let $locImg = document.createElement("img");
+        console.log($locImg);
         $locImg.src = loc.image;
         col1.append($locImg);
         col1.style = `justify-items: center;
@@ -124,8 +140,8 @@ export class uiHandler
             vertical-align:center;
             text-align:center;
             grid-column-start: 2;
-            grid-row-start: 1;
-            grid-row-end:` + charSlots + `;`
+            grid-row-start: ` + $locCount + `;
+            grid-row-end:` + Number($locCount + charSlots - 1) + `;`
         
         //this.locationTable.append(row);
         
@@ -134,24 +150,29 @@ export class uiHandler
         
     }
     
+    SetDivId(alignment,locId,slotNum){
+        
+        return alignment + locId + slotNum + `SlotDiv`
+    }
+    
     SetSelectorId(alignment,locId,slotNum){
         
         return alignment + locId + slotNum + `Selector`
     }
         
-    GetSelectorHTML(id){
-        
-        //console.log(id);
-        
-        let $returnString = `<select name="Character" style="margin-top:25%" id="` + id + `">`;
+    AddSelectorOptions(selector){ 
         
         for(const char of this.availableChars){
             
-            $returnString += `<option value="` + char.name + `">` + char.name + `</option>`;
+            let $option = document.createElement("option");
+            
+            $option.text = char.name;
+            
+            selector.add($option);
         }
         
-        $returnString += `</select>`;
+        //$returnString += `</select>`;
         
-        return $returnString;
+        //return $returnString;
     }
 }
