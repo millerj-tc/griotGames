@@ -14,6 +14,10 @@
 
 // 2v1 buff (opp must have two characters that overpower char in order to win that stage)
 
+// incorp character thumbnails into outputs
+
+// NPC pictures in output?
+
 import {GetStringOfCharsFromArray} from "./utils.js";
 
 class stage
