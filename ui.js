@@ -48,9 +48,9 @@ export class uiHandler
         
         slot.character = this.gameHandler.database.GetObjFromString($selection);
         
-        //console.log(slot.character);
+        console.log(slot.character);
         
-        document.getElementById(slot.imageSpanId).innerHTML = `<img src="` + slot.character.image + `">`;
+        document.getElementById(slot.imageSpanId).innerHTML = `<img src="` + slot.character.image125 + `">`;
         
     }
     
@@ -66,11 +66,11 @@ export class uiHandler
         //row.style = "fill:#1c87c9;";
         
         let col0 = document.createElement("div");
-        col0.style = "vertical-align:middle";
+
         let col1 = document.createElement("div");
-        col1.style = "vertical-align:middle";
+
         let col2 = document.createElement("div");
-        col2.style = "vertical-align:middle";
+
         
         this.locationTable.append(col0);
         this.locationTable.append(col1);
@@ -80,12 +80,12 @@ export class uiHandler
             
             let $leftSlotDiv = document.createElement("div");
             $leftSlotDiv.id = this.SetDivId("left",loc.id,i);
-            $leftSlotDiv.style = "min-height:250px;grid-column-start:1;";
+            $leftSlotDiv.style = "min-height:125px;grid-column-start:1;";
             col0.append($leftSlotDiv);
             
             let $rightSlotDiv = document.createElement("div");
             $rightSlotDiv.id = this.SetDivId("right",loc.id,i);
-            $rightSlotDiv.style = "min-height:250px;grid-column-start:3";
+            $rightSlotDiv.style = "min-height:125px;grid-column-start:3";
             col2.append($rightSlotDiv);
             
             //console.log("ROW!!!");
