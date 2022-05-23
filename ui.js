@@ -129,7 +129,7 @@ export class uiHandler
 
         }
         
-        let $locCount = this.gameHandler.locationHandler.locations.length;
+        let $locCount = this.gameHandler.scenarioHandler.locationHandler.locations.length;
         
         let $locImg = document.createElement("img");
         console.log($locImg);

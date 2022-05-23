@@ -60,9 +60,9 @@ class location
 
 export class locationHandler
 {
-    constructor(gameHandler){
+    constructor(scenarioHandler){
         
-        this.gameHandler = gameHandler;
+        this.scenarioHandler = scenarioHandler;
         this.locations = [];
     }
     
@@ -71,7 +71,7 @@ export class locationHandler
         const $loc = new location(this,id,img);
         this.locations.push($loc);
         
-        this.gameHandler.uiHandler.CreateLocationRow($loc,charSlots);
+        this.scenarioHandler.gameHandler.uiHandler.CreateLocationRow($loc,charSlots);
         
         return $loc
     }

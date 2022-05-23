@@ -8,9 +8,9 @@ export class scenarioHandler
         
         this.gameHandler = gameHandler;
         
-        this.LH = new locationHandler(this);
-        this.SH = new stageHandler(this);
-        this.CH = new charHandler(this);
+        this.locationHandler = new locationHandler(this);
+        this.stageHandler = new stageHandler(this);
+        this.charHandler = new charHandler(this);
         
         
     }
