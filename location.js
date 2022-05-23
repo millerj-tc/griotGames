@@ -102,7 +102,7 @@ export class locationHandler
         
         let $destructoArrRight = ShuffleArray(this.scenarioHandler.gameHandler.database.data);
         
-        console.log($destructoArr);
+        //console.log($destructoArr);
         
         for(const loc of this.locations){
             
