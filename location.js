@@ -78,6 +78,8 @@ export class locationHandler
     
     GetLocationById(id){
         
+        console.log(this.locations);
+        
         for(const loc of this.locations){
             
             if(loc.id == id) return loc

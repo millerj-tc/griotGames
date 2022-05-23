@@ -24,7 +24,8 @@ class stage
         this.id;
         this.location;
         this.nextStage;
-        this.GetDisplayText = this._HighestValueWin;
+        this.Eval = this._HighestValueWin;
+        this.evalValue = "";
         this.displayText = "";
         this.winText = "";
         this.debuffText = "";
@@ -37,9 +38,11 @@ class stage
     
     _ReturnDisplayText(winners){
         
-        //console.log(this.winText);
+        console.log(this.winText.replace("[names]",GetStringOfCharsFromArray(winners)));
+                    
+        if(this.nextStage != undefined) this.nextStage.Eval();
         
-        return this.winText.replace("[names]",GetStringOfCharsFromArray(winners));
+        //return 
     }
     
     _GetPool(){
@@ -70,14 +73,18 @@ class stage
     
     // ALL CAPS NOTE this should all be fetched internally by getting list of chars from associated location, etc.
     
-    _HighestValueWin(pool,value){
+    _HighestValueWin(value){
         
         let $leftSiders = [];
         let $rightSiders = [];
         
         let $winners = [];
         
-        let $pool = pool;
+        //console.log(this);
+        
+        let $pool = this.location.GetCharsHere();
+        
+        console.log($pool);
         
         for(const obj of $pool){
             
@@ -86,8 +93,10 @@ class stage
             if(obj.alignment == "right") $rightSiders.push(obj)
         }
         
-        $leftSiders.sort(function(a, b){return b[value] - a[value]});
-        $rightSiders.sort(function(a, b){return - b[value] - a[value]});
+        const $evalValue = this.evalValue;
+        
+        $leftSiders.sort(function(a, b){return b[$evalValue] - a[$evalValue]});
+        $rightSiders.sort(function(a, b){return - b[$evalValue] - a[$evalValue]});
         
         //--Remove 1 char from evaluation per debuff
         
@@ -105,25 +114,30 @@ class stage
         
         for(let i = 0; i < 50; i++){
             
+            console.log("iteration " + i);
+            console.log($winners);
+            console.log($leftSiders);
+            console.log($rightSiders);
+            
             if($winners.length > 0 || (i > $leftSiders.length - 1 && i > $rightSiders.length - 1)) break
             
-            if($leftSiders[i][value] > $rightSiders[i][value] || $rightSiders[i] == undefined){
+            if($leftSiders[i][this.evalValue] > $rightSiders[i][this.evalValue] || $rightSiders[i] == undefined){
                 
                 $winners.push($leftSiders[i]);
                 
                 for(const obj of $leftSiders){
                     
-                    if(obj[value] == $leftSiders[i][value] && obj != $leftSiders[i]) $winners.push(obj)
+                    if(obj[this.evalValue] == $leftSiders[i][this.evalValue] && obj != $leftSiders[i]) $winners.push(obj)
                 }
             }
             
-            if($rightSiders[i][value] > $leftSiders[i][value] || $leftSiders[i] == undefined){
+            if($rightSiders[i][this.evalValue] > $leftSiders[i][this.evalValue] || $leftSiders[i] == undefined){
                 
                 $winners.push($rightSiders[i]);
                 
                 for(const obj of $rightSiders){
                     
-                    if(obj[value] == $rightSiders[i][value] && obj != $rightSiders[i]) $winners.push(obj)
+                    if(obj[this.evalValue] == $rightSiders[i][this.evalValue] && obj != $rightSiders[i]) $winners.push(obj)
                 }
             }
         }

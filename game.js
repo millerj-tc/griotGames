@@ -2,7 +2,7 @@ import {scenarioEvaluator} from "./scenario0.js";
 import {uiHandler} from "./ui.js";
 import {database} from "./database.js";
 import {scenarioHandler} from "./scenario.js";
-import {locationHandler} from "./location.js";
+import {initializeMagicScenario0} from "./magicScenario0.js";
 
 export class gameHandler
 {
@@ -21,8 +21,6 @@ export class gameHandler
     
     Start(){
         
-        this.scenarioHandler.charHandler.AddFunctionsToCharacters();
-        
         this.uiHandler.CreateLocationTable();
         
         const $vala = this.scenarioHandler.locationHandler.AddLocation("valakut","/images/valakut.png",2);
@@ -31,23 +29,17 @@ export class gameHandler
         
         const $vesu = this.scenarioHandler.locationHandler.AddLocation("vesuva","/images/vesuva.png",1);
         
-        //this.uiHandler.CreateLocationRow($vala.id,$vala.image,2);
+        initializeMagicScenario0();
         
-//        $vala.AddChar("Umezawa","left");
-//        
-//        $vala.AddChar("Thalia","left");
-//        
-//        $vala.AddChar("Nissa","right");
-//        
-//        $vala.AddChar("Gideon","right");
-            
-        const $vala0 = this.scenarioHandler.stageHandler.AddStage("valakut0");
+        this.uiHandler.CreateEvalGoButton();
         
-        $vala0.winText = "[names] braves the fires of Valakut, gaining valuable intelligence."
+        this.scenarioHandler.charHandler.AddFunctionsToCharacters();
         
-        $vala0.location = $vala;
         
-        //console.log($vala0.GetDisplayText($vala.chars,"power"));
+        
+        
+        
+        
     
     }
 }

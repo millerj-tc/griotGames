@@ -1,5 +1,7 @@
 // random assign button to begin experiments
 
+
+
 export class uiHandler
 {
     constructor(gameHandler){
@@ -12,7 +14,18 @@ export class uiHandler
         
     }
     
+    CreateEvalGoButton(){
+        
+        const $evalButton = document.createElement("button");
+        $evalButton.onclick = function(){window.gameHandler.scenarioHandler.stageHandler.stages[0].Eval()};
+        $evalButton.innerHTML = "GO!";
+        
+        document.getElementById("content").append($evalButton);
+    }
+    
     CreateLocationTable(){
+        
+        document.getElementById("content").innerHTML = "";
         
         this.locationTable = document.createElement("div");
         this.locationTable.style = `display: grid;
@@ -21,8 +34,8 @@ export class uiHandler
             grid-template-columns: auto auto auto;
             gap: 10px;
             padding: 10px;`;
-        document.getElementById("content").innerHTML = "";
-        document.getElementById("content").prepend(this.locationTable);
+        
+        document.getElementById("content").append(this.locationTable);
     }
     
     UpdateCharImage(slot){
@@ -132,7 +145,7 @@ export class uiHandler
         let $locCount = this.gameHandler.scenarioHandler.locationHandler.locations.length;
         
         let $locImg = document.createElement("img");
-        console.log($locImg);
+        //console.log($locImg);
         $locImg.src = loc.image;
         col1.append($locImg);
         col1.style = `justify-items: center;
