@@ -15,6 +15,7 @@ class charSlot
         
         this.character = {...character};
         this.character.alignment = this.alignment;
+        this.character.location = this.location;
         
         this.location.locationHandler.scenarioHandler.gameHandler.uiHandler.UpdateCharImage(this);
     }
@@ -95,6 +96,21 @@ export class locationHandler
             
             if(loc.id == id) return loc
         }
+    }
+    
+    GetAllCharsAtLocations(){
+        
+        let $allChars = [];
+        
+        for(const loc of this.locations){
+            
+            for(const slot of loc.charSlots){
+                
+                $allChars.push(slot.character);
+            }
+        }
+        
+        return $allChars
     }
     
     RandomizeStartingTeams(){

@@ -1,10 +1,8 @@
+// what if everyone is debuffed?
+
 // when someone is debuffed, add a line about why they are not there that gives clue to how they were debuffed
 
 // change "winner" property of stage to see who won
-
-// eval steps: evaluate hope, evaluate debuffs, evaluate
-
-// make a "side switch"/betrayal call out between stages as well as a chars "refuse to participate" message
 
 // make victory message display after all others
 
@@ -20,7 +18,10 @@
 
 // characters clue dialog in certain locations
 
+//inherent value of stats could do with Hope?
+
 import {GetStringOfCharsFromArray} from "./utils.js";
+import {stageFx} from "./stageFx.js";
 
 class stage
 {
@@ -45,8 +46,6 @@ class stage
     _ReturnDisplayText(winners){
         
         const $ui = this.stageHandler.scenarioHandler.gameHandler.uiHandler;
-        
-        $ui.UpdateOutput("--- <i>" + this.location.displayName.toUpperCase() + "</i> ---<br><br>" );
         
         let $outputText = this.winText.replace("[names]",GetStringOfCharsFromArray(winners,"any",true));
         
@@ -90,23 +89,15 @@ class stage
     
     _WarnIfDupeCharsOnSameTeam(){
         
-        let $allChars = [];
+        let $allChars = this.stageHandler.scenarioHandler.locationHandler.GetAllCharsAtLocations();
         
         const $ui = this.stageHandler.scenarioHandler.gameHandler.uiHandler;
-        
-        for(const loc of this.stageHandler.scenarioHandler.locationHandler.locations){
-            
-            for(const slot of loc.charSlots){
-                
-                $allChars.push(slot.character);
-            }
-        }
         
         for(const char0 of $allChars){
             
             for(const char1 of $allChars){
                 
-                if(char0.name == char1.name & char0.alignment == char1.alignment && char0 != char1) {
+                if(char0.name == char1.name && char0.alignment == char1.alignment && char0 != char1) {
                     
                     $ui.UpdateOutput("<i><b>" + char0.name + " cannot occupy two spaces on the same team! This simulation is invalid!!!" + "</i></b>");
                 }
@@ -115,7 +106,9 @@ class stage
         }
     }
     
-    _RemoveDuplicateChars(pool){
+    _RemoveDuplicateChars(){
+        
+        let $allChars = this.stageHandler.scenarioHandler.locationHandler.GetAllCharsAtLocations(); 
         
         let $returnArr = [];
         
@@ -125,15 +118,19 @@ class stage
         
         let $dupesFound = [];
         
-        for(const char0 of pool){
+        for(const char0 of $allChars){
             
             let $dupeMatches = 0;
             
-            for(const char1 of pool){
+            for(const char1 of $allChars){
                 
                 if(char0.name == char1.name && char0 != char1){
                     
                     $dupeMatches++;
+                    
+                    //-- skip the rest if this is not relevant to the current location
+                   
+                    if(char0.location != this.location && char1.location != this.location) continue
                     
                     //if(char0.alignment == char1.alignment) 
                     //else {
@@ -161,21 +158,29 @@ class stage
                             $ui.UpdateOutput(char1.name + " has decided to side with team " + char1.alignment + "<br><br>");
                             $returnArr.push(char1);
                          }
+                    
                         else if(!$dupePrinted) $ui.UpdateOutput(char0.name + " cannot decide between teams. They are sitting this one out.<br><br>");
                         }
                     //}
                 }
             
                 
-            if($dupeMatches == 0) $returnArr.push(char0);
+            if($dupeMatches == 0 && char0.location == this.location) $returnArr.push(char0);
         }
         
-        console.log($returnArr);
+        //console.log($returnArr);
             
         return $returnArr
     }
     
+    _DeclareLocation(){
+        
+        this.stageHandler.scenarioHandler.gameHandler.uiHandler.UpdateOutput("- <i>" + this.location.displayName.toUpperCase() + "</i> -<br><br>" );
+    }
+    
     _HighestValueWin(){
+        
+        this._DeclareLocation();
         
         let $leftSiders = [];
         let $rightSiders = [];
@@ -216,16 +221,13 @@ class stage
         
         //--Function to add debuff flavor to output should go right here
         
-        //console.log($leftSiders);
-        //console.log($rightSiders);
+        
         
         
         for(let i = 0; i < 50; i++){
             
-            //console.log("iteration " + i);
-            //console.log($winners);
-            //console.log($leftSiders);
-            //console.log($rightSiders);
+            if($leftSiders.length == 0) {$winners.push($rightSiders[0]);break}
+            if($rightSiders.length == 0) {$winners.push($leftSiders[0]);break}
             
             if($winners.length > 0 || (i > $leftSiders.length - 1 && i > $rightSiders.length - 1)) break
             
