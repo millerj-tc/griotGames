@@ -98,7 +98,9 @@ export class locationHandler
     
     RandomizeStartingTeams(){
         
-        let $destructoArr = ShuffleArray(this.scenarioHandler.gameHandler.database.data);
+        let $destructoArrLeft = ShuffleArray(this.scenarioHandler.gameHandler.database.data);
+        
+        let $destructoArrRight = ShuffleArray(this.scenarioHandler.gameHandler.database.data);
         
         console.log($destructoArr);
         
@@ -106,7 +108,12 @@ export class locationHandler
             
             for(const slot of loc.charSlots){
                 
-                let $chosenChar = $destructoArr.shift();
+                let $chosenChar;
+                
+                if(slot.alignment == "left") $chosenChar = $destructoArrLeft.shift();
+                else $chosenChar = $destructoArrRight.shift();
+                
+                //let $chosenChar = $destructoArr.shift();
                 
                 const $selectorDOM = document.getElementById(slot.selectId);
                 
