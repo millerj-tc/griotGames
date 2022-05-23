@@ -2,25 +2,25 @@ export function initializeArtbreederScenario0()
 {
     const GH = window.gameHandler;
     
-    const $vala0 = GH.scenarioHandler.stageHandler.AddStage("valakut0");
+    const $sanc0 = GH.scenarioHandler.stageHandler.AddStage("sanctuary0");
     
-    $vala0.evalValue = "toughness";
+    $sanc0.evalValue = "charisma";
         
-    $vala0.winText = "[names] braves the fires of Valakut, gaining valuable intelligence."
+    $sanc0.winText = "[names] uses their connections to acquire a rare Temporal Medallion. They cast a spell of haste on their allies at the Spires of Light."
         
-    $vala0.location = GH.scenarioHandler.locationHandler.GetLocationById("valakut");
+    $sanc0.location = GH.scenarioHandler.locationHandler.GetLocationById("sanctuary");
     
-    const $urbo0 = GH.scenarioHandler.stageHandler.AddStage("urborg0");
+    const $spires0 = GH.scenarioHandler.stageHandler.AddStage("spires0");
     
-    $urbo0.evalValue = "power";
+    $spires0.evalValue = "spirit";
     
-    $vala0.nextStage = $urbo0;
+    $sanc0.nextStage = $spires0;
+
+    $spires0.winText = "[names] reignites the Spires of Light, bringing hope to many."
         
-    $urbo0.winText = "[names] slays the necromancer king of Urborg, inspiring many."
-        
-    $urbo0.location = GH.scenarioHandler.locationHandler.GetLocationById("urborg");
+    $spires0.location = GH.scenarioHandler.locationHandler.GetLocationById("spires");
     
-    console.log($vala0);
+    console.log($sanc0);
     
-    console.log($urbo0);
+    console.log($spires0);
 }

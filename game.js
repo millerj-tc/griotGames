@@ -2,7 +2,7 @@ import {scenarioEvaluator} from "./scenario0.js";
 import {uiHandler} from "./ui.js";
 import {database} from "./database.js";
 import {scenarioHandler} from "./scenario.js";
-import {initializeMagicScenario0} from "./magicScenario0.js";
+import {initializeArtbreederScenario0} from "./artbreederScenario0.js";
 
 export class gameHandler
 {
@@ -30,6 +30,8 @@ export class gameHandler
         const $spires = this.scenarioHandler.locationHandler.AddLocation("spires","/images/artbreeder/spires-250.png",2);
         
         const $xora = this.scenarioHandler.locationHandler.AddLocation("xora","/images/artbreeder/xora-250.png",1);
+        
+        initializeArtbreederScenario0();
         
         this.uiHandler.CreateEvalGoButton();
         

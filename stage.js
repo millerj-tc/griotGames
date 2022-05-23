@@ -44,9 +44,14 @@ class stage
     
     _ReturnDisplayText(winners){
         
-        console.log(this.winText.replace("[names]",GetStringOfCharsFromArray(winners)));
+        const $ui = this.stageHandler.scenarioHandler.gameHandler.uiHandler;
+       
+        $ui.UpdateOutput(this.winText.replace("[names]",GetStringOfCharsFromArray(winners)));
                     
-        if(this.nextStage != undefined) this.nextStage.Eval();
+        if(this.nextStage != undefined){ 
+            $ui.UpdateOutput("<br><br>");   
+            this.nextStage.Eval();
+        }
         
         //return 
     }

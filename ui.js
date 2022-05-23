@@ -48,10 +48,15 @@ export class uiHandler
         
         slot.character = this.gameHandler.database.GetObjFromString($selection);
         
-        console.log(slot.character);
+        slot.character.alignment = slot.alignment;
         
         document.getElementById(slot.imageSpanId).innerHTML = `<img src="` + slot.character.image125 + `">`;
         
+    }
+    
+    UpdateOutput(string){
+        
+        document.getElementById("output").innerHTML += string;
     }
     
     Test(){
