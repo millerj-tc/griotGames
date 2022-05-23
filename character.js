@@ -9,15 +9,26 @@ export class charHandler
         
         for(const char of this.scenarioHandler.gameHandler.database.data){
             
+            char.debuffed = false;
             char.IsDebuffed = this.IsDebuffed;
+            char.Debuff = this.Debuff;
+            char.Rebuff = this.Rebuff;
         }
+    }
+    
+    Debuff(){
+        
+        this.debuffed = true;
+    }
+    
+    Rebuff(){
+        
+        this.debuffed = false;
     }
     
     IsDebuffed(){
         
-        //console.log(this);
-        
-        return false
+        return this.debuffed
         
     }
 }

@@ -16,8 +16,6 @@
 
 // 2v1 buff (opp must have two characters that overpower char in order to win that stage)
 
-// incorp character thumbnails into outputs
-
 // NPC pictures in output?
 
 // characters clue dialog in certain locations
@@ -90,9 +88,94 @@ class stage
 //        return $returnArr
     }
     
-    // ALL CAPS NOTE this should all be fetched internally by getting list of chars from associated location, etc.
+    _WarnIfDupeCharsOnSameTeam(){
+        
+        let $allChars = [];
+        
+        const $ui = this.stageHandler.scenarioHandler.gameHandler.uiHandler;
+        
+        for(const loc of this.stageHandler.scenarioHandler.locationHandler.locations){
+            
+            for(const slot of loc.charSlots){
+                
+                $allChars.push(slot.character);
+            }
+        }
+        
+        for(const char0 of $allChars){
+            
+            for(const char1 of $allChars){
+                
+                if(char0.name == char1.name & char0.alignment == char1.alignment && char0 != char1) {
+                    
+                    $ui.UpdateOutput("<i><b>" + char0.name + " cannot occupy two spaces on the same team! This simulation is invalid!!!" + "</i></b>");
+                }
+            }
+            
+        }
+    }
     
-    _HighestValueWin(value){
+    _RemoveDuplicateChars(pool){
+        
+        let $returnArr = [];
+        
+        const $ui = this.stageHandler.scenarioHandler.gameHandler.uiHandler;
+        
+        const $scenHand = this.stageHandler.scenarioHandler;
+        
+        let $dupesFound = [];
+        
+        for(const char0 of pool){
+            
+            let $dupeMatches = 0;
+            
+            for(const char1 of pool){
+                
+                if(char0.name == char1.name && char0 != char1){
+                    
+                    $dupeMatches++;
+                    
+                    //if(char0.alignment == char1.alignment) 
+                    //else {
+                        
+                        
+                        let $dupePrinted = false;
+                        
+                        for(const dupe of $dupesFound){
+                            
+                            if(dupe.name == char0.name) $dupePrinted = true;
+                        }
+                        
+                        $dupesFound.push(char0);
+                        
+                        let $char0Hope = $scenHand.GetTeamHope(char0.alignment);
+                        let $char1Hope = $scenHand.GetTeamHope(char1.alignment);
+                        
+                        if($char0Hope > $char1Hope && !$dupePrinted){
+                            
+                            $ui.UpdateOutput(char0.name + " has decided to side with team " + char0.alignment + "<br><br>");
+                            $returnArr.push(char0);
+                        }
+                         else if($char0Hope < $char1Hope && !$dupePrinted){
+                            
+                            $ui.UpdateOutput(char1.name + " has decided to side with team " + char1.alignment + "<br><br>");
+                            $returnArr.push(char1);
+                         }
+                        else if(!$dupePrinted) $ui.UpdateOutput(char0.name + " cannot decide between teams. They are sitting this one out.<br><br>");
+                        }
+                    //}
+                }
+            
+                
+            if($dupeMatches == 0) $returnArr.push(char0);
+        }
+        
+        console.log($returnArr);
+            
+        return $returnArr
+    }
+    
+    _HighestValueWin(){
         
         let $leftSiders = [];
         let $rightSiders = [];
@@ -102,6 +185,10 @@ class stage
         //console.log(this);
         
         let $pool = this.location.GetCharsHere();
+        
+        this._WarnIfDupeCharsOnSameTeam();
+        
+        $pool = this._RemoveDuplicateChars($pool);
         
         //console.log($pool);
         

@@ -13,7 +13,7 @@ class charSlot
     
     UpdateChar(character){
         
-        this.character = character;
+        this.character = {...character};
         this.character.alignment = this.alignment;
         
         this.location.locationHandler.scenarioHandler.gameHandler.uiHandler.UpdateCharImage(this);
