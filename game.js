@@ -26,10 +26,13 @@ export class gameHandler
         this.uiHandler.CreateLocationTable();
         
         const $sanc = this.scenarioHandler.locationHandler.AddLocation("sanctuary","/images/artbreeder/sanctuary-250.png",2);
+        $sanc.displayName = "Sanctuary of Time";
         
         const $spires = this.scenarioHandler.locationHandler.AddLocation("spires","/images/artbreeder/spires-250.png",2);
+        $spires.displayName = "The Spires of Light";
         
         const $xora = this.scenarioHandler.locationHandler.AddLocation("xora","/images/artbreeder/xora-250.png",1);
+        $xora.displayName = "Xora, the Cataclysmed Kingdom";
         
         initializeArtbreederScenario0();
         

@@ -27,6 +27,7 @@ class location
         this.id = id;
         this.image = img;
         this.locationHandler = locationHandler;
+        this.displayName = "";
         
         this.charSlots = [];
         

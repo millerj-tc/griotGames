@@ -1,7 +1,3 @@
-// random assign button to begin experiments
-
-
-
 export class uiHandler
 {
     constructor(gameHandler){
@@ -17,7 +13,14 @@ export class uiHandler
     CreateEvalGoButton(){
         
         const $evalButton = document.createElement("button");
-        $evalButton.onclick = function(){window.gameHandler.scenarioHandler.stageHandler.stages[0].Eval()};
+        $evalButton.onclick = function(){
+            window.gameHandler.uiHandler.ClearOutput();
+            
+            setTimeout(function(){
+                window.gameHandler.scenarioHandler.stageHandler.stages[0].Eval()
+            },350);
+            
+        };
         $evalButton.innerHTML = "GO!";
         
         document.getElementById("content").append($evalButton);
@@ -36,6 +39,18 @@ export class uiHandler
             padding: 10px;`;
         
         document.getElementById("content").append(this.locationTable);
+        
+        const $col0Head = document.createElement("div");
+        $col0Head.append("Left Team");
+        this.locationTable.append($col0Head);
+        
+        const $col1Head = document.createElement("div");
+        $col1Head.append("Locations");
+        this.locationTable.append($col1Head);
+        
+        const $col2Head = document.createElement("div");
+        $col2Head.append("Right Team");
+        this.locationTable.append($col2Head);
     }
     
     UpdateCharImage(slot){
@@ -52,14 +67,14 @@ export class uiHandler
         
     }
     
+    ClearOutput(){
+        
+        document.getElementById("output").innerHTML = "";
+    }
+    
     UpdateOutput(string){
         
         document.getElementById("output").innerHTML += string;
-    }
-    
-    Test(){
-        
-        console.log("test");
     }
     
     CreateLocationRow(loc,charSlots){
@@ -164,8 +179,8 @@ export class uiHandler
             vertical-align:center;
             text-align:center;
             grid-column-start: 2;
-            grid-row-start: ` + $locCount + `;
-            grid-row-end:` + Number($locCount + charSlots - 1) + `;`
+            grid-row-start: ` + Number(1 + $locCount) + `;
+            grid-row-end:` + Number($locCount + charSlots) + `;`
         
         //this.locationTable.append(row);
         
@@ -193,7 +208,7 @@ export class uiHandler
             //console.log(selector.options[i]);
             
             if(selector.options[i].text == char.name){ 
-                console.log("setting " + selector + " to " + char.name);
+                //console.log("setting " + selector + " to " + char.name);
                 selector.selectedIndex = i;
             }
         }

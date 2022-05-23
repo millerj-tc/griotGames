@@ -1,17 +1,37 @@
-export function GetStringOfCharsFromArray(array,alignment = "any"){
+export function GetStringOfCharsFromArray(array,alignment = "any",getPics=false){
         
         let $nameArr = [];
         
         if(array.length == 1){
             
-            if(alignment == "any") return array[0].name;
-            else if(array[0].alignment == alignment) return array.name;
+            let $pushedString;
+            
+            const $thumbImg = document.createElement("img");
+            $thumbImg.src = array[0].image75;
+            
+            if(getPics == true){ 
+                $pushedString = $thumbImg.outerHTML + " " + array[0].name;
+            }
+            else $pushedString = array[0].name;
+            
+            if(alignment == "any") return $pushedString;
+            else if(array[0].alignment == alignment) return $pushedString;
         }
         
         for(const char of array){
             
-            if(alignment == "any") $nameArr.push(char.name) 
-            else if(char.alignment == alignment) $nameArr.push(char.name) 
+            let $pushedString;
+            
+            const $thumbImg = document.createElement("img");
+            $thumbImg.src = char.image75;
+            
+            console.log($thumbImg);
+            
+            if(getPics == true) $pushedString = $thumbImg.outerHTML+ " " +char.name ;
+            else $pushedString = char.name
+            
+            if(alignment == "any") $nameArr.push($pushedString) 
+            else if(char.alignment == alignment) $nameArr.push($pushedString) 
             
         }
         

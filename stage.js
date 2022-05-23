@@ -20,6 +20,8 @@
 
 // NPC pictures in output?
 
+// characters clue dialog in certain locations
+
 import {GetStringOfCharsFromArray} from "./utils.js";
 
 class stage
@@ -45,8 +47,14 @@ class stage
     _ReturnDisplayText(winners){
         
         const $ui = this.stageHandler.scenarioHandler.gameHandler.uiHandler;
+        
+        $ui.UpdateOutput("--- <i>" + this.location.displayName.toUpperCase() + "</i> ---<br><br>" );
+        
+        let $outputText = this.winText.replace("[names]",GetStringOfCharsFromArray(winners,"any",true));
+        
+        $outputText = $outputText.replace("[alignment]",winners[0].alignment);
        
-        $ui.UpdateOutput(this.winText.replace("[names]",GetStringOfCharsFromArray(winners)));
+        $ui.UpdateOutput($outputText);
                     
         if(this.nextStage != undefined){ 
             $ui.UpdateOutput("<br><br>");   
@@ -95,7 +103,7 @@ class stage
         
         let $pool = this.location.GetCharsHere();
         
-        console.log($pool);
+        //console.log($pool);
         
         // -- EVALUATE HOPE, DEBUFF IF NO ONE WINS AND HAVE MATHCING
         
@@ -127,10 +135,10 @@ class stage
         
         for(let i = 0; i < 50; i++){
             
-            console.log("iteration " + i);
-            console.log($winners);
-            console.log($leftSiders);
-            console.log($rightSiders);
+            //console.log("iteration " + i);
+            //console.log($winners);
+            //console.log($leftSiders);
+            //console.log($rightSiders);
             
             if($winners.length > 0 || (i > $leftSiders.length - 1 && i > $rightSiders.length - 1)) break
             

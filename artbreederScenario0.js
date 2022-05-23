@@ -6,7 +6,7 @@ export function initializeArtbreederScenario0()
     
     $sanc0.evalValue = "charisma";
         
-    $sanc0.winText = "[names] uses their connections to acquire a rare Temporal Medallion. They cast a spell of haste on their allies at the Spires of Light."
+    $sanc0.winText = "[names] uses their connections to acquire a rare Temporal Medallion for the [alignment] team. They cast a spell of haste on their allies at the Spires of Light."
         
     $sanc0.location = GH.scenarioHandler.locationHandler.GetLocationById("sanctuary");
     
@@ -16,7 +16,7 @@ export function initializeArtbreederScenario0()
     
     $sanc0.nextStage = $spires0;
 
-    $spires0.winText = "[names] reignites the Spires of Light, bringing hope to many."
+    $spires0.winText = "[names] reignites the Spires of Light, bringing hope to many. The world is awed by the [alignment] team!"
         
     $spires0.location = GH.scenarioHandler.locationHandler.GetLocationById("spires");
     
