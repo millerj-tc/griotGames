@@ -14,10 +14,12 @@ class scenarioFx
         this.completeEffectOutputText = "";
         this.targetStageOutputText = "";
         this.targetStage;
+        this.targetChars;
         this.winLocation;
         
         if(type == "wincon") this.CompleteEffect = this.WinCon;
         if(type == "debuff") this.CompleteEffect = this.StageDebuff;
+        if(type == "hopeBuff") this.CompleteEffect = this.HopeBuff();
         
     }
     
@@ -48,6 +50,16 @@ class scenarioFx
         
         if(this.currentLeftIncrements == this.requiredIncrements) this.targetStage.rightDebuffCount++
         if(this.currentRightIncrements == this.requiredIncrements) this.targetStage.leftDebuffCount++
+    }
+    
+    HopeBuff(){
+        
+        if(this.targetChars == "undefined") console.error("Essential properties for HopeBuff() have not been set!");
+        
+        for(const char of this.targetChars){
+            
+            char.hope++
+        }
     }
     
     WinCon(){
