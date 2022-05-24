@@ -1,4 +1,3 @@
-import {scenarioEvaluator} from "./scenario0.js";
 import {uiHandler} from "./ui.js";
 import {database} from "./database.js";
 import {scenarioHandler} from "./scenario.js";

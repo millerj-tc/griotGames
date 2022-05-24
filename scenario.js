@@ -32,6 +32,7 @@ class scenarioFx
     
     _ProceedToCompleteEffect(){
         
+        
         if(this.currentLeftIncrements == this.requiredIncrements || this.currentRightIncrements == this.requiredIncrements) this.CompleteEffect()
     }
     
@@ -43,33 +44,31 @@ class scenarioFx
         
         this.scenarioHandler.gameHandler.uiHandler.UpdateOutput("<br><br>");
         
-        if(this.currentLeftIncrements == this.requiredIncrements){
+        if(this.currentLeftIncrements == this.requiredIncrements || this.currentRightIncrements == this.requiredIncrements){
             
-            console.log("left wins!");
+            console.log(this);
             
-            let $winningChars = this.winLocation.GetCharsHere('any',"left");
+            let $winningChars = this.scenarioHandler.locationHandler.GetAllCharsAtLocations();
             
-            console.log($winningChars);
-            
-            let $winningCharString = GetStringOfCharsFromArray($winningChars,"left",true);
-            
-            console.log($winningCharString);
+            let $winningCharString;
+        
+            if(this.currentLeftIncrements == this.requiredIncrements){
+
+                $winningCharString = GetStringOfCharsFromArray($winningChars,"left",true);
+
+                //console.log($winningCharString);
+            }
+        
+            if(this.currentRightIncrements == this.requiredIncrements){
+
+                $winningCharString = GetStringOfCharsFromArray($winningChars,"right",true);
+
+            }
             
             let $printedString = this.outputText.replace("[names]",$winningCharString);
             
-            console.log($printedString);
-            
-            this.scenarioHandler.gameHandler.uiHandler.UpdateOutput($printedString);
-        }
-        
-        if(this.currentRightIncrements == this.requiredIncrements){
-            
-            let $winningChars = this.winLocation.GetCharsHere('any',"right");
-            
-            let $winningCharString = GetStringOfCharsFromArray($winningChars,"right",true);
-            
-            let $printedString = this.outputText.replace("[names]",$winningCharString)
-            
+            $printedString = "<b><style=color:green>" + $printedString + "</style></b>";
+
             this.scenarioHandler.gameHandler.uiHandler.UpdateOutput($printedString);
         }
     }

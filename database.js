@@ -1,6 +1,6 @@
-import {xMenData} from "./xmenData.js";
+
 import {artbreederData} from "./artbreederData.js";
-import {GetCardsFromScryfall} from "./magicDataBuilder.js";
+
 
 export class database
 {

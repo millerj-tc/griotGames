@@ -69,4 +69,21 @@ export function initializeArtbreederScenario0()
     $sanc1.stageFxHandler.AddFx($sancWinCon);
     
     $sanc2.stageFxHandler.AddFx($sancWinCon);
+    
+    const $xmapWinCon = GH.scenarioHandler.AddScenarioFx(4);
+    
+    $xmapWinCon.outputText = "[names] have restored many lost wonders of nature and are declared winners of the Games!";
+    
+    $spires0.stageFxHandler.AddFx($xmapWinCon);
+    
+    $sanc1.stageFxHandler.AddFx($xmapWinCon);
+    
+    $xora0.stageFxHandler.AddFx($xmapWinCon);
+    
+    $spires1.stageFxHandler.AddFx($xmapWinCon);
+    
+    $xora1.stageFxHandler.AddFx($xmapWinCon,2);
+    
+    
+    
 }

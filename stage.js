@@ -1,8 +1,12 @@
-// second win con
+// teams sometimes winning when maybe they shouldn't?
+
+// need GO! to reset game after win
 
 //debuff stage fx
 
 // hope stage fx
+
+// final stage win con
 
 // when someone is debuffed, add a line about why they are not there that gives clue to how they were debuffed
 
@@ -35,7 +39,7 @@ class stage
         
         this.stageHandler = stageHandler;
         this.stageFxHandler = new stageFxHandler(this);
-        this.id;
+        this.id = id;
         this.location;
         this.nextStage;
         this.Eval = this._HighestValueWin;
@@ -54,7 +58,7 @@ class stage
         
         const $ui = this.stageHandler.scenarioHandler.gameHandler.uiHandler;
         
-        console.log(winners);
+        //console.log(winners);
         
         if(winners.length == 0){
             
@@ -62,9 +66,26 @@ class stage
             
         }
         else{
+            
+            console.log(winners);
+            console.log(this.id);
+            console.log(this.stageFxHandler);
+            console.log("===");
+            
             let $outputText = this.winText.replace("[names]",GetStringOfCharsFromArray(winners,"any",true));
 
-            $outputText = $outputText.replace("[alignment]",winners[0].alignment);
+            let $color;
+            
+            if(winners[0].alignment == "left") $color = "blue"
+            if(winners[0].alignment == "right") $color = "red";
+            
+            let $span = document.createElement("span");
+            $span.style.color = $color;
+            $span.style.fontWeight = "bold";
+            $span.style.fontSize = "24pt";
+            $span.innerHTML = winners[0].alignment;
+            
+            $outputText = $outputText.replace("[alignment]",$span.outerHTML);
 
             $ui.UpdateOutput($outputText);
 

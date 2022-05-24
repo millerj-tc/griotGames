@@ -15,6 +15,17 @@ export class uiHandler
         const $evalButton = document.createElement("button");
         $evalButton.style = "font-size:32pt"
         $evalButton.onclick = function(){
+            
+            window.gameHandler.scenarioHandler.gameOver = false;
+            
+            const $scenarioFXHandler = window.gameHandler.scenarioHandler;
+            
+            for(const scenfx of $scenarioFXHandler.fxs){
+                
+                scenfx.currentLeftIncrements = 0;
+                scenfx.currentRightIncrements = 0;
+            }
+            
             window.gameHandler.uiHandler.ClearOutput();
             
             setTimeout(function(){
@@ -42,15 +53,29 @@ export class uiHandler
         document.getElementById("content").append(this.locationTable);
         
         const $col0Head = document.createElement("div");
-        $col0Head.append("Left Team");
+        let $span = document.createElement("span");
+        $span.style.color = "blue";
+        $span.style.fontWeight = "bold";
+        $span.style.fontSize = "24pt";
+        $span.innerHTML = "Left Team";
+        $col0Head.append($span);
         this.locationTable.append($col0Head);
         
         const $col1Head = document.createElement("div");
-        $col1Head.append("Locations");
+        let $mspan = document.createElement("span");
+        $mspan.style.fontWeight = "bold";
+        $mspan.style.fontSize = "24pt";
+        $mspan.innerHTML = "Locations";
+        $col1Head.append($mspan);
         this.locationTable.append($col1Head);
         
         const $col2Head = document.createElement("div");
-        $col2Head.append("Right Team");
+        let $rspan = document.createElement("span");
+        $rspan.style.color = "red";
+        $rspan.style.fontWeight = "bold";
+        $rspan.style.fontSize = "24pt";
+        $rspan.innerHTML = "Right Team";
+        $col2Head.append($rspan);
         this.locationTable.append($col2Head);
     }
     

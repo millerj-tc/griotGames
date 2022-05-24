@@ -1,21 +1,26 @@
 class stageFx
 {
-    constructor(stageFxHandler,scenarioFxTarget){
+    constructor(stageFxHandler,scenarioFxTarget,incAmt=1){
         
         this.stageFxHandler = stageFxHandler;
         this.scenarioFxTarget = scenarioFxTarget;
+        this.incrementAmount = incAmt;
     
     }
     
     IncrementTarget(team){
         
-        console.log("incrementing-->");
+        //console.log("incrementing-->");
         
-        console.log(this.scenarioFxTarget);
-        
-        this.scenarioFxTarget.Increment(team);
+        //console.log(this.scenarioFxTarget);
         
         this.scenarioFxTarget.SetWinLocation(this.stageFxHandler.stage.location);
+        
+        for(let i=0; i < this.incrementAmount; i++){
+            
+            this.scenarioFxTarget.Increment(team);
+        }
+        
     }
 }
 
@@ -28,9 +33,9 @@ export class stageFxHandler
         
     }
     
-    AddFx(scenarioFxTarget){
+    AddFx(scenarioFxTarget,incAmt){
         
-        const $fx = new stageFx(this,scenarioFxTarget);
+        const $fx = new stageFx(this,scenarioFxTarget,incAmt);
         
         this.fxs.push($fx);
     }
