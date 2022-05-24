@@ -185,15 +185,15 @@ class stage
                         
                         $dupesFound.push(char0);
                         
-                        let $char0Hope = $scenHand.GetTeamHope(char0.alignment);
-                        let $char1Hope = $scenHand.GetTeamHope(char1.alignment);
+                        //let $char0Hope = $scenHand.GetTeamHope(char0.alignment);
+                        //let $char1Hope = $scenHand.GetTeamHope(char1.alignment);
                         
-                        if($char0Hope > $char1Hope && !$dupePrinted){
+                        if(char0.hope > char1.hope && !$dupePrinted){
                             
                             $ui.UpdateOutput(GetStringOfCharsFromArray([char0],"any",true) + " has decided to side with team " + char0.alignment + "<br><br>");
                             $returnArr.push(char0);
                         }
-                         else if($char0Hope < $char1Hope && !$dupePrinted){
+                         else if(char0.hope < char.hope && !$dupePrinted){
                             
                             $ui.UpdateOutput(GetStringOfCharsFromArray([char1],"any",true)+ " has decided to side with team " + char1.alignment + "<br><br>");
                             $returnArr.push(char1);

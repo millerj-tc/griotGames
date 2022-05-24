@@ -13,6 +13,7 @@ export class charHandler
             char.IsDebuffed = this.IsDebuffed;
             char.Debuff = this.Debuff;
             char.Rebuff = this.Rebuff;
+            char.hope = 0;
         }
     }
     
