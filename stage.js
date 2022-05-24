@@ -1,32 +1,39 @@
+//// 100% Necessary
+
 // hope stage fx // change hope to individual
+
+// interpersonal dynamics
+
+//inherent value of stats could do with Hope? interperonsal dynamics could also affect individual hope scores
 
 // final stage win con
 
 // better name for the Games
 
+// add FAQ
+
+// clue text for when someone is the worst at a stage, etc.
+
+//// Very Nice
+
 // include winning team name in victory message and change color of victory message to match winning team
-
-// change "winner" property of stage to see who won
-
-// interpersonal dynamics
 
 // create a color for each location row so you can more easily see how the characters are assigned
 
 // add color bar left/right to inline character portraits to show team
 
-// clue text for when someone is the worst at a stage, etc.
-
 // chars buffed on certain locations like Chandra on Valakut and Teferi on Vesuva
 
 // 2v1 buff (opp must have two characters that overpower char in order to win that stage)
 
-// NPC pictures in output?
-
 // characters clue dialog in certain locations
 
-//inherent value of stats could do with Hope? interperonsal dynamics could also affect individual hope scores
-
 //campfire scene before the adventure where the characters talk to each other and you?
+
+//// Luxury/Future
+
+// NPC pictures in output?
+
 
 import {GetStringOfCharsFromArray} from "./utils.js";
 import {stageFxHandler} from "./stageFx.js";
