@@ -1,7 +1,3 @@
-// teams sometimes winning when maybe they shouldn't?
-
-// need GO! to reset game after win
-
 //debuff stage fx
 
 // hope stage fx
