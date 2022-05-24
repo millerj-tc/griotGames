@@ -1,4 +1,4 @@
-// hope stage fx
+// hope stage fx // change hope to individual
 
 // final stage win con
 
