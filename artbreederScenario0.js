@@ -24,7 +24,7 @@ export function initializeArtbreederScenario0()
     
     $sanc1.evalValue = "power";
     
-    $sanc1.winText = "[names] rescues the last remaining family of Time Koalas from a nefarious demon. The [alignment] team celebrates their cuddly new friends!";
+    $sanc1.winText = "[names] rescues the last remaining family of Time Koalas from a nefarious demon. The [alignment] team learns the secrets of the Sanctuary of Time from their cuddly new friends!";
     
     $sanc1.location = GH.scenarioHandler.locationHandler.GetLocationById("sanctuary");
     
