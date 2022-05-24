@@ -40,6 +40,8 @@ class scenarioFx
         if(this.currentLeftIncrements == this.requiredIncrements || this.currentRightIncrements == this.requiredIncrements) this.CompleteEffect()
     }
     
+    
+    
     StageDebuff(){
         
         if(this.targetStage == "undefined") console.error("Essential properties for scenarioFx have not been set!");
