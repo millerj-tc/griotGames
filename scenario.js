@@ -42,7 +42,7 @@ class scenarioFx
     
     StageDebuff(){
         
-        if(this.teamToDebuff == undefined || this.stageToDebuff == undefined) console.error("Essential properties for scenarioFx have not been set!");
+        if(this.teamToDebuff == "undefined" || this.stageToDebuff == "undefined") console.error("Essential properties for scenarioFx have not been set!");
         
         if(this.teamToDebuff == "left") this.stageToDebuff.leftDebuffCount++
         if(this.teamToDebuff == "right") this.stageToDebuff.rightDebuffCount++

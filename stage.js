@@ -14,6 +14,8 @@
 
 // interpersonal dynamics
 
+// create a color for each location row so you can more easily see how the characters are assigned
+
 // clue text for when someone is the worst at a stage, etc.
 
 // chars buffed on certain locations like Chandra on Valakut and Teferi on Vesuva
