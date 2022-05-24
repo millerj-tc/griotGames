@@ -25,7 +25,7 @@ export function GetStringOfCharsFromArray(array,alignment = "any",getPics=false)
             const $thumbImg = document.createElement("img");
             $thumbImg.src = char.image75;
             
-            console.log($thumbImg);
+            //console.log($thumbImg);
             
             if(getPics == true) $pushedString = $thumbImg.outerHTML+ " " +char.name ;
             else $pushedString = char.name

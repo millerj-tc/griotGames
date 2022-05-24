@@ -59,4 +59,14 @@ export function initializeArtbreederScenario0()
     $xora1.winText = "[names], of the [alignment] team, performs a ritual to remove the catacylsmic curse from Xora, restoring it as inhabitable land."
         
     $xora1.location = GH.scenarioHandler.locationHandler.GetLocationById("xora");
+    
+    const $sancWinCon = GH.scenarioHandler.AddScenarioFx(3);
+    
+    $sancWinCon.outputText = "[names] uncover the inner sanctum of the Sanctuary of Time. They acquire the Chronos Flute and win the Games!";
+    
+    $sanc0.stageFxHandler.AddFx($sancWinCon);
+    
+    $sanc1.stageFxHandler.AddFx($sancWinCon);
+    
+    $sanc2.stageFxHandler.AddFx($sancWinCon);
 }
