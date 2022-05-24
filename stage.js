@@ -21,13 +21,14 @@
 //inherent value of stats could do with Hope?
 
 import {GetStringOfCharsFromArray} from "./utils.js";
-import {stageFx} from "./stageFx.js";
+import {stageFxHandler} from "./stageFx.js";
 
 class stage
 {
     constructor(stageHandler,id){
         
         this.stageHandler = stageHandler;
+        this.stageFxHandler = new stageFxHandler(this);
         this.id;
         this.location;
         this.nextStage;
@@ -52,8 +53,10 @@ class stage
         $outputText = $outputText.replace("[alignment]",winners[0].alignment);
        
         $ui.UpdateOutput($outputText);
+        
+        this._TriggerStageFx(winners[0].alignment);
                     
-        if(this.nextStage != undefined){ 
+        if(this.nextStage != undefined && !this.stageHandler.scenarioHandler.gameOver){ 
             $ui.UpdateOutput("<br><br>");   
             this.nextStage.Eval();
         }
@@ -178,6 +181,14 @@ class stage
         this.stageHandler.scenarioHandler.gameHandler.uiHandler.UpdateOutput("- <i>" + this.location.displayName.toUpperCase() + "</i> -<br><br>" );
     }
     
+    _TriggerStageFx(team){
+        
+        for(const fx of this.stageFxHandler.fxs){
+            
+            fx.IncrementTarget(team);
+        }
+    }
+    
     _HighestValueWin(){
         
         this._DeclareLocation();
@@ -252,7 +263,7 @@ class stage
             }
         }
         
-        //console.log($winners);  
+        //this._TriggerStageFx($winners[0].alignment);  
         
         return this._ReturnDisplayText($winners)
     }
