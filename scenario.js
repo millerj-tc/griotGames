@@ -11,7 +11,8 @@ class scenarioFx
         this.requiredIncrements = reqdInc;
         this.currentLeftIncrements = 0;
         this.currentRightIncrements = 0;
-        this.outputText = "";
+        this.completeEffectOutputText = "";
+        this.targetStageOutputText = "";
         this.targetStage;
         this.winLocation;
         
@@ -76,7 +77,7 @@ class scenarioFx
 
             }
             
-            let $printedString = this.outputText.replace("[names]",$winningCharString);
+            let $printedString = this.completeEffectOutputText.replace("[names]",$winningCharString);
             
             $printedString = "<b><style=color:green>" + $printedString + "</style></b>";
 

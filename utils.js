@@ -7,6 +7,7 @@ export function GetStringOfCharsFromArray(array,alignment = "any",getPics=false)
             let $pushedString;
             
             const $thumbImg = document.createElement("img");
+            $thumbImg.style.verticalAlign = "middle";
             $thumbImg.src = array[0].image75;
             
             if(getPics == true){ 

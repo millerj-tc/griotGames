@@ -47,8 +47,8 @@ export class uiHandler
             justify-items: center;
             align-items: center;
             grid-template-columns: auto auto auto;
-            gap: 10px;
-            padding: 10px;`;
+            gap: 5px;
+            padding: 5px;`;
         
         document.getElementById("content").append(this.locationTable);
         

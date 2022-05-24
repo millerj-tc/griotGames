@@ -1,10 +1,6 @@
-//debuff stage fx
-
 // hope stage fx
 
 // final stage win con
-
-// when someone is debuffed, add a line about why they are not there that gives clue to how they were debuffed
 
 // better name for the Games
 
@@ -68,11 +64,6 @@ class stage
             
         }
         else{
-            
-            console.log(winners);
-            console.log(this.id);
-            console.log(this.stageFxHandler);
-            console.log("===");
             
             let $outputText = this.winText.replace("[names]",GetStringOfCharsFromArray(winners,"any",true));
 
@@ -190,16 +181,16 @@ class stage
                         
                         if($char0Hope > $char1Hope && !$dupePrinted){
                             
-                            $ui.UpdateOutput(char0.name + " has decided to side with team " + char0.alignment + "<br><br>");
+                            $ui.UpdateOutput(GetStringOfCharsFromArray([char0],"any",true) + " has decided to side with team " + char0.alignment + "<br><br>");
                             $returnArr.push(char0);
                         }
                          else if($char0Hope < $char1Hope && !$dupePrinted){
                             
-                            $ui.UpdateOutput(char1.name + " has decided to side with team " + char1.alignment + "<br><br>");
+                            $ui.UpdateOutput(GetStringOfCharsFromArray([char1],"any",true)+ " has decided to side with team " + char1.alignment + "<br><br>");
                             $returnArr.push(char1);
                          }
                     
-                        else if(!$dupePrinted) $ui.UpdateOutput(char0.name + " cannot decide between teams. They are sitting this one out.<br><br>");
+                        else if(!$dupePrinted) $ui.UpdateOutput(GetStringOfCharsFromArray([char0],"any",true) + " cannot decide between teams. They are sitting this one out.<br><br>");
                         }
                     //}
                 }
@@ -226,17 +217,25 @@ class stage
         }
     }
     
-    _DisplayDebuffOutput(name){
+    _DisplayDebuffOutput(char){
         
-        let $returngString = "";
+        let $returnString = "";
         
         for(const fx of this.stageHandler.scenarioHandler.GetAllScenarioFxThatTargetStage(this,true)){
             
-            $returngString = fx.outputText.replace("[names]",name) + "<br><br>";
+            let $replaceString = GetStringOfCharsFromArray([char],"any",true);
+            
+            console.log($replaceString);
+            
+            $returnString = fx.targetStageOutputText.replace("[names]",$replaceString);
+            
+            $returnString = $returnString +  "<br><br>";
+            
+            console.log($returnString);
     
         }
         
-        return $returngString
+        return $returnString
     }
     
     _HighestValueWin(){
@@ -276,12 +275,21 @@ class stage
         
         if($leftSiders.length != 0){
             
-             for(let i = 0; i < this.leftDebuffCount; i++) $ui.UpdateOutput(this._DisplayDebuffOutput($leftSiders.shift().name))
+             for(let i = 0; i < this.leftDebuffCount; i++) {
+                 
+                 this.leftDebuffCount--;
+                 
+                 $ui.UpdateOutput(this._DisplayDebuffOutput($leftSiders.shift()))
+             }
         }
         
        if($rightSiders.length != 0){
            
-            for(let i = 0; i < this.rightDebuffCount; i++) $ui.UpdateOutput(this._DisplayDebuffOutput($rightSiders.shift().name))
+            for(let i = 0; i < this.rightDebuffCount; i++){
+           
+                this.rightDebuffCount--;
+                $ui.UpdateOutput(this._DisplayDebuffOutput($rightSiders.shift()))
+            }
 
        }
         

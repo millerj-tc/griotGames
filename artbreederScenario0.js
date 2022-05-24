@@ -64,7 +64,7 @@ export function initializeArtbreederScenario0()
     
     const $sancWinCon = GH.scenarioHandler.AddScenarioFx(3);
     
-    $sancWinCon.outputText = "[names] uncover the inner sanctum of the Sanctuary of Time. They acquire the Chronos Flute and win the Games!";
+    $sancWinCon.completeEffectOutputText = "[names] uncover the inner sanctum of the Sanctuary of Time. They acquire the Chronos Flute and win the Games!";
     
     $sanc0.stageFxHandler.AddFx($sancWinCon);
     
@@ -76,7 +76,7 @@ export function initializeArtbreederScenario0()
     
     const $xmapWinCon = GH.scenarioHandler.AddScenarioFx(4);
     
-    $xmapWinCon.outputText = "[names] have restored many lost wonders of nature and are declared winners of the Games!";
+    $xmapWinCon.completeEffectOutputText = "[names] have restored many lost wonders of nature and are declared winners of the Games!";
     
     $spires0.stageFxHandler.AddFx($xmapWinCon);
     
@@ -96,8 +96,20 @@ export function initializeArtbreederScenario0()
     
     $spires0Debuff.targetStage = $spires0;
     
-    $spires0Debuff.outputText ="[names] is caught in the engtanglement trap!"
+    $spires0Debuff.targetStageOutputText ="[names] is caught in the engtanglement trap!"
     
+    ///
     
+    const $spires1Debuff = GH.scenarioHandler.AddScenarioFx(2,"debuff");
+    
+    $spires1Debuff.completeEffectOutputText = "[names] perform a time ritual on Xora's star, creating a temporal rift around the other team at the Spires of Light.";
+    
+    $xora0.stageFxHandler.AddFx($spires1Debuff)
+    
+    $sanc2.stageFxHandler.AddFx($spires1Debuff);
+    
+    $spires1Debuff.targetStage = $spires1;
+    
+    $spires1Debuff.targetStageOutputText ="[names] stumbles into the temporal rift and has their consciousness temporarily swapped with their infant self. They plop down for a quick name and cannot be reasoned with."
     
 }
