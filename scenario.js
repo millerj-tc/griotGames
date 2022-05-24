@@ -19,7 +19,7 @@ class scenarioFx
         
         if(type == "wincon") this.CompleteEffect = this.WinCon;
         if(type == "debuff") this.CompleteEffect = this.StageDebuff;
-        if(type == "hopeBuff") this.CompleteEffect = this.HopeBuff();
+        if(type == "hopeBuff") this.CompleteEffect = this.HopeBuff;
         
     }
     
