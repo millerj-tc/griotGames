@@ -1,4 +1,8 @@
-// what if everyone is debuffed?
+// second win con
+
+//debuff stage fx
+
+// hope stage fx
 
 // when someone is debuffed, add a line about why they are not there that gives clue to how they were debuffed
 
@@ -18,7 +22,9 @@
 
 // characters clue dialog in certain locations
 
-//inherent value of stats could do with Hope?
+//inherent value of stats could do with Hope? interperonsal dynamics could also affect individual hope scores
+
+//campfire scene before the adventure where the characters talk to each other and you?
 
 import {GetStringOfCharsFromArray} from "./utils.js";
 import {stageFxHandler} from "./stageFx.js";
@@ -48,14 +54,22 @@ class stage
         
         const $ui = this.stageHandler.scenarioHandler.gameHandler.uiHandler;
         
-        let $outputText = this.winText.replace("[names]",GetStringOfCharsFromArray(winners,"any",true));
+        console.log(winners);
         
-        $outputText = $outputText.replace("[alignment]",winners[0].alignment);
-       
-        $ui.UpdateOutput($outputText);
-        
-        this._TriggerStageFx(winners[0].alignment);
-                    
+        if(winners.length == 0){
+            
+            $ui.UpdateOutput("No one was able to accomplish anything here this time!");
+            
+        }
+        else{
+            let $outputText = this.winText.replace("[names]",GetStringOfCharsFromArray(winners,"any",true));
+
+            $outputText = $outputText.replace("[alignment]",winners[0].alignment);
+
+            $ui.UpdateOutput($outputText);
+
+            this._TriggerStageFx(winners[0].alignment);
+        }
         if(this.nextStage != undefined && !this.stageHandler.scenarioHandler.gameOver){ 
             $ui.UpdateOutput("<br><br>");   
             this.nextStage.Eval();
@@ -237,6 +251,7 @@ class stage
         
         for(let i = 0; i < 50; i++){
             
+            if($leftSiders.length == 0 && $rightSiders.length == 0) break
             if($leftSiders.length == 0) {$winners.push($rightSiders[0]);break}
             if($rightSiders.length == 0) {$winners.push($leftSiders[0]);break}
             

@@ -13,6 +13,7 @@ export class uiHandler
     CreateEvalGoButton(){
         
         const $evalButton = document.createElement("button");
+        $evalButton.style = "font-size:32pt"
         $evalButton.onclick = function(){
             window.gameHandler.uiHandler.ClearOutput();
             
