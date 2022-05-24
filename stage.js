@@ -32,6 +32,8 @@
 
 //// Luxury/Future
 
+// Each output line is a div so you can float the image, etc.
+
 // NPC pictures in output?
 
 
