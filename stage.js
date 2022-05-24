@@ -6,9 +6,11 @@
 
 // when someone is debuffed, add a line about why they are not there that gives clue to how they were debuffed
 
-// change "winner" property of stage to see who won
+// better name for the Games
 
-// make victory message display after all others
+// include winning team name in victory message and change color of victory message to match winning team
+
+// change "winner" property of stage to see who won
 
 // interpersonal dynamics
 

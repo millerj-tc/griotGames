@@ -5,15 +5,19 @@ import {GetStringOfCharsFromArray} from "./utils.js";
 
 class scenarioFx
 {
-    constructor(scenarioHandler,reqdInc){
+    constructor(scenarioHandler,reqdInc,type="wincon"){
         
         this.scenarioHandler = scenarioHandler;
         this.requiredIncrements = reqdInc;
         this.currentLeftIncrements = 0;
         this.currentRightIncrements = 0;
-        this.CompleteEffect = this.WinCon;
         this.outputText = "";
+        this.stageToDebuff;
+        this.teamToDebuff;
         this.winLocation;
+        
+        if(type == "wincon") this.CompleteEffect = this.WinCon;
+        if(type == "debuff") this.CompleteEffect = this.StageDebuff;
         
     }
     
@@ -34,6 +38,14 @@ class scenarioFx
         
         
         if(this.currentLeftIncrements == this.requiredIncrements || this.currentRightIncrements == this.requiredIncrements) this.CompleteEffect()
+    }
+    
+    StageDebuff(){
+        
+        if(this.teamToDebuff == undefined || this.stageToDebuff == undefined) console.error("Essential properties for scenarioFx have not been set!");
+        
+        if(this.teamToDebuff == "left") this.stageToDebuff.leftDebuffCount++
+        if(this.teamToDebuff == "right") this.stageToDebuff.rightDebuffCount++
     }
     
     WinCon(){
