@@ -12,8 +12,7 @@ class scenarioFx
         this.currentLeftIncrements = 0;
         this.currentRightIncrements = 0;
         this.outputText = "";
-        this.stageToDebuff;
-        this.teamToDebuff;
+        this.targetStage;
         this.winLocation;
         
         if(type == "wincon") this.CompleteEffect = this.WinCon;
@@ -42,10 +41,10 @@ class scenarioFx
     
     StageDebuff(){
         
-        if(this.teamToDebuff == "undefined" || this.stageToDebuff == "undefined") console.error("Essential properties for scenarioFx have not been set!");
+        if(this.targetStage == "undefined") console.error("Essential properties for scenarioFx have not been set!");
         
-        if(this.teamToDebuff == "left") this.stageToDebuff.leftDebuffCount++
-        if(this.teamToDebuff == "right") this.stageToDebuff.rightDebuffCount++
+        if(this.currentLeftIncrements == this.requiredIncrements) this.targetStage.rightDebuffCount++
+        if(this.currentRightIncrements == this.requiredIncrements) this.targetStage.leftDebuffCount++
     }
     
     WinCon(){
@@ -115,9 +114,26 @@ export class scenarioHandler
         
     }
     
-    AddScenarioFx(reqdInc){
+    GetAllScenarioFxThatTargetStage(stage,triggeredOnly=true){
         
-        const $fx = new scenarioFx(this,reqdInc)
+        let $returnArr = [];
+        
+        for(const fx of this.fxs){
+            
+            if(fx.targetStage == stage){
+                
+                if(!triggeredOnly)$returnArr.push(fx)
+                
+                else if(fx.currentLeftIncrements == fx.requiredIncrements || fx.currentRightIncrements == fx.requiredIncrements) $returnArr.push(fx)
+            } 
+        }
+        
+        return $returnArr
+    }
+    
+    AddScenarioFx(reqdInc,type){
+        
+        const $fx = new scenarioFx(this,reqdInc,type)
         this.fxs.push($fx);
         
         return $fx

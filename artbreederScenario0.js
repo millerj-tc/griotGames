@@ -6,7 +6,7 @@ export function initializeArtbreederScenario0()
     
     $sanc0.evalValue = "charisma";
         
-    $sanc0.winText = "[names] uses their connections to acquire a rare Temporal Medallion for the [alignment] team. They cast a spell of haste on their allies at the Spires of Light."
+    $sanc0.winText = "[names] uses their connections to acquire a rare Temporal Medallion for the [alignment] team. They cast an entanglement spell to entrap the other team at the Spires of Light."
         
     $sanc0.location = GH.scenarioHandler.locationHandler.GetLocationById("sanctuary");
     
@@ -60,6 +60,8 @@ export function initializeArtbreederScenario0()
         
     $xora1.location = GH.scenarioHandler.locationHandler.GetLocationById("xora");
     
+    ///
+    
     const $sancWinCon = GH.scenarioHandler.AddScenarioFx(3);
     
     $sancWinCon.outputText = "[names] uncover the inner sanctum of the Sanctuary of Time. They acquire the Chronos Flute and win the Games!";
@@ -69,6 +71,8 @@ export function initializeArtbreederScenario0()
     $sanc1.stageFxHandler.AddFx($sancWinCon);
     
     $sanc2.stageFxHandler.AddFx($sancWinCon);
+    
+    ///
     
     const $xmapWinCon = GH.scenarioHandler.AddScenarioFx(4);
     
@@ -83,6 +87,16 @@ export function initializeArtbreederScenario0()
     $spires1.stageFxHandler.AddFx($xmapWinCon);
     
     $xora1.stageFxHandler.AddFx($xmapWinCon,2);
+    
+    ///
+    
+    const $spires0Debuff = GH.scenarioHandler.AddScenarioFx(1,"debuff");
+    
+    $sanc0.stageFxHandler.AddFx($spires0Debuff);
+    
+    $spires0Debuff.targetStage = $spires0;
+    
+    $spires0Debuff.outputText ="[names] is caught in the engtanglement trap!"
     
     
     

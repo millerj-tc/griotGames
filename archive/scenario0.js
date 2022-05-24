@@ -33,7 +33,7 @@
 
 
 
-import {magicData} from "./magicData.js";
+//import {magicData} from "./magicData.js";
 
 export class scenarioEvaluator
 {

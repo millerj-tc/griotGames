@@ -16,6 +16,8 @@
 
 // create a color for each location row so you can more easily see how the characters are assigned
 
+// add color bar left/right to inline character portraits to show team
+
 // clue text for when someone is the worst at a stage, etc.
 
 // chars buffed on certain locations like Chandra on Valakut and Teferi on Vesuva
@@ -224,6 +226,19 @@ class stage
         }
     }
     
+    _DisplayDebuffOutput(name){
+        
+        let $returngString = "";
+        
+        for(const fx of this.stageHandler.scenarioHandler.GetAllScenarioFxThatTargetStage(this,true)){
+            
+            $returngString = fx.outputText.replace("[names]",name) + "<br><br>";
+    
+        }
+        
+        return $returngString
+    }
+    
     _HighestValueWin(){
         
         this._DeclareLocation();
@@ -233,7 +248,7 @@ class stage
         
         let $winners = [];
         
-        //console.log(this);
+        const $ui = this.stageHandler.scenarioHandler.gameHandler.uiHandler;        
         
         let $pool = this.location.GetCharsHere();
         
@@ -259,11 +274,17 @@ class stage
         
         //--Remove 1 char from evaluation per debuff
         
-        let $debuffedNames = [];
+        if($leftSiders.length != 0){
+            
+             for(let i = 0; i < this.leftDebuffCount; i++) $ui.UpdateOutput(this._DisplayDebuffOutput($leftSiders.shift().name))
+        }
         
-        for(let i = 0; i < this.leftDebuffCount; i++) $debuffedNames.push($leftSiders.shift())
+       if($rightSiders.length != 0){
+           
+            for(let i = 0; i < this.rightDebuffCount; i++) $ui.UpdateOutput(this._DisplayDebuffOutput($rightSiders.shift().name))
+
+       }
         
-        for(let i = 0; i < this.rightDebuffCount; i++) $debuffedNames.push($rightSiders.shift())
         
         //--Function to add debuff flavor to output should go right here
         
