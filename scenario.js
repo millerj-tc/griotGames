@@ -174,7 +174,7 @@ export class scenarioHandler
         
         for(const obj of this.gameHandler.database.data){
             
-            if(obj.dataType == "char") $returnArr.push(char);
+            if(obj.dataType == "char") $returnArr.push(obj);
         }
         
         return $returnArr

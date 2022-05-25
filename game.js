@@ -2,6 +2,7 @@ import {uiHandler} from "./ui.js";
 import {database} from "./database.js";
 import {scenarioHandler} from "./scenario.js";
 import {initializeArtbreederScenario0} from "./artbreederScenario0.js";
+import {intializeInterpersRelationships} from "./artbreederData.js";
 
 export class gameHandler
 {
@@ -38,6 +39,11 @@ export class gameHandler
         this.uiHandler.CreateEvalGoButton();
         
         this.scenarioHandler.charHandler.AddFunctionsToCharacters();
+        
+        for(const char of this.scenarioHandler.GetAllChars()){
+            
+            intializeInterpersRelationships(char);
+        }
         
         this.scenarioHandler.locationHandler.RandomizeStartingTeams();
         
