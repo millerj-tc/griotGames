@@ -110,6 +110,10 @@ export function initializeArtbreederScenario0()
     
     $spires1Debuff.targetStage = $spires1;
     
-    $spires1Debuff.targetStageOutputText ="[names] stumbles into the temporal rift and has their consciousness temporarily swapped with their infant self. They plop down for a quick name and cannot be reasoned with."
+    $spires1Debuff.targetStageOutputText ="[names] stumbles into the temporal rift and has their consciousness temporarily swapped with their infant self. They plop down for a quick name and cannot be reasoned with.";
+    
+    ///
+    
+    const $hopeBuff = GH.scenarioHandler.AddScenarioFx(2,"hopeBuff");
     
 }

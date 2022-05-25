@@ -50,6 +50,8 @@ class scenarioFx
         
         if(this.currentLeftIncrements == this.requiredIncrements) this.targetStage.rightDebuffCount++
         if(this.currentRightIncrements == this.requiredIncrements) this.targetStage.leftDebuffCount++
+        
+        this.PrintCompleteEffectOutput();
     }
     
     HopeBuff(){
@@ -59,6 +61,16 @@ class scenarioFx
         for(const char of this.targetChars){
             
             char.hope++
+        }
+        
+        this.PrintCompleteEffectOutput();
+    }
+    
+    PrintCompleteEffectOutput(){
+        
+        if(this.completeEffectOutputText != ""){
+            
+            this.scenarioHandler.gameHandler.uiHandler.UpdateOutput(this.completeEffectOutputText);
         }
     }
     
@@ -91,11 +103,11 @@ class scenarioFx
 
             }
             
-            let $printedString = this.completeEffectOutputText.replace("[names]",$winningCharString);
+            this.completeEffectOutputText = this.completeEffectOutputText.replace("[names]",$winningCharString);
             
-            $printedString = "<b><style=color:green>" + $printedString + "</style></b>";
+            this.completeEffectOutputText = `<b><style=color:"green">` + this.completeEffectOutputText + "</style></b>";
 
-            this.scenarioHandler.gameHandler.uiHandler.UpdateOutput($printedString);
+            this.PrintCompleteEffectOutput();
         }
     }
 }
