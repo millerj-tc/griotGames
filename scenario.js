@@ -19,7 +19,7 @@ class scenarioFx
         
         if(type == "wincon") this.CompleteEffect = this.WinCon;
         if(type == "debuff") this.CompleteEffect = this.StageDebuff;
-        if(type == "hopeBuff") this.CompleteEffect = this.HopeBuff;
+        if(type == "teamHopeBuff") this.CompleteEffect = this.TeamHopeBuff;
         
     }
     
@@ -54,21 +54,26 @@ class scenarioFx
         this.PrintCompleteEffectOutput();
     }
     
-    HopeBuff(){
+    TeamHopeBuff(){
         
-        if(this.targetChars == "undefined") console.error("Essential properties for HopeBuff() have not been set!");
+        if(this.currentLeftIncrements == this.requiredIncrements) this.targetChars = this.scenarioHandler.locationHandler.GetAllCharsAtLocations("left");
+        
+        if(this.currentRightIncrements == this.requiredIncrements) this.targetChars = this.scenarioHandler.locationHandler.GetAllCharsAtLocations("right");
         
         for(const char of this.targetChars){
             
             char.hope++
+            //console.trace();
         }
+        
+        //console.log("HOPE TEXT " + this.winLocation.id);
         
         this.PrintCompleteEffectOutput();
     }
     
     PrintCompleteEffectOutput(){
         
-        if(this.completeEffectOutputText != ""){
+        if((this.completeEffectOutputText != "") && !this.scenarioHandler.gameOver){
             
             this.scenarioHandler.gameHandler.uiHandler.UpdateOutput(this.completeEffectOutputText);
         }
@@ -76,7 +81,7 @@ class scenarioFx
     
     WinCon(){
         
-        console.log("GAME OVER");
+        //console.log("GAME OVER");
         
         this.scenarioHandler.gameOver = true;
         
@@ -84,7 +89,7 @@ class scenarioFx
         
         if(this.currentLeftIncrements == this.requiredIncrements || this.currentRightIncrements == this.requiredIncrements){
             
-            console.log(this);
+            //console.log(this);
             
             let $winningChars = this.scenarioHandler.locationHandler.GetAllCharsAtLocations();
             
@@ -130,16 +135,50 @@ export class scenarioHandler
         
     }
     
+    GetAllChars(){
+        
+        let $returnArr = [];
+        
+        for(const char of this.gameHandler.database.data){
+            
+            $returnArr.push(char);
+        }
+        
+        return $returnArr
+    }
+    
     GetTeamHope(team){
         
         if(team == "left") return this.leftTeamHope
         if(team == "right") return this.rightTeamHope
     }
     
-    EvalScenarioFx(){
+    ScenarioReset(){
         
+        //console.clear();
         
+        //console.warn("RESET");
+        
+        this.gameOver = false;
+        
+         for(const scenfx of this.fxs){
+                
+                scenfx.currentLeftIncrements = 0;
+                scenfx.currentRightIncrements = 0;
+            }
+        
+        //console.warn(this.GetAllChars().length);
+        
+        for(const char of this.locationHandler.GetAllCharsAtLocations()){
+            
+            char.hope = 0;
+        }
+        
+        //console.log(this.locationHandler.GetAllCharsAtLocations());
+            
     }
+    
+    
     
     GetAllScenarioFxThatTargetStage(stage,triggeredOnly=true){
         

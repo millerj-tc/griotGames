@@ -13,8 +13,14 @@ export class charHandler
             char.IsDebuffed = this.IsDebuffed;
             char.Debuff = this.Debuff;
             char.Rebuff = this.Rebuff;
+            char.IncrementHope = this.IncrementHope();
             char.hope = 0;
         }
+    }
+    
+    IncrementHope(){
+        
+        this.hope++
     }
     
     Debuff(){

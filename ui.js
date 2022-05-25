@@ -16,15 +16,9 @@ export class uiHandler
         $evalButton.style = "font-size:32pt"
         $evalButton.onclick = function(){
             
-            window.gameHandler.scenarioHandler.gameOver = false;
+            //console.warn(window.gameHandler.scenarioHandler);
             
-            const $scenarioFXHandler = window.gameHandler.scenarioHandler;
-            
-            for(const scenfx of $scenarioFXHandler.fxs){
-                
-                scenfx.currentLeftIncrements = 0;
-                scenfx.currentRightIncrements = 0;
-            }
+            window.gameHandler.scenarioHandler.ScenarioReset();
             
             window.gameHandler.uiHandler.ClearOutput();
             

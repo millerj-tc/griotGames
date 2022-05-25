@@ -88,6 +88,8 @@ class stage
             $span.innerHTML = winners[0].alignment;
             
             $outputText = $outputText.replace("[alignment]",$span.outerHTML);
+            
+            //console.log("STAGE TEXT " + this.id);
 
             $ui.UpdateOutput($outputText);
 
@@ -187,13 +189,27 @@ class stage
                         
                         //let $char0Hope = $scenHand.GetTeamHope(char0.alignment);
                         //let $char1Hope = $scenHand.GetTeamHope(char1.alignment);
+                    
+                    
                         
-                        if(char0.hope > char1.hope && !$dupePrinted){
+                        if((char0.hope > char1.hope) && !$dupePrinted){
+                            
+//                            console.warn(this.id);
+//                            console.log("char0hope>>>");
+//                            console.log(char0.hope);
+//                            console.log("char1hope>>>");
+//                            console.log(char1.hope);
                             
                             $ui.UpdateOutput(GetStringOfCharsFromArray([char0],"any",true) + " has decided to side with team " + char0.alignment + "<br><br>");
                             $returnArr.push(char0);
                         }
-                         else if(char0.hope < char1.hope && !$dupePrinted){
+                         else if((char0.hope < char1.hope) && !$dupePrinted){
+                             
+//                            console.warn(this.id);
+//                            console.log("char0hope>>>");
+//                            console.log(char0.hope);
+//                            console.log("char1hope>>>");
+//                            console.log(char1.hope);
                             
                             $ui.UpdateOutput(GetStringOfCharsFromArray([char1],"any",true)+ " has decided to side with team " + char1.alignment + "<br><br>");
                             $returnArr.push(char1);
@@ -234,13 +250,13 @@ class stage
             
             let $replaceString = GetStringOfCharsFromArray([char],"any",true);
             
-            console.log($replaceString);
+            //console.log($replaceString);
             
             $returnString = fx.targetStageOutputText.replace("[names]",$replaceString);
             
             $returnString = $returnString +  "<br><br>";
             
-            console.log($returnString);
+            //console.log($returnString);
     
         }
         
@@ -363,11 +379,13 @@ export class stageHandler
         
         const $stage = new stage(this,id);
         
-        if(this.lastCreatedStage != undefined)this.lastCreatedStage.nextStage = $stage;
+        if(this.lastCreatedStage != undefined) this.lastCreatedStage.nextStage = $stage;
         
         this.stages.push($stage);
         
         this.lastCreatedStage = $stage;
+        
+        //console.log($stage);
         
         return $stage
     }

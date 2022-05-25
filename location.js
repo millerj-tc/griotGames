@@ -98,7 +98,7 @@ export class locationHandler
         }
     }
     
-    GetAllCharsAtLocations(){
+    GetAllCharsAtLocations(team="any"){
         
         let $allChars = [];
         
@@ -106,7 +106,8 @@ export class locationHandler
             
             for(const slot of loc.charSlots){
                 
-                $allChars.push(slot.character);
+                if(team == "any") $allChars.push(slot.character);
+                else if (slot.character.alignment == team) $allChars.push(slot.character);
             }
         }
         
