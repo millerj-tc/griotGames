@@ -211,7 +211,36 @@ export class scenarioHandler
             
     }
     
-    
+    PrintTeamInterpersMessages(){
+        
+        for(const char of this.locationHandler.GetAllCharsAtLocations()){
+            
+            if(char.interpersFxs.length > 0){
+                
+                for(const fx of char.interpersFxs){
+                    
+                    let $interpersTargetArr = [];
+                
+                    for(const targetString of fx.targetCharsStrings){
+                        
+                        let $char = this.
+                    }
+                    
+                    if(fx.location = "team"){
+                        
+                        let $charTeamMembers = this.locationHandler.GetAllCharsAtLocations(char.alignment);
+                        
+                        for(const otherChar of $charTeamMembers){
+                            
+                            let $interpersTargetArray = this.gameHandler.database.GetObjFromString
+                            
+                            for(const target of )
+                        }
+                    }
+                }
+            }
+        }
+    }
     
     GetAllScenarioFxThatTargetStage(stage,triggeredOnly=true){
         
