@@ -1,7 +1,5 @@
 //// 100% Necessary
 
-// interpersonal dynamics: inherent value of stats could do with Hope? interperonsal dynamics could also affect individual hope scores
-
 // better name for the Games
 
 // add FAQ
@@ -13,6 +11,8 @@
 // group portraits together on left so they don't break up the lines as weirdly (all mentioned portraits on left side, maybe even with some kind of divider to show distinctions)
 
 // clue text for best at each stage including potential for multiples
+
+// better solution for interpers output if there are similar outputs on both teams
 
 // include winning team name in victory message and change color of victory message to match winning team
 

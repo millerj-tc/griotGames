@@ -54,7 +54,7 @@ export function intializeInterpersRelationships(char){
         const $fx = char.AddInterpers("hope");
         
         $fx.targetCharsStrings = ["Lizzeeta","Lily","Arelta"];
-        $fx.effectText = "[targets] [[flirts/flirt]] with [owner] before the Games begin in earnest. Being a goofball himbo, he notices nothing -- which delights them all the more.";
+        $fx.effectText = "[targets] [[flirts/flirt]] with [owner] before the Games begin in earnest. Being a goofball himbo, he notices nothing -- which delights them all the more.<br><br>";
         $fx.hopeModifier = 1;
     }
     
@@ -63,7 +63,7 @@ export function intializeInterpersRelationships(char){
         const $fx = char.AddInterpers("hope");
         
         $fx.targetCharsStrings = ["Sinch"];
-        $fx.effectText = "[owner] was the one who first believed in [targets] and helped her grow her stength and powers. Sinch is forever indebted to Viatrix for that.";
+        $fx.effectText = "[owner] was the one who first believed in [targets] and helped her grow her stength and powers. Sinch is forever indebted to Viatrix for that.<br><br>";
         $fx.hopeModifier = 1;
     }
 }

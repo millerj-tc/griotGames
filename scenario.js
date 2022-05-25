@@ -274,6 +274,10 @@ export class scenarioHandler
                         
                         if($targMatches.length > 0){
                             
+                            
+                            // if it's not sorted, semantically identical strings in a different order of characters will both print
+                            $targMatches = $targMatches.sort();
+                            
                             let $outputText = this._GetInterpersMessageString(fx,$targMatches);
                             
                             let $itsAlreadyBeenSaid = false;
