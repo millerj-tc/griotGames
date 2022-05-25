@@ -7,8 +7,8 @@ export function intializeInterpersRelationships(char){
         const $fx = char.AddInterpers("hope");
         
         $fx.targetCharsStrings = ["Aqee","Itaru","Keh"];
-        $fx.effectText = "[names],[[ a/]] former demon hunter[[/s]], are uncomfortable with Smim on their team. Before she reformed, she killed many people.";
-        $fx.hopeModifier = 1;
+        $fx.effectText = "[targets],[[ a/]] former demon hunter[[/s]], [[is/are]] uncomfortable with [owner] on their team. Before she reformed, Smim killed many people.<br><br>";
+        $fx.hopeModifier = -1;
         
         console.log(char);
     }

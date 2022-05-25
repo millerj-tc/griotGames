@@ -1,7 +1,7 @@
 import {locationHandler} from "./location.js";
 import {stageHandler} from "./stage.js";
 import {charHandler} from "./character.js";
-import {GetStringOfCharsFromArray} from "./utils.js";
+import {GetStringOfCharsFromArray,ReplaceWordsBasedOnPluralSubjects} from "./utils.js";
 
 class scenarioFx
 {
@@ -211,7 +211,29 @@ export class scenarioHandler
             
     }
     
-    PrintTeamInterpersMessages(){
+    _GetInterpersMessageString(fx,targetChars){
+        
+        let $returnString;
+        
+        $returnString = fx.effectText.replace("[targets]",GetStringOfCharsFromArray(targetChars,"any",true));
+        
+        $returnString = $returnString.replace("[owner]",GetStringOfCharsFromArray([fx.ownerCharacter],"any",true));
+        
+        //console.log($returnString);
+        
+        $returnString = ReplaceWordsBasedOnPluralSubjects(targetChars,$returnString);
+        
+        return $returnString
+    }
+    
+    _InterpersFxsHopeMods(char,amt){
+        
+        char.ModHope(amt);
+    }
+    
+    EvalScenarioBeginInterpersFxs(){
+        
+        const $ui = this.gameHandler.uiHandler;
         
         for(const char of this.locationHandler.GetAllCharsAtLocations()){
             
@@ -223,19 +245,30 @@ export class scenarioHandler
                 
                     for(const targetString of fx.targetCharsStrings){
                         
-                        let $char = this.
+                        let $targChar = this.gameHandler.database.GetObjFromString(targetString);
+                        
+                        $interpersTargetArr.push($targChar);
                     }
                     
                     if(fx.location = "team"){
                         
                         let $charTeamMembers = this.locationHandler.GetAllCharsAtLocations(char.alignment);
                         
+                        let $targMatches = [];
+                        
                         for(const otherChar of $charTeamMembers){
                             
-                            let $interpersTargetArray = this.gameHandler.database.GetObjFromString
-                            
-                            for(const target of )
+                            for(const target of $interpersTargetArr){
+                                
+                                if(otherChar.name == target.name){
+                                    
+                                    $targMatches.push(otherChar);
+                                    this._InterpersFxsHopeMods(otherChar,fx.hopeModifier);
+                                }
+                            }
                         }
+                        
+                        if($targMatches.length > 0) $ui.UpdateOutput(this._GetInterpersMessageString(fx,$targMatches))
                     }
                 }
             }

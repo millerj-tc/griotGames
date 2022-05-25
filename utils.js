@@ -11,10 +11,16 @@ export function GetStringOfCharsFromArray(array,alignment = "any",getPics=false)
             //console.log(array);
             $thumbImg.src = array[0].image75;
             
+            console.log($thumbImg.src);
+            
+            console.log(getPics);
+            
             if(getPics == true){ 
                 $pushedString = $thumbImg.outerHTML + " " + array[0].name;
             }
             else $pushedString = array[0].name;
+            
+            console.log($pushedString);
             
             if(alignment == "any") return $pushedString;
             else if(array[0].alignment == alignment) return $pushedString;
@@ -50,6 +56,8 @@ export function GetStringOfCharsFromArray(array,alignment = "any",getPics=false)
             else if($nameArr.length == 2) $returnString += $nameArr[i]
             else $returnString += $nameArr[i] + ",";
         }
+    
+        console.log($returnString)
         
         return $returnString
     }

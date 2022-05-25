@@ -23,6 +23,9 @@ export class uiHandler
             window.gameHandler.uiHandler.ClearOutput();
             
             setTimeout(function(){
+                
+                window.gameHandler.scenarioHandler.EvalScenarioBeginInterpersFxs();
+                
                 window.gameHandler.scenarioHandler.stageHandler.stages[0].Eval()
             },350);
             

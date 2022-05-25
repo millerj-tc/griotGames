@@ -24,7 +24,7 @@ export class charHandler
             char.IsDebuffed = this.IsDebuffed;
             char.Debuff = this.Debuff;
             char.Rebuff = this.Rebuff;
-            char.IncrementHope = this.IncrementHope;
+            char.ModHope = this.ModHope;
             char.AddInterpers = this.AddInterpers;
             char.hope = 0;
         }
@@ -42,9 +42,9 @@ export class charHandler
         
     }
     
-    IncrementHope(){
+    ModHope(amt){
         
-        this.hope++
+        this.hope += amt;
     }
     
     Debuff(){
