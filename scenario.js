@@ -96,8 +96,14 @@ class scenarioFx
     PrintCompleteEffectOutput(text,wincon=false){
         
         if((this.completeEffectOutputText != "")){
+
             
-            if(wincon == true || !this.scenarioHandler.gameOver) this.scenarioHandler.gameHandler.uiHandler.UpdateOutput(text);
+            if(wincon == true || !this.scenarioHandler.gameOver){
+                
+                this.scenarioHandler.gameHandler.uiHandler.UpdateOutput("<br><br>");
+                
+                this.scenarioHandler.gameHandler.uiHandler.UpdateOutput(text);
+            } 
             //else if(wincon == true)this.scenarioHandler.gameHandler.uiHandler.UpdateOutput(text);
         }
     }
@@ -109,16 +115,14 @@ class scenarioFx
         let $text;
         
         this.scenarioHandler.gameOver = true;
-        
-        this.scenarioHandler.gameHandler.uiHandler.UpdateOutput("<br><br>");
-        
+            
         if(this.currentLeftIncrements == this.requiredIncrements || this.currentRightIncrements == this.requiredIncrements){
             
             //console.log(this);
             
             let $winningChars = this.scenarioHandler.locationHandler.GetAllCharsAtLocations();
             
-            console.log($winningChars);
+            //console.log($winningChars);
             
             let $winningCharString;
         

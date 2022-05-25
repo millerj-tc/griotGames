@@ -1,7 +1,5 @@
 //// 100% Necessary
 
-// write clue text for worst at each stage including potential for multiples
-
 // interpersonal dynamics: inherent value of stats could do with Hope? interperonsal dynamics could also affect individual hope scores
 
 // better name for the Games
@@ -29,6 +27,8 @@
 //campfire scene before the adventure where the characters talk to each other and you?
 
 //// Luxury/Future
+
+// debug tool that allows you to save/load comps for testing
 
 // Each output line is a div so you can float the image, etc.
 
@@ -217,7 +217,8 @@ class stage
 //                            console.log(char1.hope);
                             
                             $ui.UpdateOutput(GetStringOfCharsFromArray([char0],"any",true) + " has decided to side with team " + char0.alignment + ".<br><br>");
-                            $returnArr.push(char0);
+                            
+                            if(char0.location == this.location) $returnArr.push(char0);
                         }
                          else if((char0.hope < char1.hope) && !$dupePrinted){
                              
@@ -228,7 +229,7 @@ class stage
 //                            console.log(char1.hope);
                             
                             $ui.UpdateOutput(GetStringOfCharsFromArray([char1],"any",true)+ " has decided to side with team " + char1.alignment + ".<br><br>");
-                            $returnArr.push(char1);
+                            if(char1.location == this.location) $returnArr.push(char1);
                          }
                     
                         else if(!$dupePrinted) $ui.UpdateOutput(GetStringOfCharsFromArray([char0],"any",true) + " cannot decide between teams. They are sitting this one out.<br><br>");
@@ -385,9 +386,12 @@ class stage
             }
         }
         
-        //this._TriggerStageFx($winners[0].alignment);  
+        for(const char0 of $winners){
+            
+           $worstChars = $worstChars.filter(char1 => char1.name != char0.name);
+        }
         
-        this._ReturnDisplayText($winners)
+        this._ReturnDisplayText($winners);
         
         this._DisplayWorstCharText($worstChars);
         

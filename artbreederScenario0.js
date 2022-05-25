@@ -22,7 +22,7 @@ export function initializeArtbreederScenario0()
 
     $spires0.winText = "[names] reignites the Spires of Light, bringing hope to many. The world is awed by the [alignment] team!";
     
-    $spires0.worstCharacterText = "[names] got frightened by a weird shadow inside the Spires. It <i>was</i> a little freaky, to be fair."
+    $spires0.worstCharacterText = "[names] cynically underestimated the importance of lighting the Spires."
         
     $spires0.location = GH.scenarioHandler.locationHandler.GetLocationById("spires");
     
@@ -40,7 +40,9 @@ export function initializeArtbreederScenario0()
     
     $xora0.evalValue = "toughness";
         
-    $xora0.winText = "[names] manages to cross the Field of Blades to release Xora's trapped star for the [alignment] team, restoring it to the night sky."
+    $xora0.winText = "[names] manages to cross the Field of Blades to release Xora's trapped star for the [alignment] team, restoring it to the night sky.";
+    
+    $xora0.worstCharacterText = "[names] [[is/are]] deterred by a Xorian stone storm. They take shelter in a ruined castle."
         
     $xora0.location = GH.scenarioHandler.locationHandler.GetLocationById("xora");
     
@@ -49,6 +51,8 @@ export function initializeArtbreederScenario0()
     $sanc2.evalValue = "cunning";
         
     $sanc2.winText = "[names] gains access to the Sanctuary of Time, learning ancient rituals for the [alignment] team."
+    
+    $sanc2.worstCharacterText = "[names] [[loses/lose]] track of their teammates and [[gets/get]] lost in a labyrinth beneath the Sanctuary.";
         
     $sanc2.location = GH.scenarioHandler.locationHandler.GetLocationById("sanctuary");
     
@@ -57,6 +61,8 @@ export function initializeArtbreederScenario0()
     $spires1.evalValue = "speed";
         
     $spires1.winText = "[names] discovers a rare and forgotten medicinal herb deep within the dungeons of the Spires of Light. They also find a scroll of strengthening which they cast on their [alignment] team allies at Xora."
+    
+    $spires1.worstCharacterText = "[names] [[is/are]] leaning against the wall huffing and puffing halfway down the steps to the dungeons. Running is not their strong suit."
         
     $spires1.location = GH.scenarioHandler.locationHandler.GetLocationById("spires");
     
@@ -64,7 +70,9 @@ export function initializeArtbreederScenario0()
     
     $xora1.evalValue = "spirit";
         
-    $xora1.winText = "[names], of the [alignment] team, performs a ritual to remove the catacylsmic curse from Xora, restoring it as inhabitable land."
+    $xora1.winText = "[names], of the [alignment] team, performs a ritual to remove the catacylsmic curse from Xora, restoring it as inhabitable land.";
+    
+    $xora1.worstCharacterText = "Exhaustion and apathy have struck [names]. They cheer on their teammates while trying to appear to be helpful.";
         
     $xora1.location = GH.scenarioHandler.locationHandler.GetLocationById("xora");
     

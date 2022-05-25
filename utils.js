@@ -56,20 +56,29 @@ export function GetStringOfCharsFromArray(array,alignment = "any",getPics=false)
 
 export function ReplaceWordsBasedOnPluralSubjects(array,string){
     
-    console.log(string);
-    
     let $returnString = string;
     
-    let $modifiedGroup
+    if($returnString.match(/\[\[(.*?)\]\]/) == null) return $returnString
     
-    if($returnString.match(/\[\[(.*?)\]\]/) != null) $modifiedGroup = $returnString.match(/\[\[(.*?)\]\]/)[1];
-    else return $returnString
+    if(array.length < 1) console.warn("ReplaceWordsBasedOnPluralSubjects passed 0 length array!")
     
-    if(array.length == 1) $modifiedGroup = $modifiedGroup.split("/")[0]
-    else if(array.length > 1) $modifiedGroup = $modifiedGroup.split("/")[1]
-    else console.warn("ReplaceWordsBasedOnPluralSubjects passed 0 length array!")
+    let $modifiedGroup;
     
-    $returnString = $returnString.replace(/\[\[(.*?)\]\]/,$modifiedGroup);
+    let $matches;
+    
+    const $matchCount = $returnString.match(/\[\[(.*?)\]\]/g).length;
+    
+    console.log($returnString.match(/\[\[(.*?)\]\]/g));
+    
+    for(let i = 0; i < $matchCount; i ++){
+        
+         $modifiedGroup = $returnString.match(/\[\[(.*?)\]\]/)[1];
+        
+        if(array.length == 1) $modifiedGroup = $modifiedGroup.split("/")[0]
+        else if(array.length > 1) $modifiedGroup = $modifiedGroup.split("/")[1]
+    
+        $returnString = $returnString.replace(/\[\[(.*?)\]\]/,$modifiedGroup);
+    }
     
     return $returnString
 }
