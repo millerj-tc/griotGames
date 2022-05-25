@@ -41,7 +41,7 @@
 
 import {GetStringOfCharsFromArray} from "./utils.js";
 import {stageFxHandler} from "./stageFx.js";
-import {GetCharsByAlignment} from "./utils.js";
+import {GetCharsByAlignment,ReplaceWordsBasedOnPluralSubjects} from "./utils.js";
 
 class stage
 {
@@ -75,8 +75,8 @@ class stage
         
         if(this.stageHandler.scenarioHandler.gameOver == false && worstChars.length > 0){
             
-            //console.log(worstChar);
             $string = "<br><br>" + this.worstCharacterText.replace("[names]",GetStringOfCharsFromArray(worstChars,"any",true));
+            $string = ReplaceWordsBasedOnPluralSubjects(worstChars,$string);
             $ui.UpdateOutput($string);
         }
     }

@@ -54,6 +54,26 @@ export function GetStringOfCharsFromArray(array,alignment = "any",getPics=false)
         return $returnString
     }
 
+export function ReplaceWordsBasedOnPluralSubjects(array,string){
+    
+    console.log(string);
+    
+    let $returnString = string;
+    
+    let $modifiedGroup
+    
+    if($returnString.match(/\[\[(.*?)\]\]/) != null) $modifiedGroup = $returnString.match(/\[\[(.*?)\]\]/)[1];
+    else return $returnString
+    
+    if(array.length == 1) $modifiedGroup = $modifiedGroup.split("/")[0]
+    else if(array.length > 1) $modifiedGroup = $modifiedGroup.split("/")[1]
+    else console.warn("ReplaceWordsBasedOnPluralSubjects passed 0 length array!")
+    
+    $returnString = $returnString.replace(/\[\[(.*?)\]\]/,$modifiedGroup);
+    
+    return $returnString
+}
+
 export function ShuffleArray(array) {
     
     

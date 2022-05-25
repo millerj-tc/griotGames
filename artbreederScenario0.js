@@ -7,6 +7,10 @@ export function initializeArtbreederScenario0()
     $sanc0.evalValue = "charisma";
         
     $sanc0.winText = "[names] uses their connections to acquire a rare Temporal Medallion for the [alignment] team. They cast an entanglement spell to entrap the other team at the Spires of Light."
+    
+    $sanc0.worstCharacterText = "[names] couldn't convince a stern and cranky Time Keeper to let them pass.";
+    
+    console.log($sanc0.worstCharacterText);
         
     $sanc0.location = GH.scenarioHandler.locationHandler.GetLocationById("sanctuary");
     
@@ -16,7 +20,9 @@ export function initializeArtbreederScenario0()
     
     //$sanc0.nextStage = $spires0;
 
-    $spires0.winText = "[names] reignites the Spires of Light, bringing hope to many. The world is awed by the [alignment] team!"
+    $spires0.winText = "[names] reignites the Spires of Light, bringing hope to many. The world is awed by the [alignment] team!";
+    
+    $spires0.worstCharacterText = "[names] got frightened by a weird shadow inside the Spires. It <i>was</i> a little freaky, to be fair."
         
     $spires0.location = GH.scenarioHandler.locationHandler.GetLocationById("spires");
     
@@ -25,6 +31,8 @@ export function initializeArtbreederScenario0()
     $sanc1.evalValue = "power";
     
     $sanc1.winText = "[names] rescues the last remaining family of Time Koalas from a nefarious demon. The [alignment] team learns the secrets of the Sanctuary of Time from their cuddly new friends!";
+    
+    $sanc1.worstCharacterText = "[names] [[nurses/nurse]] their wounds after catching the wrong end of the demon's horns.";
     
     $sanc1.location = GH.scenarioHandler.locationHandler.GetLocationById("sanctuary");
     
