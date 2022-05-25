@@ -1,12 +1,12 @@
 //// 100% Necessary
 
-// hope stage fx // change hope to individual
+// final stage win con
 
 // interpersonal dynamics
 
 //inherent value of stats could do with Hope? interperonsal dynamics could also affect individual hope scores
 
-// final stage win con
+
 
 // better name for the Games
 
@@ -96,7 +96,8 @@ class stage
             this._TriggerStageFx(winners[0].alignment);
         }
         if(this.nextStage != undefined && !this.stageHandler.scenarioHandler.gameOver){ 
-            $ui.UpdateOutput("<br><br>");   
+            $ui.UpdateOutput("<br><br>");
+            console.log("moving onto next stage " + this.nextStage.id);
             this.nextStage.Eval();
         }
         
@@ -318,12 +319,6 @@ class stage
 
        }
         
-        
-        //--Function to add debuff flavor to output should go right here
-        
-        
-        
-        
         for(let i = 0; i < 50; i++){
             
             if($leftSiders.length == 0 && $rightSiders.length == 0) break
@@ -370,10 +365,10 @@ export class stageHandler
         this.currentStage;
     }
     
-    MoveToNextStage(){
-        
-        this.currentStage = this.currentStage.nextStage;
-    }
+//    MoveToNextStage(){
+//        
+//        this.currentStage = this.currentStage.nextStage;
+//    }
     
     AddStage(id){
         

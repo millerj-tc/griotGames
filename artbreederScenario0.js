@@ -118,4 +118,19 @@ export function initializeArtbreederScenario0()
     
     $spires0.stageFxHandler.AddFx($hopeBuff);
     
+    ///
+    
+    const $finalChallenge = GH.scenarioHandler.AddScenarioFx("relative");
+    
+    $finalChallenge.completeEffectOutputText = "[names] have impressed the world with their bravery and are declared the winners of the Games!";
+    
+    for(const stage of GH.scenarioHandler.stageHandler.stages){
+        
+        stage.stageFxHandler.AddFx($finalChallenge);
+    }
+    
+    $finalChallenge.targetStage = $xora1;
+    
+    console.log($finalChallenge);
+    
 }
