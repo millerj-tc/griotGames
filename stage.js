@@ -10,6 +10,8 @@
 
 //// Very Nice
 
+// only show "has decided to side with X team" once unless they switch again
+
 // clue text for best at each stage including potential for multiples
 
 // include winning team name in victory message and change color of victory message to match winning team
