@@ -1,10 +1,8 @@
 //// 100% Necessary
 
-// clue text for when someone is the worst at a stage, etc.
+// write clue text for worst at each stage including potential for multiples
 
-// interpersonal dynamics
-
-//inherent value of stats could do with Hope? interperonsal dynamics could also affect individual hope scores
+// interpersonal dynamics: inherent value of stats could do with Hope? interperonsal dynamics could also affect individual hope scores
 
 // better name for the Games
 
@@ -32,9 +30,12 @@
 
 // NPC pictures in output?
 
+// pronouns on characters
+
 
 import {GetStringOfCharsFromArray} from "./utils.js";
 import {stageFxHandler} from "./stageFx.js";
+import {GetCharsByAlignment} from "./utils.js";
 
 class stage
 {
@@ -52,16 +53,33 @@ class stage
         this.debuffText = "";
         this.leftDebuffCount = 0;
         this.rightDebuffCount = 0;
+        this.worstCharacterText = "[names] sucks at this";
         
     }
     
-    //ReturnDisplayText is private because the public method is GetDisplayText as defined in constructor :)
+    _DisplayWorstCharText(worstChars){
+        
+        //console.log(worstChar);
+        
+        let $string;
+        
+        const $ui = this.stageHandler.scenarioHandler.gameHandler.uiHandler;
+        
+        //console.log(this.stageHandler.scenarioHandler.gameOver);
+        
+        if(this.stageHandler.scenarioHandler.gameOver == false && worstChars.length > 0){
+            
+            //console.log(worstChar);
+            $string = "<br><br>" + this.worstCharacterText.replace("[names]",GetStringOfCharsFromArray(worstChars,"any",true));
+            $ui.UpdateOutput($string);
+        }
+    }
     
     _ReturnDisplayText(winners){
         
         const $ui = this.stageHandler.scenarioHandler.gameHandler.uiHandler;
         
-        //console.log(winners);
+        console.log(winners);
         
         if(winners.length == 0){
             
@@ -90,11 +108,6 @@ class stage
             $ui.UpdateOutput($outputText);
 
             this._TriggerStageFx(winners[0].alignment);
-        }
-        if(this.nextStage != undefined && !this.stageHandler.scenarioHandler.gameOver){ 
-            $ui.UpdateOutput("<br><br>");
-            console.log("moving onto next stage " + this.nextStage.id);
-            this.nextStage.Eval();
         }
         
         //return 
@@ -197,7 +210,7 @@ class stage
 //                            console.log("char1hope>>>");
 //                            console.log(char1.hope);
                             
-                            $ui.UpdateOutput(GetStringOfCharsFromArray([char0],"any",true) + " has decided to side with team " + char0.alignment + "<br><br>");
+                            $ui.UpdateOutput(GetStringOfCharsFromArray([char0],"any",true) + " has decided to side with team " + char0.alignment + ".<br><br>");
                             $returnArr.push(char0);
                         }
                          else if((char0.hope < char1.hope) && !$dupePrinted){
@@ -208,7 +221,7 @@ class stage
 //                            console.log("char1hope>>>");
 //                            console.log(char1.hope);
                             
-                            $ui.UpdateOutput(GetStringOfCharsFromArray([char1],"any",true)+ " has decided to side with team " + char1.alignment + "<br><br>");
+                            $ui.UpdateOutput(GetStringOfCharsFromArray([char1],"any",true)+ " has decided to side with team " + char1.alignment + ".<br><br>");
                             $returnArr.push(char1);
                          }
                     
@@ -260,6 +273,19 @@ class stage
         return $returnString
     }
     
+    _RemoveDebuffedChars(pool){
+        
+        let $returnArr = [];
+        
+        for(const obj of pool){
+            
+            if(obj.IsDebuffed()) continue
+            else $returnArr.push(obj)
+        }
+        
+        return $returnArr
+    }
+    
     _HighestValueWin(){
         
         this._DeclareLocation();
@@ -281,14 +307,13 @@ class stage
         
         // -- EVALUATE HOPE, DEBUFF IF NO ONE WINS AND HAVE MATHCING
         
-        for(const obj of $pool){
-            
-            if(obj.IsDebuffed()) continue
-            if(obj.alignment == "left") $leftSiders.push(obj)
-            if(obj.alignment == "right") $rightSiders.push(obj)
-        }
+        $pool = this._RemoveDebuffedChars($pool);
         
         const $evalValue = this.evalValue;
+        
+        $leftSiders = GetCharsByAlignment($pool,"left");
+        
+        $rightSiders = GetCharsByAlignment($pool,"right"); 
         
         $leftSiders.sort(function(a, b){return b[$evalValue] - a[$evalValue]});
         $rightSiders.sort(function(a, b){return - b[$evalValue] - a[$evalValue]});
@@ -314,6 +339,16 @@ class stage
             }
 
        }
+        
+        let $worstCharPool = $leftSiders.concat($rightSiders);
+        
+        //$worstCharPool.sort(function(a, b){return b[$evalValue] - a[$evalValue]});
+        
+        let $worstChars = this.stageHandler.scenarioHandler.gameHandler.database.GetCharsMoreThanOneStdBelowMeanForValue($evalValue,$worstCharPool);
+        
+        //console.log($worstChars);
+        
+        //$worstChars = $worstChars.filter(char => char.location == this.location);
         
         for(let i = 0; i < 50; i++){
             
@@ -346,7 +381,11 @@ class stage
         
         //this._TriggerStageFx($winners[0].alignment);  
         
-        return this._ReturnDisplayText($winners)
+        this._ReturnDisplayText($winners)
+        
+        this._DisplayWorstCharText($worstChars);
+        
+        this.stageHandler.GotoNextStage(this.nextStage);
     }
 }
 
@@ -379,6 +418,20 @@ export class stageHandler
         //console.log($stage);
         
         return $stage
+    }
+    
+    GotoNextStage(stage){
+        
+        const $ui = this.scenarioHandler.gameHandler.uiHandler;
+        
+        this.currentStage = stage;
+        
+        if(stage != undefined && !this.scenarioHandler.gameOver){ 
+            
+            $ui.UpdateOutput("<br><br>");
+
+            stage.Eval();
+        }
     }
                 
     GetStageEvalMessage(stage){

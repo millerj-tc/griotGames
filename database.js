@@ -1,12 +1,39 @@
 
 import {artbreederData} from "./artbreederData.js";
+import {StandardDeviation,GetMean} from "./utils.js";
 
 
 export class database
 {
-    constructor(){
+    constructor(gameHandler){
+        
+        this.gameHandler = gameHandler;
         
         this.data = artbreederData;
+    }
+    
+    GetCharsMoreThanOneStdBelowMeanForValue(value,poolToReturn=this.data,poolToEvaluate=this.data){
+        
+        let $returnArr = [];
+        
+        let $valueArr = [];
+        
+        for(const obj of poolToEvaluate){
+            
+            if(obj.dataType == "char") $valueArr.push(obj[value]);
+        }
+        
+        const $std = StandardDeviation($valueArr);
+            
+        const $mean = GetMean($valueArr);
+        
+        for(const obj of poolToReturn){
+            
+            if(obj.dataType == "char" && obj[value] < ($mean - $std)) $returnArr.push(obj)
+        }
+        
+        return $returnArr
+        
     }
 
     DisplayTable(){

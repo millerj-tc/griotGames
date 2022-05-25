@@ -3,6 +3,7 @@ export const artbreederData = [
 
 {
 name:"Vampiress Smim",
+dataType:"char",
 image125:"/images/artbreeder/smim-125.png",
 image75:"/images/artbreeder/smim-75.png",
 power:17,
@@ -16,6 +17,7 @@ cume:15
 
 {
 name:"Itaru",
+dataType:"char",
 image125:"/images/artbreeder/itaru-125.png",
 image75:"/images/artbreeder/itaru-75.png",
 power:16,
@@ -29,6 +31,7 @@ cume:11
 
 {
 name:"Keh",
+dataType:"char",
 image125:"/images/artbreeder/keh-125.png",
 image75:"/images/artbreeder/keh-75.png",
 power:15,
@@ -42,6 +45,7 @@ cume:12
 
 {
 name:"Peneluz",
+dataType:"char",
 image125:"/images/artbreeder/peneluz-125.png",
 image75:"/images/artbreeder/peneluz-75.png",
 power:14,
@@ -55,6 +59,7 @@ cume:5
 
 {
 name:"Sinch",
+dataType:"char",
 image125:"/images/artbreeder/sinch-125.png",
 image75:"/images/artbreeder/sinch-75.png",
 power:13,
@@ -68,6 +73,7 @@ cume:13
 
 {
 name:"Aqee",
+dataType:"char",
 image125:"/images/artbreeder/aqee-125.png",
 image75:"/images/artbreeder/aqee-75.png",
 power:12,
@@ -81,6 +87,7 @@ cume:16
 
 {
 name:"Leigh",
+dataType:"char",
 image125:"/images/artbreeder/leigh-125.png",
 image75:"/images/artbreeder/leigh-75.png",
 power:11,
@@ -94,6 +101,7 @@ cume:6
 
 {
 name:"Hukho",
+dataType:"char",
 image125:"/images/artbreeder/hukho-125.png",
 image75:"/images/artbreeder/hukho-75.png",
 power:10,
@@ -107,6 +115,7 @@ cume:14
 
 {
 name:"Lizzeeta",
+dataType:"char",
 image125:"/images/artbreeder/lizzeeta-125.png",
 image75:"/images/artbreeder/lizzeeta-75.png",
 power:9,
@@ -120,6 +129,7 @@ cume:17
 
 {
 name:"Elm",
+dataType:"char",
 image125:"/images/artbreeder/elm-125.png",
 image75:"/images/artbreeder/elm-75.png",
 power:8,
@@ -133,6 +143,7 @@ cume:10
 
 {
 name:"Viatrix",
+dataType:"char",
 image125:"/images/artbreeder/viatrix-125.png",
 image75:"/images/artbreeder/viatrix-75.png",
 power:7,
@@ -146,6 +157,7 @@ cume:7
 
 {
 name:"Lily",
+dataType:"char",
 image125:"/images/artbreeder/lily-125.png",
 image75:"/images/artbreeder/lily-75.png",
 power:6,
@@ -159,6 +171,7 @@ cume:9
 
 {
 name:"Izmaela",
+dataType:"char",
 image125:"/images/artbreeder/izmaela-125.png",
 image75:"/images/artbreeder/izmaela-75.png",
 power:5,
@@ -172,6 +185,7 @@ cume:8
 
 {
 name:"Dayaqa",
+dataType:"char",
 image125:"/images/artbreeder/dayaqa-125.png",
 image75:"/images/artbreeder/dayaqa-75.png",
 power:4,
@@ -185,6 +199,7 @@ cume:4
 
 {
 name:"Brick",
+dataType:"char",
 image125:"/images/artbreeder/brick-125.png",
 image75:"/images/artbreeder/brick-75.png",
 power:3,
@@ -198,6 +213,7 @@ cume:3
 
 {
 name:"Gerard",
+dataType:"char",
 image125:"/images/artbreeder/gerard-125.png",
 image75:"/images/artbreeder/gerard-75.png",
 power:2,
@@ -211,6 +227,7 @@ cume:2
 
 {
 name:"Arelta",
+dataType:"char",
 image125:"/images/artbreeder/arelta-125.png",
 image75:"/images/artbreeder/arelta-75.png",
 power:1,

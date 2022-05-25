@@ -104,7 +104,7 @@ class scenarioFx
     
     WinCon(){
         
-        //console.log("GAME OVER");
+        console.log("GAME OVER");
         
         let $text;
         
@@ -168,9 +168,9 @@ export class scenarioHandler
         
         let $returnArr = [];
         
-        for(const char of this.gameHandler.database.data){
+        for(const obj of this.gameHandler.database.data){
             
-            $returnArr.push(char);
+            if(obj.dataType == "char") $returnArr.push(char);
         }
         
         return $returnArr
