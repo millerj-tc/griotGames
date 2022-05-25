@@ -1,18 +1,14 @@
 //// 100% Necessary
 
-// final stage win con
+// clue text for when someone is the worst at a stage, etc.
 
 // interpersonal dynamics
 
 //inherent value of stats could do with Hope? interperonsal dynamics could also affect individual hope scores
 
-
-
 // better name for the Games
 
 // add FAQ
-
-// clue text for when someone is the worst at a stage, etc.
 
 //// Very Nice
 

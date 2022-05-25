@@ -54,23 +54,29 @@ class scenarioFx
         
         if(this.targetStage == "undefined") console.error("Essential properties for scenarioFx have not been set!");
         
+        let $text = this.completeEffectOutputText;
+        
         let $winningCharString
         
         if(this.currentLeftIncrements == this.requiredIncrements){
-            $winningCharString = this.winLocation.GetCharsHere("any","left");
+            $winningCharString = GetStringOfCharsFromArray(this.winLocation.GetCharsHere(),"left",true);
             this.targetStage.rightDebuffCount++
         }
         if(this.currentRightIncrements == this.requiredIncrements){
-            $winningCharString = this.winLocation.GetCharsHere("any","right");
+            $winningCharString = GetStringOfCharsFromArray(this.winLocation.GetCharsHere(),"right",true);
             this.targetStage.leftDebuffCount++
         }
         
-        this.completeEffectOutputText = this.completeEffectOutputText.replace("[names]",$winningCharString);
+        $winningCharString = 
         
-        this.PrintCompleteEffectOutput();
+        $text = this.completeEffectOutputText.replace("[names]",$winningCharString);
+        
+        this.PrintCompleteEffectOutput($text);
     }
     
     TeamHopeBuff(){
+        
+        let $text = this.completeEffectOutputText;
         
         if(this.currentLeftIncrements == this.requiredIncrements) this.targetChars = this.scenarioHandler.locationHandler.GetAllCharsAtLocations("left");
         
@@ -84,21 +90,23 @@ class scenarioFx
         
         //console.log("HOPE TEXT " + this.winLocation.id);
         
-        this.PrintCompleteEffectOutput();
+        this.PrintCompleteEffectOutput($text);
     }
     
-    PrintCompleteEffectOutput(wincon=false){
+    PrintCompleteEffectOutput(text,wincon=false){
         
         if((this.completeEffectOutputText != "")){
             
-            if(wincon == false && !this.scenarioHandler.gameOver) this.scenarioHandler.gameHandler.uiHandler.UpdateOutput(this.completeEffectOutputText);
-            else this.scenarioHandler.gameHandler.uiHandler.UpdateOutput(this.completeEffectOutputText);
+            if(wincon == true || !this.scenarioHandler.gameOver) this.scenarioHandler.gameHandler.uiHandler.UpdateOutput(text);
+            //else if(wincon == true)this.scenarioHandler.gameHandler.uiHandler.UpdateOutput(text);
         }
     }
     
     WinCon(){
         
-        console.log("GAME OVER");
+        //console.log("GAME OVER");
+        
+        let $text;
         
         this.scenarioHandler.gameOver = true;
         
@@ -109,6 +117,8 @@ class scenarioFx
             //console.log(this);
             
             let $winningChars = this.scenarioHandler.locationHandler.GetAllCharsAtLocations();
+            
+            console.log($winningChars);
             
             let $winningCharString;
         
@@ -125,11 +135,13 @@ class scenarioFx
 
             }
             
-            this.completeEffectOutputText = this.completeEffectOutputText.replace("[names]",$winningCharString);
+            console.log($winningCharString);
             
-            this.completeEffectOutputText = `<b><span style="color:green">` + this.completeEffectOutputText + "</span></b>";
+            $text = this.completeEffectOutputText.replace("[names]",$winningCharString);
+            
+            $text = `<b><span style="color:green">` + $text + "</span></b>";
 
-            this.PrintCompleteEffectOutput(true);
+            this.PrintCompleteEffectOutput($text,true);
         }
     }
 }
