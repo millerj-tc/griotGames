@@ -10,9 +10,64 @@ export function intializeInterpersRelationships(char){
         $fx.effectText = "[targets],[[ a/]] former demon hunter[[/s]], [[is/are]] uncomfortable with [owner] on their team. Before she reformed, Smim killed many people.<br><br>";
         $fx.hopeModifier = -1;
         
-        console.log(char);
+        //console.log(char);
+    }
+    
+    if(char.name == "Elm"){
+        
+        const $fx = char.AddInterpers("hope");
+        
+        $fx.targetCharsStrings = ["Lily","Peneluz"];
+        $fx.effectText = "[targets] [[loves/love]] [owner] so much, they [[is/are]] grateful to be on a team with her.<br><br>";
+        $fx.hopeModifier = 1;
+    }
+    
+    if(char.name == "Dayaqa"){
+        
+        const $fx = char.AddInterpers("hope");
+        
+        $fx.targetCharsStrings = ["Aqee","Izmaela"];
+        $fx.effectText = "[owner] has worked a lot with [targets]. She knows exactly which spells to prepare to support them.<br><br>";
+        $fx.hopeModifier = 1;
+    }
+    
+    if(char.name == "Hukho"){
+        
+        const $fx = char.AddInterpers("hope");
+        
+        $fx.targetCharsStrings = ["Lizzeeta"];
+        $fx.effectText = "[owner] and [targets] just don't seem to get along.<br><br>";
+        $fx.hopeModifier = -1;
+    }
+    
+    if(char.name == "Lizzeeta"){
+        
+        const $fx = char.AddInterpers("hope");
+        
+        $fx.targetCharsStrings = ["Hukho"];
+        $fx.effectText = "";
+        $fx.hopeModifier = -1;
+    }
+    
+    if(char.name == "Brick"){
+        
+        const $fx = char.AddInterpers("hope");
+        
+        $fx.targetCharsStrings = ["Lizzeeta","Lily","Arelta"];
+        $fx.effectText = "[targets] [[flirts/flirt]] with [owner] before the Games begin in earnest. Being a goofball himbo, he notices nothing -- which delights them all the more.";
+        $fx.hopeModifier = 1;
+    }
+    
+    if(char.name == "Viatrix"){
+        
+        const $fx = char.AddInterpers("hope");
+        
+        $fx.targetCharsStrings = ["Sinch"];
+        $fx.effectText = "[owner] was the one who first believed in [targets] and helped her grow her stength and powers. Sinch is forever indebted to Viatrix for that.";
+        $fx.hopeModifier = 1;
     }
 }
+
 
 export const artbreederData = [
     

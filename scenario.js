@@ -264,6 +264,7 @@ export class scenarioHandler
                                     
                                     $targMatches.push(otherChar);
                                     this._InterpersFxsHopeMods(otherChar,fx.hopeModifier);
+                                    console.warn(otherChar);
                                 }
                             }
                         }
