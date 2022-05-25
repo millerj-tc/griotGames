@@ -235,6 +235,8 @@ export class scenarioHandler
         
         const $ui = this.gameHandler.uiHandler;
         
+        let $spokenStrings = [];
+        
         for(const char of this.locationHandler.GetAllCharsAtLocations()){
             
             if(char.interpersFxs.length > 0){
@@ -264,12 +266,33 @@ export class scenarioHandler
                                     
                                     $targMatches.push(otherChar);
                                     this._InterpersFxsHopeMods(otherChar,fx.hopeModifier);
-                                    console.warn(otherChar);
+                                    //$charsWhoHaveSpoken.push(char);
+                                    //console.warn(otherChar);
                                 }
                             }
                         }
                         
-                        if($targMatches.length > 0) $ui.UpdateOutput(this._GetInterpersMessageString(fx,$targMatches))
+                        if($targMatches.length > 0){
+                            
+                            let $outputText = this._GetInterpersMessageString(fx,$targMatches);
+                            
+                            let $itsAlreadyBeenSaid = false;
+                            
+                            for(const spokenString of $spokenStrings){
+                                
+                                console.warn(spokenString);
+                                console.warn($outputText);
+                                
+                                if(spokenString == $outputText) $itsAlreadyBeenSaid = true;
+                            }
+                            
+                            if(!$itsAlreadyBeenSaid){
+                                $ui.UpdateOutput($outputText);
+
+                                $spokenStrings.push($outputText);
+                            }
+                            
+                        }
                     }
                 }
             }

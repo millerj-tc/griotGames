@@ -18,7 +18,7 @@ export function intializeInterpersRelationships(char){
         const $fx = char.AddInterpers("hope");
         
         $fx.targetCharsStrings = ["Lily","Peneluz"];
-        $fx.effectText = "[targets] [[loves/love]] [owner] so much, they [[is/are]] grateful to be on a team with her.<br><br>";
+        $fx.effectText = "[targets] [[loves/love]] [owner] so much, they are grateful to be on a team with her.<br><br>";
         $fx.hopeModifier = 1;
     }
     
