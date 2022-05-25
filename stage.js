@@ -10,6 +10,8 @@
 
 //// Very Nice
 
+// clue text for best at each stage including potential for multiples
+
 // include winning team name in victory message and change color of victory message to match winning team
 
 // create a color for each location row so you can more easily see how the characters are assigned
@@ -31,6 +33,8 @@
 // NPC pictures in output?
 
 // pronouns on characters
+
+// stages have "side objectives" that other stats can get, increasing hope?
 
 
 import {GetStringOfCharsFromArray} from "./utils.js";
