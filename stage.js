@@ -10,6 +10,8 @@
 
 // only show "has decided to side with X team" once unless they switch again
 
+// group portraits together on left so they don't break up the lines as weirdly (all mentioned portraits on left side, maybe even with some kind of divider to show distinctions)
+
 // clue text for best at each stage including potential for multiples
 
 // include winning team name in victory message and change color of victory message to match winning team
