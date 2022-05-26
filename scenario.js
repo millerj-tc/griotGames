@@ -119,7 +119,7 @@ class scenarioFx
     
     WinCon(){
         
-        console.log("GAME OVER");
+        if(this.scenarioHandler.gameOver) return
         
         let $text;
         
