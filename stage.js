@@ -2,6 +2,8 @@
 
 // debug tool that allows you to save/load comps for testing
 
+// debug tool that allows you to run the simulation many times and output data
+
 // add color bar left/right to inline character portraits to show team
 
 
