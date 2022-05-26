@@ -2,9 +2,7 @@
 
 // remove all console outputs
 
-// change index.html to have right time/date on it
-
-// host and post
+// firefox optimization???
 
 
 //// Very Nice
