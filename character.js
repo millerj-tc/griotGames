@@ -27,6 +27,7 @@ export class charHandler
             char.ModHope = this.ModHope;
             char.AddInterpers = this.AddInterpers;
             char.hope = 0;
+            char.lastWonHope = null;
         }
     }
     

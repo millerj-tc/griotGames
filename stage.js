@@ -1,22 +1,27 @@
 //// 100% Necessary
 
-// better name for the Games
+// only show "has decided to side with X team" once unless they switch again
 
 // add FAQ
 
-//// Very Nice
+// remove all console outputs
 
-// only show "has decided to side with X team" once unless they switch again
+// change color of background
+
+// create a color for each location row so you can more easily see how the characters are assigned
+
+// Google Form (submission and bugs and link on FAQ page)
+
+// include winning team name in victory message and change color of victory message to match winning team
+
+
+//// Very Nice
 
 // group portraits together on left so they don't break up the lines as weirdly (all mentioned portraits on left side, maybe even with some kind of divider to show distinctions)
 
 // clue text for best at each stage including potential for multiples
 
 // better solution for interpers output if there are similar outputs on both teams
-
-// include winning team name in victory message and change color of victory message to match winning team
-
-// create a color for each location row so you can more easily see how the characters are assigned
 
 // add color bar left/right to inline character portraits to show team
 
@@ -25,8 +30,6 @@
 // 2v1 buff (opp must have two characters that overpower char in order to win that stage)
 
 // characters clue dialog in certain locations
-
-//campfire scene before the adventure where the characters talk to each other and you?
 
 //// Luxury/Future
 
@@ -218,7 +221,10 @@ class stage
 //                            console.log("char1hope>>>");
 //                            console.log(char1.hope);
                             
-                            $ui.UpdateOutput(GetStringOfCharsFromArray([char0],"any",true) + " has decided to side with team " + char0.alignment + ".<br><br>");
+                            if(char0.lastWonHope != true){
+                                $ui.UpdateOutput(GetStringOfCharsFromArray([char0],"any",true) + " has decided to side with team " + char0.alignment + ".<br><br>");
+                                char0.lastWonHope = true;
+                            }
                             
                             if(char0.location == this.location) $returnArr.push(char0);
                         }
@@ -230,8 +236,14 @@ class stage
 //                            console.log("char1hope>>>");
 //                            console.log(char1.hope);
                             
-                            $ui.UpdateOutput(GetStringOfCharsFromArray([char1],"any",true)+ " has decided to side with team " + char1.alignment + ".<br><br>");
-                            if(char1.location == this.location) $returnArr.push(char1);
+                            if(char1.lastWonHope != true){
+                                
+                                $ui.UpdateOutput(GetStringOfCharsFromArray([char1],"any",true)+ " has decided to side with team " + char1.alignment + ".<br><br>");
+                                char1.lastWonHope = true;
+                            }
+                            
+                             
+                             if(char1.location == this.location) $returnArr.push(char1);
                          }
                     
                         else if(!$dupePrinted) $ui.UpdateOutput(GetStringOfCharsFromArray([char0],"any",true) + " cannot decide between teams. They are sitting this one out.<br><br>");
