@@ -30,7 +30,7 @@ export class uiHandler
             },350);
             
         };
-        $evalButton.innerHTML = "GO!";
+        $evalButton.innerHTML = "See results!";
         
         document.getElementById("content").append($evalButton);
     }
@@ -100,34 +100,61 @@ export class uiHandler
         document.getElementById("output").innerHTML += string;
     }
     
-    CreateLocationRow(loc,charSlots){
+    CreateLocationRow(loc,charSlots,bgColor){
         
         //const row = this.locationTable.insertRow(0);
         
         //row.style = "fill:#1c87c9;";
         
         let col0 = document.createElement("div");
+        col0.style.width = "250px";
+        col0.style.height = "250px";
+        col0.style.display = "flex";
+        col0.style.alignItems = "center";
+        col0.style.backgroundColor = bgColor;
 
         let col1 = document.createElement("div");
+        col1.style.width = "250px";
+        col1.style.height = "250px";
+        col1.style.backgroundColor = bgColor;
 
         let col2 = document.createElement("div");
+        col2.style.width = "250px";
+        col2.style.height = "250px";
+        col2.style.display = "flex";
+        col2.style.alignItems = "center";
+        col2.style.backgroundColor = bgColor;
 
         
         this.locationTable.append(col0);
         this.locationTable.append(col1);
         this.locationTable.append(col2);
         
+        const col0Content = document.createElement("div");
+        const col1Content = document.createElement("div");
+        const col2Content = document.createElement("div");
+        
+        col0.append(col0Content);
+        col1.append(col1Content);
+        col2.append(col2Content);
+        
         for(let i = 0; i < charSlots; i++){
             
             let $leftSlotDiv = document.createElement("div");
             $leftSlotDiv.id = this.SetDivId("left",loc.id,i);
-            $leftSlotDiv.style = "min-height:125px;grid-column-start:1;";
-            col0.append($leftSlotDiv);
+            $leftSlotDiv.style = "min-height:125px;grid-column-start:1";
+            //$leftSlotDiv.style.position = "absolute";
+            //$leftSlotDiv.style.height = "125px";
+            //$leftSlotDiv.style.margin = "auto";
+            
+            //$leftSlotDiv.style.justifyContent = "center";
+            //$leftSlotDiv.style.alignItems = "center"; 
+            col0Content.append($leftSlotDiv);
             
             let $rightSlotDiv = document.createElement("div");
             $rightSlotDiv.id = this.SetDivId("right",loc.id,i);
-            $rightSlotDiv.style = "min-height:125px;grid-column-start:3";
-            col2.append($rightSlotDiv);
+            $rightSlotDiv.style = "min-height:125px;grid-column-start:3;vertical-align:middle";
+            col2Content.append($rightSlotDiv);
             
             //console.log("ROW!!!");
             
@@ -196,8 +223,8 @@ export class uiHandler
         let $locImg = document.createElement("img");
         //console.log($locImg);
         $locImg.src = loc.image;
-        col1.append($locImg);
-        col1.style = `justify-items: center;
+        col1Content.append($locImg);
+        col1Content.style = `justify-items: center;
             align-items: center;
             vertical-align:center;
             text-align:center;

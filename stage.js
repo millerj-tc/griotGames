@@ -1,18 +1,18 @@
 //// 100% Necessary
 
-// only show "has decided to side with X team" once unless they switch again
+// create a color for each location row so you can more easily see how the characters are assigned
 
-// add FAQ
+// lower cume breaks ties ("underdogs")
+
+// make error code less yell-y
+
+// include winning team name in victory message and change color of victory message to match winning team
 
 // remove all console outputs
 
 // change color of background
 
-// create a color for each location row so you can more easily see how the characters are assigned
-
 // Google Form (submission and bugs and link on FAQ page)
-
-// include winning team name in victory message and change color of victory message to match winning team
 
 
 //// Very Nice
