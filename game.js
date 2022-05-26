@@ -23,9 +23,13 @@ export class gameHandler
         
         if(window.innerWidth < 1000){
             
-            document.getElementById("output").style.position = "fixed";
-            document.getElementById("output").style.left = "0px";
-            document.getElementById("output").style.top = "850px";
+            document.getElementById("content").style.position = "static";
+            document.getElementById("output").style.position = "static";
+            document.getElementById("output").style.maxHeight = "";
+            document.getElementById("output").style.overflowY = "";
+            document.getElementById("output").style.fontSize = "12px";
+            //document.getElementById("output").style.left = "0px";
+            //document.getElementById("output").style.top = "850px";
         }
             
         this.uiHandler.CreateLocationTable();
