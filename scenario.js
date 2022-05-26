@@ -52,7 +52,7 @@ class scenarioFx
         if(this.currentLeftIncrements == this.requiredIncrements || this.currentRightIncrements == this.requiredIncrements) this.CompleteEffect()
         
         if(this.requiredIncrements == "relative" && this.incrementingStage == this.targetStage){ 
-            console.log(this);
+            //console.log(this);
             this.CompleteEffect();
         }
     }
@@ -346,8 +346,8 @@ export class scenarioHandler
                             
                             for(const spokenString of $spokenStrings){
                                 
-                                console.warn(spokenString);
-                                console.warn($outputText);
+                                //console.warn(spokenString);
+                                //console.warn($outputText);
                                 
                                 if(spokenString == $outputText) $itsAlreadyBeenSaid = true;
                             }

@@ -10,7 +10,7 @@ export function initializeArtbreederScenario0()
     
     $sanc0.worstCharacterText = "[names] couldn't convince a stern and cranky Time Keeper to let them pass.";
     
-    console.log($sanc0.worstCharacterText);
+    //console.log($sanc0.worstCharacterText);
         
     $sanc0.location = GH.scenarioHandler.locationHandler.GetLocationById("sanctuary");
     

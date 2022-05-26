@@ -11,16 +11,16 @@ export function GetStringOfCharsFromArray(array,alignment = "any",getPics=false)
             //console.log(array);
             $thumbImg.src = array[0].image75;
             
-            console.log($thumbImg.src);
+            //console.log($thumbImg.src);
             
-            console.log(getPics);
+            //console.log(getPics);
             
             if(getPics == true){ 
                 $pushedString = $thumbImg.outerHTML + " " + array[0].name;
             }
             else $pushedString = array[0].name;
             
-            console.log($pushedString);
+            //console.log($pushedString);
             
             if(alignment == "any") return $pushedString;
             else if(array[0].alignment == alignment) return $pushedString;
@@ -58,7 +58,7 @@ export function GetStringOfCharsFromArray(array,alignment = "any",getPics=false)
             else $returnString += $nameArr[i] + ",";
         }
     
-        console.log($returnString)
+        //console.log($returnString)
         
         return $returnString
     }
@@ -77,7 +77,7 @@ export function ReplaceWordsBasedOnPluralSubjects(array,string){
     
     const $matchCount = $returnString.match(/\[\[(.*?)\]\]/g).length;
     
-    console.log($returnString.match(/\[\[(.*?)\]\]/g));
+    //console.log($returnString.match(/\[\[(.*?)\]\]/g));
     
     for(let i = 0; i < $matchCount; i ++){
         

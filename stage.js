@@ -2,8 +2,7 @@
 
 // remove all console outputs
 
-// firefox optimization???
-
+// if viewport  
 
 //// Very Nice
 
@@ -87,7 +86,7 @@ class stage
         
         const $ui = this.stageHandler.scenarioHandler.gameHandler.uiHandler;
         
-        console.log(winners);
+        //console.log(winners);
         
         if(winners.length == 0){
             
@@ -271,7 +270,7 @@ class stage
         for(const fx of this.stageFxHandler.fxs){
             
             fx.IncrementTarget(team);
-            console.log(fx);
+            //console.log(fx);
         }
     }
     
