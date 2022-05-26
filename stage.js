@@ -1,5 +1,7 @@
 //// 100% Necessary
 
+//accidental main push test
+
 // debug tool that allows you to save/load comps for testing
 
 // debug tool that allows you to run the simulation many times and output data
@@ -59,6 +61,7 @@ class stage
         this.leftDebuffCount = 0;
         this.rightDebuffCount = 0;
         this.worstCharacterText = "[names] sucks at this";
+        this.debug = false;
         
     }
     
@@ -308,6 +311,8 @@ class stage
     
     _HighestValueWin(){
         
+        if(this.debug) console.warn("===");
+        
         this._DeclareLocation();
         
         let $leftSiders = [];
@@ -325,7 +330,7 @@ class stage
         
         $pool = this._RemoveDuplicateChars($pool);
         
-        //console.log($pool);
+        if(this.debug) console.log($pool);
         
         // -- EVALUATE HOPE, DEBUFF IF NO ONE WINS AND HAVE MATHCING
         
@@ -338,7 +343,10 @@ class stage
         $rightSiders = GetCharsByAlignment($pool,"right"); 
         
         $leftSiders.sort(function(a, b){return b[$evalValue] - a[$evalValue]});
-        $rightSiders.sort(function(a, b){return - b[$evalValue] - a[$evalValue]});
+        $rightSiders.sort(function(a, b){return b[$evalValue] - a[$evalValue]});
+        
+        if(this.debug) console.log($leftSiders);
+        if(this.debug) console.log($rightSiders);
         
         //--Remove 1 char from evaluation per debuff
         
@@ -361,6 +369,9 @@ class stage
             }
 
        }
+        
+        if(this.debug) console.log($leftSiders);
+        if(this.debug) console.log($rightSiders);
         
         let $worstCharPool = $leftSiders.concat($rightSiders);
         
@@ -388,6 +399,8 @@ class stage
                     
                     if(obj[this.evalValue] == $leftSiders[i][this.evalValue] && obj != $leftSiders[i]) $winners.push(obj)
                 }
+                
+                break
             }
             
             if($rightSiders[i][this.evalValue] > $leftSiders[i][this.evalValue] || $leftSiders[i] == undefined){
@@ -398,8 +411,12 @@ class stage
                     
                     if(obj[this.evalValue] == $rightSiders[i][this.evalValue] && obj != $rightSiders[i]) $winners.push(obj)
                 }
+                
+                break
             }
         }
+        
+        if(this.debug) console.log($winners);
         
         for(const char0 of $winners){
             
