@@ -21,7 +21,7 @@ export class gameHandler
     
     Start(){
         
-        if(window.innerWidth < 600){
+        if(window.innerWidth < 1000){
             
             document.getElementById("output").style.position = "relative";
             document.getElementById("output").style.left = "0px";
