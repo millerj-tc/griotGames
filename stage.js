@@ -28,6 +28,8 @@
 
 //// Luxury/Future
 
+// build people's confidence by letting them play the "prequalifiers" -- non competitive puzzles where you get to know the characters with less output text and maybe fewer character choices
+
 // debug tool that allows you to save/load comps for testing
 
 // Each output line is a div so you can float the image, etc.
