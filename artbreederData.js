@@ -75,8 +75,8 @@ export const artbreederData = [
 {
 name:"Vampiress Smim",
 dataType:"char",
-image125:"/images/artbreeder/smim-125.png",
-image75:"/images/artbreeder/smim-75.png",
+image125:"images/artbreeder/smim-125.png",
+image75:"images/artbreeder/smim-75.png",
 power:17,
 toughness:12,
 cunning:11,
