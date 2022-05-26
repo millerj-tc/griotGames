@@ -16,6 +16,8 @@ class stageFx
         
         this.scenarioFxTarget.SetWinLocation(this.stageFxHandler.stage.location);
         
+        this.scenarioFxTarget.SetIncrementingStage(this.stageFxHandler.stage);
+        
         for(let i=0; i < this.incrementAmount; i++){
             
             this.scenarioFxTarget.Increment(team);

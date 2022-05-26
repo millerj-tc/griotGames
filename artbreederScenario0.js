@@ -136,7 +136,7 @@ export function initializeArtbreederScenario0()
     
     ///
     
-    const $finalChallenge = GH.scenarioHandler.AddScenarioFx("relative");
+    const $finalChallenge = GH.scenarioHandler.AddScenarioFx("relative","finalWincon");
     
     $finalChallenge.completeEffectOutputText = "[names] have impressed the world with their bravery and are declared the winners of the Games!";
     
@@ -147,6 +147,12 @@ export function initializeArtbreederScenario0()
     
     $finalChallenge.targetStage = $xora1;
     
-    console.log($finalChallenge);
+    ///
+    
+//    const $finalChallengeTieBreaker = GH.scenarioHandler.AddScenarioFx("relative");
+//    
+//    $finalChallenge.completeEffectOutputText = "The world loves an underdog story! [names] have impressed the world with their chutzpah and are declared the winners of the Games!";
+//    
+//    $finalChallenge.targetStage = $xora1;
     
 }

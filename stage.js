@@ -1,21 +1,14 @@
 //// 100% Necessary
 
-// create a color for each location row so you can more easily see how the characters are assigned
-
-// lower cume breaks ties ("underdogs")
-
-// make error code less yell-y
-
-// include winning team name in victory message and change color of victory message to match winning team
-
 // remove all console outputs
-
-// change color of background
 
 // Google Form (submission and bugs and link on FAQ page)
 
 
 //// Very Nice
+
+// include winning team name in victory message and change color of victory message to match winning team
+
 
 // group portraits together on left so they don't break up the lines as weirdly (all mentioned portraits on left side, maybe even with some kind of divider to show distinctions)
 
@@ -162,7 +155,11 @@ class stage
                 
                 if(char0.name == char1.name && char0.alignment == char1.alignment && char0 != char1) {
                     
-                    $ui.UpdateOutput("<i><b>" + char0.name + " cannot occupy two spaces on the same team! This simulation is invalid!!!" + "</i></b>");
+                    $ui.ClearOutput();
+                    
+                    $ui.UpdateOutput("<i><b>I am very sorry to inform you that " + char0.name + " cannot occupy two spaces on the same team... This simulation is invalid, please try again</i></b>");
+                    
+                    this.stageHandler.scenarioHandler.gameOver = true;
                 }
             }
             
@@ -270,6 +267,7 @@ class stage
         for(const fx of this.stageFxHandler.fxs){
             
             fx.IncrementTarget(team);
+            console.log(fx);
         }
     }
     
@@ -321,6 +319,8 @@ class stage
         let $pool = this.location.GetCharsHere();
         
         this._WarnIfDupeCharsOnSameTeam();
+        
+        if(this.stageHandler.scenarioHandler.gameOver) return
         
         $pool = this._RemoveDuplicateChars($pool);
         

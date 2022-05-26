@@ -15,18 +15,27 @@ class scenarioFx
         this.targetStageOutputText = "";
         this.targetStage;
         this.targetChars;
+        this.incrementingStage;
         this.winLocation;
         this.winningChar;
+        this.winTeam;
+        this.fxType = type;
         
         if(type == "wincon") this.CompleteEffect = this.WinCon;
         if(type == "debuff") this.CompleteEffect = this.StageDebuff;
         if(type == "teamHopeBuff") this.CompleteEffect = this.TeamHopeBuff;
+        if(type == "finalWincon") this.CompleteEffect = this.WinCon;
         
     }
     
     SetWinLocation(location){
         
         this.winLocation = location;
+    }
+    
+    SetIncrementingStage(stage){
+        
+        this.incrementingStage = stage;
     }
     
     Increment(team){
@@ -42,7 +51,7 @@ class scenarioFx
         
         if(this.currentLeftIncrements == this.requiredIncrements || this.currentRightIncrements == this.requiredIncrements) this.CompleteEffect()
         
-        if(this.requiredIncrements == "relative" && this.winLocation == this.targetStage){ 
+        if(this.requiredIncrements == "relative" && this.incrementingStage == this.targetStage){ 
             console.log(this);
             this.CompleteEffect();
         }
@@ -115,38 +124,91 @@ class scenarioFx
         let $text;
         
         this.scenarioHandler.gameOver = true;
+        
+        let $winningCharString
             
         if(this.currentLeftIncrements == this.requiredIncrements || this.currentRightIncrements == this.requiredIncrements){
             
-            //console.log(this);
+            if(this.currentLeftIncrements == this.requiredIncrements) $winningCharString = this._TeamWins("left");
+            if(this.currentRightIncrements == this.requiredIncrements) $winningCharString = this._TeamWins("right");
             
-            let $winningChars = this.scenarioHandler.locationHandler.GetAllCharsAtLocations();
+            this._PrepOutputText($winningCharString);
             
-            //console.log($winningChars);
+        }
+        else if(this.requiredIncrements == "relative"){
+            
+            if(this.currentLeftIncrements > this.currentRightIncrements){
+                $winningCharString = this._TeamWins("left");
+                this._PrepOutputText($winningCharString);
+            }
+            else if(this.currentRightIncrements > this.currentLeftIncrements){
+                $winningCharString = this._TeamWins("right");
+                this._PrepOutputText($winningCharString);
+            }
+            else if(this.fxType == "finalWincon") this._LowestCumeTiebreaker();
+        }
+    }
+    
+    _PrepOutputText(winningCharString){
+        
+            let $text = this.completeEffectOutputText.replace("[names]",winningCharString);
+            
+            let $teamColor;
+        
+            if(this.winTeam == "left") $teamColor = "blue";
+            if(this.winTeam == "right") $teamColor = "red";
+        
+            $text = `<b><span style="color:` + $teamColor + `">` + $text + "</span></b>";
+
+            this.PrintCompleteEffectOutput($text,true);
+    }
+    
+    _TeamWins(team){
+        
+        let $winningChars = this.scenarioHandler.locationHandler.GetAllCharsAtLocations();
             
             let $winningCharString;
         
-            if(this.currentLeftIncrements == this.requiredIncrements){
-
-                $winningCharString = GetStringOfCharsFromArray($winningChars,"left",true);
-
-                //console.log($winningCharString);
-            }
+            $winningCharString = GetStringOfCharsFromArray($winningChars,team,true);
         
-            if(this.currentRightIncrements == this.requiredIncrements){
-
-                $winningCharString = GetStringOfCharsFromArray($winningChars,"right",true);
-
-            }
+            this.winTeam = team;
+        
+            return $winningCharString
+    }
+    
+    _LowestCumeTiebreaker(){
+        
+        let $leftTeamCume = 0;
+        
+        let $rightTeamCume = 0 ;
+        
+        const $leftTeam = this.scenarioHandler.locationHandler.GetAllCharsAtLocations("left");
+        
+        for(const char of $leftTeam){
             
-            console.log($winningCharString);
-            
-            $text = this.completeEffectOutputText.replace("[names]",$winningCharString);
-            
-            $text = `<b><span style="color:green">` + $text + "</span></b>";
-
-            this.PrintCompleteEffectOutput($text,true);
+            $leftTeamCume += char.cume;
         }
+        
+        const $rightTeam = this.scenarioHandler.locationHandler.GetAllCharsAtLocations("right");
+        
+        for(const char of $rightTeam){
+            
+            $rightTeamCume += char.cume;
+        }
+        
+        console.log($leftTeamCume);
+        console.log($rightTeamCume);
+        
+        let $winningCharString
+        
+        if($leftTeamCume < $rightTeamCume) $winningCharString = this._TeamWins("left");
+        else if($leftTeamCume > $rightTeamCume) $winningCharString = this._TeamWins("right");
+        else this._TeamWins("error");
+        
+        this.completeEffectOutputText = "The world loves an underdog story! [names] have impressed the world with their chutzpah and are declared the winners of the Games!";
+        
+        this._PrepOutputText($winningCharString);
+        
     }
 }
 
