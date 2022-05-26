@@ -21,7 +21,11 @@ export class gameHandler
     
     Start(){
         
-        //this.database.ModData();
+        if(window.innerWidth < 600){
+            
+            document.getElementById("output").style.position = "relative";
+            document.getElementById("output").style.left = "0px";
+        }
             
         this.uiHandler.CreateLocationTable();
         
