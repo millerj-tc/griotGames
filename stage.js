@@ -36,6 +36,8 @@
 
 // stages have "side objectives" that other stats can get, increasing hope?
 
+// character "trumps" --> Gerard has low Power, but wins power contests vs x,y,z with special output text to signify
+
 
 import {GetStringOfCharsFromArray} from "./utils.js";
 import {stageFxHandler} from "./stageFx.js";
