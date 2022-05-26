@@ -1,12 +1,14 @@
 //// 100% Necessary
 
-//accidental main push test
-
 // debug tool that allows you to save/load comps for testing
 
 // debug tool that allows you to run the simulation many times and output data
 
 // add color bar left/right to inline character portraits to show team
+
+// build people's confidence by letting them play the "prequalifiers" -- non competitive puzzles where you get to know the characters with less output text and maybe fewer character choices. this also lets you put more complexity into the "tournament simulation" because people can learn some things in the prequalifiers.
+
+// you could have the evaluation mechanism treat the characters more like AI with deterministic behaviors ("moves") that they use in certain situations?
 
 
 //// Very Nice
@@ -27,7 +29,6 @@
 
 //// Luxury/Future
 
-// build people's confidence by letting them play the "prequalifiers" -- non competitive puzzles where you get to know the characters with less output text and maybe fewer character choices
 
 // Each output line is a div so you can float the image, etc.
 
