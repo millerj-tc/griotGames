@@ -2,7 +2,7 @@
 
 // remove all console outputs
 
-// Google Form (submission and bugs and link on FAQ page)
+// change index.html to have right time/date on it
 
 // host and post
 
