@@ -23,9 +23,11 @@ export class gameHandler
         
         if(window.innerWidth < 1000){
             
-            document.getElementById("output").style.position = "relative";
+            document.getElementById("output").style.position = "static";
             document.getElementById("output").style.left = "0px";
         }
+        
+        this.uiHandler.UpdateOutput(window.innerWidth);
             
         this.uiHandler.CreateLocationTable();
         
