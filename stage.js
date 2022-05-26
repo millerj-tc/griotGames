@@ -1,21 +1,19 @@
 //// 100% Necessary
 
-// remove all console outputs
+// debug tool that allows you to save/load comps for testing
 
-// if viewport  
+// add color bar left/right to inline character portraits to show team
+
 
 //// Very Nice
 
 // include winning team name in victory message and change color of victory message to match winning team
-
 
 // group portraits together on left so they don't break up the lines as weirdly (all mentioned portraits on left side, maybe even with some kind of divider to show distinctions)
 
 // clue text for best at each stage including potential for multiples
 
 // better solution for interpers output if there are similar outputs on both teams
-
-// add color bar left/right to inline character portraits to show team
 
 // chars buffed on certain locations like Chandra on Valakut and Teferi on Vesuva
 
@@ -26,8 +24,6 @@
 //// Luxury/Future
 
 // build people's confidence by letting them play the "prequalifiers" -- non competitive puzzles where you get to know the characters with less output text and maybe fewer character choices
-
-// debug tool that allows you to save/load comps for testing
 
 // Each output line is a div so you can float the image, etc.
 
