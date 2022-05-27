@@ -12,6 +12,12 @@
 
 // i think it would be less overwhelming and more interesting if there was a wider spread of win con increment requirements (output lengths). Then you could tell which matchups were more competitive and which were stomps which would make you feel more accomplished for finding the more exciting matchups. It could also be a clue if there were "key characters"(/items/whatever) that you needed to access the more difficult stages so you could tell which roster choices have a higher baseline
 
+// turn stats into moves with a ranked value that outputs when they use it and sometimes gets special text. 
+
+// break stages into phases (prep, earlygame, teamfight, etc.) where stats/moves consistently matter in the same way
+
+// early game/late game characters/stats and experience/scaling?
+
 
 //// Very Nice
 
