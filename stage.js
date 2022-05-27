@@ -1,41 +1,10 @@
 //// 100% Necessary
 
-// debug tool that allows you to save/load comps for testing
 
-// debug tool that allows you to run the simulation many times and output data
-
-// add color bar left/right to inline character portraits to show team
-
-// build people's confidence by letting them play the "prequalifiers" -- non competitive puzzles where you get to know the characters with less output text and maybe fewer character choices. this also lets you put more complexity into the "tournament simulation" because people can learn some things in the prequalifiers.
-
-// you could have the evaluation mechanism treat the characters more like AI with deterministic behaviors ("moves") that they use in certain situations?
-
-// i think it would be less overwhelming and more interesting if there was a wider spread of win con increment requirements (output lengths). Then you could tell which matchups were more competitive and which were stomps which would make you feel more accomplished for finding the more exciting matchups. It could also be a clue if there were "key characters"(/items/whatever) that you needed to access the more difficult stages so you could tell which roster choices have a higher baseline
-
-// turn stats into moves with a ranked value that outputs when they use it and sometimes gets special text. 
-
-// break stages into phases (prep, earlygame, teamfight, etc.) where stats/moves consistently matter in the same way. Maybe this is how you create the win con spread. If you get swept in 80-100% of a given phase across all locations then you insta-lose. So you have to be winning somewhere to advance.
-
-    // planning - cunning
-    // initiative - speed
-    // action - power
-    // resist - toughness
-    // determination - spirit
-    // recruit - charisma
-    
-// early game/late game characters/stats and experience/scaling?
-
-// challenges with ranked stats (NPCs) allow you a lot more flexibility for stat checks that don't have to be relative between teams. Bonus for being >1 MEAN+STD or <1 MEAN-STD (move through challenge more quickly.) Bonus for winning Charisma stage could be recruiting NPC (and npc also has certain preferences where they will always side with x.)
-
-// power that act more like magic FX? (skip stages/checks?)
-
-// line up N+1 prizes in array in descending order of value (N = characters per team), assign one to each character in order (so theoretically you can get 2 to 1 advantages). Then you don't know $leftsiders/$rightsiders for HighestWin().
 
 // allow people to explore bios of people/places/etc. so it feels like they can gather info? this kind of frontloads expectation of effort. Maybe make bios a reward -- like something you fill in as you uncover things. Start with some small amt of info.
 
 // char selection is floating div with bio links
-
-// random teams button in main client
 
 
 //// Very Nice
@@ -60,10 +29,6 @@
 // Each output line is a div so you can float the image, etc.
 
 // NPC pictures in output?
-
-// pronouns on characters
-
-// stages have "side objectives" that other stats can get, increasing hope?
 
 // character "trumps" --> Gerard has low Power, but wins power contests vs x,y,z with special output text to signify
 
