@@ -27,6 +27,8 @@
 
 // challenges with ranked stats (NPCs) allow you a lot more flexibility for stat checks that don't have to be relative between teams. Bonus for being >1 MEAN+STD or <1 MEAN-STD (move through challenge more quickly.) Bonus for winning Charisma stage could be recruiting NPC (and npc also has certain preferences where they will always side with x.)
 
+// power that act more like magic FX? (skip stages/checks?)
+
 // line up N+1 prizes in array in descending order of value (N = characters per team), assign one to each character in order (so theoretically you can get 2 to 1 advantages). Then you don't know $leftsiders/$rightsiders for HighestWin().
 
 // allow people to explore bios of people/places/etc. so it feels like they can gather info? this kind of frontloads expectation of effort. Maybe make bios a reward -- like something you fill in as you uncover things. Start with some small amt of info.
