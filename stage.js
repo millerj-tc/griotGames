@@ -18,6 +18,8 @@
 
 // early game/late game characters/stats and experience/scaling?
 
+// line up N+1 prizes in array in descending order of value (N = characters per team), assign one to each character in order (so theoretically you can get 2 to 1 advantages). Then you don't know $leftsiders/$rightsiders for HighestWin().
+
 
 //// Very Nice
 
