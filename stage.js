@@ -14,11 +14,26 @@
 
 // turn stats into moves with a ranked value that outputs when they use it and sometimes gets special text. 
 
-// break stages into phases (prep, earlygame, teamfight, etc.) where stats/moves consistently matter in the same way
+// break stages into phases (prep, earlygame, teamfight, etc.) where stats/moves consistently matter in the same way. Maybe this is how you create the win con spread. If you get swept in 80-100% of a given phase across all locations then you insta-lose. So you have to be winning somewhere to advance.
 
+    // planning - cunning
+    // initiative - speed
+    // action - power
+    // resist - toughness
+    // determination - spirit
+    // recruit - charisma
+    
 // early game/late game characters/stats and experience/scaling?
 
+// challenges with ranked stats (NPCs) allow you a lot more flexibility for stat checks that don't have to be relative between teams. Bonus for being >1 MEAN+STD or <1 MEAN-STD (move through challenge more quickly.) Bonus for winning Charisma stage could be recruiting NPC (and npc also has certain preferences where they will always side with x.)
+
 // line up N+1 prizes in array in descending order of value (N = characters per team), assign one to each character in order (so theoretically you can get 2 to 1 advantages). Then you don't know $leftsiders/$rightsiders for HighestWin().
+
+// allow people to explore bios of people/places/etc. so it feels like they can gather info? this kind of frontloads expectation of effort. Maybe make bios a reward -- like something you fill in as you uncover things. Start with some small amt of info.
+
+// char selection is floating div with bio links
+
+// random teams button in main client
 
 
 //// Very Nice
