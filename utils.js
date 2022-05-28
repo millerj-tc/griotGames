@@ -73,6 +73,8 @@ export function ReplacePronouns(char,string){
     
     $returnString = $returnString.replaceAll("[their]",char.pronouns.their);
     
+    $returnString = $returnString.replaceAll("[theirs]",char.pronouns.theirs);
+    
     $returnString = $returnString.replaceAll("[themself]",char.pronouns.themself);
     
     return $returnString
