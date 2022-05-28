@@ -98,6 +98,8 @@ export class uiHandler
     UpdateOutput(string){
         
         document.getElementById("output").innerHTML += string;
+        
+        // [[[smim/keh,itaru]]] Keh and Itaru don't trust Smim. <-- indicate groupings of images with /. Create some code to handle 1-4 images per group (nice little grid, etc.)
     }
     
     CreateLocationRow(loc,charSlots,bgColor){
