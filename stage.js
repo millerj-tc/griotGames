@@ -1,38 +1,3 @@
-//// 100% Necessary
-
-
-
-// allow people to explore bios of people/places/etc. so it feels like they can gather info? this kind of frontloads expectation of effort. Maybe make bios a reward -- like something you fill in as you uncover things. Start with some small amt of info.
-
-// char selection is floating div with bio links
-
-
-//// Very Nice
-
-// include winning team name in victory message and change color of victory message to match winning team
-
-// group portraits together on left so they don't break up the lines as weirdly (all mentioned portraits on left side, maybe even with some kind of divider to show distinctions)
-
-// clue text for best at each stage including potential for multiples
-
-// better solution for interpers output if there are similar outputs on both teams
-
-// chars buffed on certain locations like Chandra on Valakut and Teferi on Vesuva
-
-// 2v1 buff (opp must have two characters that overpower char in order to win that stage)
-
-// characters clue dialog in certain locations
-
-//// Luxury/Future
-
-
-// Each output line is a div so you can float the image, etc.
-
-// NPC pictures in output?
-
-// character "trumps" --> Gerard has low Power, but wins power contests vs x,y,z with special output text to signify
-
-
 import {GetStringOfCharsFromArray} from "./utils.js";
 import {stageFxHandler} from "./stageFx.js";
 import {GetCharsByAlignment,ReplaceWordsBasedOnPluralSubjects} from "./utils.js";
