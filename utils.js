@@ -63,6 +63,21 @@ export function GetStringOfCharsFromArray(array,alignment = "any",getPics=false)
         return $returnString
     }
 
+export function ReplacePronouns(char,string){
+    
+    let $returnString = string;
+    
+    $returnString = $returnString.replaceAll("[they]",char.pronouns.they);
+    
+    $returnString = $returnString.replaceAll("[them]",char.pronouns.them);
+    
+    $returnString = $returnString.replaceAll("[their]",char.pronouns.their);
+    
+    $returnString = $returnString.replaceAll("[themself]",char.pronouns.themself);
+    
+    return $returnString
+}
+
 export function ReplaceWordsBasedOnPluralSubjects(array,string){
     
     let $returnString = string;
