@@ -12,9 +12,10 @@ export class uiHandler
     
     ResizeOnResize(){
         
-        if(window.innerWidth < 1150){
+        //document.getElementById("content").style.top = "-750px";
         
-            document.getElementById("content").style.position = "static";
+        if(window.innerWidth < 1150){
+    
             document.getElementById("output").style.position = "static";
             document.getElementById("output").style.maxHeight = "";
             document.getElementById("output").style.overflowY = "";
@@ -33,6 +34,35 @@ export class uiHandler
             document.getElementById("content").style.maxWidth = "75vw";
             document.getElementById("output").style.overflowY = "auto";
         }
+    }
+    
+    _CreateCollapseButton(){
+        
+        const $collapseButton = document.createElement("button");
+        $collapseButton.style.fontSize = "32pt";
+        $collapseButton.setAttribute("data-collapsed","true");
+        
+        $collapseButton.onclick = function(){
+       
+            if($collapseButton.getAttribute("data-collapsed") == "true"){
+            
+                document.getElementById("content").style.transform = "translateY(750px)";
+                $collapseButton.setAttribute("data-collapsed","false");
+                $collapseButton.innerHTML = "^";
+
+            }
+            else{
+                
+                $collapseButton.setAttribute("data-collapsed","true");
+                document.getElementById("content").style.transform = "translateY(0px)";
+                $collapseButton.innerHTML = "v";
+            }
+
+        };
+        
+        $collapseButton.innerHTML = "v";
+        
+        document.getElementById("content").append($collapseButton);
     }
     
     CreateEvalGoButton(){

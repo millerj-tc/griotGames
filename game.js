@@ -21,9 +21,11 @@ export class gameHandler
     
     Start(){
         
-        window.addEventListener("resize", this.uiHandler.ResizeOnResize);
+        // DEPRECATING RESIZE CODE FOR NOW
         
-        this.uiHandler.ResizeOnResize();
+        //window.addEventListener("resize", this.uiHandler.ResizeOnResize);
+        
+        //this.uiHandler.ResizeOnResize();
             
         this.uiHandler.CreateLocationTable();
         
@@ -39,6 +41,8 @@ export class gameHandler
         initializeArtbreederScenario0();
         
         this.uiHandler.CreateEvalGoButton();
+        
+        this.uiHandler._CreateCollapseButton();
         
         this.scenarioHandler.charHandler.AddFunctionsToCharacters();
         

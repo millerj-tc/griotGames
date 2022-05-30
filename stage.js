@@ -130,7 +130,12 @@ class stage
     
     _RemoveDuplicateChars(){
         
-        let $allChars = this.stageHandler.scenarioHandler.locationHandler.GetAllCharsAtLocations(); 
+        let $allChars = this.stageHandler.scenarioHandler.locationHandler.GetAllCharsAtLocations();
+        
+        for(const char of $allChars){
+            
+            //if(char.hope != 0) console.log(char.name + " (" + char.alignment + "): " + char.hope);
+        }
         
         let $returnArr = [];
         
@@ -270,6 +275,8 @@ class stage
     _HighestValueWin(){
         
         if(this.debug) console.warn("===");
+        
+        //console.table(this.stageHandler.scenarioHandler.locationHandler.GetAllCharsAtLocations());
         
         this._DeclareLocation();
         

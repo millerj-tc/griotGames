@@ -6,19 +6,21 @@
         </script>
     </head>
     <body style="font-family:sans-serif;background-color:F6EABE">
-        <div id="content" style="position:fixed;top:1.4vw;max-height:100vh;float:left;overflow-y:auto">
+        <div id="content" style="position:fixed;top:-750px;overflow-y:hidden;transition:transform 0.75s;z-index: 100">
             <div style="max-width:65vw;font-size:22pt">
+            </div>
+        </div>
+        <div id="output" style="position:fixed;top:125px;max-height:80vh;font-size:1.4vw;text-align:left;padding:20px;max-width:75vw;overflow-y:auto">
+            
             Assemble the perfect team to win the 100th year of the Grand Adventure Games -- a competition for exceptional individuals to prove their mettle.
+            
+            <br><br><button style="font-size:32pt" onclick="gameHandler.Start()">Start</button>
             
                 <br><br><i>Experiment with this simulation, then once you think you have figured out the best 5 characters for a team submit them using this <a href="https://forms.gle/orut5ZEWsZAZGRN2A" target="_blank" rel="noopener noreferrer">Google Form</a>. The submission deadline for this first run is Sunday May 29 at 9pm CST. All the rosters will be put in a double-elimination tournament that uses the same logic as the simulation.
                 
                 <br><br>You can also check out the <a href="https://millerj-tc.github.io/griotGames/FAQ.html" target="_blank" rel="noopener noreferrer">FAQ here</a>.
                 
                 <br><br>This is optimized for Google Chrome on desktop. It works on my mobile browser, but I will have to keep working on it for more wide support.</i> 
-            <br><br><button style="font-size:32pt" onclick="gameHandler.Start()">Start</button>
-            </div>
-        </div>
-        <div id="output" style="max-height:90vh;font-size:1.4vw;position:fixed;left:785px;text-align:left;padding:20px;max-width:75vw;overflow-y:auto">
 
         </div>
     </body>
