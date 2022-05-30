@@ -20,7 +20,40 @@ class stage
         this.rightDebuffCount = 0;
         this.worstCharacterText = "[names] sucks at this";
         this.debug = false;
+        this.evalDiv = document.createElement("div");
         
+    }
+    
+    EvalFlow(){
+        
+        this._MoveCurrentOutputToEvalDiv();
+        
+        this.Eval();
+        
+        this._HighlightChangedDivs();
+    }
+    
+    _MoveCurrentOutputToEvalDiv(){
+        
+        this.evalDiv = document.getElementById("output");
+    }
+    
+    _HighlightChangedDivs(){
+        
+        const $outputDivs = document.querySelectorAll(".outputDiv");
+        
+        const $oldOutputDivs = this.evalDiv.querySelectorAll(".outputDiv");
+        
+        for(const output of $outputDivs){
+            
+            for(const oldOutput of $oldOutputDivs){
+                
+                if(output == oldOutput){
+                    
+                    output.style.backgroundColor = "yellow";
+                }
+            }
+        }
     }
     
     _DisplayWorstCharText(worstChars){
@@ -77,32 +110,6 @@ class stage
         }
         
         //return 
-    }
-    
-    _GetPool(){
-        
-        // remember some stages have no location
-    }
-    
-    _GetNondebuffedChars(pool){
-        
-        // THIS IS ALL WRONG
-        
-//        let $returnArr = [];
-//        
-//        for(const obj of pool){
-//            
-//            let $debuffCount = 0;
-//            
-//            for(const debuff of obj.debuffs){
-//                
-//                if(debuff.stageId == this.id) $debuffCount++
-//            }
-//            
-//            if($debuffCount == 0) $returnArr.push(obj);
-//        }
-//        
-//        return $returnArr
     }
     
     _WarnIfDupeCharsOnSameTeam(){
@@ -171,19 +178,8 @@ class stage
                         }
                         
                         $dupesFound.push(char0);
-                        
-                        //let $char0Hope = $scenHand.GetTeamHope(char0.alignment);
-                        //let $char1Hope = $scenHand.GetTeamHope(char1.alignment);
-                    
-                    
-                        
+                
                         if((char0.hope > char1.hope) && !$dupePrinted){
-                            
-//                            console.warn(this.id);
-//                            console.log("char0hope>>>");
-//                            console.log(char0.hope);
-//                            console.log("char1hope>>>");
-//                            console.log(char1.hope);
                             
                             if(char0.lastWonHope != true){
                                 $ui.UpdateOutput(GetStringOfCharsFromArray([char0],"any",true) + " has decided to side with team " + char0.alignment + ".<br><br>");
@@ -193,12 +189,7 @@ class stage
                             if(char0.location == this.location) $returnArr.push(char0);
                         }
                          else if((char0.hope < char1.hope) && !$dupePrinted){
-                             
-//                            console.warn(this.id);
-//                            console.log("char0hope>>>");
-//                            console.log(char0.hope);
-//                            console.log("char1hope>>>");
-//                            console.log(char1.hope);
+                        
                             
                             if(char1.lastWonHope != true){
                                 
@@ -218,8 +209,6 @@ class stage
                 
             if($dupeMatches == 0 && char0.location == this.location) $returnArr.push(char0);
         }
-        
-        //console.log($returnArr);
             
         return $returnArr
     }
