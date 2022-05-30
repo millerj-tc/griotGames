@@ -9,7 +9,7 @@ export function GetStringOfCharsFromArray(array,alignment = "any",getPics=false)
             const $thumbImg = document.createElement("img");
             //$thumbImg.style.verticalAlign = "middle";
             //console.log(array);
-            $thumbImg.src = array[0].image75;
+            $thumbImg.src = array[0].imageS;
             
             //console.log($thumbImg.src);
             
@@ -32,7 +32,7 @@ export function GetStringOfCharsFromArray(array,alignment = "any",getPics=false)
             
             const $thumbImg = document.createElement("img");
             //$thumbImg.style.verticalAlign = "middle";
-            $thumbImg.src = char.image75;
+            $thumbImg.src = char.imageS;
             
             //console.log($thumbImg);
             
