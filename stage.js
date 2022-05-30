@@ -64,7 +64,7 @@ class stage
             let $span = document.createElement("span");
             $span.style.color = $color;
             $span.style.fontWeight = "bold";
-            $span.style.fontSize = "24pt";
+            $span.style.fontSize = "calc(15px + 1.5vw)";
             $span.innerHTML = winners[0].alignment;
             
             $outputText = $outputText.replace("[alignment]",$span.outerHTML);

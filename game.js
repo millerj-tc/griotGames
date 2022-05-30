@@ -21,16 +21,9 @@ export class gameHandler
     
     Start(){
         
-        if(window.innerWidth < 1000){
-            
-            document.getElementById("content").style.position = "static";
-            document.getElementById("output").style.position = "static";
-            document.getElementById("output").style.maxHeight = "";
-            document.getElementById("output").style.overflowY = "";
-            document.getElementById("output").style.fontSize = "12px";
-            //document.getElementById("output").style.left = "0px";
-            //document.getElementById("output").style.top = "850px";
-        }
+        window.addEventListener("resize", this.uiHandler.ResizeOnResize);
+        
+        this.uiHandler.ResizeOnResize();
             
         this.uiHandler.CreateLocationTable();
         

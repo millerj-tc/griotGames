@@ -10,6 +10,31 @@ export class uiHandler
         
     }
     
+    ResizeOnResize(){
+        
+        if(window.innerWidth < 1150){
+        
+            document.getElementById("content").style.position = "static";
+            document.getElementById("output").style.position = "static";
+            document.getElementById("output").style.maxHeight = "";
+            document.getElementById("output").style.overflowY = "";
+            
+            document.getElementById("output").style.fontSize = "calc(12px + 1.5vw)"
+            
+        }
+        else{
+            
+            document.getElementById("output").style.maxHeight = "90vh"
+            document.getElementById("output").style.fontSize = "1.4vw"
+            document.getElementById("output").style.position = "fixed"
+            document.getElementById("output").style.left = "785px"
+            document.getElementById("output").style.textAlign = "left"
+            document.getElementById("output").style.padding = "20px"
+            document.getElementById("content").style.maxWidth = "75vw";
+            document.getElementById("output").style.overflowY = "auto";
+        }
+    }
+    
     CreateEvalGoButton(){
         
         const $evalButton = document.createElement("button");
