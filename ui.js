@@ -157,6 +157,15 @@ export class uiHandler
         // [[[smim/keh,itaru]]] Keh and Itaru don't trust Smim. <-- indicate groupings of images with /. Create some code to handle 1-4 images per group (nice little grid, etc.)
     }
     
+    NewStageOutputDiv(string){
+        
+        const $div = document.createElement("div");
+        
+        $div.innerHTML = string;
+        
+        document.getElementById("output").append($div);
+    }
+    
     CreateLocationRow(loc,charSlots,bgColor){
         
         //const row = this.locationTable.insertRow(0);
