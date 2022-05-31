@@ -10,6 +10,24 @@ export class evaluation
         this.winTeam;
         this.winChar;
         this.location;
+        this.pool = [];
+        this.initialPool = [];
+    }
+    
+    GetCharsFromPool(alignment = "any"){
+        
+        if(alignment == "any") return this.pool
+        else if (alignment == "left") return this.pool.filter(c => c.alignment == "left")
+        else if (alignment == "right") return this.pool.filter(c => c.alignment == "right")
+        else console.warn("evaluation.GetCharsFromPool() is malfunctioning");
+    }
+    
+    GetCharsFromInitialPool(alignment = "any"){
+        
+        if(alignment == "any") return this.initialPool
+        else if (alignment == "left") return this.initialPool.filter(c => c.alignment == "left")
+        else if (alignment == "right") return this.initialPool.filter(c => c.alignment == "right")
+        else console.warn("evaluation.GetCharsFromInitialPool() is malfunctioning");
     }
 }
 
@@ -85,6 +103,8 @@ export class stage
     _SetEvalPool(eval){
         
         eval.pool = this.location.GetCharsHere();
+        
+        eval.initialPool = eval.pool;
     }
     
     _DeclareLocation(){

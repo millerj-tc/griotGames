@@ -58,6 +58,10 @@ export class cloneCrisisStage extends stage
         this._LowestCunningConfusedUnlessAlone(eval);
         
         this._LowestCunningConfusedOutput(eval);
+        
+        this._HighestSpeedDebuffsGreatestPower(eval);
+        
+        this._HighestSpeedDebuffOutput(eval);
     }
     
     _NPCRecruitedByClosestCharisma(eval){
@@ -135,5 +139,42 @@ export class cloneCrisisStage extends stage
     _LowestCunningConfusedOutput(eval){
         
         if(eval.confusedCharacter != null) this.uiHandler.NewStageOutputDiv(eval.confusedCharacter.name + " imperfectly execute their team plan, they are out of position!");
+    }
+    
+    _HighestSpeedDebuffsGreatestPower(eval){
+        
+        const $highestSpeedChar = eval.pool.sort(function(a, b){return b.speed - a.speed})[0];
+        
+        let $enemyAlign = $highestSpeedChar.GetEnemyAlignment();
+        
+        const $enemyArr = eval.GetCharsFromPool($enemyAlign);
+        
+        if($enemyArr.length < 1) return
+        
+        const $highestPowerEnemyOfSpeediestChar = $enemyArr.sort(function(a, b){return b.power - a.power})[0];
+        
+        eval.pool.filter(c => c != $highestPowerEnemyOfSpeediestChar);
+        
+        eval.speedDebuffedChar = $highestPowerEnemyOfSpeediestChar;
+        
+        eval.speediestChar = $highestSpeedChar;
+    }
+    
+    _HighestSpeedDebuffOutput(eval){
+        
+        if(eval.speedDebuffedChar != null) this.uiHandler.NewStageOutputDiv(eval.speedDebuffedChar.name + " is distracted by the speed of " + eval.speediestChar.name);
+    }
+    
+    _GreatestPowerCapturesLowestToughness(eval){
+        
+        const $greatestPowerChar = eval.pool.sort(function(a, b){return b.power - a.power})[0];
+        
+        let $enemyAlign = $greatestPowerChar.GetEnemyAlignment();
+        
+        const $enemyArr = eval.GetCharsFromInitialPool($enemyAlign);
+        
+        if($enemyArr.length < 1) return
+        
+        
     }
 }

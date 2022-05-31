@@ -43,6 +43,16 @@ export class charHandler
         
     }
     
+    GetEnemyAlignment(){
+        
+        if(this.alignment == "left") return "right";
+        else if(this.alignment == "right") return "left";
+        else {
+            console.warn(this)
+            console.warn(".GetEnemyAlignment() is malfunctioning");
+        }
+    }
+    
     ModHope(amt){
         
         this.hope += amt;
