@@ -68,12 +68,7 @@ export class stageHandler
             
             $ui.UpdateOutput("<br><br>");
 
-            stage.Eval();
+            stage.EvalFlow();
         }
-    }
-                
-    GetStageEvalMessage(stage){
-        
-        
     }
 }

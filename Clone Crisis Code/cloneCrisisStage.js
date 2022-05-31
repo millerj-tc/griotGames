@@ -39,6 +39,8 @@ export class cloneCrisisStage extends stage
         
         this._HighlightChangedDivs();
         
+        this._TriggerStageFx($eval.winners[0].alignment);
+        
         this.stageHandler.GotoNextStage(this.nextStage);
     }
 
@@ -79,7 +81,7 @@ export class cloneCrisisStage extends stage
             
             $string = "<br><br>" + this.worstCharacterText.replace("[names]",GetStringOfCharsFromArray(worstChars,"any",true));
             $string = ReplaceWordsBasedOnPluralSubjects(worstChars,$string);
-            $ui.UpdateOutput($string);
+            $ui.NewStageOutputDiv($string);
         }
     }
     
@@ -91,7 +93,7 @@ export class cloneCrisisStage extends stage
         
         if(eval.winners.length == 0){
             
-            $ui.UpdateOutput("No one was able to accomplish anything here this time!");
+            $ui.NewStageOutputDiv("No one was able to accomplish anything here this time!");
             
         }
         else{
@@ -113,9 +115,8 @@ export class cloneCrisisStage extends stage
             
             //console.log("STAGE TEXT " + this.id);
 
-            $ui.UpdateOutput($outputText);
+            $ui.NewStageOutputDiv($outputText);
 
-            this._TriggerStageFx(eval.winners[0].alignment);
         }
         
         //return 
