@@ -8,6 +8,8 @@ export const marvelData = [
     imageS: "images/marvel/beast-50.png",
     pronouns:{they: "he", them: "him", their: "him", theirs: "his", themself: "himself"},
     power: "10",
+    toughness: "8",
+    speed: "7",
     cunning: "12",
     charisma: "8",
     cume: "30"
@@ -20,6 +22,8 @@ export const marvelData = [
     imageS: "images/marvel/tchalla-50.png",
     pronouns:{they: "he", them: "him", their: "him", theirs: "his", themself: "himself"},
     power: "9",
+    toughness: "6",
+    speed: "11",
     cunning: "7",
     charisma: "12",
     cume: "28"
@@ -32,6 +36,8 @@ export const marvelData = [
     imageS: "images/marvel/bishop-50.png",
     pronouns:{they: "he", them: "him", their: "him", theirs: "his", themself: "himself"},
     power: "6",
+    toughness: "7",
+    speed: "9",
     cunning: "11",
     charisma: "7",
     cume: "24"
@@ -44,6 +50,8 @@ export const marvelData = [
     imageS: "images/marvel/cyclops-50.png",
     pronouns:{they: "he", them: "him", their: "him", theirs: "his", themself: "himself"},
     power: "5",
+    toughness: "4",
+    speed: "2",
     cunning: "6",
     charisma: "11",
     cume: "22"
@@ -56,6 +64,8 @@ export const marvelData = [
     imageS: "images/marvel/colossus-50.png",
     pronouns:{they: "he", them: "him", their: "him", theirs: "his", themself: "himself"},
     power: "12",
+    toughness: "10",
+    speed: "1",
     cunning: "1",
     charisma: "9",
     cume: "22"
@@ -67,7 +77,8 @@ export const marvelData = [
     imageM: "images/marvel/daredevil-100.png",
     imageS: "images/marvel/daredevil-50.png",
     pronouns:{they: "he", them: "him", their: "him", theirs: "his", themself: "himself"},
-    power: "12",
+    toughness: "1",
+    speed: "6",
     power: "1",
     cunning: "10",
     charisma: "10",
@@ -81,6 +92,8 @@ export const marvelData = [
     imageS: "images/marvel/jessica-50.png",
     pronouns:{they: "she", them: "her", their: "hers", theirs: "hers", themself: "herself"},
     power: "7",
+    toughness: "5",
+    speed: "4",
     cunning: "9",
     charisma: "4",
     cume: "20"
@@ -93,6 +106,8 @@ export const marvelData = [
     imageS: "images/marvel/logan-50.png",
     pronouns:{they: "he", them: "him", their: "him", theirs: "his", themself: "himself"},
     power: "11",
+    toughness: "11",
+    speed: "8",
     cunning: "4",
     charisma: "3",
     cume: "18"
@@ -105,6 +120,8 @@ export const marvelData = [
     imageS: "images/marvel/okoye-50.png",
     pronouns:{they: "she", them: "her", their: "hers", theirs: "hers", themself: "herself"},
     power: "2",
+    toughness: "3",
+    speed: "5",
     cunning: "5",
     charisma: "9",
     cume: "16"
@@ -117,6 +134,8 @@ export const marvelData = [
     imageS: "images/marvel/deadpool-50.png",
     pronouns:{they: "he", them: "him", their: "him", theirs: "his", themself: "himself"},
     power: "4",
+    toughness: "12",
+    speed: "12",
     cunning: "3",
     charisma: "6",
     cume: "13"
@@ -129,6 +148,8 @@ export const marvelData = [
     imageS: "images/marvel/punisher-50.png",
     pronouns:{they: "he", them: "him", their: "him", theirs: "his", themself: "himself"},
     power: "3",
+    toughness: "2",
+    speed: "3",
     cunning: "8",
     charisma: "1",
     cume: "12"
@@ -141,6 +162,8 @@ export const marvelData = [
     imageS: "images/marvel/blaze-50.png",
     pronouns:{they: "he", them: "him", their: "him", theirs: "his", themself: "himself"},
     power: "8",
+    toughness: "9",
+    speed: "10",
     cunning: "2",
     charisma: "2",
     cume: "12"
