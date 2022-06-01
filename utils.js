@@ -1,4 +1,4 @@
-export function GetStringOfCharsFromArray(array,alignment = "any",getPics=false){
+export function GetStringOfCharsFromArray(array,alignment = "any",getPics=""){
         
         let $passedArray = array;
     
@@ -17,18 +17,21 @@ export function GetStringOfCharsFromArray(array,alignment = "any",getPics=false)
             let $pushedString;
             
             const $thumbImg = document.createElement("img");
-            //$thumbImg.style.verticalAlign = "middle";
-            $thumbImg.src = char.imageS;
+            console.log(char["image" + getPics]);
+            $thumbImg.src = char["image" + getPics];
             
-            const $leftBar = document.createElement("img");
-            if(char.alignment == "left") $leftBar.src = "images/leftBarS.png";
+            let $leftBar = document.createElement("img");
+            if(char.alignment == "left") $leftBar.src = "images/leftBar" + getPics + ".png";
+            else $leftBar = document.createElement("span");
             
-            const $rightBar = document.createElement("img");
-            if(char.alignment == "right") $rightBar.src = "images/rightBarS.png";
+            let $rightBar = document.createElement("img");
+            if(char.alignment == "right") $rightBar.src = "images/rightBar" + getPics + ".png";
+            else $rightBar = document.createElement("span");
             
-            //console.log($thumbImg);
+            console.log($thumbImg);
+            //
             
-            if(getPics == true) $pushedString = $leftBar.outerHTML + $thumbImg.outerHTML + $rightBar.outerHTML + " " + char.name ;
+            if(getPics != "") $pushedString = $leftBar.outerHTML + $thumbImg.outerHTML + $rightBar.outerHTML + " " + char.name ;
             else $pushedString = char.name
             
             if(alignment == "any") $nameArr.push($pushedString) 

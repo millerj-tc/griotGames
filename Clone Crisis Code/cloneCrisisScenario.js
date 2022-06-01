@@ -6,13 +6,21 @@ export function initializeCloneCrisisScenario()
         
     $loc0.location = GH.scenarioHandler.locationHandler.GetLocationById("location");
     
+    $loc0.stageHeader = "NEW YORK";
+    
     $loc0.NPC = GH.database.GetObjFromString("Jessica Jones");
+    
+    $loc0.NPC.openingLine = `"Wow you all are really having at it, huh? One of these teams is the clones and one is... not? Did either of you bring any whiskey, by chance?"`;
     
     const $loc1 = GH.scenarioHandler.stageHandler.AddStage("loc1");
         
     $loc1.location = GH.scenarioHandler.locationHandler.GetLocationById("location");
     
+    $loc1.stageHeader = "WAKANDA";
+    
     $loc1.NPC = GH.database.GetObjFromString("Black Panther");
+    
+    $loc1.NPC.openingLine = `"So you have brought another one of your messes to my country's doorstep X-Men? I shall sort this out quickly for you. The allies of Wakanda are allies of mine."`;
     
     const $loc2 = GH.scenarioHandler.stageHandler.AddStage("loc2");
         

@@ -29,7 +29,7 @@ export class gameHandler
         this.uiHandler.CreateLocationTable();
         
         const $loc = this.scenarioHandler.locationHandler.AddLocation("location","",3,"C8E3D4");
-        $loc.displayName = "BATTLE";
+        $loc.displayName = "";
         
         initializeCloneCrisisScenario();
         

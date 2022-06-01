@@ -193,7 +193,7 @@ export class uiHandler
         
         document.getElementById("output").append($div);
         
-        console.log(string);
+        return $div
     }
     
     CreateLocationRow(loc,charSlots,bgColor){
@@ -364,7 +364,7 @@ export class uiHandler
         
         const $alphaSortedChars = this.availableChars.sort(function(a, b) {
             let textA = a.name.toUpperCase();
-            let textB = b.name.toUpperCase();
+            let textB = b.name  .toUpperCase();
             return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
         });
         

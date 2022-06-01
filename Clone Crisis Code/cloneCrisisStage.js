@@ -33,6 +33,10 @@ export class cloneCrisisStage extends stage
         
         this._DeclareLocation();
         
+        this._StageHeaderOutput();
+        
+        this._NPCOpeningLineOutput();
+        
         this._WarnIfDupeCharsOnSameTeam();
         
         this._SetEvalPool($evalObj);
@@ -81,13 +85,33 @@ export class cloneCrisisStage extends stage
         } 
     }
     
+    _NPCOpeningLineOutput(){
+        
+        if(this.NPC == undefined) return
+        
+        const $npcPortrait = GetStringOfCharsFromArray(this.NPC,"any","M");
+        
+        if(this.NPC.openingLine != undefined) {
+            
+            const $newDiv = this.uiHandler.NewStageOutputDiv("<i>" + $npcPortrait + "</i>: " + this.NPC.openingLine);
+            
+            $newDiv.querySelector("img").style.float = "left";
+//            console.log($newDiv.querySelector("img").naturalHeight);
+//            $newDiv.style.height = String($newDiv.querySelector("img").naturalHeight + "px");
+            $newDiv.querySelector("img").style.marginRight = "20px";
+//            $newDiv.style.padding = "20px";
+//            $newDiv.style.paddingLeft = String(($newDiv.querySelector("img").naturalWidth + 20) + "px");
+            
+        }
+    }
+    
     _VsOutput(evalObj){
         
         const $charsHere = this.location.GetCharsHere();
         
-        const $leftString = GetStringOfCharsFromArray($charsHere,"left",true);
+        const $leftString = GetStringOfCharsFromArray($charsHere,"left","S");
         
-        const $rightString = GetStringOfCharsFromArray($charsHere,"right",true);
+        const $rightString = GetStringOfCharsFromArray($charsHere,"right","S");
         
         this.uiHandler.NewStageOutputDiv($leftString + " vs " + $rightString);
     }
@@ -196,9 +220,9 @@ export class cloneCrisisStage extends stage
         
         if(this.NPC.recruited){
             
-            this.stageHandler.scenarioHandler.gameHandler.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(this.NPC,"any",true) + " has decided to side with the " + this.NPC.alignment + " team.");
+            this.stageHandler.scenarioHandler.gameHandler.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(this.NPC,"any","S") + " has decided to side with the " + this.NPC.alignment + " team.");
         }
-        else this.stageHandler.scenarioHandler.gameHandler.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(this.NPC,"any",true) + " can't decide who to believe.");
+        else this.stageHandler.scenarioHandler.gameHandler.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(this.NPC,"any","S") + " can't decide who to believe.");
     }
     
     _CharLastTeammateAtLoc(char){
@@ -240,7 +264,7 @@ export class cloneCrisisStage extends stage
         
         const $pronounedString = ReplacePronouns(evalObj.confusedCharacter," imperfectly executes [their] team plan, [they] is out of position!");
         
-        if(evalObj.confusedCharacter != null) this.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(evalObj.confusedCharacter,"any",true) + $pronounedString);
+        if(evalObj.confusedCharacter != null) this.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(evalObj.confusedCharacter,"any","S") + $pronounedString);
     }
     
     _HighestSpeedDebuffsGreatestPower(evalObj){
@@ -255,6 +279,8 @@ export class cloneCrisisStage extends stage
         
         const $highestPowerEnemyOfSpeediestChar = $enemyArr.sort(function(a, b){return b.power - a.power})[0];
         
+        if(this._CharLastTeammateAtLoc($highestPowerEnemyOfSpeediestChar)) return
+        
         evalObj.pool = evalObj.pool.filter(c => c != $highestPowerEnemyOfSpeediestChar);
         
         evalObj.speedDebuffedChar = $highestPowerEnemyOfSpeediestChar;
@@ -264,7 +290,7 @@ export class cloneCrisisStage extends stage
     
     _HighestSpeedDebuffOutput(evalObj){
         
-        if(evalObj.speedDebuffedChar != null) this.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(evalObj.speedDebuffedChar,"any",true) + " is distracted by the speed of " + GetStringOfCharsFromArray(evalObj.speediestChar,"any",true));
+        if(evalObj.speedDebuffedChar != null) this.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(evalObj.speedDebuffedChar,"any","S") + " is distracted by the speed of " + GetStringOfCharsFromArray(evalObj.speediestChar,"any","S"));
     }
     
     _GreatestPowerCapturesLowestToughness(evalObj){
@@ -309,7 +335,7 @@ export class cloneCrisisStage extends stage
             
             $powerSortedWinChars.sort(function(a,b){return b.power - a.power});
 
-            this.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(evalObj.removedChar,"any",true) + " has been captured by " + GetStringOfCharsFromArray($powerSortedWinChars,"any",true) + "!");
+            this.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(evalObj.removedChar,"any","S") + " has been captured by " + GetStringOfCharsFromArray($powerSortedWinChars,"any","S") + "!");
         }
     }
 }

@@ -39,12 +39,22 @@ export class stage
         
         this.stageHandler = stageHandler;
         this.stageFxHandler = new stageFxHandler(this);
+        this.uiHandler = this.stageHandler.scenarioHandler.gameHandler.uiHandler;
         this.id = id;
         this.location;
         this.nextStage;
         this.evalArr = [];
         this.firstRun = true;
+        this.stageHeader = "";
         
+    }
+    
+    _StageHeaderOutput(){
+        
+        if(this.stageHeader != ""){
+            
+            this.uiHandler.NewStageOutputDiv(this.stageHeader);
+        }
     }
     
     _StoreCurrentOutputToEvalArr(){
@@ -105,7 +115,7 @@ export class stage
         
         for(const fx of this.stageHandler.scenarioHandler.GetAllScenarioFxThatTargetStage(this,true)){
             
-            let $replaceString = GetStringOfCharsFromArray([char],"any",true);
+            let $replaceString = GetStringOfCharsFromArray([char],"any","S");
             
             //console.log($replaceString);
             
@@ -144,7 +154,7 @@ export class stage
     
     _DeclareLocation(){
         
-        this.stageHandler.scenarioHandler.gameHandler.uiHandler.UpdateOutput("- <i>" + this.location.displayName.toUpperCase() + "</i> -<br><br>" );
+        if(this.location.displayName != "") this.stageHandler.scenarioHandler.gameHandler.uiHandler.UpdateOutput("- <i>" + this.location.displayName.toUpperCase() + "</i> -<br><br>" );
     }
     
     _WarnIfDupeCharsOnSameTeam(){
@@ -197,7 +207,7 @@ export class stage
         }
         else{
             
-            let $outputText = this.winText.replace("[names]",GetStringOfCharsFromArray(evalObj.winners,"any",true));
+            let $outputText = this.winText.replace("[names]",GetStringOfCharsFromArray(evalObj.winners,"any","S"));
 
             let $color;
             
