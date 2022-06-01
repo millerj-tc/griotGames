@@ -29,15 +29,13 @@ export class cloneCrisisStage extends stage
         
         const $evalObj = new evaluation(this);
         
-        this._MoveCurrentOutputToEvalDiv();
-        
         this._DeclareLocation();
         
         this._WarnIfDupeCharsOnSameTeam();
         
         this._SetEvalPool($evalObj);
         
-        //console.log($evalObj.testProp);
+        ////console.log($evalObj.testProp);
         
         this._RemoveDebuffedCharsFromPool($evalObj)
         
@@ -47,9 +45,13 @@ export class cloneCrisisStage extends stage
         
         this._HighlightChangedDivs();
         
-        //console.log($evalObj.winners);
+        this._StoreCurrentOutputToEvalArr();
+        
+        this.firstRun = false;
         
         this._TriggerStageFx($evalObj.winners[0].alignment);
+        
+        
         
         this.stageHandler.GotoNextStage(this.nextStage);
     }
@@ -90,21 +92,47 @@ export class cloneCrisisStage extends stage
         
         for(const char of evalObj.pool){
             
+            ////console.log(char.charisma);
+            ////console.log(this.NPC.charisma);
+            
             let $charismaDiff = Math.abs(char.charisma - this.NPC.charisma);
             
-            $evalArr.push([char,$charismaDiff]);
+            $evalArr.push({char: char,diff: $charismaDiff});
             
             $diffArr.push($charismaDiff);
         }
         
-        let $matchDiff = Math.min($diffArr);
+        //console.log($diffArr);
         
-        for(const i of $evalArr){
+        let $matchDiff = Math.min(...$diffArr);
+        
+        //console.log($matchDiff);
+        
+        for(const cpkg of $evalArr){
             
-            if(i[1] == $matchDiff) $returnArr.push(i[0]);
+            if(cpkg.diff == $matchDiff) $returnArr.push(cpkg.char);
         }
         
-        if($returnArr.length == 1){
+        //console.log($returnArr);
+        
+        for(const char of $returnArr){
+            
+            for(const otherChar of $returnArr){
+                
+                if(char.name == otherChar.name && char != otherChar){
+                    
+                    $returnArr = $returnArr.filter(c => c != char);
+                    $returnArr = $returnArr.filter(c => c != otherChar);
+                }
+            }
+        }
+        
+        $returnArr.sort(function(a, b){return b.charisma - a.charisma})
+        
+        //console.log($returnArr);
+        //console.log(this.NPC.charisma);
+        
+        if($returnArr.length >= 1){
             
             this.NPC.alignment = $returnArr[0].alignment;
             
@@ -122,12 +150,14 @@ export class cloneCrisisStage extends stage
     
     _NPCRecruitOutput(){
         
-        this.stageHandler.scenarioHandler.gameHandler.uiHandler.NewStageOutputDiv(this.NPC.name + " has decided to side with the " + this.NPC.alignment + " team.");
+        if(this.NPC.recruited){
+            this.stageHandler.scenarioHandler.gameHandler.uiHandler.NewStageOutputDiv(this.NPC.name + " has decided to side with the " + this.NPC.alignment + " team.");
+        }
     }
     
     _CharLastTeammateAtLoc(char){
         
-        const $teammatesWithMyAlignment = char.location.GetCharsHere("any",char.alignment).length;
+        const $teammatesWithMyAlignment = this.location.GetCharsHere("any",char.alignment).length;
         
         if($teammatesWithMyAlignment > 1) return false
         else if($teammatesWithMyAlignment == 1) return true
@@ -142,7 +172,7 @@ export class cloneCrisisStage extends stage
             
             if(this._CharLastTeammateAtLoc(char)) continue
             
-            console.log(evalObj.pool);
+            ////console.log(evalObj.pool);
             
             if(char == $lowestCunningChar){
                 
@@ -150,15 +180,15 @@ export class cloneCrisisStage extends stage
                 evalObj.confusedCharacter = char;
             }
             
-            console.log(evalObj.pool);
+            ////console.log(evalObj.pool);
         }
     }
     
     _LowestCunningConfusedOutput(evalObj){
         
-        //console.log(evalObj.confusedCharacter);
+        ////console.log(evalObj.confusedCharacter);
         
-        const $pronounedString = ReplacePronouns(evalObj.confusedCharacter," imperfectly executes [their] team plan, [they] are out of position!");
+        const $pronounedString = ReplacePronouns(evalObj.confusedCharacter," imperfectly executes [their] team plan, [they] is out of position!");
         
         if(evalObj.confusedCharacter != null) this.uiHandler.NewStageOutputDiv(evalObj.confusedCharacter.name + $pronounedString);
     }
@@ -199,6 +229,6 @@ export class cloneCrisisStage extends stage
         
         evalObj.winners.push($greatestPowerChar);
         
-        console.log(evalObj.winners);
+        //console.log(evalObj.winners);
     }
 }

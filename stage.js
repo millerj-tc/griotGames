@@ -42,29 +42,60 @@ export class stage
         this.id = id;
         this.location;
         this.nextStage;
+        this.evalArr = [];
+        this.firstRun = true;
         
     }
     
-    _MoveCurrentOutputToEvalDiv(){
+    _StoreCurrentOutputToEvalArr(){
         
-        this.evalDiv = document.getElementById("output");
+        this.evalArr = [];
+        
+        const $divArr = document.querySelectorAll(".outputDiv");
+       
+        //console.log($divArr);
+        
+        for(const div of $divArr){
+        
+            this.evalArr.push(div.innerText);
+        } 
+         //console.log(this.evalArr);
     }
     
     _HighlightChangedDivs(){
         
+        if(this.firstRun) return
+        
         const $outputDivs = document.querySelectorAll(".outputDiv");
         
-        const $oldOutputDivs = this.evalDiv.querySelectorAll(".outputDiv");
+        //console.log($outputDivs);
+        //console.log(this.evalArr);
+        
+        //const $oldOutputDivs = this.evalDiv.querySelectorAll(".outputDiv");
+        
+        //console.log($oldOutputDivs);
+        
+        let $matches;
         
         for(const output of $outputDivs){
             
-            for(const oldOutput of $oldOutputDivs){
+            $matches = 0;
+            
+            for(const oldOutput of this.evalArr){
                 
-                if(output == oldOutput){
+                if(output.innerText == oldOutput){
                     
-                    output.style.backgroundColor = "yellow";
+//                    console.warn("===");
+//                    console.log(output.innerText);
+//                    console.log(oldOutput);
+                    
+                    $matches++;
+                    
                 }
             }
+            //console.log(output.innerText + " " + $matches);
+            if($matches > 0) output.style.backgroundColor = "";
+            else output.style.backgroundColor = "yellow";
         }
     }
     
@@ -108,7 +139,7 @@ export class stage
         
         evalObj.initialPool = evalObj.pool;
         
-        console.log(evalObj);
+        //console.log(evalObj);
     }
     
     _DeclareLocation(){

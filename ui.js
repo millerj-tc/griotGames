@@ -161,6 +161,8 @@ export class uiHandler
         
         const $div = document.createElement("div");
         
+        $div.classList.add("outputDiv");
+        
         $div.innerHTML = string;
         
         document.getElementById("output").append($div);
