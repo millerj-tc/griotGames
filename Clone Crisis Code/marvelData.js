@@ -13,7 +13,7 @@ export const marvelData = [
     speed: "7",
     cunning: "12",
     charisma: "8",
-    cume: "30"
+    cume: "45"
     },
     {
     name: "Black Panther",
@@ -28,7 +28,7 @@ export const marvelData = [
     speed: "11",
     cunning: "7",
     charisma: "12",
-    cume: "28"
+    cume: "45"
     },
     {
     name: "Bishop",
@@ -43,7 +43,7 @@ export const marvelData = [
     speed: "9",
     cunning: "11",
     charisma: "7",
-    cume: "24"
+    cume: "40"
     },
     {
     name: "Cyclops",
@@ -58,7 +58,7 @@ export const marvelData = [
     speed: "2",
     cunning: "6",
     charisma: "11",
-    cume: "22"
+    cume: "28"
     },
     {
     name: "Colossus",
@@ -73,7 +73,7 @@ export const marvelData = [
     speed: "1",
     cunning: "1",
     charisma: "9",
-    cume: "22"
+    cume: "33"
     },
     {
     name: "Daredevil",
@@ -88,7 +88,7 @@ export const marvelData = [
     power: "1",
     cunning: "10",
     charisma: "10",
-    cume: "21"
+    cume: "28"
     },
     {
     name: "Jessica Jones",
@@ -103,7 +103,7 @@ export const marvelData = [
     speed: "4",
     cunning: "9",
     charisma: "4",
-    cume: "20"
+    cume: "29"
     },
     {
     name: "Wolverine",
@@ -118,7 +118,7 @@ export const marvelData = [
     speed: "8",
     cunning: "4",
     charisma: "3",
-    cume: "18"
+    cume: "37"
     },
     {
     name: "Okoye",
@@ -132,8 +132,8 @@ export const marvelData = [
     toughness: "3",
     speed: "5",
     cunning: "5",
-    charisma: "9",
-    cume: "16"
+    charisma: "5",
+    cume: "20"
     },
     {
     name: "Deadpool",
@@ -148,7 +148,7 @@ export const marvelData = [
     speed: "12",
     cunning: "3",
     charisma: "6",
-    cume: "13"
+    cume: "37"
     },
     {
     name: "Punisher",
@@ -163,7 +163,7 @@ export const marvelData = [
     speed: "3",
     cunning: "8",
     charisma: "1",
-    cume: "12"
+    cume: "17"
     },
     {
     name: "Ghostrider",
@@ -178,6 +178,22 @@ export const marvelData = [
     speed: "10",
     cunning: "2",
     charisma: "2",
-    cume: "12"
-    }
+    cume: "31"
+    },
+    {
+    name: "Psylocke",
+    dataType: "char",
+    unlocked: true,
+    imageL: "images/marvel/psylocke-200.png",
+    imageM: "images/marvel/psylocke-100.png",
+    imageS: "images/marvel/psylocke-50.png",
+    pronouns:{they: "she", them: "her", their: "hers", theirs: "hers", themself: "herself"},
+    power: "8.5",
+    toughness: "2.5",
+    cunning: "10.5",
+    charisma: "6.5",
+    speed: "9.5",
+    cume: "37.5"
+    },
+    
 ]

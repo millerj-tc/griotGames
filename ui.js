@@ -360,9 +360,15 @@ export class uiHandler
         }
     }
         
-    AddSelectorOptions(selector,slot){ 
+    AddSelectorOptions(selector,slot){
         
-        for(const char of this.availableChars){
+        const $alphaSortedChars = this.availableChars.sort(function(a, b) {
+            let textA = a.name.toUpperCase();
+            let textB = b.name.toUpperCase();
+            return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+        });
+        
+        for(const char of this.availableChars.sort(function(a, b){return a.name - b.name})){
             
             if(!char.unlocked) continue
             
