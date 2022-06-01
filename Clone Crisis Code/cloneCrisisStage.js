@@ -134,7 +134,7 @@ export class cloneCrisisStage extends stage
         
         this._HighestSpeedDebuffOutput(evalObj);
         
-        this._GreatestPowerCapturesLowestToughness(evalObj);
+        this._GreatestUnmatchedPowerCapturesLowestToughness(evalObj);
         
         this._GreatestPowerCaptureOutput(evalObj);
     }
@@ -293,11 +293,30 @@ export class cloneCrisisStage extends stage
         if(evalObj.speedDebuffedChar != null) this.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(evalObj.speedDebuffedChar,"any","S") + " is distracted by the speed of " + GetStringOfCharsFromArray(evalObj.speediestChar,"any","S"));
     }
     
-    _GreatestPowerCapturesLowestToughness(evalObj){
+    _GreatestUnmatchedPowerCapturesLowestToughness(evalObj){
         
-        const $greatestPowerChar = evalObj.pool.sort(function(a, b){return b.power - a.power})[0];
+        let $greatestPowerChar
         
-        console.log($greatestPowerChar);
+        for(const char of evalObj.pool.sort(function(a, b){return b.power - a.power})){
+         
+            let $matches = 0;
+            
+            for(const otherChar of evalObj.pool){
+                
+                console.log(char.name + otherChar.name);
+                if(char.name == otherChar.name && char != otherChar) $matches++
+            }
+            
+            if($matches > 0) continue
+            else{
+                
+                $greatestPowerChar = char;
+                break
+            }
+        
+        }
+        
+        //console.log($greatestPowerChar);
         
         let $enemyAlign = $greatestPowerChar.GetEnemyAlignment();
         
@@ -309,11 +328,11 @@ export class cloneCrisisStage extends stage
         
         const $lowestToughnessEnemyOfPowerfulestChar = $enemyArr.sort(function(a, b){return a.toughness - b.toughness})[0];
         
-        console.log(this.location.GetCharsHere());
+        //console.log(this.location.GetCharsHere());
         
         this.location.RemoveCharDuringRun($lowestToughnessEnemyOfPowerfulestChar);
         
-        console.log(this.location.GetCharsHere());
+        //console.log(this.location.GetCharsHere());
         
         evalObj.removedChar = $lowestToughnessEnemyOfPowerfulestChar;
         
@@ -325,17 +344,17 @@ export class cloneCrisisStage extends stage
         
             const $winningAlignment = evalObj.removedChar.GetEnemyAlignment();
             
-            console.log(evalObj.removedChar);
+            //console.log(evalObj.removedChar);
             
-            console.log($winningAlignment);
+            //console.log($winningAlignment);
 
             let $powerSortedWinChars = this.location.GetCharsHere("any",$winningAlignment);
             
-            console.warn($powerSortedWinChars);
+            //console.warn($powerSortedWinChars);
             
             $powerSortedWinChars.sort(function(a,b){return b.power - a.power});
 
-            this.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(evalObj.removedChar,"any","S") + " has been captured by " + GetStringOfCharsFromArray($powerSortedWinChars,"any","S") + "!");
+            this.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(evalObj.removedChar,"any","S") + " has been captured by " + GetStringOfCharsFromArray(evalObj.winners,"any","S") + "!");
         }
     }
 }
