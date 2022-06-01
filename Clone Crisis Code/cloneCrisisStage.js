@@ -25,6 +25,8 @@ export class cloneCrisisStage extends stage
         
         this._EndGameIfTeamAllCaptured();
         
+        this._ResetNPCRecruitmentProperties();
+        
         if(this.stageHandler.scenarioHandler.gameOver) return
         
         //if(this.id == "loc0") this.location.unslottedChars = [];
@@ -55,7 +57,7 @@ export class cloneCrisisStage extends stage
         
         this.firstRun = false;
         
-        console.log($evalObj);
+        //console.log($evalObj);
         
         this._TriggerStageFx($evalObj);
         
@@ -68,9 +70,9 @@ export class cloneCrisisStage extends stage
         
         const $rightTeam = this.location.GetCharsHere("any","right");
         
-        console.log($leftTeam);
+        //console.log($leftTeam);
         
-        console.log($rightTeam);
+        //console.log($rightTeam);
         
         if($leftTeam.length == 0){
             
@@ -120,8 +122,6 @@ export class cloneCrisisStage extends stage
         
         //console.warn("BATTLE");
         
-        this._ResetNPCRecruitmentProperties();
-        
         this._NPCRecruitedByClosestCharisma(evalObj);
         
         this._NPCRecruitOutput();
@@ -136,6 +136,8 @@ export class cloneCrisisStage extends stage
         
         this._GreatestUnmatchedPowerCapturesLowestToughness(evalObj);
         
+        this._ColossusTrumps(evalObj);
+        
         this._GreatestPowerCaptureOutput(evalObj);
     }
     
@@ -143,6 +145,8 @@ export class cloneCrisisStage extends stage
     _NPCRecruitedByClosestCharisma(evalObj){
         
         if(this.NPC == null) return
+        
+        console.warn(this.NPC.alignment);
         
         let $evalArr = [];
         
@@ -303,7 +307,7 @@ export class cloneCrisisStage extends stage
             
             for(const otherChar of evalObj.pool){
                 
-                console.log(char.name + otherChar.name);
+                //console.log(char.name + otherChar.name);
                 if(char.name == otherChar.name && char != otherChar) $matches++
             }
             
@@ -336,6 +340,16 @@ export class cloneCrisisStage extends stage
         
         evalObj.removedChar = $lowestToughnessEnemyOfPowerfulestChar;
         
+    }
+    
+    _ColossusTrumps(evalObj){
+        
+        // Wolverine
+        //Beast
+        //Black Panther
+        //Psylocke
+        //Ghostrider
+        //Jessica Jones
     }
     
     _GreatestPowerCaptureOutput(evalObj){
