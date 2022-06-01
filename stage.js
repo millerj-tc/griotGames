@@ -170,11 +170,15 @@ export class stage
         }
     }
     
-    _TriggerStageFx(team){
+    _TriggerStageFx(evalObj){
+        
+        //console.log(evalObj);
+        
+        if(evalObj.winners.length < 1) return
         
         for(const fx of this.stageFxHandler.fxs){
             
-            fx.IncrementTarget(team);
+            fx.IncrementTarget(evalObj.winners);
             //console.log(fx);
         }
     }
@@ -183,8 +187,8 @@ export class stage
         
         const $ui = this.stageHandler.scenarioHandler.gameHandler.uiHandler;
         
-        console.log(evalObj);
-        console.log(evalObj.winners);
+        //console.log(evalObj);
+        //console.log(evalObj.winners);
         
         if(evalObj.winners.length == 0){
             

@@ -55,4 +55,32 @@ export class gameHandler
         
     
     }
+    
+    ResetGameOnSimulationRun(){
+        
+        this._RemoveUnslottedCharacters();
+        
+        this._RestoreRemovedChars();
+        
+        this.scenarioHandler.gameOver = false;
+    }
+    
+    _RestoreRemovedChars(){
+        
+        for(const loc of this.scenarioHandler.locationHandler.locations){
+            
+            for(const slot of loc.charSlots){
+                
+                if(slot.character != null) slot.character.removedDuringRun = false;
+            }
+        }
+    }
+    
+    _RemoveUnslottedCharacters(){
+        
+        for(const loc of this.scenarioHandler.locationHandler.locations){
+            
+            loc.unslottedChars = [];
+        }
+    }
 }

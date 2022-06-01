@@ -33,6 +33,8 @@ export class stageHandler
     
     GotoNextStage(stage){
         
+        if(stage == undefined) console.warn("NextStage is undefined!!");
+        
         const $ui = this.scenarioHandler.gameHandler.uiHandler;
         
         this.currentStage = stage;

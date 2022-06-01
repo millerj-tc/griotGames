@@ -23,7 +23,11 @@ export class cloneCrisisStage extends stage
 
     EvalFlow(){
         
+        this._EndGameIfTeamAllCaptured();
+        
         if(this.stageHandler.scenarioHandler.gameOver) return
+        
+        //if(this.id == "loc0") this.location.unslottedChars = [];
         
         const $evalObj = new evaluation(this);
         
@@ -33,9 +37,9 @@ export class cloneCrisisStage extends stage
         
         this._SetEvalPool($evalObj);
         
-        ////console.log($evalObj.testProp);
+        this._VsOutput($evalObj);
         
-        this._RemoveDebuffedCharsFromPool($evalObj)
+        this._RemoveDebuffedCharsFromPool($evalObj);
         
         this._CloneCrisisBattle($evalObj);
                 
@@ -47,11 +51,45 @@ export class cloneCrisisStage extends stage
         
         this.firstRun = false;
         
-        this._TriggerStageFx($evalObj.winners[0].alignment);
+        console.log($evalObj);
         
-        
+        this._TriggerStageFx($evalObj);
         
         this.stageHandler.GotoNextStage(this.nextStage);
+    }
+    
+    _EndGameIfTeamAllCaptured(){
+        
+        const $leftTeam = this.location.GetCharsHere("any","left");
+        
+        const $rightTeam = this.location.GetCharsHere("any","right");
+        
+        console.log($leftTeam);
+        
+        console.log($rightTeam);
+        
+        if($leftTeam.length == 0){
+            
+            this.uiHandler.NewStageOutputDiv(`<span style="font-weight:bold;color:red;font-size:calc(15px + 1.5vw)">The right team has won!</span>`);
+            this.stageHandler.scenarioHandler.gameOver = true;
+        }
+        
+        if($rightTeam.length == 0){
+            
+            this.uiHandler.NewStageOutputDiv(`<span style="font-weight:bold;color:blue;font-size:calc(15px + 1.5vw)">The left team has won!</span>`);
+            this.stageHandler.scenarioHandler.gameOver = true;
+        } 
+    }
+    
+    _VsOutput(evalObj){
+        
+        const $charsHere = this.location.GetCharsHere();
+        
+        const $leftString = GetStringOfCharsFromArray($charsHere,"left",true);
+        
+        const $rightString = GetStringOfCharsFromArray($charsHere,"right",true);
+        
+        this.uiHandler.NewStageOutputDiv($leftString + " vs " + $rightString);
     }
     
     _CloneCrisisBattle(evalObj){
@@ -73,6 +111,8 @@ export class cloneCrisisStage extends stage
         this._HighestSpeedDebuffOutput(evalObj);
         
         this._GreatestPowerCapturesLowestToughness(evalObj);
+        
+        this._GreatestPowerCaptureOutput(evalObj);
     }
     
 
@@ -137,10 +177,14 @@ export class cloneCrisisStage extends stage
             this.NPC.recruited = true;
             
             evalObj.pool.push(this.NPC);
+            
+            this.location.AddUnslottedChar(this.NPC);
         }
     }
     
     _ResetNPCRecruitmentProperties(){
+        
+        if(this.NPC == null) return
         
         this.NPC.alignment = null;
         this.NPC.recruited = false;
@@ -148,10 +192,13 @@ export class cloneCrisisStage extends stage
     
     _NPCRecruitOutput(){
         
+        if(this.NPC == null) return
+        
         if(this.NPC.recruited){
             
             this.stageHandler.scenarioHandler.gameHandler.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(this.NPC,"any",true) + " has decided to side with the " + this.NPC.alignment + " team.");
         }
+        else this.stageHandler.scenarioHandler.gameHandler.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(this.NPC,"any",true) + " can't decide who to believe.");
     }
     
     _CharLastTeammateAtLoc(char){
@@ -166,6 +213,10 @@ export class cloneCrisisStage extends stage
     _LowestCunningConfusedUnlessAlone(evalObj){
         
         const $lowestCunningChar = evalObj.pool.sort(function(a, b){return a.cunning - b.cunning})[0];
+        
+        const $secondLowestCunningChar = evalObj.pool.sort(function(a, b){return a.cunning - b.cunning})[1];
+        
+        if($lowestCunningChar.name == $secondLowestCunningChar.name) return
         
         for(const char of evalObj.pool){
             
@@ -185,7 +236,7 @@ export class cloneCrisisStage extends stage
     
     _LowestCunningConfusedOutput(evalObj){
         
-        ////console.log(evalObj.confusedCharacter);
+        if(evalObj.confusedCharacter == null) return
         
         const $pronounedString = ReplacePronouns(evalObj.confusedCharacter," imperfectly executes [their] team plan, [they] is out of position!");
         
@@ -220,6 +271,8 @@ export class cloneCrisisStage extends stage
         
         const $greatestPowerChar = evalObj.pool.sort(function(a, b){return b.power - a.power})[0];
         
+        console.log($greatestPowerChar);
+        
         let $enemyAlign = $greatestPowerChar.GetEnemyAlignment();
         
         const $enemyArr = evalObj.GetCharsFromInitialPool($enemyAlign);
@@ -229,5 +282,34 @@ export class cloneCrisisStage extends stage
         evalObj.winners.push($greatestPowerChar);
         
         const $lowestToughnessEnemyOfPowerfulestChar = $enemyArr.sort(function(a, b){return a.toughness - b.toughness})[0];
+        
+        console.log(this.location.GetCharsHere());
+        
+        this.location.RemoveCharDuringRun($lowestToughnessEnemyOfPowerfulestChar);
+        
+        console.log(this.location.GetCharsHere());
+        
+        evalObj.removedChar = $lowestToughnessEnemyOfPowerfulestChar;
+        
+    }
+    
+    _GreatestPowerCaptureOutput(evalObj){
+        
+        if(evalObj.removedChar != null){
+        
+            const $winningAlignment = evalObj.removedChar.GetEnemyAlignment();
+            
+            console.log(evalObj.removedChar);
+            
+            console.log($winningAlignment);
+
+            let $powerSortedWinChars = this.location.GetCharsHere("any",$winningAlignment);
+            
+            console.warn($powerSortedWinChars);
+            
+            $powerSortedWinChars.sort(function(a,b){return b.power - a.power});
+
+            this.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(evalObj.removedChar,"any",true) + " has been captured by " + GetStringOfCharsFromArray($powerSortedWinChars,"any",true) + "!");
+        }
     }
 }

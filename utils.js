@@ -4,7 +4,13 @@ export function GetStringOfCharsFromArray(array,alignment = "any",getPics=false)
     
         let $nameArr = [];
     
+        let $debug = false;
+    
         if($passedArray.hasOwnProperty("dataType") && $passedArray.dataType == "char") $passedArray = [$passedArray];
+    
+        //if($passedArray.length > 1) $debug = true;
+    
+        if($debug) console.log($passedArray);
         
         for(const char of $passedArray){
             
@@ -30,7 +36,7 @@ export function GetStringOfCharsFromArray(array,alignment = "any",getPics=false)
             
         }
         
-        console.log($nameArr);
+        if($debug) console.warn($nameArr);
         
         let $returnString = "";
         
@@ -63,6 +69,8 @@ export function ReplacePronouns(char,string){
     $returnString = $returnString.replaceAll("[theirs]",char.pronouns.theirs);
     
     $returnString = $returnString.replaceAll("[themself]",char.pronouns.themself);
+    
+    $returnString = $returnString.replaceAll("[are]","is");
     
     return $returnString
 }

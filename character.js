@@ -29,6 +29,7 @@ export class charHandler
             char.GetEnemyAlignment = this.GetEnemyAlignment;
             char.hope = 0;
             char.lastWonHope = null;
+            char.removedDuringRun = false;
         }
     }
     

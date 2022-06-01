@@ -17,7 +17,7 @@ class charSlot
         this.character.alignment = this.alignment;
         this.character.location = this.location;
         
-        this.location.locationHandler.scenarioHandler.gameHandler.uiHandler.UpdateCharImage(this);
+        if(this.imageSpanId != undefined)                                                                                                                                              this.location.locationHandler.scenarioHandler.gameHandler.uiHandler.UpdateCharImage(this);
     }
 }
 
@@ -31,6 +31,8 @@ class location
         this.displayName = "";
         
         this.charSlots = [];
+        
+        this.unslottedChars = [];
         
         //this.chars = [];
     }
@@ -48,37 +50,52 @@ class location
         return $slot
     }
     
-    GetCharsHere(name="any",alignment="any"){
+    GetCharsHere(name="any",alignment="any", getUnslotted = true){
+        
+        //console.log(this);
         
         let $returnArr = [];
         
         for(const slot of this.charSlots){
             
+            if(slot.character.removedDuringRun) continue
+            
             if(name != "any" && slot.character.name != name) continue
-            if(alignment == "any" || slot.character.alignment == alignment) $returnArr.push(slot.character)
+            if(alignment == "any" || slot.character.alignment == alignment) $returnArr.push(slot.character) 
+
+        }
+        
+        if(getUnslotted){
+        
+            for(const char of this.unslottedChars){
+
+                if((char.name == name || name == "any") &&
+                    (char.alignment == alignment || alignment == "any")) $returnArr.push(char);
+            }
         }
         
         return $returnArr
     }
     
-    RemoveChar(char){
+    RemoveCharDuringRun(char){
         
         for(const slot of this.charSlots){
             
-            if(slot.character = char){
+            if(slot.character == char){
                 
-                slot.character == null;
+                slot.character.removedDuringRun = true;
             }
+        }
+        
+        for(const unslottedChar of this.unslottedChars){
+            
+            if(char == unslottedChar) this.unslottedChars = this.unslottedChars.filter(c => c != char);
         }
     }
     
-    AddCharToNewSlot(char,alignment){
+    AddUnslottedChar(char){
         
-        const $slot = new charSlot(this,alignment);
-        
-        this.charSlots.push($slot);
-        
-        $slot.UpdateChar(char);
+        this.unslottedChars.push(char);
     }
 }
 
@@ -117,6 +134,8 @@ export class locationHandler
         for(const loc of this.locations){
             
             for(const slot of loc.charSlots){
+                
+                if(slot.character.removedDuringRun) continue
                 
                 if(team == "any") $allChars.push(slot.character);
                 else if (slot.character.alignment == team) $allChars.push(slot.character);

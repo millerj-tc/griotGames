@@ -103,6 +103,8 @@ export class uiHandler
                 
                 window.gameHandler.scenarioHandler.EvalScenarioBeginInterpersFxs();
                 
+                window.gameHandler.ResetGameOnSimulationRun();
+                
                 window.gameHandler.scenarioHandler.stageHandler.stages[0].EvalFlow();
             },350);
             
@@ -185,9 +187,13 @@ export class uiHandler
         
         $div.classList.add("outputDiv");
         
+        $div.style.marginBottom = "20px";
+        
         $div.innerHTML = string;
         
         document.getElementById("output").append($div);
+        
+        console.log(string);
     }
     
     CreateLocationRow(loc,charSlots,bgColor){
@@ -357,6 +363,8 @@ export class uiHandler
     AddSelectorOptions(selector,slot){ 
         
         for(const char of this.availableChars){
+            
+            if(!char.unlocked) continue
             
             let $option = document.createElement("option");
             
