@@ -25,6 +25,8 @@ export class gameHandler
         //window.addEventListener("resize", this.uiHandler.ResizeOnResize);
         
         //this.uiHandler.ResizeOnResize();
+        
+        
             
         this.uiHandler.CreateLocationTable();
         

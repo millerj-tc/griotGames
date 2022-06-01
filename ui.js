@@ -137,13 +137,16 @@ export class uiHandler
         $col0Head.append($span);
         this.locationTable.append($col0Head);
         
-        const $col1Head = document.createElement("div");
-        let $mspan = document.createElement("span");
-        $mspan.style.fontWeight = "bold";
-        $mspan.style.fontSize = "24pt";
-        $mspan.innerHTML = "Locations";
-        $col1Head.append($mspan);
-        this.locationTable.append($col1Head);
+        
+        //if(this.gameHandler.scenarioHandler.usesLocationAssignment){
+            const $col1Head = document.createElement("div");
+            let $mspan = document.createElement("span");
+            $mspan.style.fontWeight = "bold";
+            $mspan.style.fontSize = "24pt";
+            $mspan.innerHTML = "Locations";
+            $col1Head.append($mspan);
+            this.locationTable.append($col1Head);
+        //}
         
         const $col2Head = document.createElement("div");
         let $rspan = document.createElement("span");
@@ -223,6 +226,7 @@ export class uiHandler
 
         
         this.locationTable.append(col0);
+        //if(this.gameHandler.scenarioHandler.usesLocationAssignment) 
         this.locationTable.append(col1);
         this.locationTable.append(col2);
         
@@ -319,6 +323,7 @@ export class uiHandler
         let $locImg = document.createElement("img");
         //console.log($locImg);
         $locImg.src = loc.image;
+        
         col1Content.append($locImg);
         col1Content.style = `justify-items: center;
             align-items: center;

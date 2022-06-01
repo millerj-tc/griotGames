@@ -224,6 +224,8 @@ export class scenarioHandler
         this.leftTeamHope = 0;
         this.rightTeamHope = 0;
         
+        this.usesLocationAssignment = true;
+        
         this.gameOver = false;
         
         this.fxs = [];
