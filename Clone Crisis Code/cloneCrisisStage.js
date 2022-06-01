@@ -1,5 +1,5 @@
 import {stage,evaluation} from "./../stage.js";
-import {ReplacePronouns} from "./../utils.js";
+import {ReplacePronouns,GetStringOfCharsFromArray} from "./../utils.js";
 
 export class cloneCrisisStage extends stage
 {
@@ -24,8 +24,6 @@ export class cloneCrisisStage extends stage
     EvalFlow(){
         
         if(this.stageHandler.scenarioHandler.gameOver) return
-        
-        //console.warn("START FLOW");
         
         const $evalObj = new evaluation(this);
         
@@ -151,7 +149,8 @@ export class cloneCrisisStage extends stage
     _NPCRecruitOutput(){
         
         if(this.NPC.recruited){
-            this.stageHandler.scenarioHandler.gameHandler.uiHandler.NewStageOutputDiv(this.NPC.name + " has decided to side with the " + this.NPC.alignment + " team.");
+            
+            this.stageHandler.scenarioHandler.gameHandler.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(this.NPC,"any",true) + " has decided to side with the " + this.NPC.alignment + " team.");
         }
     }
     
@@ -190,7 +189,7 @@ export class cloneCrisisStage extends stage
         
         const $pronounedString = ReplacePronouns(evalObj.confusedCharacter," imperfectly executes [their] team plan, [they] is out of position!");
         
-        if(evalObj.confusedCharacter != null) this.uiHandler.NewStageOutputDiv(evalObj.confusedCharacter.name + $pronounedString);
+        if(evalObj.confusedCharacter != null) this.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(evalObj.confusedCharacter,"any",true) + $pronounedString);
     }
     
     _HighestSpeedDebuffsGreatestPower(evalObj){
@@ -214,7 +213,7 @@ export class cloneCrisisStage extends stage
     
     _HighestSpeedDebuffOutput(evalObj){
         
-        if(evalObj.speedDebuffedChar != null) this.uiHandler.NewStageOutputDiv(evalObj.speedDebuffedChar.name + " is distracted by the speed of " + evalObj.speediestChar.name);
+        if(evalObj.speedDebuffedChar != null) this.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(evalObj.speedDebuffedChar,"any",true) + " is distracted by the speed of " + GetStringOfCharsFromArray(evalObj.speediestChar,"any",true));
     }
     
     _GreatestPowerCapturesLowestToughness(evalObj){

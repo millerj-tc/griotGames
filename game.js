@@ -46,6 +46,10 @@ export class gameHandler
         
         this.scenarioHandler.locationHandler.RandomizeStartingTeams();
         
+        this.uiHandler.ClearOutput();
+        
+        this.uiHandler.ExpandRosterDisplay();
+        
         //this.scenarioHandler.rightTeamHope = 1;
         
         

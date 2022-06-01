@@ -39,6 +39,7 @@ export class uiHandler
     _CreateCollapseButton(){
         
         const $collapseButton = document.createElement("button");
+        $collapseButton.id = "rosterCollapseButton";
         $collapseButton.style.fontSize = "32pt";
         $collapseButton.setAttribute("data-collapsed","true");
         
@@ -46,16 +47,12 @@ export class uiHandler
        
             if($collapseButton.getAttribute("data-collapsed") == "true"){
             
-                document.getElementById("content").style.transform = "translateY(750px)";
-                $collapseButton.setAttribute("data-collapsed","false");
-                $collapseButton.innerHTML = "^";
+                window.gameHandler.uiHandler.ExpandRosterDisplay();    
 
             }
             else{
                 
-                $collapseButton.setAttribute("data-collapsed","true");
-                document.getElementById("content").style.transform = "translateY(0px)";
-                $collapseButton.innerHTML = "v";
+                window.gameHandler.uiHandler.CollapseRosterDisplay();
             }
 
         };
@@ -63,6 +60,24 @@ export class uiHandler
         $collapseButton.innerHTML = "v";
         
         document.getElementById("content").append($collapseButton);
+    }
+    
+    CollapseRosterDisplay(){
+        
+        const $collapseButton = document.getElementById("rosterCollapseButton");
+        
+        $collapseButton.setAttribute("data-collapsed","true");
+        document.getElementById("content").style.transform = "translateY(0px)";
+        $collapseButton.innerHTML = "v";
+    }
+    
+    ExpandRosterDisplay(){
+        
+        const $collapseButton = document.getElementById("rosterCollapseButton");
+        
+        document.getElementById("content").style.transform = "translateY(750px)";
+        $collapseButton.setAttribute("data-collapsed","false");
+        $collapseButton.innerHTML = "^";
     }
     
     CreateEvalGoButton(){
@@ -79,9 +94,16 @@ export class uiHandler
             
             setTimeout(function(){
                 
+                const $collapseButton = document.getElementById("rosterCollapseButton");
+                                
+                if($collapseButton.getAttribute("data-collapsed") == "false"){
+            
+                    window.gameHandler.uiHandler.CollapseRosterDisplay();
+                }
+                
                 window.gameHandler.scenarioHandler.EvalScenarioBeginInterpersFxs();
                 
-                window.gameHandler.scenarioHandler.stageHandler.stages[0].EvalFlow()
+                window.gameHandler.scenarioHandler.stageHandler.stages[0].EvalFlow();
             },350);
             
         };

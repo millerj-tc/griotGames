@@ -6,6 +6,6 @@ export function initializeCloneCrisisScenario()
         
     $loc0.location = GH.scenarioHandler.locationHandler.GetLocationById("location");
     
-    $loc0.NPC = GH.database.GetObjFromString("Daredevil");
+    $loc0.NPC = GH.database.GetObjFromString("Deadpool");
     
 }

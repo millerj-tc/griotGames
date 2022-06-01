@@ -1,32 +1,12 @@
 export function GetStringOfCharsFromArray(array,alignment = "any",getPics=false){
         
+        let $passedArray = array;
+    
         let $nameArr = [];
+    
+        if($passedArray.hasOwnProperty("dataType") && $passedArray.dataType == "char") $passedArray = [$passedArray];
         
-        if(array.length == 1){
-            
-            let $pushedString;
-            
-            const $thumbImg = document.createElement("img");
-            //$thumbImg.style.verticalAlign = "middle";
-            console.log(array[0]);
-            $thumbImg.src = array[0].imageS;
-            
-            //console.log($thumbImg.src);
-            
-            //console.log(getPics);
-            
-            if(getPics == true){ 
-                $pushedString = $thumbImg.outerHTML + " " + array[0].name;
-            }
-            else $pushedString = array[0].name;
-            
-            //console.log($pushedString);
-            
-            if(alignment == "any") return $pushedString;
-            else if(array[0].alignment == alignment) return $pushedString;
-        }
-        
-        for(const char of array){
+        for(const char of $passedArray){
             
             let $pushedString;
             
@@ -34,9 +14,15 @@ export function GetStringOfCharsFromArray(array,alignment = "any",getPics=false)
             //$thumbImg.style.verticalAlign = "middle";
             $thumbImg.src = char.imageS;
             
+            const $leftBar = document.createElement("img");
+            if(char.alignment == "left") $leftBar.src = "images/leftBarS.png";
+            
+            const $rightBar = document.createElement("img");
+            if(char.alignment == "right") $rightBar.src = "images/rightBarS.png";
+            
             //console.log($thumbImg);
             
-            if(getPics == true) $pushedString = $thumbImg.outerHTML+ " " +char.name ;
+            if(getPics == true) $pushedString = $leftBar.outerHTML + $thumbImg.outerHTML + $rightBar.outerHTML + " " + char.name ;
             else $pushedString = char.name
             
             if(alignment == "any") $nameArr.push($pushedString) 
@@ -44,13 +30,14 @@ export function GetStringOfCharsFromArray(array,alignment = "any",getPics=false)
             
         }
         
-        //console.log($nameArr);
+        console.log($nameArr);
         
         let $returnString = "";
         
         for(let i = 0; i < $nameArr.length; i++){
             
-            if(i == $nameArr.length - 1){
+            if($nameArr.length == 1) return $nameArr[0];
+            else if(i == $nameArr.length - 1){
                 
                 $returnString += " and " + $nameArr[i];
             }
