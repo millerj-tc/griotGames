@@ -1,12 +1,14 @@
 import {GetStringOfCharsFromArray} from "./utils.js";
-import {stageFxHandler} from "./stageFx.js";
 import {GetCharsByAlignment,ReplaceWordsBasedOnPluralSubjects} from "./utils.js";
+import {stageFxHandler} from "./stageFx.js";
+
 
 export class evaluation
 {
     constructor(stage){
         
         this.stage = stage;
+        this.winners = [];
         this.winTeam;
         this.winChar;
         this.location;
@@ -87,24 +89,26 @@ export class stage
         return $returnString
     }
     
-    _RemoveDebuffedCharsFromPool(eval){
+    _RemoveDebuffedCharsFromPool(evalObj){
         
         let $returnArr = [];
         
-        for(const obj of eval.pool){
+        for(const obj of evalObj.pool){
             
             if(obj.IsDebuffed()) continue
             else $returnArr.push(obj)
         }
         
-        eval.pool = $returnArr;
+        evalObj.pool = $returnArr;
     }
     
-    _SetEvalPool(eval){
+    _SetEvalPool(evalObj){
         
-        eval.pool = this.location.GetCharsHere();
+        evalObj.pool = this.location.GetCharsHere();
         
-        eval.initialPool = eval.pool;
+        evalObj.initialPool = evalObj.pool;
+        
+        console.log(evalObj);
     }
     
     _DeclareLocation(){
@@ -144,31 +148,32 @@ export class stage
         }
     }
     
-    _ResultDisplayText(eval){
+    _ResultDisplayText(evalObj){
         
         const $ui = this.stageHandler.scenarioHandler.gameHandler.uiHandler;
         
-        //console.log(winners);
+        console.log(evalObj);
+        console.log(evalObj.winners);
         
-        if(eval.winners.length == 0){
+        if(evalObj.winners.length == 0){
             
             $ui.NewStageOutputDiv("No one was able to accomplish anything here this time!");
             
         }
         else{
             
-            let $outputText = this.winText.replace("[names]",GetStringOfCharsFromArray(eval.winners,"any",true));
+            let $outputText = this.winText.replace("[names]",GetStringOfCharsFromArray(evalObj.winners,"any",true));
 
             let $color;
             
-            if(eval.winners[0].alignment == "left") $color = "blue"
-            if(eval.winners[0].alignment == "right") $color = "red";
+            if(evalObj.winners[0].alignment == "left") $color = "blue"
+            if(evalObj.winners[0].alignment == "right") $color = "red";
             
             let $span = document.createElement("span");
             $span.style.color = $color;
             $span.style.fontWeight = "bold";
             $span.style.fontSize = "calc(15px + 1.5vw)";
-            $span.innerHTML = eval.winners[0].alignment;
+            $span.innerHTML = evalObj.winners[0].alignment;
             
             $outputText = $outputText.replace("[alignment]",$span.outerHTML);
             
@@ -181,50 +186,4 @@ export class stage
         //return 
     }
     
-}
-
-export class stageHandler
-{
-    constructor(scenarioHandler){
-        
-        this.scenarioHandler = scenarioHandler;
-        
-        this.stages = [];
-        this.lastCreatedStage = undefined;
-        this.currentStage;
-    }
-    
-//    MoveToNextStage(){
-//        
-//        this.currentStage = this.currentStage.nextStage;
-//    }
-    
-    AddStage(id){
-        
-        const $stage = new stage(this,id);
-        
-        if(this.lastCreatedStage != undefined) this.lastCreatedStage.nextStage = $stage;
-        
-        this.stages.push($stage);
-        
-        this.lastCreatedStage = $stage;
-        
-        //console.log($stage);
-        
-        return $stage
-    }
-    
-    GotoNextStage(stage){
-        
-        const $ui = this.scenarioHandler.gameHandler.uiHandler;
-        
-        this.currentStage = stage;
-        
-        if(stage != undefined && !this.scenarioHandler.gameOver){ 
-            
-            $ui.UpdateOutput("<br><br>");
-
-            stage.EvalFlow();
-        }
-    }
 }

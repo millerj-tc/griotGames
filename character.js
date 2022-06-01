@@ -26,6 +26,7 @@ export class charHandler
             char.Rebuff = this.Rebuff;
             char.ModHope = this.ModHope;
             char.AddInterpers = this.AddInterpers;
+            char.GetEnemyAlignment = this.GetEnemyAlignment;
             char.hope = 0;
             char.lastWonHope = null;
         }

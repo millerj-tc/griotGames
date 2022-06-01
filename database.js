@@ -1,5 +1,5 @@
 
-import {artbreederData} from "./artbreederData.js";
+import {marvelData} from "./Clone Crisis Code/marvelData.js";
 import {StandardDeviation,GetMean} from "./utils.js";
 
 
@@ -9,7 +9,7 @@ export class database
         
         this.gameHandler = gameHandler;
         
-        this.data = artbreederData;
+        this.data = marvelData;
     }
     
     GetCharsMoreThanOneStdBelowMeanForValue(value,poolToReturn=this.data,poolToEvaluate=this.data){

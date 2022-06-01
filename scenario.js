@@ -1,5 +1,5 @@
 import {locationHandler} from "./location.js";
-import {stageHandler} from "./stage.js";
+import {stageHandler} from "./stageHandler.js";
 import {charHandler} from "./character.js";
 import {GetStringOfCharsFromArray,ReplaceWordsBasedOnPluralSubjects} from "./utils.js";
 
@@ -230,13 +230,14 @@ export class scenarioHandler
         
     }
     
-    GetAllChars(){
+    GetAllChars(unlockedOnly = false){
         
         let $returnArr = [];
         
         for(const obj of this.gameHandler.database.data){
             
-            if(obj.dataType == "char") $returnArr.push(obj);
+            if(obj.dataType == "char" && !unlockedOnly) $returnArr.push(obj);
+            else if(obj.dataType == "char" && obj.unlocked) $returnArr.push(obj);
         }
         
         return $returnArr
@@ -300,6 +301,8 @@ export class scenarioHandler
         let $spokenStrings = [];
         
         for(const char of this.locationHandler.GetAllCharsAtLocations()){
+            
+            if(!char.hasOwnProperty("interpersFxs")) continue
             
             if(char.interpersFxs.length > 0){
                 

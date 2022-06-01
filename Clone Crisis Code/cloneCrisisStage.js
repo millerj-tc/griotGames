@@ -1,4 +1,5 @@
-import {stage,evaluation} from "./stage.js";
+import {stage,evaluation} from "./../stage.js";
+import {ReplacePronouns} from "./../utils.js";
 
 export class cloneCrisisStage extends stage
 {
@@ -24,7 +25,9 @@ export class cloneCrisisStage extends stage
         
         if(this.stageHandler.scenarioHandler.gameOver) return
         
-        const $eval = new evaluation(this);
+        //console.warn("START FLOW");
+        
+        const $evalObj = new evaluation(this);
         
         this._MoveCurrentOutputToEvalDiv();
         
@@ -32,39 +35,48 @@ export class cloneCrisisStage extends stage
         
         this._WarnIfDupeCharsOnSameTeam();
         
-        this._SetEvalPool($eval);
+        this._SetEvalPool($evalObj);
         
-        this._RemoveDebuffedCharsFromPool($eval)
+        //console.log($evalObj.testProp);
         
-        this._CloneCrisisBattle($eval);
+        this._RemoveDebuffedCharsFromPool($evalObj)
         
-        this._ResultDisplayText($eval);
+        this._CloneCrisisBattle($evalObj);
+                
+        this._ResultDisplayText($evalObj);
         
         this._HighlightChangedDivs();
         
-        this._TriggerStageFx($eval.winners[0].alignment);
+        //console.log($evalObj.winners);
+        
+        this._TriggerStageFx($evalObj.winners[0].alignment);
         
         this.stageHandler.GotoNextStage(this.nextStage);
     }
     
-    _CloneCrisisBattle(eval){
+    _CloneCrisisBattle(evalObj){
+        
+        //console.warn("BATTLE");
         
         this._ResetNPCRecruitmentProperties();
         
-        this._NPCRecruitedByClosestCharisma(eval);
+        this._NPCRecruitedByClosestCharisma(evalObj);
         
         this._NPCRecruitOutput();
         
-        this._LowestCunningConfusedUnlessAlone(eval);
+        this._LowestCunningConfusedUnlessAlone(evalObj);
         
-        this._LowestCunningConfusedOutput(eval);
+        this._LowestCunningConfusedOutput(evalObj);
         
-        this._HighestSpeedDebuffsGreatestPower(eval);
+        this._HighestSpeedDebuffsGreatestPower(evalObj);
         
-        this._HighestSpeedDebuffOutput(eval);
+        this._HighestSpeedDebuffOutput(evalObj);
+        
+        this._GreatestPowerCapturesLowestToughness(evalObj);
     }
     
-    _NPCRecruitedByClosestCharisma(eval){
+
+    _NPCRecruitedByClosestCharisma(evalObj){
         
         if(this.NPC == null) return
         
@@ -74,7 +86,9 @@ export class cloneCrisisStage extends stage
         
         let $returnArr = [];
         
-        for(const char of eval.pool){
+        //evalObj.testProp = "test";
+        
+        for(const char of evalObj.pool){
             
             let $charismaDiff = Math.abs(char.charisma - this.NPC.charisma);
             
@@ -83,7 +97,7 @@ export class cloneCrisisStage extends stage
             $diffArr.push($charismaDiff);
         }
         
-        let $matchDiff = $diffArr.min();
+        let $matchDiff = Math.min($diffArr);
         
         for(const i of $evalArr){
             
@@ -96,7 +110,7 @@ export class cloneCrisisStage extends stage
             
             this.NPC.recruited = true;
             
-            eval.pool.push(this.NPC);
+            evalObj.pool.push(this.NPC);
         }
     }
     
@@ -120,61 +134,71 @@ export class cloneCrisisStage extends stage
         else console.warn("Error: _CharLastTeammateAtLoc() is malfunctioning");
     }
     
-    _LowestCunningConfusedUnlessAlone(eval){
+    _LowestCunningConfusedUnlessAlone(evalObj){
         
-        const $lowestCunningChar = eval.pool.sort(function(a, b){return a.cunning - b.cunning})[0];
+        const $lowestCunningChar = evalObj.pool.sort(function(a, b){return a.cunning - b.cunning})[0];
         
-        for(const char of eval.pool){
+        for(const char of evalObj.pool){
             
             if(this._CharLastTeammateAtLoc(char)) continue
             
+            console.log(evalObj.pool);
+            
             if(char == $lowestCunningChar){
                 
-                eval.pool.filter(c => c != $lowestCunningChar);
-                eval.confusedCharacter = char;
+                evalObj.pool = evalObj.pool.filter(c => c != $lowestCunningChar);
+                evalObj.confusedCharacter = char;
             }
+            
+            console.log(evalObj.pool);
         }
     }
     
-    _LowestCunningConfusedOutput(eval){
+    _LowestCunningConfusedOutput(evalObj){
         
-        if(eval.confusedCharacter != null) this.uiHandler.NewStageOutputDiv(eval.confusedCharacter.name + " imperfectly execute their team plan, they are out of position!");
+        //console.log(evalObj.confusedCharacter);
+        
+        const $pronounedString = ReplacePronouns(evalObj.confusedCharacter," imperfectly executes [their] team plan, [they] are out of position!");
+        
+        if(evalObj.confusedCharacter != null) this.uiHandler.NewStageOutputDiv(evalObj.confusedCharacter.name + $pronounedString);
     }
     
-    _HighestSpeedDebuffsGreatestPower(eval){
+    _HighestSpeedDebuffsGreatestPower(evalObj){
         
-        const $highestSpeedChar = eval.pool.sort(function(a, b){return b.speed - a.speed})[0];
+        const $highestSpeedChar = evalObj.pool.sort(function(a, b){return b.speed - a.speed})[0];
         
         let $enemyAlign = $highestSpeedChar.GetEnemyAlignment();
         
-        const $enemyArr = eval.GetCharsFromPool($enemyAlign);
+        const $enemyArr = evalObj.GetCharsFromPool($enemyAlign);
         
         if($enemyArr.length < 1) return
         
         const $highestPowerEnemyOfSpeediestChar = $enemyArr.sort(function(a, b){return b.power - a.power})[0];
         
-        eval.pool.filter(c => c != $highestPowerEnemyOfSpeediestChar);
+        evalObj.pool = evalObj.pool.filter(c => c != $highestPowerEnemyOfSpeediestChar);
         
-        eval.speedDebuffedChar = $highestPowerEnemyOfSpeediestChar;
+        evalObj.speedDebuffedChar = $highestPowerEnemyOfSpeediestChar;
         
-        eval.speediestChar = $highestSpeedChar;
+        evalObj.speediestChar = $highestSpeedChar;
     }
     
-    _HighestSpeedDebuffOutput(eval){
+    _HighestSpeedDebuffOutput(evalObj){
         
-        if(eval.speedDebuffedChar != null) this.uiHandler.NewStageOutputDiv(eval.speedDebuffedChar.name + " is distracted by the speed of " + eval.speediestChar.name);
+        if(evalObj.speedDebuffedChar != null) this.uiHandler.NewStageOutputDiv(evalObj.speedDebuffedChar.name + " is distracted by the speed of " + evalObj.speediestChar.name);
     }
     
-    _GreatestPowerCapturesLowestToughness(eval){
+    _GreatestPowerCapturesLowestToughness(evalObj){
         
-        const $greatestPowerChar = eval.pool.sort(function(a, b){return b.power - a.power})[0];
+        const $greatestPowerChar = evalObj.pool.sort(function(a, b){return b.power - a.power})[0];
         
         let $enemyAlign = $greatestPowerChar.GetEnemyAlignment();
         
-        const $enemyArr = eval.GetCharsFromInitialPool($enemyAlign);
+        const $enemyArr = evalObj.GetCharsFromInitialPool($enemyAlign);
         
         if($enemyArr.length < 1) return
         
+        evalObj.winners.push($greatestPowerChar);
         
+        console.log(evalObj.winners);
     }
 }

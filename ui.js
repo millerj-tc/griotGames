@@ -81,7 +81,7 @@ export class uiHandler
                 
                 window.gameHandler.scenarioHandler.EvalScenarioBeginInterpersFxs();
                 
-                window.gameHandler.scenarioHandler.stageHandler.stages[0].Eval()
+                window.gameHandler.scenarioHandler.stageHandler.stages[0].EvalFlow()
             },350);
             
         };
@@ -141,7 +141,7 @@ export class uiHandler
         
         //slot.UpdateChar($character);
         
-        document.getElementById(slot.imageSpanId).innerHTML = `<img src="` + slot.character.image125 + `">`;
+        document.getElementById(slot.imageSpanId).innerHTML = `<img src="` + slot.character.imageM + `">`;
         
     }
     
@@ -173,20 +173,20 @@ export class uiHandler
         //row.style = "fill:#1c87c9;";
         
         let col0 = document.createElement("div");
-        col0.style.width = "250px";
-        col0.style.height = "250px";
+        //col0.style.width = "250px";
+        //col0.style.height = "250px";
         col0.style.display = "flex";
         col0.style.alignItems = "center";
         col0.style.backgroundColor = bgColor;
 
         let col1 = document.createElement("div");
-        col1.style.width = "250px";
-        col1.style.height = "250px";
+        //col1.style.width = "250px";
+        //col1.style.height = "250px";
         col1.style.backgroundColor = bgColor;
 
         let col2 = document.createElement("div");
-        col2.style.width = "250px";
-        col2.style.height = "250px";
+        //col2.style.width = "250px";
+        //col2.style.height = "250px";
         col2.style.display = "flex";
         col2.style.alignItems = "center";
         col2.style.backgroundColor = bgColor;
