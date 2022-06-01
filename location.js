@@ -37,7 +37,7 @@ class location
     
     AddCharSlot(alignment,selectId,imageSpanId){
         
-        const $slot = new charSlot(this,alignment,selectId,imageSpanId)
+        const $slot = new charSlot(this,alignment,selectId,imageSpanId);
         
         this.charSlots.push($slot);
         
@@ -61,13 +61,25 @@ class location
         return $returnArr
     }
     
-//    AddChar(name,align){
-//        
-//        const $char = this.locationHandler.gameHandler.database.GetObjFromString(name);
-//        $char.alignment = align;
-//        $char.location = this;
-//        this.chars.push($char);
-//    }
+    RemoveChar(char){
+        
+        for(const slot of this.charSlots){
+            
+            if(slot.character = char){
+                
+                slot.character == null;
+            }
+        }
+    }
+    
+    AddCharToNewSlot(char,alignment){
+        
+        const $slot = new charSlot(this,alignment);
+        
+        this.charSlots.push($slot);
+        
+        $slot.UpdateChar(char);
+    }
 }
 
 export class locationHandler

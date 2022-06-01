@@ -228,6 +228,6 @@ export class cloneCrisisStage extends stage
         
         evalObj.winners.push($greatestPowerChar);
         
-        //console.log(evalObj.winners);
+        const $lowestToughnessEnemyOfPowerfulestChar = $enemyArr.sort(function(a, b){return a.toughness - b.toughness})[0];
     }
 }
