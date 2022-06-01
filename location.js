@@ -95,7 +95,7 @@ class location
     
     AddUnslottedChar(char){
         
-        this.unslottedChars.push(char);
+        this.unslottedChars.push({...char});
     }
 }
 
