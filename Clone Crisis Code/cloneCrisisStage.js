@@ -134,9 +134,13 @@ export class cloneCrisisStage extends stage
         
         this._HighestSpeedDebuffOutput(evalObj);
         
-        this._GreatestUnmatchedPowerCapturesLowestToughness(evalObj);
+        this._AloneCharPowerTrumps(evalObj);
         
-        this._ColossusTrumps(evalObj);
+        console.log(evalObj.winners);
+        
+        if(evalObj.winners.length == 0) this._GreatestUnmatchedPowerCapturesLowestToughness(evalObj);
+        
+        console.log(evalObj.winners);
         
         this._GreatestPowerCaptureOutput(evalObj);
     }
@@ -227,15 +231,6 @@ export class cloneCrisisStage extends stage
             this.stageHandler.scenarioHandler.gameHandler.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(this.NPC,"any","S") + " has decided to side with the " + this.NPC.alignment + " team.");
         }
         else this.stageHandler.scenarioHandler.gameHandler.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(this.NPC,"any","S") + " can't decide who to believe.");
-    }
-    
-    _CharLastTeammateAtLoc(char){
-        
-        const $teammatesWithMyAlignment = this.location.GetCharsHere("any",char.alignment).length;
-        
-        if($teammatesWithMyAlignment > 1) return false
-        else if($teammatesWithMyAlignment == 1) return true
-        else console.warn("Error: _CharLastTeammateAtLoc() is malfunctioning");
     }
     
     _LowestCunningConfusedUnlessAlone(evalObj){
@@ -342,14 +337,43 @@ export class cloneCrisisStage extends stage
         
     }
     
-    _ColossusTrumps(evalObj){
+    _AloneCharPowerTrumps(evalObj){
         
-        // Wolverine
-        //Beast
-        //Black Panther
-        //Psylocke
-        //Ghostrider
-        //Jessica Jones
+        let $aloneChars = [];
+        
+        for(const char of evalObj.pool){
+            
+            if(this._CharLastTeammateAtLoc(char)) $aloneChars.push(char);
+        }
+        
+        let $bigStrongEnemies;
+        
+        for(const aloneChar of $aloneChars){
+            
+             $bigStrongEnemies = 0;
+            
+            for(const enemy of this.location.GetCharsHere("any",aloneChar.GetEnemyAlignment())){
+                
+                if(enemy.name == "Wolverine" ||
+                  enemy.name == "Beast" ||
+                  enemy.name == "Black Panther" ||
+                  enemy.name == "Psylocke" ||
+                  enemy.name == "Ghostrider" ||
+                  enemy.name == "Jessica Jones" || 
+                  enemy.name == "Colossus") {
+                    
+                    evalObj.winners.push(enemy);
+                    $bigStrongEnemies++;
+                }
+            }
+                   
+            if($bigStrongEnemies > 1){
+                    
+                evalObj.removedChar = aloneChar;
+                this.location.RemoveCharDuringRun(aloneChar);
+                console.warn("bigStronged: " + aloneChar.name);
+            }
+        }
     }
     
     _GreatestPowerCaptureOutput(evalObj){

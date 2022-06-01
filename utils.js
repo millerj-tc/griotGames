@@ -17,7 +17,6 @@ export function GetStringOfCharsFromArray(array,alignment = "any",getPics=""){
             let $pushedString;
             
             const $thumbImg = document.createElement("img");
-            console.log(char["image" + getPics]);
             $thumbImg.src = char["image" + getPics];
             
             let $leftBar = document.createElement("img");
@@ -28,7 +27,6 @@ export function GetStringOfCharsFromArray(array,alignment = "any",getPics=""){
             if(char.alignment == "right") $rightBar.src = "images/rightBar" + getPics + ".png";
             else $rightBar = document.createElement("span");
             
-            console.log($thumbImg);
             //
             
             if(getPics != "") $pushedString = $leftBar.outerHTML + $thumbImg.outerHTML + $rightBar.outerHTML + " " + char.name ;

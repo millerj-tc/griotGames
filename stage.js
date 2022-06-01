@@ -152,9 +152,30 @@ export class stage
         //console.log(evalObj);
     }
     
+    _RemoveCharsResultInMirror(chars,evalObj){
+        
+        // IN PROGRESS
+        
+        let $passedCharArr;
+        
+        if(chars.hasOwnProperty("dataType")) $passedCharArr = [chars]
+        else $passedCharArr = chars
+        
+        //let $testArr = evalObj.pool.filter()
+    }
+    
     _DeclareLocation(){
         
         if(this.location.displayName != "") this.stageHandler.scenarioHandler.gameHandler.uiHandler.UpdateOutput("- <i>" + this.location.displayName.toUpperCase() + "</i> -<br><br>" );
+    }
+    
+     _CharLastTeammateAtLoc(char){
+        
+        const $teammatesWithMyAlignment = this.location.GetCharsHere("any",char.alignment).length;
+        
+        if($teammatesWithMyAlignment > 1) return false
+        else if($teammatesWithMyAlignment == 1) return true
+        else console.warn("Error: _CharLastTeammateAtLoc() is malfunctioning");
     }
     
     _WarnIfDupeCharsOnSameTeam(){
