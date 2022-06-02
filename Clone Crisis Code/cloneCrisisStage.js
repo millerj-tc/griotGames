@@ -22,8 +22,6 @@ export class cloneCrisisStage extends stage
     }
 
     EvalFlow(){
-                
-        this._EndGameIfTeamAllCaptured();
         
         //console.warn(this.id);
         
@@ -54,6 +52,8 @@ export class cloneCrisisStage extends stage
         this._CloneCrisisBattle($evalObj);
         
         this._ValidateWinnersAndLosers($evalObj);
+        
+        this._EndGameIfTeamAllCaptured();
                 
         this._ResultDisplayText($evalObj);
         
@@ -384,7 +384,7 @@ export class cloneCrisisStage extends stage
     
     _BishopIsImmune(evalObj){
         
-        if(evalObj.removedChar.name == "Bishop" && (evalObj.winCredit.name == "Cyclops" || evalObj.winCredit.name == "Psylocke")){
+        if(evalObj.removedChar != null && evalObj.removedChar.name == "Bishop" && (evalObj.winCredit.name == "Cyclops" || evalObj.winCredit.name == "Psylocke")){
             
             evalObj.removedChar.stageImmune = true;
             

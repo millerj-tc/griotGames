@@ -253,6 +253,8 @@ export class stage
     
     _CheckIfSkipResultDisplayText(){
         
+        console.log("check");
+        
         if(!this.displayWintextAfterGameover && this.stageHandler.scenarioHandler.gameOver) return true
         
         return false
@@ -261,12 +263,12 @@ export class stage
     
     _ResultDisplayText(evalObj){
         
-        if(this._CheckIfSkipResultDisplayText) return
+        if(this._CheckIfSkipResultDisplayText()) return
         
         const $ui = this.stageHandler.scenarioHandler.gameHandler.uiHandler;
         
-        //console.log(evalObj);
-        //console.log(evalObj.winners);
+        console.log(evalObj);
+        console.log(evalObj.winners);
         
         if(evalObj.winners.length == 0){
             
@@ -286,7 +288,7 @@ export class stage
             
             $outputText = $outputText.replace("[specialOutputGroup0 names]",GetStringOfCharsFromArray(evalObj.specialOutputGroup0,"any","S"));
             
-            $outputText = ReplaceWordsBasedOnPluralSubjects(GetStringOfCharsFromArray(evalObj.subjects,"any","S"),$outputText);
+            $outputText = ReplaceWordsBasedOnPluralSubjects(evalObj.specialOutputGroup0,$outputText);
 
             let $color;
             

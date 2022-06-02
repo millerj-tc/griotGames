@@ -235,6 +235,8 @@ export class uiHandler
         
         document.getElementById("output").append($div);
         
+        if($div.querySelector("img") != undefined) $div.style.minHeight = $div.querySelector("img").naturalHeight;
+        
         return $div
     }
     
