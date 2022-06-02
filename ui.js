@@ -122,9 +122,11 @@ export class uiHandler
         this.locationTable.style = `display: grid;
             justify-items: center;
             align-items: center;
-            grid-template-columns: auto auto auto;
             gap: 5px;
             padding: 5px;`;
+        
+        if(this.gameHandler.scenarioHandler.usesLocationAssignment) this.locationTable.style.gridTemplateColumns = "auto auto auto";
+        else this.locationTable.style.gridTemplateColumns = "auto auto";
         
         document.getElementById("content").append(this.locationTable);
         
@@ -138,7 +140,7 @@ export class uiHandler
         this.locationTable.append($col0Head);
         
         
-        //if(this.gameHandler.scenarioHandler.usesLocationAssignment){
+        if(this.gameHandler.scenarioHandler.usesLocationAssignment){
             const $col1Head = document.createElement("div");
             let $mspan = document.createElement("span");
             $mspan.style.fontWeight = "bold";
@@ -146,7 +148,7 @@ export class uiHandler
             $mspan.innerHTML = "Locations";
             $col1Head.append($mspan);
             this.locationTable.append($col1Head);
-        //}
+        }
         
         const $col2Head = document.createElement("div");
         let $rspan = document.createElement("span");
@@ -226,8 +228,7 @@ export class uiHandler
 
         
         this.locationTable.append(col0);
-        //if(this.gameHandler.scenarioHandler.usesLocationAssignment) 
-        this.locationTable.append(col1);
+        if(this.gameHandler.scenarioHandler.usesLocationAssignment) this.locationTable.append(col1);
         this.locationTable.append(col2);
         
         const col0Content = document.createElement("div");
@@ -235,7 +236,7 @@ export class uiHandler
         const col2Content = document.createElement("div");
         
         col0.append(col0Content);
-        col1.append(col1Content);
+        if(this.gameHandler.scenarioHandler.usesLocationAssignment) col1.append(col1Content);
         col2.append(col2Content);
         
         for(let i = 0; i < charSlots; i++){
@@ -318,25 +319,27 @@ export class uiHandler
 
         }
         
-        let $locCount = this.gameHandler.scenarioHandler.locationHandler.locations.length;
+        if(this.gameHandler.scenarioHandler.usesLocationAssignment){
         
-        let $locImg = document.createElement("img");
-        //console.log($locImg);
-        $locImg.src = loc.image;
-        
-        col1Content.append($locImg);
-        col1Content.style = `justify-items: center;
-            align-items: center;
-            vertical-align:center;
-            text-align:center;
-            grid-column-start: 2;
-            grid-row-start: ` + Number(1 + $locCount) + `;
-            grid-row-end:` + Number($locCount + charSlots) + `;`
-        
-        //this.locationTable.append(row);
-        
-        //this.UpdateSelectorsAndCharImages();
-        
+            let $locCount = this.gameHandler.scenarioHandler.locationHandler.locations.length;
+
+            let $locImg = document.createElement("img");
+            //console.log($locImg);
+            $locImg.src = loc.image;
+
+            col1Content.append($locImg);
+            col1Content.style = `justify-items: center;
+                align-items: center;
+                vertical-align:center;
+                text-align:center;
+                grid-column-start: 2;
+                grid-row-start: ` + Number(1 + $locCount) + `;
+                grid-row-end:` + Number($locCount + charSlots) + `;`
+
+            //this.locationTable.append(row);
+
+            //this.UpdateSelectorsAndCharImages();
+        }
         
     }
     

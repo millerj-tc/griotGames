@@ -26,7 +26,7 @@ export class gameHandler
         
         //this.uiHandler.ResizeOnResize();
         
-        
+        this.scenarioHandler.usesLocationAssignment = false;
             
         this.uiHandler.CreateLocationTable();
         
