@@ -29,7 +29,7 @@ export function GetStringOfCharsFromArray(array,alignment = "any",getPics=""){
             
             //
             
-            if(getPics != "") $pushedString = $leftBar.outerHTML + $thumbImg.outerHTML + $rightBar.outerHTML + " " + char.name ;
+            if(getPics != "") $pushedString = `<span style="display:inline-block">` + $leftBar.outerHTML + $thumbImg.outerHTML + $rightBar.outerHTML + " " + char.name + `</span>`;
             else $pushedString = char.name
             
             if(alignment == "any") $nameArr.push($pushedString) 
@@ -43,7 +43,7 @@ export function GetStringOfCharsFromArray(array,alignment = "any",getPics=""){
         
         for(let i = 0; i < $nameArr.length; i++){
             
-            if($nameArr.length == 1) return $nameArr[0];
+            if($nameArr.length == 1) $returnString = $nameArr[0];
             else if(i == $nameArr.length - 1){
                 
                 $returnString += " and " + $nameArr[i];
@@ -52,7 +52,7 @@ export function GetStringOfCharsFromArray(array,alignment = "any",getPics=""){
             else $returnString += $nameArr[i] + ",";
         }
     
-        //console.log($returnString)
+        //$returnString = `<span style="display:inline-block">` + $returnString + `</span>`
         
         return $returnString
     }

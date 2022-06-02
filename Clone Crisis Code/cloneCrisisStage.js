@@ -326,7 +326,7 @@ export class cloneCrisisStage extends stage
         
         }
         
-        //console.log($greatestPowerChar);
+        if($greatestPowerChar == undefined) return
         
         let $enemyAlign = $greatestPowerChar.GetEnemyAlignment();
         

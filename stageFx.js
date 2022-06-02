@@ -5,14 +5,18 @@ class stageFx
         this.stageFxHandler = stageFxHandler;
         this.scenarioFxTarget = scenarioFxTarget;
         this.incrementAmount = incAmt;
+        this.fxTeam;
+        this.requiredConds = [];
     
     }
     
-    IncrementTarget(team){
+    TriggerFx(evalObj){
         
-        //console.log("incrementing-->");
-        
-        //console.log(this.scenarioFxTarget);
+        if(typeof this.incrementAmount == "number") this.IncrementTarget()
+        else if(this.incrementAmount == "complete") this._CompleteTarget()
+    }
+    
+    IncrementTarget(){
         
         this.scenarioFxTarget.SetWinLocation(this.stageFxHandler.stage.location);
         
@@ -20,9 +24,30 @@ class stageFx
         
         for(let i=0; i < this.incrementAmount; i++){
             
-            this.scenarioFxTarget.Increment(team);
+            this.scenarioFxTarget.Increment(this.fxTeam);
         }
         
+    }
+    
+    _CompleteTarget(){
+        
+        console.log("completing");
+        
+        if(!this._CheckRequiredConds()) return
+        
+        this.scenarioFxTarget.CompleteEffect();
+    }
+    
+    _CheckRequiredConds(){
+        
+        let $trueConds = 0;
+        
+        for(const cond of this.requiredConds){
+            
+            if(cond()) $trueConds++
+        }
+        
+        if($trueConds == this.requiredConds.length) return true
     }
 }
 
@@ -40,6 +65,8 @@ export class stageFxHandler
         const $fx = new stageFx(this,scenarioFxTarget,incAmt);
         
         this.fxs.push($fx);
+        
+        return $fx
     }
     
 }

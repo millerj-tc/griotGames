@@ -215,14 +215,10 @@ export class stage
     
     _TriggerStageFx(evalObj){
         
-        //console.log(evalObj);
-        
-        if(evalObj.winners.length < 1) return
-        
         for(const fx of this.stageFxHandler.fxs){
             
-            fx.IncrementTarget(evalObj.winners);
-            //console.log(fx);
+            fx.TriggerFx(evalObj);
+
         }
     }
     
@@ -245,7 +241,7 @@ export class stage
         
         const $totalChars = this.location.GetCharsHere("any","any",true).length;
         
-        if(evalObj.winners.length + evalObj.losers.length != $totalChars) console.error("Invalid winners and losers arrays on eval obj!");
+        // if(evalObj.winners.length + evalObj.losers.length != $totalChars) console.error("Invalid winners and losers arrays on eval obj!");
     }
     
     _CheckIfSkipResultDisplayText(){

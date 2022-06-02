@@ -14,6 +14,7 @@ class scenarioFx
         this.completeEffectOutputText = "";
         this.targetStageOutputText = "";
         this.targetStage;
+        this.newNextStage;
         this.targetChars;
         this.incrementingStage;
         this.winLocation;
@@ -22,6 +23,7 @@ class scenarioFx
         this.fxType = type;
         
         if(type == "wincon") this.CompleteEffect = this.WinCon;
+        if(type == "stageSelect") this.CompleteEffect = this.StageSelect;
         if(type == "debuff") this.CompleteEffect = this.StageDebuff;
         if(type == "teamHopeBuff") this.CompleteEffect = this.TeamHopeBuff;
         if(type == "finalWincon") this.CompleteEffect = this.WinCon;
@@ -57,7 +59,14 @@ class scenarioFx
         }
     }
     
-    
+    StageSelect(){
+        
+        console.log("selecting");
+        
+        if(this.targetStage == "undefined") console.error("Essential properties for scenarioFx have not been set!");
+        
+        this.targetStage.nextStage = this.newNextStage;
+    }
     
     StageDebuff(){
         
