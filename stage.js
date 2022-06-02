@@ -47,6 +47,7 @@ export class stage
         this.evalArr = [];
         this.firstRun = true;
         this.stageHeader = "";
+        this.stalemateText = "";
         
     }
     
@@ -248,14 +249,21 @@ export class stage
         
         if(evalObj.winners.length == 0){
             
-            $ui.NewStageOutputDiv("No one was able to accomplish anything here this time!");
+            let $stalemateOutput;
+            
+            if(this.stalemateText == "") $stalemateOutput = "No one was able to accomplish anything here this time!"
+            else $stalemateOutput = this.stalemateText;
+            
+            $ui.NewStageOutputDiv($stalemateOutput);
             
         }
         else{
             
             let $outputText = this.winText.replace("[winners names]",GetStringOfCharsFromArray(evalObj.winners,"any","S"));
             
-            $outputText = $outputText.replace("[losers names]",GetStringOfCharsFromArray(evalObj.losers,"any","S"))
+            $outputText = $outputText.replace("[losers names]",GetStringOfCharsFromArray(evalObj.losers,"any","S"));
+            
+            $outputText = $outputText.replace("[specialOutputGroup0 names]",GetStringOfCharsFromArray(evalObj.specialOutputGroup0,"any","S"));
 
             let $color;
             

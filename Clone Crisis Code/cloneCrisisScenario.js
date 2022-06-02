@@ -12,6 +12,10 @@ export function initializeCloneCrisisScenario()
     
     $loc0.NPC.openingLine = `"Wow you all are really having at it, huh? One of these teams is the clones and one is... not? Did either of you bring any whiskey, by chance?"`;
     
+    $loc0.winText = "[specialOutputGroup0 names] flee to Wakanda, with [winners names] in hot pursuit!";
+    
+    $loc0.stalemateText = "A stalemate! The battle continues in Wakanda!";
+    
     const $loc1 = GH.scenarioHandler.stageHandler.AddStage("loc1");
         
     $loc1.location = GH.scenarioHandler.locationHandler.GetLocationById("location");
@@ -22,24 +26,36 @@ export function initializeCloneCrisisScenario()
     
     $loc1.NPC.openingLine = `"So you have brought another one of your messes to my country's doorstep X-Men? I shall sort this out quickly for you. The allies of Wakanda are allies of mine."`;
     
+    $loc1.winText = "[specialOutputGroup0 names] flee! [winners names] give chase!";
+    
     const $loc2 = GH.scenarioHandler.stageHandler.AddStage("loc2");
         
     $loc2.location = GH.scenarioHandler.locationHandler.GetLocationById("location");
+    
+    $loc2.winText = "[specialOutputGroup0 names] flee! [winners names] give chase!";
     
     const $loc3 = GH.scenarioHandler.stageHandler.AddStage("loc3");
         
     $loc3.location = GH.scenarioHandler.locationHandler.GetLocationById("location");
     
+    $loc3.winText = "[specialOutputGroup0 names] flee! [winners names] give chase!";
+    
     const $loc4 = GH.scenarioHandler.stageHandler.AddStage("loc4");
         
     $loc4.location = GH.scenarioHandler.locationHandler.GetLocationById("location");
+    
+    $loc4.winText = "[specialOutputGroup0 names] flee! [winners names] give chase!";
     
     const $loc5 = GH.scenarioHandler.stageHandler.AddStage("loc5");
         
     $loc5.location = GH.scenarioHandler.locationHandler.GetLocationById("location");
     
+    $loc5.winText = "[specialOutputGroup0 names] flee! [winners names] give chase!";
+    
     const $loc6 = GH.scenarioHandler.stageHandler.AddStage("loc6");
         
     $loc6.location = GH.scenarioHandler.locationHandler.GetLocationById("location");
+    
+    $loc6.winText = "[specialOutputGroup0 names] flee! [winners names] give chase!";
     
 }

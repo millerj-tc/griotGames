@@ -143,6 +143,8 @@ export class cloneCrisisStage extends stage
         if(evalObj.winners.length == 0) this._GreatestUnmatchedPowerCapturesLowestToughness(evalObj);
         
         this._GreatestPowerCaptureOutput(evalObj);
+        
+        this._SetSpecialOutputGroup0ToRemainingLosingChars(evalObj);
     }
     
 
@@ -402,5 +404,10 @@ export class cloneCrisisStage extends stage
 
             this.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(evalObj.removedChar,"any","S") + " has been captured by " + GetStringOfCharsFromArray(evalObj.winCredit,"any","S") + "!");
         }
+    }
+    
+    _SetSpecialOutputGroup0ToRemainingLosingChars(evalObj){
+        
+        evalObj.specialOutputGroup0 = evalObj.losers.filter(c => c != evalObj.removedChar);
     }
 }
