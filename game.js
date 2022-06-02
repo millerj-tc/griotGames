@@ -13,6 +13,10 @@ export class gameHandler
         
         this.scenarioHandler = new scenarioHandler(this);
         
+        this.simulationCount = 0;
+        this.submissionRunsUntilOfferLink = 5;
+        this.submissionLink;
+        
         //this.locationHandler = new locationHandler(this);
         
         
@@ -58,7 +62,23 @@ export class gameHandler
     
     }
     
+    OfferSubmissionLinkAfterXRuns(){
+        
+        //console.log(this.simulationCount);
+        
+        if(this.simulationCount >= this.submissionRunsUntilOfferLink){
+            
+            if(this.scenarioHandler.gameOver){
+            
+                this.uiHandler.NewStageOutputDiv("You may submit a roster to this link to have your solution compete with other participants " + this.submissionLink + "<br><br>After you submit, there may be an additional level of the simulation you can try to solve. However, you can only submit your roster for this level once.");
+                
+            }
+        }
+    }
+    
     ResetGameOnSimulationRun(){
+        
+        this.simulationCount++;
         
         this._RemoveUnslottedCharacters();
         

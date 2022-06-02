@@ -298,9 +298,7 @@ export class stage
 
             $ui.NewStageOutputDiv($outputText);
 
-        }
-        
-        //return 
+        } 
     }
     
 }

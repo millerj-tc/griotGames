@@ -22,12 +22,14 @@ export class cloneCrisisStage extends stage
     }
 
     EvalFlow(){
-        
+                
         this._EndGameIfTeamAllCaptured();
         
         //console.warn(this.id);
         
         this._ResetNPCRecruitmentProperties();
+        
+        this.stageHandler.scenarioHandler.gameHandler.OfferSubmissionLinkAfterXRuns();
         
         if(this.stageHandler.scenarioHandler.gameOver) return   
         
@@ -151,6 +153,8 @@ export class cloneCrisisStage extends stage
     _NPCRecruitedByClosestCharisma(evalObj){
         
         if(this.NPC == null) return
+        
+        evalObj.npc = this.NPC;
         
         let $evalArr = [];
         

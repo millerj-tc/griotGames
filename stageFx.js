@@ -13,7 +13,7 @@ class stageFx
     TriggerFx(evalObj){
         
         if(typeof this.incrementAmount == "number") this.IncrementTarget()
-        else if(this.incrementAmount == "complete") this._CompleteTarget()
+        else if(this.incrementAmount == "complete") this._CompleteTarget(evalObj)
     }
     
     IncrementTarget(){
@@ -29,22 +29,27 @@ class stageFx
         
     }
     
-    _CompleteTarget(){
+    AddRequiredCond(cond){
+        
+        this.requiredConds.push(cond);
+    }
+    
+    _CompleteTarget(evalObj){
         
         console.log("completing");
         
-        if(!this._CheckRequiredConds()) return
+        if(!this._CheckRequiredConds(evalObj)) return
         
         this.scenarioFxTarget.CompleteEffect();
     }
     
-    _CheckRequiredConds(){
+    _CheckRequiredConds(evalObj){
         
         let $trueConds = 0;
         
         for(const cond of this.requiredConds){
             
-            if(cond()) $trueConds++
+            if(cond(evalObj)) $trueConds++
         }
         
         if($trueConds == this.requiredConds.length) return true

@@ -80,7 +80,9 @@ export function initializeCloneCrisisScenario()
     
     const $punisherAltStageFx = GH.scenarioHandler.AddScenarioFx(1,"stageSelect");
     
-    $loc0.stageFxHandler.AddFx($punisherAltStageFx,"complete");
+    const $loc0StageFx0 = $loc0.stageFxHandler.AddFx($punisherAltStageFx,"complete");
+    
+    $loc0StageFx0.AddRequiredCond(UndecidedNPCCond);
     
     $punisherAltStageFx.targetStage = $loc0;
     
@@ -88,7 +90,7 @@ export function initializeCloneCrisisScenario()
     
 }
 
-function UndecidedNPCCond(npc){
+function UndecidedNPCCond(evalObj){
     
-    if(npc.alignment == null) return true
+    if(evalObj.hasOwnProperty("npc") && evalObj.npc.alignment == null) return true
 }
