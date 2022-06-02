@@ -134,6 +134,8 @@ export class cloneCrisisStage extends stage
         
         this._LowestCunningConfusedUnlessAlone(evalObj);
         
+        this._LowestCunningCyclopsShield(evalObj);
+        
         this._LowestCunningConfusedOutput(evalObj);
         
         this._HighestSpeedDebuffsGreatestPower(evalObj);
@@ -260,6 +262,28 @@ export class cloneCrisisStage extends stage
             ////console.log(evalObj.pool);
         }
     }
+    
+    _LowestCunningCyclopsShield(evalObj){
+        
+        if(evalObj.confusedCharacter != null){
+            
+            const $confusedCharAllies = this.location.GetCharsHere("any",evalObj.confusedCharacter.alignment,true);
+            
+            for(const char of $confusedCharAllies){
+                
+                if(char.name == "Cyclops"){
+                    
+                    this.uiHandler.NewStageOutputDiv("Cyclops explains the plan carefully to " + GetStringOfCharsFromArray(evalObj.confusedCharacter,"any","S") + ", and they execute perfectly!");
+                    
+                    evalObj.pool.push(evalObj.confusedCharacter);
+                    
+                    evalObj.confusedCharacter = null;
+                    
+                }
+            }
+        }
+    }
+    
     
     _LowestCunningConfusedOutput(evalObj){
         
