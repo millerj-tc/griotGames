@@ -136,11 +136,7 @@ export class cloneCrisisStage extends stage
         
         this._AloneCharPowerTrumps(evalObj);
         
-        console.log(evalObj.winners);
-        
         if(evalObj.winners.length == 0) this._GreatestUnmatchedPowerCapturesLowestToughness(evalObj);
-        
-        console.log(evalObj.winners);
         
         this._GreatestPowerCaptureOutput(evalObj);
     }
@@ -289,7 +285,13 @@ export class cloneCrisisStage extends stage
     
     _HighestSpeedDebuffOutput(evalObj){
         
-        if(evalObj.speedDebuffedChar != null) this.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(evalObj.speedDebuffedChar,"any","S") + " is distracted by the speed of " + GetStringOfCharsFromArray(evalObj.speediestChar,"any","S"));
+        if(evalObj.speedDebuffedChar != null){ 
+            
+            const $speediestCharOutput = GetStringOfCharsFromArray(evalObj.speediestChar,"any","S");
+            const $speedDebuffedCharOutput = GetStringOfCharsFromArray(evalObj.speedDebuffedChar,"any","S");
+            this.uiHandler.NewStageOutputDiv($speediestCharOutput + ReplacePronouns(evalObj.speediestChar," uses [their] incredible speed to distract ") + $speedDebuffedCharOutput);
+            
+        }
     }
     
     _GreatestUnmatchedPowerCapturesLowestToughness(evalObj){
@@ -371,7 +373,6 @@ export class cloneCrisisStage extends stage
                     
                 evalObj.removedChar = aloneChar;
                 this.location.RemoveCharDuringRun(aloneChar);
-                console.warn("bigStronged: " + aloneChar.name);
             }
         }
     }
