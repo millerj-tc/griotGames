@@ -250,7 +250,7 @@ export class cloneCrisisStage extends stage
                 
                 this.NPC.alignment = null;
                 
-                this.NPC.scared = true;
+                this.NPC.scaredByPowerCouple = true;
                 
                 this.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(this.NPC,"any","S") + " was thinking about joining up with " + GetStringOfCharsFromArray(evalObj.charismaChar,"any","S") + " but " + GetStringOfCharsFromArray($psylockeAndWolverine,"any","S") + ReplacePronouns(this.NPC," convince [them] to mind [their] own fucking business. They're pretty intimidating..."));
                 
@@ -275,7 +275,7 @@ export class cloneCrisisStage extends stage
             
             this.stageHandler.scenarioHandler.gameHandler.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(this.NPC,"any","S") + " has decided to side with the " + this.NPC.alignment + " team.");
         }
-        else if(!this.NPC.scared) this.stageHandler.scenarioHandler.gameHandler.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(this.NPC,"any","S") + " can't decide who to believe.");
+        else if(!this.NPC.scaredByPowerCouple) this.stageHandler.scenarioHandler.gameHandler.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(this.NPC,"any","S") + " can't decide who to believe.");
     }
     
     _LowestCunningConfusedUnlessAlone(evalObj){
