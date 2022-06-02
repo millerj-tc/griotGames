@@ -297,7 +297,8 @@ export class cloneCrisisStage extends stage
             
             const $speediestCharOutput = GetStringOfCharsFromArray(evalObj.speediestChar,"any","S");
             const $speedDebuffedCharOutput = GetStringOfCharsFromArray(evalObj.speedDebuffedChar,"any","S");
-            this.uiHandler.NewStageOutputDiv($speediestCharOutput + ReplacePronouns(evalObj.speediestChar," uses [their] incredible speed to distract ") + $speedDebuffedCharOutput);
+            const $onTheirHeelsOutput = ReplacePronouns(evalObj.speedDebuffedChar, " on [their] heels!")
+            this.uiHandler.NewStageOutputDiv($speediestCharOutput + " attacks with blinding speed, knocking " + $speedDebuffedCharOutput + $onTheirHeelsOutput);
             
         }
     }
@@ -362,7 +363,7 @@ export class cloneCrisisStage extends stage
         
         for(const aloneChar of $aloneChars){
             
-             $bigStrongEnemies = 0;
+             $bigStrongEnemies = [];
             
             for(const enemy of this.location.GetCharsHere("any",aloneChar.GetEnemyAlignment())){
                 
@@ -374,15 +375,15 @@ export class cloneCrisisStage extends stage
                   enemy.name == "Jessica Jones" || 
                   enemy.name == "Colossus") {
                     
-                    $bigStrongEnemies++;
+                    $bigStrongEnemies.push(enemy);
                 }
             }
                    
-            if($bigStrongEnemies > 1){
+            if($bigStrongEnemies.length > 1){
                     
                 evalObj.removedChar = aloneChar;
-                this._AutoSortWinnersAndLosers(evalObj,aloneChar);
-                evalObj.winCredit = evalObj.winners;
+                this._AutoSortWinnersAndLosers(evalObj,$bigStrongEnemies[0]);
+                evalObj.winCredit = $bigStrongEnemies;
                 this.location.RemoveCharDuringRun(aloneChar);
             }
         }

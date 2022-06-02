@@ -48,6 +48,7 @@ export class stage
         this.firstRun = true;
         this.stageHeader = "";
         this.stalemateText = "";
+        this.displayWintextAfterGameover = false;
         
     }
     
@@ -247,7 +248,17 @@ export class stage
         if(evalObj.winners.length + evalObj.losers.length != $totalChars) console.error("Invalid winners and losers arrays on eval obj!");
     }
     
+    _CheckIfSkipResultDisplayText(){
+        
+        if(!this.displayWintextAfterGameover && this.stageHandler.scenarioHandler.gameOver) return true
+        
+        return false
+    }
+    
+    
     _ResultDisplayText(evalObj){
+        
+        if(this._CheckIfSkipResultDisplayText) return
         
         const $ui = this.stageHandler.scenarioHandler.gameHandler.uiHandler;
         
@@ -271,6 +282,8 @@ export class stage
             $outputText = $outputText.replace("[losers names]",GetStringOfCharsFromArray(evalObj.losers,"any","S"));
             
             $outputText = $outputText.replace("[specialOutputGroup0 names]",GetStringOfCharsFromArray(evalObj.specialOutputGroup0,"any","S"));
+            
+            $outputText = ReplaceWordsBasedOnPluralSubjects(GetStringOfCharsFromArray(evalObj.subjects,"any","S"),$outputText);
 
             let $color;
             
