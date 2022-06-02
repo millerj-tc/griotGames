@@ -76,6 +76,18 @@ export function initializeCloneCrisisScenario()
     
     $loc6.winText = "[specialOutputGroup0 names] flee! [winners names] give chase!";
     
+    const $loc7 = GH.scenarioHandler.stageHandler.AddStage("loc7");
+        
+    $loc7.location = GH.scenarioHandler.locationHandler.GetLocationById("location");
+    
+    $loc7.winText = "[specialOutputGroup0 names] flee! [winners names] give chase!";
+    
+    const $loc8 = GH.scenarioHandler.stageHandler.AddStage("loc8");
+        
+    $loc8.location = GH.scenarioHandler.locationHandler.GetLocationById("location");
+    
+    $loc8.winText = "[specialOutputGroup0 names] flee! [winners names] give chase!";
+    
     ///
     
     const $punisherAltStageFx = GH.scenarioHandler.AddScenarioFx(1,"stageSelect");

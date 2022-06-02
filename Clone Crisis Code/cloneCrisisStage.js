@@ -1,5 +1,5 @@
 import {stage,evaluation} from "./../stage.js";
-import {ReplacePronouns,GetStringOfCharsFromArray} from "./../utils.js";
+import {ReplacePronouns,GetStringOfCharsFromArray,ReplaceWordsBasedOnPluralSubjects} from "./../utils.js";
 
 export class cloneCrisisStage extends stage
 {
@@ -145,6 +145,8 @@ export class cloneCrisisStage extends stage
         this._AloneCharPowerTrumps(evalObj);
         
         if(evalObj.winners.length == 0) this._GreatestUnmatchedPowerCapturesLowestToughness(evalObj);
+        
+        this._BishopIsImmune(evalObj);
         
         this._GreatestPowerCaptureOutput(evalObj);
         
@@ -347,7 +349,7 @@ export class cloneCrisisStage extends stage
                 if(char.name == otherChar.name && char != otherChar) $matches++
             }
             
-            if($matches > 0) continue
+            if($matches > 0 || char.stageDisabled) continue
             else{
                 
                 $greatestPowerChar = char;
@@ -360,7 +362,9 @@ export class cloneCrisisStage extends stage
         
         let $enemyAlign = $greatestPowerChar.GetEnemyAlignment();
         
-        const $enemyArr = evalObj.GetCharsFromInitialPool($enemyAlign);
+        let $enemyArr = evalObj.GetCharsFromInitialPool($enemyAlign);
+        
+        $enemyArr = $enemyArr.filter(c => c.stageImmune == false);
         
         if($enemyArr.length < 1) return
         
@@ -370,13 +374,32 @@ export class cloneCrisisStage extends stage
         
         const $lowestToughnessEnemyOfPowerfulestChar = $enemyArr.sort(function(a, b){return a.toughness - b.toughness})[0];
         
-        //console.log(this.location.GetCharsHere());
         
         this.location.RemoveCharDuringRun($lowestToughnessEnemyOfPowerfulestChar);
         
-        //console.log(this.location.GetCharsHere());
         
         evalObj.removedChar = $lowestToughnessEnemyOfPowerfulestChar;
+        
+    }
+    
+    _BishopIsImmune(evalObj){
+        
+        if(evalObj.removedChar.name == "Bishop" && (evalObj.winCredit.name == "Cyclops" || evalObj.winCredit.name == "Psylocke")){
+            
+            evalObj.removedChar.stageImmune = true;
+            
+            evalObj.winCredit.stageDisabled = true;
+            
+            this.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(evalObj.removedChar,"any","S") + " is immune to the energy attack from " + GetStringOfCharsFromArray(evalObj.winCredit,"any","S") + "!");
+            
+            evalObj.removedChar.removedDuringRun = false;
+            
+            evalObj.removedChar = null;
+            
+            console.log(evalObj);
+            
+            this._GreatestUnmatchedPowerCapturesLowestToughness(evalObj);
+        }
         
     }
     
@@ -400,7 +423,7 @@ export class cloneCrisisStage extends stage
                 if(enemy.name == "Wolverine" ||
                   enemy.name == "Beast" ||
                   enemy.name == "Black Panther" ||
-                  enemy.name == "Psylocke" ||
+                  (enemy.name == "Psylocke" && aloneChar.name != "Bishop") ||
                   enemy.name == "Ghostrider" ||
                   enemy.name == "Jessica Jones" || 
                   enemy.name == "Colossus") {
@@ -434,8 +457,10 @@ export class cloneCrisisStage extends stage
             //console.warn($powerSortedWinChars);
             
             $powerSortedWinChars.sort(function(a,b){return b.power - a.power});
+            
+            console.log(evalObj.winCredit);
 
-            this.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(evalObj.winCredit,"any","S") + " manages to capture " + GetStringOfCharsFromArray(evalObj.removedChar,"any","S") + "!");
+            this.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(evalObj.winCredit,"any","S") + ReplaceWordsBasedOnPluralSubjects(evalObj.winCredit," [[manages/manage]] to capture ") + GetStringOfCharsFromArray(evalObj.removedChar,"any","S") + "!");
         }
     }
     

@@ -97,7 +97,7 @@ export function ReplaceWordsBasedOnPluralSubjects(array,string){
         
          $modifiedGroup = $returnString.match(/\[\[(.*?)\]\]/)[1];
         
-        if(array.length == 1) $modifiedGroup = $modifiedGroup.split("/")[0]
+        if(array.length == 1 || array.hasOwnProperty("dataType")) $modifiedGroup = $modifiedGroup.split("/")[0]
         else if(array.length > 1) $modifiedGroup = $modifiedGroup.split("/")[1]
     
         $returnString = $returnString.replace(/\[\[(.*?)\]\]/,$modifiedGroup);

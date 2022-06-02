@@ -136,6 +136,13 @@ export class stage
         
         evalObj.pool = this.location.GetCharsHere();
         
+        for(const char of evalObj.pool){
+            
+            char.stageImmune = false;
+            
+            char.stageDisabled = false;
+        }
+        
         evalObj.initialPool = evalObj.pool;
         
     }
