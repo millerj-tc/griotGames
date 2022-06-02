@@ -39,9 +39,15 @@ export class gameHandler
         
         initializeCloneCrisisScenario();
         
+        
+        
         this.uiHandler.CreateEvalGoButton();
         
+        
+        
         this.uiHandler._CreateCollapseButton();
+        
+        this.uiHandler.CreateLockButton();
         
         this.scenarioHandler.charHandler.AddFunctionsToCharacters();
         

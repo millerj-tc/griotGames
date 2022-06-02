@@ -8,6 +8,8 @@ export class uiHandler
         
         this.locationTable;
         
+        this.rosterViewLocked = false;
+        
     }
     
     ResizeOnResize(){
@@ -41,6 +43,7 @@ export class uiHandler
         const $collapseButton = document.createElement("button");
         $collapseButton.id = "rosterCollapseButton";
         $collapseButton.style.fontSize = "32pt";
+        $collapseButton.style.float = "right";
         $collapseButton.setAttribute("data-collapsed","true");
         
         $collapseButton.onclick = function(){
@@ -57,9 +60,39 @@ export class uiHandler
 
         };
         
-        $collapseButton.innerHTML = "v";
+        $collapseButton.innerHTML = ">";
         
         document.getElementById("content").append($collapseButton);
+    }
+    
+    CreateLockButton(){
+        
+        const $lockButton = document.createElement("button");
+        $lockButton.id = "rosterLockButton";
+        $lockButton.style.fontSize = "15pt";
+        $lockButton.style.marginTop = "15px";
+        $lockButton.style.float = "right";
+        $lockButton.setAttribute("data-locked","false");
+        
+        $lockButton.onclick = function(){
+       
+            if(window.gameHandler.uiHandler.rosterViewLocked){
+            
+                window.gameHandler.uiHandler.rosterViewLocked = false;
+                $lockButton.innerHTML = "🔓";    
+
+            }
+            else{
+                
+                window.gameHandler.uiHandler.rosterViewLocked = true;
+                $lockButton.innerHTML = "🔒"
+            }
+
+        };
+        
+        $lockButton.innerHTML = "🔓";
+        
+        document.getElementById("content").append($lockButton);
     }
     
     CollapseRosterDisplay(){
@@ -67,17 +100,21 @@ export class uiHandler
         const $collapseButton = document.getElementById("rosterCollapseButton");
         
         $collapseButton.setAttribute("data-collapsed","true");
-        document.getElementById("content").style.transform = "translateY(0px)";
-        $collapseButton.innerHTML = "v";
+        document.getElementById("content").style.transform = "translateX(0px)";
+        document.getElementById("output").style.transform = "translateX(0px)";
+        document.getElementById("output").style.marginRight = "150px";
+        $collapseButton.innerHTML = ">";
     }
     
     ExpandRosterDisplay(){
         
         const $collapseButton = document.getElementById("rosterCollapseButton");
         
-        document.getElementById("content").style.transform = "translateY(750px)";
+        document.getElementById("content").style.transform = "translateX(350px)";
+        document.getElementById("output").style.transform = "translateX(350px)";
+        document.getElementById("output").style.marginRight = "500px";
         $collapseButton.setAttribute("data-collapsed","false");
-        $collapseButton.innerHTML = "^";
+        $collapseButton.innerHTML = "<";
     }
     
     CreateEvalGoButton(){
@@ -96,7 +133,7 @@ export class uiHandler
                 
                 const $collapseButton = document.getElementById("rosterCollapseButton");
                                 
-                if($collapseButton.getAttribute("data-collapsed") == "false"){
+                if($collapseButton.getAttribute("data-collapsed") == "false" && !window.gameHandler.uiHandler.rosterViewLocked){
             
                     window.gameHandler.uiHandler.CollapseRosterDisplay();
                 }
