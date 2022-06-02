@@ -3,9 +3,9 @@ import {ReplacePronouns,GetStringOfCharsFromArray} from "./../utils.js";
 
 export class cloneCrisisStage extends stage
 {
-    constructor(stageHandler){
+    constructor(stageHandler,id){
         
-        super(stageHandler);
+        super(stageHandler,id);
         
         this.uiHandler = this.stageHandler.scenarioHandler.gameHandler.uiHandler;
         
@@ -25,9 +25,11 @@ export class cloneCrisisStage extends stage
         
         this._EndGameIfTeamAllCaptured();
         
+        //console.warn(this.id);
+        
         this._ResetNPCRecruitmentProperties();
         
-        if(this.stageHandler.scenarioHandler.gameOver) return
+        if(this.stageHandler.scenarioHandler.gameOver) return   
         
         //if(this.id == "loc0") this.location.unslottedChars = [];
         
@@ -48,6 +50,8 @@ export class cloneCrisisStage extends stage
         this._RemoveDebuffedCharsFromPool($evalObj);
         
         this._CloneCrisisBattle($evalObj);
+        
+        this._ValidateWinnersAndLosers($evalObj);
                 
         this._ResultDisplayText($evalObj);
         
@@ -325,7 +329,9 @@ export class cloneCrisisStage extends stage
         
         if($enemyArr.length < 1) return
         
-        evalObj.winners.push($greatestPowerChar);
+        this._AutoSortWinnersAndLosers(evalObj,$greatestPowerChar);
+        
+        evalObj.winCredit = $greatestPowerChar;
         
         const $lowestToughnessEnemyOfPowerfulestChar = $enemyArr.sort(function(a, b){return a.toughness - b.toughness})[0];
         
@@ -364,7 +370,6 @@ export class cloneCrisisStage extends stage
                   enemy.name == "Jessica Jones" || 
                   enemy.name == "Colossus") {
                     
-                    evalObj.winners.push(enemy);
                     $bigStrongEnemies++;
                 }
             }
@@ -372,6 +377,8 @@ export class cloneCrisisStage extends stage
             if($bigStrongEnemies > 1){
                     
                 evalObj.removedChar = aloneChar;
+                this._AutoSortWinnersAndLosers(evalObj,aloneChar);
+                evalObj.winCredit = evalObj.winners;
                 this.location.RemoveCharDuringRun(aloneChar);
             }
         }
@@ -393,7 +400,7 @@ export class cloneCrisisStage extends stage
             
             $powerSortedWinChars.sort(function(a,b){return b.power - a.power});
 
-            this.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(evalObj.removedChar,"any","S") + " has been captured by " + GetStringOfCharsFromArray(evalObj.winners,"any","S") + "!");
+            this.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(evalObj.removedChar,"any","S") + " has been captured by " + GetStringOfCharsFromArray(evalObj.winCredit,"any","S") + "!");
         }
     }
 }

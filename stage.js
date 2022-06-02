@@ -9,6 +9,7 @@ export class evaluation
         
         this.stage = stage;
         this.winners = [];
+        this.losers = [];
         this.winTeam;
         this.winChar;
         this.location;
@@ -214,6 +215,30 @@ export class stage
         }
     }
     
+    _AutoSortWinnersAndLosers(evalObj,char,isWinner = true){
+        
+        if(evalObj.stalemate) return
+        
+        if(isWinner){
+            evalObj.winners = this.location.GetCharsHere("any",char.alignment,true);
+            evalObj.losers = this.location.GetCharsHere("any",char.GetEnemyAlignment(),true);
+        }
+        else{
+            evalObj.winners = this.location.GetCharsHere("any",char.GetEnemyAlignment(),true);
+            evalObj.losers = this.location.GetCharsHere("any",char.alignment,true);
+        }
+        
+    }
+    
+    _ValidateWinnersAndLosers(evalObj){
+        
+        console.log(this.id);
+        
+        const $totalChars = this.location.GetCharsHere("any","any",true).length;
+        
+        if(evalObj.winners.length + evalObj.losers.length != $totalChars) console.error("Invalid winners and losers arrays on eval obj!");
+    }
+    
     _ResultDisplayText(evalObj){
         
         const $ui = this.stageHandler.scenarioHandler.gameHandler.uiHandler;
@@ -228,7 +253,9 @@ export class stage
         }
         else{
             
-            let $outputText = this.winText.replace("[names]",GetStringOfCharsFromArray(evalObj.winners,"any","S"));
+            let $outputText = this.winText.replace("[winners names]",GetStringOfCharsFromArray(evalObj.winners,"any","S"));
+            
+            $outputText = $outputText.replace("[losers names]",GetStringOfCharsFromArray(evalObj.losers,"any","S"))
 
             let $color;
             

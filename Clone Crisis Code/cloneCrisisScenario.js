@@ -26,19 +26,19 @@ export function initializeCloneCrisisScenario()
         
     $loc2.location = GH.scenarioHandler.locationHandler.GetLocationById("location");
     
-    const $loc3 = GH.scenarioHandler.stageHandler.AddStage("loc2");
+    const $loc3 = GH.scenarioHandler.stageHandler.AddStage("loc3");
         
     $loc3.location = GH.scenarioHandler.locationHandler.GetLocationById("location");
     
-    const $loc4 = GH.scenarioHandler.stageHandler.AddStage("loc2");
+    const $loc4 = GH.scenarioHandler.stageHandler.AddStage("loc4");
         
     $loc4.location = GH.scenarioHandler.locationHandler.GetLocationById("location");
     
-    const $loc5 = GH.scenarioHandler.stageHandler.AddStage("loc2");
+    const $loc5 = GH.scenarioHandler.stageHandler.AddStage("loc5");
         
     $loc5.location = GH.scenarioHandler.locationHandler.GetLocationById("location");
     
-    const $loc6 = GH.scenarioHandler.stageHandler.AddStage("loc2");
+    const $loc6 = GH.scenarioHandler.stageHandler.AddStage("loc6");
         
     $loc6.location = GH.scenarioHandler.locationHandler.GetLocationById("location");
     
