@@ -152,8 +152,6 @@ export class cloneCrisisStage extends stage
         
         if(this.NPC == null) return
         
-        console.warn(this.NPC.alignment);
-        
         let $evalArr = [];
         
         let $diffArr = [];

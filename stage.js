@@ -233,8 +233,6 @@ export class stage
     
     _ValidateWinnersAndLosers(evalObj){
         
-        console.log(this.id);
-        
         const $totalChars = this.location.GetCharsHere("any","any",true).length;
         
         if(evalObj.winners.length + evalObj.losers.length != $totalChars) console.error("Invalid winners and losers arrays on eval obj!");
