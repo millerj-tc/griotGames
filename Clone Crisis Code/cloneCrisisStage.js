@@ -97,7 +97,7 @@ export class cloneCrisisStage extends stage
         
         if(this.NPC == undefined) return
         
-        const $npcPortrait = GetStringOfCharsFromArray(this.NPC,"any","M");
+        const $npcPortrait = GetStringOfCharsFromArray(this.NPC,"any","M",false);
         
         if(this.NPC.openingLine != undefined) {
             
@@ -273,7 +273,9 @@ export class cloneCrisisStage extends stage
                 
                 if(char.name == "Cyclops"){
                     
-                    this.uiHandler.NewStageOutputDiv("Cyclops explains the plan carefully to " + GetStringOfCharsFromArray(evalObj.confusedCharacter,"any","S") + ", and they execute perfectly!");
+                    const $cyclops = this.location.GetCharsHere("Cyclops",evalObj.confusedCharacter.alignment,true);
+                    
+                    this.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray($cyclops,"any","S") + " explains the plan carefully to " + GetStringOfCharsFromArray(evalObj.confusedCharacter,"any","S") + ReplacePronouns(evalObj.confusedCharacter,", and [they] executes the plan better than usual!"));
                     
                     evalObj.pool.push(evalObj.confusedCharacter);
                     
@@ -433,7 +435,7 @@ export class cloneCrisisStage extends stage
             
             $powerSortedWinChars.sort(function(a,b){return b.power - a.power});
 
-            this.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(evalObj.removedChar,"any","S") + " has been captured by " + GetStringOfCharsFromArray(evalObj.winCredit,"any","S") + "!");
+            this.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(evalObj.winCredit,"any","S") + " manages to capture " + GetStringOfCharsFromArray(evalObj.removedChar,"any","S") + "!");
         }
     }
     

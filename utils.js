@@ -1,4 +1,4 @@
-export function GetStringOfCharsFromArray(array,alignment = "any",getPics=""){
+export function GetStringOfCharsFromArray(array,alignment = "any",getPics="",displayInline = true){
         
         let $passedArray = array;
     
@@ -29,7 +29,8 @@ export function GetStringOfCharsFromArray(array,alignment = "any",getPics=""){
             
             //
             
-            if(getPics != "") $pushedString = `<span style="display:inline-block">` + $leftBar.outerHTML + $thumbImg.outerHTML + $rightBar.outerHTML + " " + char.name + `</span>`;
+            if(getPics != "" && displayInline) $pushedString = `<span style="display:inline-block">` + $leftBar.outerHTML + $thumbImg.outerHTML + $rightBar.outerHTML + " " + char.name + `</span>`;
+            else if(getPics != "" && !displayInline)  $pushedString = $leftBar.outerHTML + $thumbImg.outerHTML + $rightBar.outerHTML + " " + char.name;
             else $pushedString = char.name
             
             if(alignment == "any") $nameArr.push($pushedString) 
