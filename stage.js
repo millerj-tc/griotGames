@@ -80,13 +80,6 @@ export class stage
         
         const $outputDivs = document.querySelectorAll(".outputDiv");
         
-        //console.log($outputDivs);
-        //console.log(this.evalArr);
-        
-        //const $oldOutputDivs = this.evalDiv.querySelectorAll(".outputDiv");
-        
-        //console.log($oldOutputDivs);
-        
         let $matches;
         
         for(const output of $outputDivs){
@@ -97,15 +90,11 @@ export class stage
                 
                 if(output.innerText == oldOutput){
                     
-//                    console.warn("===");
-//                    console.log(output.innerText);
-//                    console.log(oldOutput);
-                    
                     $matches++;
                     
                 }
             }
-            //console.log(output.innerText + " " + $matches);
+
             if($matches > 0) output.style.backgroundColor = "";
             else output.style.backgroundColor = "yellow";
         }
@@ -119,13 +108,10 @@ export class stage
             
             let $replaceString = GetStringOfCharsFromArray([char],"any","S");
             
-            //console.log($replaceString);
-            
             $returnString = fx.targetStageOutputText.replace("[names]",$replaceString);
             
             $returnString = $returnString +  "<br><br>";
             
-            //console.log($returnString);
     
         }
         
@@ -151,7 +137,6 @@ export class stage
         
         evalObj.initialPool = evalObj.pool;
         
-        //console.log(evalObj);
     }
     
     _RemoveCharsResultInMirror(chars,evalObj){
@@ -164,6 +149,30 @@ export class stage
         else $passedCharArr = chars
         
         //let $testArr = evalObj.pool.filter()
+    }
+    
+    _ReturnArrWithTeamDupedCharsRemoved(arr){
+        
+        let $returnArr = [];
+        
+        for(const char of arr){
+         
+            let $matches = 0;
+            
+            for(const otherChar of arr){
+
+                if(char.name == otherChar.name && char.alignment != otherChar.alignment) $matches++
+            }
+            
+            if($matches > 0) continue
+            else{
+                
+                $returnArr.push(char);
+            }
+        
+        }
+        
+        return $returnArr
     }
     
     _DeclareLocation(){

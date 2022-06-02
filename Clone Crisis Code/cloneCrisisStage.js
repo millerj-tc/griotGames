@@ -268,7 +268,11 @@ export class cloneCrisisStage extends stage
     
     _HighestSpeedDebuffsGreatestPower(evalObj){
         
-        const $highestSpeedChar = evalObj.pool.sort(function(a, b){return b.speed - a.speed})[0];
+        let $speedEvalPool = this._ReturnArrWithTeamDupedCharsRemoved(evalObj.pool);
+        
+        if($speedEvalPool.length == 0) return
+        
+        const $highestSpeedChar = $speedEvalPool.sort(function(a, b){return b.speed - a.speed})[0];
         
         let $enemyAlign = $highestSpeedChar.GetEnemyAlignment();
         
