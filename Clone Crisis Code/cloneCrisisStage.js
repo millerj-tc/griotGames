@@ -130,6 +130,8 @@ export class cloneCrisisStage extends stage
         
         this._NPCRecruitedByClosestCharisma(evalObj);
         
+        this._BetsyAndLoganAreScary(evalObj);
+        
         this._NPCRecruitOutput();
         
         this._LowestCunningConfusedUnlessAlone(evalObj);
@@ -212,6 +214,8 @@ export class cloneCrisisStage extends stage
         
         if($returnArr.length >= 1){
             
+            evalObj.charismaChar = $returnArr[0];
+            
             this.NPC.alignment = $returnArr[0].alignment;
             
             this.NPC.recruited = true;
@@ -219,6 +223,39 @@ export class cloneCrisisStage extends stage
             evalObj.pool.push(this.NPC);
             
             this.location.AddUnslottedChar(this.NPC);
+        }
+    }
+    
+    _BetsyAndLoganAreScary(evalObj){
+        
+        if(this.NPC != undefined && this.NPC.recruited){
+            
+            let $matches = 0;
+            
+            let $psylockeAndWolverine = [];
+            
+            for(const char of this.location.GetCharsHere("any",this.NPC.GetEnemyAlignment(),true)){
+                
+                if(char.name == "Wolverine" || char.name == "Psylocke"){
+                    
+                    $matches++;
+                    
+                    $psylockeAndWolverine.push(char);
+                }
+            }
+            
+            if($matches == 2){
+                
+                this.NPC.recruited = false;
+                
+                this.NPC.alignment = null;
+                
+                this.NPC.scared = true;
+                
+                this.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(this.NPC,"any","S") + " was thinking about joining up with " + GetStringOfCharsFromArray(evalObj.charismaChar,"any","S") + " but " + GetStringOfCharsFromArray($psylockeAndWolverine,"any","S") + ReplacePronouns(this.NPC," convince [them] to mind [their] own fucking business. They're pretty intimidating..."));
+                
+                this.location.RemoveCharDuringRun(this.NPC);
+            }
         }
     }
     
@@ -238,7 +275,7 @@ export class cloneCrisisStage extends stage
             
             this.stageHandler.scenarioHandler.gameHandler.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(this.NPC,"any","S") + " has decided to side with the " + this.NPC.alignment + " team.");
         }
-        else this.stageHandler.scenarioHandler.gameHandler.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(this.NPC,"any","S") + " can't decide who to believe.");
+        else if(!this.NPC.scared) this.stageHandler.scenarioHandler.gameHandler.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(this.NPC,"any","S") + " can't decide who to believe.");
     }
     
     _LowestCunningConfusedUnlessAlone(evalObj){
