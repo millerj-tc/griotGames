@@ -27,7 +27,7 @@ export class gameHandler
     
     Start(){
         
-        if(this.newGamePlus) this.scenarioHandler.playingNoninteractiveStages = true;
+        //if(this.newGamePlus) this.scenarioHandler.playingNoninteractiveStages = true;
         
         this.scenarioHandler.usesLocationAssignment = false;
             

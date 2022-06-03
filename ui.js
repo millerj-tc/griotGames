@@ -4,7 +4,7 @@ export class uiHandler
         
         this.gameHandler = gameHandler;
         
-        this.availableChars = this.gameHandler.database.data;
+        //this.availableChars = this.gameHandler.database.data;
         
         this.locationTable;
         
@@ -417,15 +417,15 @@ export class uiHandler
         
     AddSelectorOptions(selector,slot){
         
-        const $alphaSortedChars = this.availableChars.sort(function(a, b) {
+        const $availableChars = this.gameHandler.scenarioHandler.GetAllChars(slot.alignment);
+        
+        const $alphaSortedChars = $availableChars.sort(function(a, b) {
             let textA = a.name.toUpperCase();
             let textB = b.name  .toUpperCase();
             return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
         });
         
-        for(const char of this.availableChars.sort(function(a, b){return a.name - b.name})){
-            
-            if(!char.unlocked) continue
+        for(const char of $alphaSortedChars){
             
             let $option = document.createElement("option");
             
@@ -433,13 +433,5 @@ export class uiHandler
             
             selector.add($option);
         }
-        
-        //selector.selectedIndex = Math.floor(Math.random()*selector.length);
-        
-       // this.UpdateCharImage(slot);
-        
-        //$returnString += `</select>`;
-        
-        //return $returnString;
     }
 }

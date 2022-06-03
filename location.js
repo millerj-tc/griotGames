@@ -149,10 +149,9 @@ export class locationHandler
     
     RandomizeStartingTeams(){
         
-        let $destructoArrLeft = ShuffleArray(this.scenarioHandler.GetAllChars(true));
+        let $destructoArrLeft = ShuffleArray(this.scenarioHandler.GetAllChars("left"));
         
-        let $destructoArrRight = ShuffleArray(this.scenarioHandler.GetAllChars(true));
-        
+        let $destructoArrRight = ShuffleArray(this.scenarioHandler.GetAllChars("right"));   
         
         for(const loc of this.locations){
             

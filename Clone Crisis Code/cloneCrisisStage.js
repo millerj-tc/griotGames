@@ -23,7 +23,7 @@ export class cloneCrisisStage extends stage
 
     EvalFlow(){
         
-        if(this.stageHandler.scenarioHandler.playingNoninteractiveStages){
+        if(this.flowVar = 1){
             
             this._NoninteractiveEvalFlow();
             return
@@ -203,23 +203,33 @@ export class cloneCrisisStage extends stage
         
         console.log(evalObj);
         
+        let $leftRecruiters = [];
+        
+        let $rightRecruiters = [];
+        
         for(const char of evalObj.pool){
             
             if(Math.abs(char.charisma - this.NPC.charisma) <= 2){
                 
-                evalObj.charismaChar = char;
-            
-                this.NPC.alignment = char.alignment;
-
-                this.NPC.recruited = true;
-
-                this.location.AddUnslottedChar(this.NPC);
+                this.stageHandler.scenarioHandler.gameHandler.database.GetObjFromString(this.NPC.name).unlocked.push(char.alignment);
                 
-                this.stageHandler.scenarioHandler.gameHandler.database.GetObjFromString(this.NPC.name).unlocked = true;
+                if(char.alignment == "left") $leftRecruiters.push(char);
+                
+                if(char.alignment == "right") $rightRecruiters.push(char);
+
+                
             }
         }
         
-        if(evalObj.charismaChar!= null) evalObj.pool.push(this.NPC);
+        const $recruitedString = GetStringOfCharsFromArray(this.NPC, "any","S");
+        
+        const $leftRecruitersString = GetStringOfCharsFromArray($leftRecruiters,"any","S");
+        
+        const $rightRecruitersString = GetStringOfCharsFromArray($rightRecruiters,"any","S");
+
+        this.stageHandler.scenarioHandler.gameHandler.uiHandler.NewStageOutputDiv($recruitedString + " considers the arguments of " + $leftRecruitersString);
+        
+        this.stageHandler.scenarioHandler.gameHandler.uiHandler.NewStageOutputDiv($recruitedString + " considers the arguments of " + $rightRecruitersString);
     }
     
 

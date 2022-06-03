@@ -264,14 +264,18 @@ export class scenarioHandler
         
     }
     
-    GetAllChars(unlockedOnly = false){
+    GetAllChars(unlockedFor = ""){
         
         let $returnArr = [];
         
         for(const obj of this.gameHandler.database.data){
             
-            if(obj.dataType == "char" && !unlockedOnly) $returnArr.push(obj);
-            else if(obj.dataType == "char" && obj.unlocked) $returnArr.push(obj);
+            if(obj.dataType != "char") continue
+            
+            if(unlockedFor == "both" && (obj.unlocked.includes("left") || char.unlocked.includes("right"))) $returnArr.push(obj);
+            else if(unlockedFor == "left" && obj.unlocked.includes("left")) $returnArr.push(obj);
+            else if(unlockedFor == "right" && obj.unlocked.includes("right")) $returnArr.push(obj);
+            else if(unlockedFor == "") $returnArr.push(obj);
         }
         
         return $returnArr

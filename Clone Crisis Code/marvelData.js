@@ -3,7 +3,7 @@ export const marvelData = [
     {
     name: "Beast",
     dataType: "char",
-    unlocked: true,
+    unlocked: ["left","right"],
     imageL: "images/marvel/beast-200.png",
     imageM: "images/marvel/beast-100.png",
     imageS: "images/marvel/beast-50.png",
@@ -18,7 +18,7 @@ export const marvelData = [
     {
     name: "Black Panther",
     dataType: "char",
-    unlocked: false,
+    unlocked: [],
     imageL: "images/marvel/tchalla-200.png",
     imageM: "images/marvel/tchalla-100.png",
     imageS: "images/marvel/tchalla-50.png",
@@ -33,7 +33,7 @@ export const marvelData = [
     {
     name: "Bishop",
     dataType: "char",
-    unlocked: true,
+    unlocked: ["left","right"],
     imageL: "images/marvel/bishop-200.png",
     imageM: "images/marvel/bishop-100.png",
     imageS: "images/marvel/bishop-50.png",
@@ -48,7 +48,7 @@ export const marvelData = [
     {
     name: "Cyclops",
     dataType: "char",
-    unlocked: true,
+    unlocked: ["left","right"],
     imageL: "images/marvel/cyclops-200.png",
     imageM: "images/marvel/cyclops-100.png",
     imageS: "images/marvel/cyclops-50.png",
@@ -63,7 +63,7 @@ export const marvelData = [
     {
     name: "Colossus",
     dataType: "char",
-    unlocked: true,
+    unlocked: ["left","right"],
     imageL: "images/marvel/colossus-200.png",
     imageM: "images/marvel/colossus-100.png",
     imageS: "images/marvel/colossus-50.png",
@@ -78,7 +78,7 @@ export const marvelData = [
     {
     name: "Daredevil",
     dataType: "char",
-    unlocked: false,
+    unlocked: [],
     imageL: "images/marvel/daredevil-200.png",
     imageM: "images/marvel/daredevil-100.png",
     imageS: "images/marvel/daredevil-50.png",
@@ -93,7 +93,7 @@ export const marvelData = [
     {
     name: "Jessica Jones",
     dataType: "char",
-    unlocked: false,
+    unlocked: [],
     imageL: "images/marvel/jessica-200.png",
     imageM: "images/marvel/jessica-100.png",
     imageS: "images/marvel/jessica-50.png",
@@ -108,7 +108,7 @@ export const marvelData = [
     {
     name: "Wolverine",
     dataType: "char",
-    unlocked: true,
+    unlocked: ["left","right"],
     imageL: "images/marvel/logan-200.png",
     imageM: "images/marvel/logan-100.png",
     imageS: "images/marvel/logan-50.png",
@@ -123,7 +123,7 @@ export const marvelData = [
     {
     name: "Okoye",
     dataType: "char",
-    unlocked: false,
+    unlocked: [],
     imageL: "images/marvel/okoye-200.png",
     imageM: "images/marvel/okoye-100.png",
     imageS: "images/marvel/okoye-50.png",
@@ -138,7 +138,7 @@ export const marvelData = [
     {
     name: "Deadpool",
     dataType: "char",
-    unlocked: false,
+    unlocked: [],
     imageL: "images/marvel/deadpool-200.png",
     imageM: "images/marvel/deadpool-100.png",
     imageS: "images/marvel/deadpool-50.png",
@@ -153,7 +153,7 @@ export const marvelData = [
     {
     name: "Punisher",
     dataType: "char",
-    unlocked: false,
+    unlocked: [],
     imageL: "images/marvel/punisher-200.png",
     imageM: "images/marvel/punisher-100.png",
     imageS: "images/marvel/punisher-50.png",
@@ -168,7 +168,7 @@ export const marvelData = [
     {
     name: "Ghostrider",
     dataType: "char",
-    unlocked: false,
+    unlocked: [],
     imageL: "images/marvel/blaze-200.png",
     imageM: "images/marvel/blaze-100.png",
     imageS: "images/marvel/blaze-50.png",
@@ -183,7 +183,7 @@ export const marvelData = [
     {
     name: "Psylocke",
     dataType: "char",
-    unlocked: true,
+    unlocked: ["left","right"],
     imageL: "images/marvel/psylocke-200.png",
     imageM: "images/marvel/psylocke-100.png",
     imageS: "images/marvel/psylocke-50.png",
@@ -194,6 +194,22 @@ export const marvelData = [
     charisma: "6.5",
     speed: "9.5",
     cume: "37.5"
+    },
+    
+    {
+    name: "Venom",
+    dataType: "char",
+    unlocked: [],
+    imageL: "images/marvel/venom-200.png",
+    imageM: "images/marvel/venom-100.png",
+    imageS: "images/marvel/venom-50.png",
+    pronouns:{they: "they", them: "them", their: "their", theirs: "theirs", themself: "themself"},
+    power: "10.5",
+    toughness: "11.5",
+    cunning: "3.5",
+    charisma: "0",
+    speed: "10.5",
+    cume: "36"
     },
     
 ]
