@@ -23,16 +23,18 @@ export class cloneCrisisStage extends stage
 
     EvalFlow(){
         
-        //console.warn(this.id);
+        if(this.stageHandler.scenarioHandler.playingNoninteractiveStages){
+            
+            this._NoninteractiveEvalFlow();
+            return
+        }
         
         this._ResetNPCRecruitmentProperties();
         
         this.stageHandler.scenarioHandler.gameHandler.OfferSubmissionLinkAfterXRuns();
         
         if(this.stageHandler.scenarioHandler.gameOver) return   
-        
-        //if(this.id == "loc0") this.location.unslottedChars = [];
-        
+                
         const $evalObj = new evaluation(this);
         
         this._DeclareLocation();
@@ -62,9 +64,40 @@ export class cloneCrisisStage extends stage
         this._StoreCurrentOutputToEvalArr();
         
         this.firstRun = false;
+                
+        this._TriggerStageFx($evalObj);
         
-        //console.log($evalObj);
+        this.stageHandler.GotoNextStage(this.nextStage);
+    }
+    
+    _NoninteractiveEvalFlow(){
         
+        this.stageHandler.scenarioHandler.gameHandler.OfferSubmissionLinkAfterXRuns();
+                
+        const $evalObj = new evaluation(this);
+        
+        this._DeclareLocation();
+        
+        this._StageHeaderOutput();
+        
+        this._NPCOpeningLineOutput();
+        
+        this._SetEvalPool($evalObj);
+        
+        console.log("alknagf");
+
+        this._NoninteractiveCloneCrisisBattle($evalObj);
+        
+        this._ValidateWinnersAndLosers($evalObj);
+                
+        this._ResultDisplayText($evalObj);
+        
+        this._HighlightChangedDivs();
+        
+        this._StoreCurrentOutputToEvalArr();
+        
+        this.firstRun = false;
+                
         this._TriggerStageFx($evalObj);
         
         this.stageHandler.GotoNextStage(this.nextStage);
@@ -153,6 +186,46 @@ export class cloneCrisisStage extends stage
         this._GreatestPowerCaptureOutput(evalObj);
         
         this._SetSpecialOutputGroup0ToRemainingLosingChars(evalObj);
+    }
+    
+    _NoninteractiveCloneCrisisBattle(evalObj){
+        
+        console.log("IM NOT INTERACTIVE");
+        
+        this._NPCRecruitedAndUnlockedWithinTwoCharisma(evalObj);
+        
+        console.log("end noninteration");
+    }
+    
+    _NPCRecruitedAndUnlockedWithinTwoCharisma(evalObj){
+        
+        if(this.NPC == null) return
+        
+        evalObj.npc = this.NPC;
+        
+        evalObj.charismaChar = null;
+        
+        console.log(evalObj);
+        
+        for(const char of evalObj.pool){
+            
+            console.log(char.name);
+            
+            if(Math.abs(char.charisma - this.NPC.charisma) <= 2){
+                
+                evalObj.charismaChar = char;
+            
+                this.NPC.alignment = char.alignment;
+
+                this.NPC.recruited = true;
+
+                this.location.AddUnslottedChar(this.NPC);
+                
+                this.stageHandler.scenarioHandler.gameHandler.database.GetObjFromString(this.NPC.name).unlocked = true;
+            }
+        }
+        
+        if(evalObj.charismaChar!= null) evalObj.pool.push(this.NPC);
     }
     
 

@@ -66,13 +66,12 @@ export class stage
         
         const $divArr = document.querySelectorAll(".outputDiv");
        
-        //console.log($divArr);
         
         for(const div of $divArr){
         
             this.evalArr.push(div.innerText);
         } 
-         //console.log(this.evalArr);
+
     }
     
     _HighlightChangedDivs(){
@@ -255,7 +254,7 @@ export class stage
     
     _CheckIfSkipResultDisplayText(){
         
-        console.log("check");
+
         
         if(!this.displayWintextAfterGameover && this.stageHandler.scenarioHandler.gameOver) return true
         
@@ -268,9 +267,7 @@ export class stage
         if(this._CheckIfSkipResultDisplayText()) return
         
         const $ui = this.stageHandler.scenarioHandler.gameHandler.uiHandler;
-        
-        console.log(evalObj);
-        console.log(evalObj.winners);
+
         
         if(evalObj.winners.length == 0){
             
@@ -304,8 +301,7 @@ export class stage
             $span.innerHTML = evalObj.winners[0].alignment;
             
             $outputText = $outputText.replace("[alignment]",$span.outerHTML);
-            
-            //console.log("STAGE TEXT " + this.id);
+        
 
             $ui.NewStageOutputDiv($outputText);
 

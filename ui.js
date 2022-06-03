@@ -125,7 +125,6 @@ export class uiHandler
         $evalButton.style = "font-size:32pt"
         $evalButton.onclick = function(){
             
-            //console.warn(window.gameHandler.scenarioHandler);
             
             window.gameHandler.scenarioHandler.ScenarioReset();
             
@@ -169,9 +168,8 @@ export class uiHandler
         let $gridTemplateColumns = "auto";
         
         if($SH.usesLocationAssignment) $gridTemplateColumns += " auto";
-        if(!$SH.startWithNoninteractiveStages) $gridTemplateColumns += " auto";
+        if(!$SH.playingNoninteractiveStages) $gridTemplateColumns += " auto";
         
-        console.log($gridTemplateColumns);
            
         this.locationTable.style.gridTemplateColumns = $gridTemplateColumns
         
@@ -197,7 +195,7 @@ export class uiHandler
             this.locationTable.append($col1Head);
         }
         
-        if(!$SH.startWithNoninteractiveStages){
+        if(!$SH.playingNoninteractiveStages){
             const $col2Head = document.createElement("div");
             let $rspan = document.createElement("span");
             $rspan.style.color = "red";
@@ -212,9 +210,6 @@ export class uiHandler
     
     UpdateCharImage(slot){
         
-        console.log(slot);
-        //console.log(document.getElementById(slot.selectId));
-        //console.log(document.getElementById(slot.selectId).value);
         
         const $character = this.gameHandler.database.GetObjFromString(document.getElementById(slot.selectId).value);
         
@@ -253,146 +248,128 @@ export class uiHandler
         return $div
     }
     
-    CreateLocationRow(loc,charSlots,bgColor){
+    CreateLocationRows(){
         
-        //const row = this.locationTable.insertRow(0);
+        //this.scenarioHandler.gameHandler.uiHandler.CreateLocationRow($loc,charSlots,bgColor);
         
-        //row.style = "fill:#1c87c9;";
+        for(const loc of this.gameHandler.scenarioHandler.locationHandler.locations){
         
-        let col0 = document.createElement("div");
-        //col0.style.width = "250px";
-        //col0.style.height = "250px";
-        col0.style.display = "flex";
-        col0.style.alignItems = "center";
-        col0.style.backgroundColor = bgColor;
+            let col0 = document.createElement("div");
+            col0.style.display = "flex";
+            col0.style.alignItems = "center";
+            col0.style.backgroundColor = loc.bgColor;
 
-        let col1 = document.createElement("div");
-        //col1.style.width = "250px";
-        //col1.style.height = "250px";
-        col1.style.backgroundColor = bgColor;
+            let col1 = document.createElement("div");
+            col1.style.backgroundColor = loc.bgColor;
 
-        let col2 = document.createElement("div");
-        //col2.style.width = "250px";
-        //col2.style.height = "250px";
-        col2.style.display = "flex";
-        col2.style.alignItems = "center";
-        col2.style.backgroundColor = bgColor;
+            let col2 = document.createElement("div");
+            col2.style.display = "flex";
+            col2.style.alignItems = "center";
+            col2.style.backgroundColor = loc.bgColor;
 
-        
-        this.locationTable.append(col0);
-        if(this.gameHandler.scenarioHandler.usesLocationAssignment) this.locationTable.append(col1);
-        if(!this.gameHandler.scenarioHandler.startWithNoninteractiveStages) this.locationTable.append(col2);
-        
-        const col0Content = document.createElement("div");
-        const col1Content = document.createElement("div");
-        const col2Content = document.createElement("div");
-        
-        col0.append(col0Content);
-        if(this.gameHandler.scenarioHandler.usesLocationAssignment) col1.append(col1Content);
-        if(!this.gameHandler.scenarioHandler.startWithNoninteractiveStages) col2.append(col2Content);
-        
-        for(let i = 0; i < charSlots; i++){
-            
-            let $leftSlotDiv = document.createElement("div");
-            $leftSlotDiv.id = this.SetDivId("left",loc.id,i);
-            $leftSlotDiv.style = "min-height:125px;grid-column-start:1";
-            //$leftSlotDiv.style.position = "absolute";
-            //$leftSlotDiv.style.height = "125px";
-            //$leftSlotDiv.style.margin = "auto";
-            
-            //$leftSlotDiv.style.justifyContent = "center";
-            //$leftSlotDiv.style.alignItems = "center"; 
-            col0Content.append($leftSlotDiv);
-            
-            let $rightSlotDiv = document.createElement("div");
-            $rightSlotDiv.id = this.SetDivId("right",loc.id,i);
-            $rightSlotDiv.style = "min-height:125px;grid-column-start:3;vertical-align:middle";
-            col2Content.append($rightSlotDiv);
-            
-            //console.log("ROW!!!");
-            
-            let $leftSelector = document.createElement("select");
-            $leftSelector.style = "position:relative;top:" + $leftSlotDiv.clientHeight/2 + "px;";
-            $leftSelector.id = this.SetSelectorId("left",loc.id,i);
-            
-            //console.log($leftSelector);
-            
-            const $leftImage = document.createElement("span");
-            $leftImage.style = "float:right";
-            $leftImage.id = `left`+ loc.id + `Char` + i + `Image`;
-            $leftImage.width = 200;
-            $leftImage.height = 200;
-            
-            let $leftSlot = loc.AddCharSlot("left",$leftSelector.id,$leftImage.id);
-            
-            
-            $leftSlotDiv.append($leftSelector);
-            $leftSlotDiv.append($leftImage);
-            
-            this.AddSelectorOptions($leftSelector,$leftSlot);
-            
-            $leftSelector.addEventListener("change", function() {
-                //console.log("left slot event");
-                //window.gameHandler.uiHandler.UpdateCharImage($leftSlot);
-                //console.log(window.gameHandler.database.GetObjFromString($leftSelector.value));
-                const $charObj = window.gameHandler.database.GetObjFromString($leftSelector.value);
-                $leftSlot.UpdateChar($charObj);
-            });
-            
-            let $rightSelector = document.createElement("select");
-            $rightSelector.style = "position:relative;top:" + $rightSlotDiv.clientHeight/2 + "px;";
-            $rightSelector.id = this.SetSelectorId("right",loc.id,i);
-            
-            
-            //console.log($leftSelector);
-            
-            const $rightImage = document.createElement("span");
-            $rightImage.style = "float:left";
-            $rightImage.id = `right`+ loc.id + `Char` + i + `Image`;
-            $rightImage.width = 200;
-            $rightImage.height = 200;
-            
-            let $rightSlot;
-            
-            if(!this.gameHandler.scenarioHandler.startWithNoninteractiveStages) $rightSlot = loc.AddCharSlot("right",$rightSelector.id,$rightImage.id);
-            
-            $rightSlotDiv.append($rightImage);
-            $rightSlotDiv.append($rightSelector);
-            
-            this.AddSelectorOptions($rightSelector,$rightSlot);
-            
-            
-            //col2.append($rightSlot);
-            
-            $rightSelector.addEventListener("change", function() {
-                //console.log("right slot event");
-                const $charObj = window.gameHandler.database.GetObjFromString($rightSelector.value);
-                $rightSlot.UpdateChar($charObj);
-            });
-            
 
-        }
-        
-        if(this.gameHandler.scenarioHandler.usesLocationAssignment){
-        
-            let $locCount = this.gameHandler.scenarioHandler.locationHandler.locations.length;
+            this.locationTable.append(col0);
+            if(this.gameHandler.scenarioHandler.usesLocationAssignment) this.locationTable.append(col1);
+            if(!this.gameHandler.scenarioHandler.playingNoninteractiveStages) this.locationTable.append(col2);
 
-            let $locImg = document.createElement("img");
-            //console.log($locImg);
-            $locImg.src = loc.image;
+            const col0Content = document.createElement("div");
+            const col1Content = document.createElement("div");
+            const col2Content = document.createElement("div");
 
-            col1Content.append($locImg);
-            col1Content.style = `justify-items: center;
-                align-items: center;
-                vertical-align:center;
-                text-align:center;
-                grid-column-start: 2;
-                grid-row-start: ` + Number(1 + $locCount) + `;
-                grid-row-end:` + Number($locCount + charSlots) + `;`
+            col0.append(col0Content);
+            if(this.gameHandler.scenarioHandler.usesLocationAssignment) col1.append(col1Content);
+            if(!this.gameHandler.scenarioHandler.playingNoninteractiveStages) col2.append(col2Content);console.log("APPENDING!");
+            
+            console.log(loc);
+            
+            console.log(loc.charSlots);
 
-            //this.locationTable.append(row);
+            for(let i = 0; i < loc.charSlotsCount; i++){
 
-            //this.UpdateSelectorsAndCharImages();
+                let $leftSlotDiv = document.createElement("div");
+                $leftSlotDiv.id = this.SetDivId("left",loc.id,i);
+                $leftSlotDiv.style = "min-height:125px;grid-column-start:1";
+
+                col0Content.append($leftSlotDiv);
+
+                let $rightSlotDiv = document.createElement("div");
+                $rightSlotDiv.id = this.SetDivId("right",loc.id,i);
+                $rightSlotDiv.style = "min-height:125px;grid-column-start:3;vertical-align:middle";
+                col2Content.append($rightSlotDiv);
+
+                let $leftSelector = document.createElement("select");
+                $leftSelector.style = "position:relative;top:" + $leftSlotDiv.clientHeight/2 + "px;";
+                $leftSelector.id = this.SetSelectorId("left",loc.id,i);
+
+                const $leftImage = document.createElement("span");
+                $leftImage.style = "float:right";
+                $leftImage.id = `left`+ loc.id + `Char` + i + `Image`;
+                $leftImage.width = 200;
+                $leftImage.height = 200;
+
+                let $leftSlot = loc.AddCharSlot("left",$leftSelector.id,$leftImage.id);
+
+                $leftSlotDiv.append($leftSelector);
+                $leftSlotDiv.append($leftImage);
+
+                this.AddSelectorOptions($leftSelector,$leftSlot);
+
+                $leftSelector.addEventListener("change", function() {
+
+                    const $charObj = window.gameHandler.database.GetObjFromString($leftSelector.value);
+                    $leftSlot.UpdateChar($charObj);
+                });
+
+                let $rightSelector = document.createElement("select");
+                $rightSelector.style = "position:relative;top:" + $rightSlotDiv.clientHeight/2 + "px;";
+                $rightSelector.id = this.SetSelectorId("right",loc.id,i);
+
+                const $rightImage = document.createElement("span");
+                $rightImage.style = "float:left";
+                $rightImage.id = `right`+ loc.id + `Char` + i + `Image`;
+                $rightImage.width = 200;
+                $rightImage.height = 200;
+
+                let $rightSlot;
+
+                if(!this.gameHandler.scenarioHandler.playingNoninteractiveStages) $rightSlot = loc.AddCharSlot("right",$rightSelector.id,$rightImage.id);
+
+                $rightSlotDiv.append($rightImage);
+                $rightSlotDiv.append($rightSelector);
+
+                this.AddSelectorOptions($rightSelector,$rightSlot);
+
+
+                //col2.append($rightSlot);
+
+                $rightSelector.addEventListener("change", function() {
+
+                    const $charObj = window.gameHandler.database.GetObjFromString($rightSelector.value);
+                    $rightSlot.UpdateChar($charObj);
+                });
+
+
+            }
+
+            if(this.gameHandler.scenarioHandler.usesLocationAssignment){
+
+                let $locCount = this.gameHandler.scenarioHandler.locationHandler.locations.length;
+
+                let $locImg = document.createElement("img");
+
+                $locImg.src = loc.image;
+
+                col1Content.append($locImg);
+                col1Content.style = `justify-items: center;
+                    align-items: center;
+                    vertical-align:center;
+                    text-align:center;
+                    grid-column-start: 2;
+                    grid-row-start: ` + Number(1 + $locCount) + `;
+                    grid-row-end:` + Number($locCount + charSlots) + `;`
+
+            }
+            
         }
         
     }
@@ -403,7 +380,7 @@ export class uiHandler
         
         const $collapsibleLeft = ((-1 * $collapsible.clientWidth) + 50);
         
-        console.log($collapsibleLeft);
+
         
         $collapsible.style.left = $collapsibleLeft + "px";
         
@@ -424,8 +401,6 @@ export class uiHandler
     
     SetSelectorToChar(selector,char){
         
-        console.log(selector);
-        console.log(char);
         
         if(selector == null) return
         

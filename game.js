@@ -27,7 +27,7 @@ export class gameHandler
     
     Start(){
         
-        if(this.newGamePlus) this.scenarioHandler.startWithNoninteractiveStages = true;
+        if(this.newGamePlus) this.scenarioHandler.playingNoninteractiveStages = true;
         
         this.scenarioHandler.usesLocationAssignment = false;
             
@@ -49,6 +49,8 @@ export class gameHandler
             $loc.displayName = "";
            initializeCloneCrisisScenario();
         } 
+        
+        this.uiHandler.CreateLocationRows();
         
         this.uiHandler.CreateEvalGoButton();
         

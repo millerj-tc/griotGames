@@ -27,7 +27,27 @@ class scenarioFx
         if(type == "debuff") this.CompleteEffect = this.StageDebuff;
         if(type == "teamHopeBuff") this.CompleteEffect = this.TeamHopeBuff;
         if(type == "finalWincon") this.CompleteEffect = this.WinCon;
+        if(type == "moveToInteractivePhase") this.CompleteEffect = this.MoveToInteractivePhase;
         
+    }
+    
+    MoveToInteractivePhase(){
+        
+        this.scenarioHandler.gameHandler.uiHandler.ExpandRosterDisplay();
+        
+        this.scenarioHandler.playingNoninteractiveStages = false;
+        
+        this.scenarioHandler.gameHandler.uiHandler.CreateLocationTable();
+        
+        this.scenarioHandler.gameHandler.uiHandler.CreateEvalGoButton();
+        
+        this.scenarioHandler.gameHandler.uiHandler._CreateCollapseButton();
+        
+        this.scenarioHandler.gameHandler.uiHandler.CreateLockButton();
+        
+        this.scenarioHandler.gameHandler.uiHandler.SetRosterCollapsibleCoords();
+        
+        this.scenarioHandler.locationHandler.RandomizeStartingTeams();
     }
     
     SetWinLocation(location){
@@ -234,7 +254,7 @@ export class scenarioHandler
         this.rightTeamHope = 0;
         
         this.usesLocationAssignment = true;
-        this.startWithNoninteractiveStages = false;
+        this.playingNoninteractiveStages = false;
         
         this.gameOver = false;
         

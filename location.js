@@ -107,12 +107,14 @@ export class locationHandler
         this.locations = [];
     }
     
-    AddLocation(id,img,charSlots,bgColor){
+    AddLocation(id,img,charSlotsCount,bgColor){
         
         const $loc = new location(this,id,img);
         this.locations.push($loc);
+        $loc.bgColor = bgColor;
+        $loc.charSlotsCount = charSlotsCount;
         
-        this.scenarioHandler.gameHandler.uiHandler.CreateLocationRow($loc,charSlots,bgColor);
+        //this.scenarioHandler.gameHandler.uiHandler.CreateLocationRow($loc,charSlots,bgColor);
         
         return $loc
     }
