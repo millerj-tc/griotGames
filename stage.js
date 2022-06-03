@@ -40,7 +40,6 @@ export class stage
         
         this.stageHandler = stageHandler;
         this.stageFxHandler = new stageFxHandler(this);
-        console.log(this.stageHandler);
         this.uiHandler = this.stageHandler.scenario.scenarioHandler.gameHandler.uiHandler;
         this.id = id;
         this.location;
@@ -136,6 +135,7 @@ export class stage
     _SetEvalPool(evalObj){
         
         evalObj.pool = this.location.GetCharsHere();
+    
         
         for(const char of evalObj.pool){
             

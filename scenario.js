@@ -2,6 +2,7 @@ import {locationHandler} from "./location.js";
 import {stageHandler} from "./stageHandler.js";
 import {charHandler} from "./character.js";
 import {GetStringOfCharsFromArray,ReplaceWordsBasedOnPluralSubjects} from "./utils.js";
+import {initializeCloneCrisisEasyStages,initializeCloneCrisisEasyLocations,initializeCloneCrisisEasyScenarioFx} from "./Clone Crisis Code/cloneCrisisScenario.js";
 
 class scenarioFx
 {
@@ -248,7 +249,7 @@ export class scenario
     constructor(scenarioHandler){
         
         this.scenarioHandler = scenarioHandler;
-        
+        this.uiHandler = this.scenarioHandler.gameHandler.uiHandler;
         this.locationHandler = new locationHandler(this);
         this.stageHandler = new stageHandler(this);
         this.charHandler = new charHandler(this);
@@ -263,40 +264,138 @@ export class scenario
         this.fxs = [];
         
         this.scenarioCharInstances = [];
-        this.scenarioCharBeginInstances = [];
+        this.savedLocCharSlots = [];
+        
+        this.initLocations = initializeCloneCrisisEasyLocations;
+        
+        this.initStages = initializeCloneCrisisEasyStages;
+        
+        this.initScenarioFx = initializeCloneCrisisEasyScenarioFx;
+        
+        this.runCount = 0;
         
     }
     
-    ScenarioFlow(fromPrevoiusScenario = false){
+    ScenarioFlow(fromPreviousScenario = false){
+        
+        console.warn("===");
+        
+        this.scenarioOver = false;
+        
+        this.fxs = [];
+        
+        this.scenarioCharInstances = [];
+        
+        this.locationHandler = new locationHandler(this);
+        
+        this.initLocations(this);
+        
+        console.log(this.locationHandler.locations[0]);
+        
+        this.LoadScenarioChars(fromPreviousScenario);
+        
+        this.charHandler.AddFunctionsToCharacters(this.scenarioCharInstances);
+        
+        this.uiHandler.CreateLocationTable();
+        
+        this.stageHandler = new stageHandler(this);  
+
+        this.initStages(this);
+        
+        this.initScenarioFx(this);
+        
+        this.uiHandler.CreateLocationRows();
+        
+        this.uiHandler.CreateEvalGoButton();
+        
+        this.uiHandler._CreateCollapseButton();
+        
+        this.uiHandler.CreateLockButton();
+        
+        this.uiHandler.SetRosterCollapsibleCoords();
+        
+        if(this.runCount == 0) this.locationHandler.RandomizeStartingTeams();
+        
+        else this.LoadChoices();
+        
+        this.uiHandler.ClearOutput();
+        
+        this.uiHandler.ExpandRosterDisplay();
         
         this.leftTeamHope = 0;
         
         this.rightTeamHope = 0;
         
-        this.LoadScenarioChars(fromPrevoiusScenario);
-        
         this.stageHandler.stages[0].EvalFlow();
+        
+        this.runCount++;
+    }
+    
+    SaveChoices(){
+        
+        this.savedLocCharSlots = [];
+        
+        for(const loc of this.locationHandler.locations){
+        
+            for(const slot of loc.charSlots){
+                
+                const $slotData = JSON.stringify(slot);
+                const $slotDeep = JSON.parse($slotData);
+                
+                this.savedLocCharSlots.push($slotDeep);
+            }
+                
+        }
+    }
+    
+    LoadChoices(){
+        
+        for(const savedCharSlot of this.savedLocCharSlots){
+            
+            for(const loc of this.locationHandler.locations){
+                
+                if(savedCharSlot.location != loc) continue
+                
+                for(const charSlot of loc.charSlots){
+                    
+                    if(savedCharSlot.selectId == charSlot.selectId){
+                        
+                        charSlot = savedCharSlot;
+                    }
+                }
+            }
+        }
     }
 
     LoadScenarioChars(fromPreviousScenario = false){
         
         let $sourceArr;
         
-        if(fromPreviousScenario) $sourceArr = this.previousScenario;
+        if(fromPreviousScenario) $sourceArr = this.previousScenario.scenarioCharInstances;
         else $sourceArr = this.scenarioHandler.gameCharInstances;
         
         for(const char of $sourceArr){
             
-            this.scenarioCharInstances.push(char);
-            this.scenarioCharBeginInstances.push(char);
+            const $jsonData = JSON.stringify(char);
+            const $charDeepCopy = JSON.parse($jsonData);
+
+            this.scenarioCharInstances.push($charDeepCopy);
+            //this.scenarioCharBeginInstances.push($charDeepCopy);
+        }
+    }
+    
+    GetScenarioChar(name,alignment="any"){
+        
+        for(const char of this.scenarioCharInstances){
+            
+            if(char.name == name && alignment == "any") return char
+            else if (char.name == name && char.alignment == alignment) return char
         }
     }
     
     GetAllChars(unlockedFor = ""){
         
         let $returnArr = [];
-        
-        console.error("HAVE TO FIGURE OUT FLOW HERE TO LOAD PROPERLY ON GAME START, RESET SIMULATION, AND REWIND TO THIS SCENARIO");
         
         for(const obj of this.scenarioCharInstances){
             
@@ -313,31 +412,6 @@ export class scenario
         
         if(team == "left") return this.leftTeamHope
         if(team == "right") return this.rightTeamHope
-    }
-    
-    ScenarioReset(){
-        
-        //console.clear();
-        
-        //console.warn("RESET");
-        
-        this.gameOver = false;
-        
-         for(const scenfx of this.fxs){
-                
-                scenfx.currentLeftIncrements = 0;
-                scenfx.currentRightIncrements = 0;
-            }
-        
-        //console.warn(this.GetAllChars().length);
-        
-        for(const char of this.locationHandler.GetAllCharsAtLocations()){
-            
-            char.hope = 0;
-        }
-        
-        //console.log(this.locationHandler.GetAllCharsAtLocations());
-            
     }
     
     _GetInterpersMessageString(fx,targetChars){

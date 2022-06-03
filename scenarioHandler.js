@@ -36,15 +36,11 @@ export class scenarioHandler
         
         if(scenario == undefined) console.warn("NextScenario is undefined!!");
         
-        const $ui = this.gameHandler.uiHandler;
-        
         this.currentScenario = scenario;
         
         if(scenario != undefined && !this.gameHandler.gameOver){ 
-            
-            $ui.UpdateOutput("<br><br>");
 
-            scenario.stageHandler.stages[0].EvalFlow();
+            scenario.ScenarioFlow();
         }
     }
     

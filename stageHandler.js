@@ -8,7 +8,7 @@ export class stageHandler
         
         this.stages = [];
         this.lastCreatedStage = undefined;
-        this.currentStage;
+        this.currentStage = undefined;
     }
     
 //    MoveToNextStage(){

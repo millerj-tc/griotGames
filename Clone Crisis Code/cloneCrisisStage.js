@@ -23,6 +23,8 @@ export class cloneCrisisStage extends stage
 
     EvalFlow(){
         
+        this.stageHandler.scenario.SaveChoices();
+        
         if(this.flowVar == 1){
             
             this._NoninteractiveEvalFlow();
@@ -357,6 +359,7 @@ export class cloneCrisisStage extends stage
     
     _LowestCunningConfusedUnlessAlone(evalObj){
         
+        
         const $lowestCunningChar = evalObj.pool.sort(function(a, b){return a.cunning - b.cunning})[0];
         
         const $secondLowestCunningChar = evalObj.pool.sort(function(a, b){return a.cunning - b.cunning})[1];
@@ -562,17 +565,15 @@ export class cloneCrisisStage extends stage
         
             const $winningAlignment = evalObj.removedChar.GetEnemyAlignment();
             
-            //console.log(evalObj.removedChar);
-            
-            //console.log($winningAlignment);
+      
 
             let $powerSortedWinChars = this.location.GetCharsHere("any",$winningAlignment);
             
-            //console.warn($powerSortedWinChars);
+      
             
             $powerSortedWinChars.sort(function(a,b){return b.power - a.power});
             
-            console.log(evalObj.winCredit);
+            
 
             this.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(evalObj.winCredit,"any","S") + ReplaceWordsBasedOnPluralSubjects(evalObj.winCredit," [[manages/manage]] to capture ") + GetStringOfCharsFromArray(evalObj.removedChar,"any","S") + "!");
         }

@@ -125,9 +125,6 @@ export class uiHandler
         $evalButton.style = "font-size:32pt"
         $evalButton.onclick = function(){
             
-            
-            window.gameHandler.scenarioHandler.currentScenario.ScenarioReset();
-            
             window.gameHandler.uiHandler.ClearOutput();
             
             setTimeout(function(){
@@ -139,11 +136,11 @@ export class uiHandler
                     window.gameHandler.uiHandler.CollapseRosterDisplay();
                 }
                 
-                window.gameHandler.scenarioHandler.currentScenario.EvalScenarioBeginInterpersFxs();
+                //window.gameHandler.scenarioHandler.currentScenario.EvalScenarioBeginInterpersFxs();
                 
                 window.gameHandler.ResetGameOnSimulationRun();
                 
-                window.gameHandler.scenarioHandler.currentScenario.stageHandler.stages[0].EvalFlow();
+                window.gameHandler.scenarioHandler.currentScenario.ScenarioFlow();
             },350);
             
         };
@@ -157,6 +154,14 @@ export class uiHandler
         const $SH = this.gameHandler.scenarioHandler.currentScenario;
         
         document.getElementById("content").innerHTML = "";
+        
+        //        if(this.locationTable != null){
+//        
+//            for(const div of this.locationTable.querySelectorAll("div")){
+//
+//                div.remove();
+//            }
+//        }
         
         this.locationTable = document.createElement("div");
         this.locationTable.style = `display: grid;

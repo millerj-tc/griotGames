@@ -1,7 +1,6 @@
 import {uiHandler} from "./ui.js";
 import {database} from "./database.js";
 import {scenarioHandler} from "./scenarioHandler.js";
-import {initializeCloneCrisisScenario} from "./Clone Crisis Code/cloneCrisisScenario.js";
 import {initializeCloneCrisisScenarioPlus} from "./Clone Crisis Code/cloneCrisisScenarioPlus.js";
 
 export class gameHandler
@@ -27,55 +26,19 @@ export class gameHandler
     
     Start(){
         
+        this.scenarioHandler.LoadAllGameChars();
+        
         const $scen0 = this.scenarioHandler.AddScenario("scen0");
+        this.scenarioHandler.GotoNextScenario($scen0);
         
-        this.scenarioHandler.usesLocationAssignment = false;
-            
-        this.uiHandler.CreateLocationTable();
-        
-        let $loc;
 
-        if(this.newGamePlus){ 
-                //console.log("NEW GAME PLUS");
+        if(this.newGamePlus){
             
             $loc = this.scenarioHandler.currentScenario.locationHandler.AddLocation("location","",5,"C8E3D4");
             $loc.displayName = "";
             initializeCloneCrisisScenarioPlus();
         }
-        else{
-            //console.log("nope");
-            
-            $loc = this.scenarioHandler.currentScenario.locationHandler.AddLocation("location","",3,"C8E3D4");
-            $loc.displayName = "";
-           initializeCloneCrisisScenario();
-        } 
-        
-        this.uiHandler.CreateLocationRows();
-        
-        this.uiHandler.CreateEvalGoButton();
-        
-        this.uiHandler._CreateCollapseButton();
-        
-        this.uiHandler.CreateLockButton();
-        
-        this.uiHandler.SetRosterCollapsibleCoords();
-        
-        this.scenarioHandler.currentScenario.charHandler.AddFunctionsToCharacters();
-        
-//        for(const char of this.scenarioHandler.GetAllChars()){
-//            
-//            intializeInterpersRelationships(char);
-//        }
-        
-        this.scenarioHandler.currentScenario.locationHandler.RandomizeStartingTeams();
-        
-        this.uiHandler.ClearOutput();
-        
-        this.uiHandler.ExpandRosterDisplay();
-        
-        //this.scenarioHandler.rightTeamHope = 1;
-        
-        
+
     
     }
     
@@ -97,11 +60,11 @@ export class gameHandler
         
         this.simulationCount++;
         
-        this._RemoveUnslottedCharacters();
+        //this._RemoveUnslottedCharacters();
         
-        this._RestoreRemovedChars();
+        //this._RestoreRemovedChars();
         
-        this.scenarioHandler.currentScenario.scenarioOver = false;
+        //this.scenarioHandler.currentScenario.scenarioOver = false;
     }
     
     _RestoreRemovedChars(){

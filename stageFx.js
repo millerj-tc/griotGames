@@ -36,7 +36,7 @@ class stageFx
     
     _CompleteTarget(evalObj){
         
-        console.log("completing");
+
         
         if(!this._CheckRequiredConds(evalObj)) return
         

@@ -1,14 +1,22 @@
-export function initializeCloneCrisisScenario()
+export function initializeCloneCrisisEasyLocations(scenario){
+    
+    scenario.usesLocationAssignment = false;
+    
+    const $loc = scenario.locationHandler.AddLocation("location","",3,"C8E3D4");
+    $loc.displayName = "";
+}
+
+export function initializeCloneCrisisEasyStages(scenario)
 {
     const GH = window.gameHandler;
     
-    const $loc0 = GH.scenarioHandler.currentScenario.stageHandler.AddStage("loc0");
+    const $loc0 = scenario.stageHandler.AddStage("loc0");
         
-    $loc0.location = GH.scenarioHandler.currentScenario.locationHandler.GetLocationById("location");
+    $loc0.location = scenario.locationHandler.GetLocationById("location");
     
     $loc0.stageHeader = "NEW YORK";
     
-    $loc0.NPC = GH.database.GetObjFromString("Jessica Jones");
+    $loc0.NPC = scenario.GetScenarioChar("Jessica Jones");
     
     $loc0.NPC.openingLine = `"Wow you all are really having at it, huh? One of these teams is the clones and one is... not? Did either of you bring any whiskey, by chance?"`;
     
@@ -16,13 +24,13 @@ export function initializeCloneCrisisScenario()
     
     $loc0.stalemateText = "A stalemate! The battle continues in Wakanda!";
     
-    const $loc01 = GH.scenarioHandler.currentScenario.stageHandler.AddStage("loc01");
+    const $loc01 = scenario.stageHandler.AddStage("loc01");
         
-    $loc01.location = GH.scenarioHandler.currentScenario.locationHandler.GetLocationById("location");
+    $loc01.location = scenario.locationHandler.GetLocationById("location");
     
     $loc01.stageHeader = "On the way to Wakanda...";
     
-    $loc01.NPC = GH.database.GetObjFromString("Punisher");
+    $loc01.NPC = scenario.GetScenarioChar("Punisher");
     
     $loc01.NPC.openingLine = `"Jones called me. Told me something strange was happening. What the hell is wrong with you all?"`;
     
@@ -30,75 +38,76 @@ export function initializeCloneCrisisScenario()
     
     $loc01.stalemateText = "A stalemate! The battle continues in Wakanda!";
     
-    const $loc1 = GH.scenarioHandler.currentScenario.stageHandler.AddStage("loc1");
+    const $loc1 = scenario.stageHandler.AddStage("loc1");
     
     
     // -- Must explicitly set here so that $loc01 is not set to nextStage for $loc0
     $loc0.nextStage = $loc1;
         
-    $loc1.location = GH.scenarioHandler.currentScenario.locationHandler.GetLocationById("location");
+    $loc1.location = scenario.locationHandler.GetLocationById("location");
     
     $loc1.stageHeader = "WAKANDA";
     
-    $loc1.NPC = GH.database.GetObjFromString("Black Panther");
+    $loc1.NPC = scenario.GetScenarioChar("Black Panther");
     
     $loc1.NPC.openingLine = `"So you have brought another one of your messes to my country's doorstep X-Men? I shall sort this out quickly for you. The allies of Wakanda are allies of mine."`;
     
     $loc1.winText = "[specialOutputGroup0 names] [[flees/flee]]! [winners names] give chase!";
     
-    const $loc2 = GH.scenarioHandler.currentScenario.stageHandler.AddStage("loc2");
+    const $loc2 = scenario.stageHandler.AddStage("loc2");
 
-    $loc2.location = GH.scenarioHandler.currentScenario.locationHandler.GetLocationById("location");
+    $loc2.location = scenario.locationHandler.GetLocationById("location");
 
     $loc2.winText = "[winners names] [[pursues/pursue]] the fleeing [specialOutputGroup0 names]!";
 
-    const $loc3 = GH.scenarioHandler.currentScenario.stageHandler.AddStage("loc3");
+    const $loc3 = scenario.stageHandler.AddStage("loc3");
 
-    $loc3.location = GH.scenarioHandler.currentScenario.locationHandler.GetLocationById("location");
+    $loc3.location = scenario.locationHandler.GetLocationById("location");
 
     $loc3.winText = "[winners names] [[pursues/pursue]] the fleeing [specialOutputGroup0 names]!";
 
-    const $loc4 = GH.scenarioHandler.currentScenario.stageHandler.AddStage("loc4");
+    const $loc4 = scenario.stageHandler.AddStage("loc4");
 
-    $loc4.location = GH.scenarioHandler.currentScenario.locationHandler.GetLocationById("location");
+    $loc4.location = scenario.locationHandler.GetLocationById("location");
 
     $loc4.winText = "[winners names] [[pursues/pursue]] the fleeing [specialOutputGroup0 names]!";
 
-    const $loc5 = GH.scenarioHandler.currentScenario.stageHandler.AddStage("loc5");
+    const $loc5 = scenario.stageHandler.AddStage("loc5");
 
-    $loc5.location = GH.scenarioHandler.currentScenario.locationHandler.GetLocationById("location");
+    $loc5.location = scenario.locationHandler.GetLocationById("location");
 
     $loc5.winText = "[winners names] [[pursues/pursue]] the fleeing [specialOutputGroup0 names]!";
 
-    const $loc6 = GH.scenarioHandler.currentScenario.stageHandler.AddStage("loc6");
+    const $loc6 = scenario.stageHandler.AddStage("loc6");
 
-    $loc6.location = GH.scenarioHandler.currentScenario.locationHandler.GetLocationById("location");
+    $loc6.location = scenario.locationHandler.GetLocationById("location");
 
     $loc6.winText = "[winners names] [[pursues/pursue]] the fleeing [specialOutputGroup0 names]!";
 
-    const $loc7 = GH.scenarioHandler.currentScenario.stageHandler.AddStage("loc7");
+    const $loc7 = scenario.stageHandler.AddStage("loc7");
 
-    $loc7.location = GH.scenarioHandler.currentScenario.locationHandler.GetLocationById("location");
+    $loc7.location = scenario.locationHandler.GetLocationById("location");
 
     $loc7.winText = "[winners names] [[pursues/pursue]] the fleeing [specialOutputGroup0 names]!";
 
-    const $loc8 = GH.scenarioHandler.currentScenario.stageHandler.AddStage("loc8");
+    const $loc8 = scenario.stageHandler.AddStage("loc8");
 
-    $loc8.location = GH.scenarioHandler.currentScenario.locationHandler.GetLocationById("location");
+    $loc8.location = scenario.locationHandler.GetLocationById("location");
 
     $loc8.winText = "[winners names] [[pursues/pursue]] the fleeing [specialOutputGroup0 names]!";
+}
     
-    ///
+export function initializeCloneCrisisEasyScenarioFx(scenario){
     
-    const $punisherAltStageFx = GH.scenarioHandler.currentScenario.AddScenarioFx(1,"stageSelect");
+    const $punisherAltStageFx = scenario.AddScenarioFx(1,"stageSelect");
     
-    const $loc0StageFx0 = $loc0.stageFxHandler.AddFx($punisherAltStageFx,"complete");
+    const $loc0StageFx0 = scenario.stageHandler.stages[0].stageFxHandler.AddFx($punisherAltStageFx,"complete");
     
     $loc0StageFx0.AddRequiredCond(UndecidedNPCCond);
     
-    $punisherAltStageFx.targetStage = $loc0;
+    $punisherAltStageFx.targetStage = scenario.stageHandler.stages[0];
     
-    $punisherAltStageFx.newNextStage = $loc01;
+    $punisherAltStageFx.newNextStage = scenario.stageHandler.stages[1];
     
 }
 

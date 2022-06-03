@@ -16,9 +16,9 @@ export class charHandler
         this.scenario = scenario;
     }
     
-    AddFunctionsToCharacters(){
+    AddFunctionsToCharacters(arr){
         
-        for(const char of this.scenario.scenarioHandler.gameHandler.database.data){
+        for(const char of arr){
             
             char.debuffed = false;
             char.IsDebuffed = this.IsDebuffed;

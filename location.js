@@ -52,11 +52,13 @@ class location
     
     GetCharsHere(name="any",alignment="any", getUnslotted = true){
         
-        //console.log(this);
+       
         
         let $returnArr = [];
         
         for(const slot of this.charSlots){
+            
+            console.log(slot);
             
             if(slot.character.removedDuringRun) continue
             
