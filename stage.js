@@ -49,6 +49,7 @@ export class stage
         this.stageHeader = "";
         this.stalemateText = "";
         this.displayWintextAfterGameover = false;
+        this.flowVar = 0;
         
     }
     
