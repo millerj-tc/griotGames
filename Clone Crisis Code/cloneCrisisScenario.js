@@ -2,9 +2,9 @@ export function initializeCloneCrisisScenario()
 {
     const GH = window.gameHandler;
     
-    const $loc0 = GH.scenarioHandler.stageHandler.AddStage("loc0");
+    const $loc0 = GH.scenarioHandler.currentScenario.stageHandler.AddStage("loc0");
         
-    $loc0.location = GH.scenarioHandler.locationHandler.GetLocationById("location");
+    $loc0.location = GH.scenarioHandler.currentScenario.locationHandler.GetLocationById("location");
     
     $loc0.stageHeader = "NEW YORK";
     
@@ -16,9 +16,9 @@ export function initializeCloneCrisisScenario()
     
     $loc0.stalemateText = "A stalemate! The battle continues in Wakanda!";
     
-    const $loc01 = GH.scenarioHandler.stageHandler.AddStage("loc01");
+    const $loc01 = GH.scenarioHandler.currentScenario.stageHandler.AddStage("loc01");
         
-    $loc01.location = GH.scenarioHandler.locationHandler.GetLocationById("location");
+    $loc01.location = GH.scenarioHandler.currentScenario.locationHandler.GetLocationById("location");
     
     $loc01.stageHeader = "On the way to Wakanda...";
     
@@ -30,13 +30,13 @@ export function initializeCloneCrisisScenario()
     
     $loc01.stalemateText = "A stalemate! The battle continues in Wakanda!";
     
-    const $loc1 = GH.scenarioHandler.stageHandler.AddStage("loc1");
+    const $loc1 = GH.scenarioHandler.currentScenario.stageHandler.AddStage("loc1");
     
     
     // -- Must explicitly set here so that $loc01 is not set to nextStage for $loc0
     $loc0.nextStage = $loc1;
         
-    $loc1.location = GH.scenarioHandler.locationHandler.GetLocationById("location");
+    $loc1.location = GH.scenarioHandler.currentScenario.locationHandler.GetLocationById("location");
     
     $loc1.stageHeader = "WAKANDA";
     
@@ -46,51 +46,51 @@ export function initializeCloneCrisisScenario()
     
     $loc1.winText = "[specialOutputGroup0 names] [[flees/flee]]! [winners names] give chase!";
     
-    const $loc2 = GH.scenarioHandler.stageHandler.AddStage("loc2");
+    const $loc2 = GH.scenarioHandler.currentScenario.stageHandler.AddStage("loc2");
 
-    $loc2.location = GH.scenarioHandler.locationHandler.GetLocationById("location");
+    $loc2.location = GH.scenarioHandler.currentScenario.locationHandler.GetLocationById("location");
 
     $loc2.winText = "[winners names] [[pursues/pursue]] the fleeing [specialOutputGroup0 names]!";
 
-    const $loc3 = GH.scenarioHandler.stageHandler.AddStage("loc3");
+    const $loc3 = GH.scenarioHandler.currentScenario.stageHandler.AddStage("loc3");
 
-    $loc3.location = GH.scenarioHandler.locationHandler.GetLocationById("location");
+    $loc3.location = GH.scenarioHandler.currentScenario.locationHandler.GetLocationById("location");
 
     $loc3.winText = "[winners names] [[pursues/pursue]] the fleeing [specialOutputGroup0 names]!";
 
-    const $loc4 = GH.scenarioHandler.stageHandler.AddStage("loc4");
+    const $loc4 = GH.scenarioHandler.currentScenario.stageHandler.AddStage("loc4");
 
-    $loc4.location = GH.scenarioHandler.locationHandler.GetLocationById("location");
+    $loc4.location = GH.scenarioHandler.currentScenario.locationHandler.GetLocationById("location");
 
     $loc4.winText = "[winners names] [[pursues/pursue]] the fleeing [specialOutputGroup0 names]!";
 
-    const $loc5 = GH.scenarioHandler.stageHandler.AddStage("loc5");
+    const $loc5 = GH.scenarioHandler.currentScenario.stageHandler.AddStage("loc5");
 
-    $loc5.location = GH.scenarioHandler.locationHandler.GetLocationById("location");
+    $loc5.location = GH.scenarioHandler.currentScenario.locationHandler.GetLocationById("location");
 
     $loc5.winText = "[winners names] [[pursues/pursue]] the fleeing [specialOutputGroup0 names]!";
 
-    const $loc6 = GH.scenarioHandler.stageHandler.AddStage("loc6");
+    const $loc6 = GH.scenarioHandler.currentScenario.stageHandler.AddStage("loc6");
 
-    $loc6.location = GH.scenarioHandler.locationHandler.GetLocationById("location");
+    $loc6.location = GH.scenarioHandler.currentScenario.locationHandler.GetLocationById("location");
 
     $loc6.winText = "[winners names] [[pursues/pursue]] the fleeing [specialOutputGroup0 names]!";
 
-    const $loc7 = GH.scenarioHandler.stageHandler.AddStage("loc7");
+    const $loc7 = GH.scenarioHandler.currentScenario.stageHandler.AddStage("loc7");
 
-    $loc7.location = GH.scenarioHandler.locationHandler.GetLocationById("location");
+    $loc7.location = GH.scenarioHandler.currentScenario.locationHandler.GetLocationById("location");
 
     $loc7.winText = "[winners names] [[pursues/pursue]] the fleeing [specialOutputGroup0 names]!";
 
-    const $loc8 = GH.scenarioHandler.stageHandler.AddStage("loc8");
+    const $loc8 = GH.scenarioHandler.currentScenario.stageHandler.AddStage("loc8");
 
-    $loc8.location = GH.scenarioHandler.locationHandler.GetLocationById("location");
+    $loc8.location = GH.scenarioHandler.currentScenario.locationHandler.GetLocationById("location");
 
     $loc8.winText = "[winners names] [[pursues/pursue]] the fleeing [specialOutputGroup0 names]!";
     
     ///
     
-    const $punisherAltStageFx = GH.scenarioHandler.AddScenarioFx(1,"stageSelect");
+    const $punisherAltStageFx = GH.scenarioHandler.currentScenario.AddScenarioFx(1,"stageSelect");
     
     const $loc0StageFx0 = $loc0.stageFxHandler.AddFx($punisherAltStageFx,"complete");
     

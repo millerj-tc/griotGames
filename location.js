@@ -17,7 +17,7 @@ class charSlot
         this.character.alignment = this.alignment;
         this.character.location = this.location;
         
-        if(this.imageSpanId != undefined)                                                                                                                                              this.location.locationHandler.scenarioHandler.gameHandler.uiHandler.UpdateCharImage(this);
+        if(this.imageSpanId != undefined)                                                                                                                                              this.location.locationHandler.scenario.scenarioHandler.gameHandler.uiHandler.UpdateCharImage(this);
     }
 }
 
@@ -101,9 +101,9 @@ class location
 
 export class locationHandler
 {
-    constructor(scenarioHandler){
+    constructor(scenario){
         
-        this.scenarioHandler = scenarioHandler;
+        this.scenario = scenario;
         this.locations = [];
     }
     
@@ -114,7 +114,7 @@ export class locationHandler
         $loc.bgColor = bgColor;
         $loc.charSlotsCount = charSlotsCount;
         
-        //this.scenarioHandler.gameHandler.uiHandler.CreateLocationRow($loc,charSlots,bgColor);
+        //this.scenario.scenarioHandler.gameHandler.uiHandler.CreateLocationRow($loc,charSlots,bgColor);
         
         return $loc
     }
@@ -149,9 +149,9 @@ export class locationHandler
     
     RandomizeStartingTeams(){
         
-        let $destructoArrLeft = ShuffleArray(this.scenarioHandler.GetAllChars("left"));
+        let $destructoArrLeft = ShuffleArray(this.scenario.GetAllChars("left"));
         
-        let $destructoArrRight = ShuffleArray(this.scenarioHandler.GetAllChars("right"));   
+        let $destructoArrRight = ShuffleArray(this.scenario.GetAllChars("right"));   
         
         for(const loc of this.locations){
             
@@ -165,12 +165,12 @@ export class locationHandler
                 
                 const $selectorDOM = document.getElementById(slot.selectId);
                 
-                this.scenarioHandler.gameHandler.uiHandler.SetSelectorToChar($selectorDOM,$chosenChar);
+                this.scenario.scenarioHandler.gameHandler.uiHandler.SetSelectorToChar($selectorDOM,$chosenChar);
                 
                 slot.UpdateChar($chosenChar);
                 
                 
-                //this.scenarioHandler.gameHandler.uiHandler.UpdateCharImage(slot);
+                //this.scenario.scenarioHandler.gameHandler.uiHandler.UpdateCharImage(slot);
             }
         }
 

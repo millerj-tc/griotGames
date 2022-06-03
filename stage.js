@@ -40,7 +40,8 @@ export class stage
         
         this.stageHandler = stageHandler;
         this.stageFxHandler = new stageFxHandler(this);
-        this.uiHandler = this.stageHandler.scenarioHandler.gameHandler.uiHandler;
+        console.log(this.stageHandler);
+        this.uiHandler = this.stageHandler.scenario.scenarioHandler.gameHandler.uiHandler;
         this.id = id;
         this.location;
         this.nextStage;
@@ -105,7 +106,7 @@ export class stage
         
         let $returnString = "";
         
-        for(const fx of this.stageHandler.scenarioHandler.GetAllScenarioFxThatTargetStage(this,true)){
+        for(const fx of this.stageHandler.scenario.GetAllScenarioFxThatTargetStage(this,true)){
             
             let $replaceString = GetStringOfCharsFromArray([char],"any","S");
             
@@ -185,7 +186,7 @@ export class stage
     
     _DeclareLocation(){
         
-        if(this.location.displayName != "") this.stageHandler.scenarioHandler.gameHandler.uiHandler.UpdateOutput("- <i>" + this.location.displayName.toUpperCase() + "</i> -<br><br>" );
+        if(this.location.displayName != "") this.stageHandler.scenario.scenarioHandler.gameHandler.uiHandler.UpdateOutput("- <i>" + this.location.displayName.toUpperCase() + "</i> -<br><br>" );
     }
     
      _CharLastTeammateAtLoc(char){
@@ -199,9 +200,9 @@ export class stage
     
     _WarnIfDupeCharsOnSameTeam(){
         
-        let $allChars = this.stageHandler.scenarioHandler.locationHandler.GetAllCharsAtLocations();
+        let $allChars = this.stageHandler.scenario.locationHandler.GetAllCharsAtLocations();
         
-        const $ui = this.stageHandler.scenarioHandler.gameHandler.uiHandler;
+        const $ui = this.stageHandler.scenario.scenarioHandler.gameHandler.uiHandler;
         
         for(const char0 of $allChars){
             
@@ -213,7 +214,7 @@ export class stage
                     
                     $ui.UpdateOutput("<i><b>I am very sorry to inform you that " + char0.name + " cannot occupy two spaces on the same team... This simulation is invalid, please try again</i></b>");
                     
-                    this.stageHandler.scenarioHandler.gameOver = true;
+                    this.stageHandler.scenario.scenarioOver = true;
                 }
             }
             
@@ -255,7 +256,7 @@ export class stage
         
 
         
-        if(!this.displayWintextAfterGameover && this.stageHandler.scenarioHandler.gameOver) return true
+        if(!this.displayWintextAfterGameover && this.stageHandler.scenario.scenarioOver) return true
         
         return false
     }
@@ -265,7 +266,7 @@ export class stage
         
         if(this._CheckIfSkipResultDisplayText()) return
         
-        const $ui = this.stageHandler.scenarioHandler.gameHandler.uiHandler;
+        const $ui = this.stageHandler.scenario.scenarioHandler.gameHandler.uiHandler;
 
         
         if(evalObj.winners.length == 0){

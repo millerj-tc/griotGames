@@ -7,7 +7,7 @@ export class cloneCrisisStage extends stage
         
         super(stageHandler,id);
         
-        this.uiHandler = this.stageHandler.scenarioHandler.gameHandler.uiHandler;
+        this.uiHandler = this.stageHandler.scenario.scenarioHandler.gameHandler.uiHandler;
         
         this.evalValue = "";
         this.displayText = "";
@@ -23,7 +23,7 @@ export class cloneCrisisStage extends stage
 
     EvalFlow(){
         
-        if(this.flowVar = 1){
+        if(this.flowVar == 1){
             
             this._NoninteractiveEvalFlow();
             return
@@ -31,9 +31,9 @@ export class cloneCrisisStage extends stage
         
         this._ResetNPCRecruitmentProperties();
         
-        this.stageHandler.scenarioHandler.gameHandler.OfferSubmissionLinkAfterXRuns();
+        this.stageHandler.scenario.scenarioHandler.gameHandler.OfferSubmissionLinkAfterXRuns();
         
-        if(this.stageHandler.scenarioHandler.gameOver) return   
+        if(this.stageHandler.scenario.scenarioOver) return   
                 
         const $evalObj = new evaluation(this);
         
@@ -72,7 +72,7 @@ export class cloneCrisisStage extends stage
     
     _NoninteractiveEvalFlow(){
         
-        this.stageHandler.scenarioHandler.gameHandler.OfferSubmissionLinkAfterXRuns();
+        this.stageHandler.scenario.scenarioHandler.gameHandler.OfferSubmissionLinkAfterXRuns();
                 
         const $evalObj = new evaluation(this);
         
@@ -114,13 +114,13 @@ export class cloneCrisisStage extends stage
         if($leftTeam.length == 0){
             
             this.uiHandler.NewStageOutputDiv(`<span style="font-weight:bold;color:red;font-size:calc(15px + 1.5vw)">The right team has won!</span>`);
-            this.stageHandler.scenarioHandler.gameOver = true;
+            this.stageHandler.scenario.scenarioOver = true;
         }
         
         if($rightTeam.length == 0){
             
             this.uiHandler.NewStageOutputDiv(`<span style="font-weight:bold;color:blue;font-size:calc(15px + 1.5vw)">The left team has won!</span>`);
-            this.stageHandler.scenarioHandler.gameOver = true;
+            this.stageHandler.scenario.scenarioOver = true;
         } 
     }
     
@@ -211,7 +211,7 @@ export class cloneCrisisStage extends stage
             
             if(Math.abs(char.charisma - this.NPC.charisma) <= 2){
                 
-                this.stageHandler.scenarioHandler.gameHandler.database.GetObjFromString(this.NPC.name).unlocked.push(char.alignment);
+                this.stageHandler.scenario.scenarioHandler.gameHandler.database.GetObjFromString(this.NPC.name).unlocked.push(char.alignment);
                 
                 if(char.alignment == "left") $leftRecruiters.push(char);
                 
@@ -227,9 +227,9 @@ export class cloneCrisisStage extends stage
         
         const $rightRecruitersString = GetStringOfCharsFromArray($rightRecruiters,"any","S");
 
-        this.stageHandler.scenarioHandler.gameHandler.uiHandler.NewStageOutputDiv($recruitedString + " considers the arguments of " + $leftRecruitersString);
+        this.stageHandler.scenario.scenarioHandler.gameHandler.uiHandler.NewStageOutputDiv($recruitedString + " considers the arguments of " + $leftRecruitersString);
         
-        this.stageHandler.scenarioHandler.gameHandler.uiHandler.NewStageOutputDiv($recruitedString + " considers the arguments of " + $rightRecruitersString);
+        this.stageHandler.scenario.scenarioHandler.gameHandler.uiHandler.NewStageOutputDiv($recruitedString + " considers the arguments of " + $rightRecruitersString);
     }
     
 
@@ -350,9 +350,9 @@ export class cloneCrisisStage extends stage
         
         if(this.NPC.recruited){
             
-            this.stageHandler.scenarioHandler.gameHandler.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(this.NPC,"any","S") + " has decided to side with the " + this.NPC.alignment + " team.");
+            this.stageHandler.scenario.scenarioHandler.gameHandler.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(this.NPC,"any","S") + " has decided to side with the " + this.NPC.alignment + " team.");
         }
-        else if(!this.NPC.scaredByPowerCouple) this.stageHandler.scenarioHandler.gameHandler.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(this.NPC,"any","S") + " can't decide who to believe.");
+        else if(!this.NPC.scaredByPowerCouple) this.stageHandler.scenario.scenarioHandler.gameHandler.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(this.NPC,"any","S") + " can't decide who to believe.");
     }
     
     _LowestCunningConfusedUnlessAlone(evalObj){

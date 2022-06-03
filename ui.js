@@ -126,7 +126,7 @@ export class uiHandler
         $evalButton.onclick = function(){
             
             
-            window.gameHandler.scenarioHandler.ScenarioReset();
+            window.gameHandler.scenarioHandler.currentScenario.ScenarioReset();
             
             window.gameHandler.uiHandler.ClearOutput();
             
@@ -139,11 +139,11 @@ export class uiHandler
                     window.gameHandler.uiHandler.CollapseRosterDisplay();
                 }
                 
-                window.gameHandler.scenarioHandler.EvalScenarioBeginInterpersFxs();
+                window.gameHandler.scenarioHandler.currentScenario.EvalScenarioBeginInterpersFxs();
                 
                 window.gameHandler.ResetGameOnSimulationRun();
                 
-                window.gameHandler.scenarioHandler.stageHandler.stages[0].EvalFlow();
+                window.gameHandler.scenarioHandler.currentScenario.stageHandler.stages[0].EvalFlow();
             },350);
             
         };
@@ -154,7 +154,7 @@ export class uiHandler
     
     CreateLocationTable(){
         
-        const $SH = this.gameHandler.scenarioHandler;
+        const $SH = this.gameHandler.scenarioHandler.currentScenario;
         
         document.getElementById("content").innerHTML = "";
         
@@ -185,7 +185,7 @@ export class uiHandler
         this.locationTable.append($col0Head);
         
         
-        if(this.gameHandler.scenarioHandler.usesLocationAssignment){
+        if(this.gameHandler.scenarioHandler.currentScenario.usesLocationAssignment){
             const $col1Head = document.createElement("div");
             let $mspan = document.createElement("span");
             $mspan.style.fontWeight = "bold";
@@ -250,9 +250,9 @@ export class uiHandler
     
     CreateLocationRows(){
         
-        //this.scenarioHandler.gameHandler.uiHandler.CreateLocationRow($loc,charSlots,bgColor);
+        //this.scenario.scenarioHandler.gameHandler.uiHandler.CreateLocationRow($loc,charSlots,bgColor);
         
-        for(const loc of this.gameHandler.scenarioHandler.locationHandler.locations){
+        for(const loc of this.gameHandler.scenarioHandler.currentScenario.locationHandler.locations){
             
             loc.charSlots = [];
         
@@ -271,16 +271,16 @@ export class uiHandler
 
 
             this.locationTable.append(col0);
-            if(this.gameHandler.scenarioHandler.usesLocationAssignment) this.locationTable.append(col1);
-            if(!this.gameHandler.scenarioHandler.playingNoninteractiveStages) this.locationTable.append(col2);
+            if(this.gameHandler.scenarioHandler.currentScenario.usesLocationAssignment) this.locationTable.append(col1);
+            if(!this.gameHandler.scenarioHandler.currentScenario.playingNoninteractiveStages) this.locationTable.append(col2);
 
             const col0Content = document.createElement("div");
             const col1Content = document.createElement("div");
             const col2Content = document.createElement("div");
 
             col0.append(col0Content);
-            if(this.gameHandler.scenarioHandler.usesLocationAssignment) col1.append(col1Content);
-            if(!this.gameHandler.scenarioHandler.playingNoninteractiveStages) col2.append(col2Content);
+            if(this.gameHandler.scenarioHandler.currentScenario.usesLocationAssignment) col1.append(col1Content);
+            if(!this.gameHandler.scenarioHandler.currentScenario.playingNoninteractiveStages) col2.append(col2Content);
             
 
             for(let i = 0; i < loc.charSlotsCount; i++){
@@ -331,7 +331,7 @@ export class uiHandler
 
                 let $rightSlot;
 
-                if(!this.gameHandler.scenarioHandler.playingNoninteractiveStages) $rightSlot = loc.AddCharSlot("right",$rightSelector.id,$rightImage.id);
+                if(!this.gameHandler.scenarioHandler.currentScenario.playingNoninteractiveStages) $rightSlot = loc.AddCharSlot("right",$rightSelector.id,$rightImage.id);
 
                 $rightSlotDiv.append($rightImage);
                 $rightSlotDiv.append($rightSelector);
@@ -350,9 +350,9 @@ export class uiHandler
 
             }
 
-            if(this.gameHandler.scenarioHandler.usesLocationAssignment){
+            if(this.gameHandler.scenarioHandler.currentScenario.usesLocationAssignment){
 
-                let $locCount = this.gameHandler.scenarioHandler.locationHandler.locations.length;
+                let $locCount = this.gameHandler.scenarioHandler.currentScenario.locationHandler.locations.length;
 
                 let $locImg = document.createElement("img");
 
@@ -365,7 +365,7 @@ export class uiHandler
                     text-align:center;
                     grid-column-start: 2;
                     grid-row-start: ` + Number(1 + $locCount) + `;
-                    grid-row-end:` + Number($locCount + charSlots) + `;`
+                    grid-row-end:` + Number($locCount + loc.charSlots) + `;`
 
             }
             
@@ -417,7 +417,7 @@ export class uiHandler
         
     AddSelectorOptions(selector,slot){
         
-        const $availableChars = this.gameHandler.scenarioHandler.GetAllChars(slot.alignment);
+        const $availableChars = this.gameHandler.scenarioHandler.currentScenario.GetAllChars(slot.alignment);
         
         const $alphaSortedChars = $availableChars.sort(function(a, b) {
             let textA = a.name.toUpperCase();

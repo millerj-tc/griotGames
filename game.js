@@ -1,6 +1,6 @@
 import {uiHandler} from "./ui.js";
 import {database} from "./database.js";
-import {scenarioHandler} from "./scenario.js";
+import {scenarioHandler} from "./scenarioHandler.js";
 import {initializeCloneCrisisScenario} from "./Clone Crisis Code/cloneCrisisScenario.js";
 import {initializeCloneCrisisScenarioPlus} from "./Clone Crisis Code/cloneCrisisScenarioPlus.js";
 
@@ -27,7 +27,7 @@ export class gameHandler
     
     Start(){
         
-        //if(this.newGamePlus) this.scenarioHandler.playingNoninteractiveStages = true;
+        const $scen0 = this.scenarioHandler.AddScenario("scen0");
         
         this.scenarioHandler.usesLocationAssignment = false;
             
@@ -36,16 +36,16 @@ export class gameHandler
         let $loc;
 
         if(this.newGamePlus){ 
-            //console.log("NEW GAME PLUS");
+                //console.log("NEW GAME PLUS");
             
-            $loc = this.scenarioHandler.locationHandler.AddLocation("location","",5,"C8E3D4");
+            $loc = this.scenarioHandler.currentScenario.locationHandler.AddLocation("location","",5,"C8E3D4");
             $loc.displayName = "";
             initializeCloneCrisisScenarioPlus();
         }
         else{
             //console.log("nope");
             
-            $loc = this.scenarioHandler.locationHandler.AddLocation("location","",3,"C8E3D4");
+            $loc = this.scenarioHandler.currentScenario.locationHandler.AddLocation("location","",3,"C8E3D4");
             $loc.displayName = "";
            initializeCloneCrisisScenario();
         } 
@@ -60,14 +60,14 @@ export class gameHandler
         
         this.uiHandler.SetRosterCollapsibleCoords();
         
-        this.scenarioHandler.charHandler.AddFunctionsToCharacters();
+        this.scenarioHandler.currentScenario.charHandler.AddFunctionsToCharacters();
         
 //        for(const char of this.scenarioHandler.GetAllChars()){
 //            
 //            intializeInterpersRelationships(char);
 //        }
         
-        this.scenarioHandler.locationHandler.RandomizeStartingTeams();
+        this.scenarioHandler.currentScenario.locationHandler.RandomizeStartingTeams();
         
         this.uiHandler.ClearOutput();
         
@@ -85,7 +85,7 @@ export class gameHandler
         
         if(this.simulationCount >= this.submissionRunsUntilOfferLink){
             
-            if(this.scenarioHandler.gameOver){
+            if(this.scenarioHandler.currentScenario.scenarioOver){
             
                 this.uiHandler.NewStageOutputDiv("You may submit a roster to this link to have your solution compete with other participants " + this.submissionLink + "<br><br>After you submit, there may be an additional level of the simulation you can try to solve. However, you can only submit your roster for this level once.");
                 
@@ -101,12 +101,12 @@ export class gameHandler
         
         this._RestoreRemovedChars();
         
-        this.scenarioHandler.gameOver = false;
+        this.scenarioHandler.currentScenario.scenarioOver = false;
     }
     
     _RestoreRemovedChars(){
         
-        for(const loc of this.scenarioHandler.locationHandler.locations){
+        for(const loc of this.scenarioHandler.currentScenario.locationHandler.locations){
             
             for(const slot of loc.charSlots){
                 
@@ -117,7 +117,7 @@ export class gameHandler
     
     _RemoveUnslottedCharacters(){
         
-        for(const loc of this.scenarioHandler.locationHandler.locations){
+        for(const loc of this.scenarioHandler.currentScenario.locationHandler.locations){
             
             loc.unslottedChars = [];
         }

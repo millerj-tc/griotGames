@@ -2,9 +2,9 @@ import {cloneCrisisStage} from "./Clone Crisis Code/cloneCrisisStage.js";
 
 export class stageHandler
 {
-    constructor(scenarioHandler){
+    constructor(scenario){
         
-        this.scenarioHandler = scenarioHandler;
+        this.scenario = scenario;
         
         this.stages = [];
         this.lastCreatedStage = undefined;
@@ -37,11 +37,11 @@ export class stageHandler
         
         if(stage == undefined) console.warn("NextStage is undefined!!");
         
-        const $ui = this.scenarioHandler.gameHandler.uiHandler;
+        const $ui = this.scenario.scenarioHandler.gameHandler.uiHandler;
         
         this.currentStage = stage;
         
-        if(stage != undefined && !this.scenarioHandler.gameOver){ 
+        if(stage != undefined && !this.scenario.scenarioOver){ 
             
             //console.log("continuing");
             

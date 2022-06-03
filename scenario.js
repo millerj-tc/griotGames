@@ -5,9 +5,9 @@ import {GetStringOfCharsFromArray,ReplaceWordsBasedOnPluralSubjects} from "./uti
 
 class scenarioFx
 {
-    constructor(scenarioHandler,reqdInc,type="wincon"){
+    constructor(scenario,reqdInc,type="wincon"){
         
-        this.scenarioHandler = scenarioHandler;
+        this.scenario = scenario;
         this.requiredIncrements = reqdInc;
         this.currentLeftIncrements = 0;
         this.currentRightIncrements = 0;
@@ -33,23 +33,23 @@ class scenarioFx
     
     MoveToInteractivePhase(){
         
-        this.scenarioHandler.gameHandler.uiHandler.ExpandRosterDisplay();
+        this.scenario.gameHandler.uiHandler.ExpandRosterDisplay();
         
-        this.scenarioHandler.playingNoninteractiveStages = false;
+        this.scenario.playingNoninteractiveStages = false;
         
-        this.scenarioHandler.gameHandler.uiHandler.CreateLocationTable();
+        this.scenario.gameHandler.uiHandler.CreateLocationTable();
         
-        this.scenarioHandler.gameHandler.uiHandler.CreateLocationRows();
+        this.scenario.gameHandler.uiHandler.CreateLocationRows();
         
-        this.scenarioHandler.gameHandler.uiHandler.CreateEvalGoButton();
+        this.scenario.gameHandler.uiHandler.CreateEvalGoButton();
         
-        this.scenarioHandler.gameHandler.uiHandler._CreateCollapseButton();
+        this.scenario.gameHandler.uiHandler._CreateCollapseButton();
         
-        this.scenarioHandler.gameHandler.uiHandler.CreateLockButton();
+        this.scenario.gameHandler.uiHandler.CreateLockButton();
         
-        this.scenarioHandler.gameHandler.uiHandler.SetRosterCollapsibleCoords();
+        this.scenario.gameHandler.uiHandler.SetRosterCollapsibleCoords();
         
-        this.scenarioHandler.locationHandler.RandomizeStartingTeams();
+        this.scenario.locationHandler.RandomizeStartingTeams();
     }
     
     SetWinLocation(location){
@@ -118,9 +118,9 @@ class scenarioFx
         
         let $text = this.completeEffectOutputText;
         
-        if(this.currentLeftIncrements == this.requiredIncrements) this.targetChars = this.scenarioHandler.locationHandler.GetAllCharsAtLocations("left");
+        if(this.currentLeftIncrements == this.requiredIncrements) this.targetChars = this.scenario.locationHandler.GetAllCharsAtLocations("left");
         
-        if(this.currentRightIncrements == this.requiredIncrements) this.targetChars = this.scenarioHandler.locationHandler.GetAllCharsAtLocations("right");
+        if(this.currentRightIncrements == this.requiredIncrements) this.targetChars = this.scenario.locationHandler.GetAllCharsAtLocations("right");
         
         for(const char of this.targetChars){
             
@@ -138,23 +138,23 @@ class scenarioFx
         if((this.completeEffectOutputText != "")){
 
             
-            if(wincon == true || !this.scenarioHandler.gameOver){
+            if(wincon == true || !this.scenario.gameOver){
                 
-                this.scenarioHandler.gameHandler.uiHandler.UpdateOutput("<br><br>");
+                this.scenario.scenarioHandler.gameHandler.uiHandler.UpdateOutput("<br><br>");
                 
-                this.scenarioHandler.gameHandler.uiHandler.UpdateOutput(text);
+                this.scenario.scenarioHandler.gameHandler.uiHandler.UpdateOutput(text);
             } 
-            //else if(wincon == true)this.scenarioHandler.gameHandler.uiHandler.UpdateOutput(text);
+            //else if(wincon == true)this.scenario.scenarioHandler.gameHandler.uiHandler.UpdateOutput(text);
         }
     }
     
     WinCon(){
         
-        if(this.scenarioHandler.gameOver) return
+        if(this.scenario.gameOver) return
         
         let $text;
         
-        this.scenarioHandler.gameOver = true;
+        this.scenario.gameOver = true;
         
         let $winningCharString
             
@@ -196,7 +196,7 @@ class scenarioFx
     
     _TeamWins(team){
         
-        let $winningChars = this.scenarioHandler.locationHandler.GetAllCharsAtLocations();
+        let $winningChars = this.scenario.locationHandler.GetAllCharsAtLocations();
             
             let $winningCharString;
         
@@ -213,14 +213,14 @@ class scenarioFx
         
         let $rightTeamCume = 0 ;
         
-        const $leftTeam = this.scenarioHandler.locationHandler.GetAllCharsAtLocations("left");
+        const $leftTeam = this.scenario.locationHandler.GetAllCharsAtLocations("left");
         
         for(const char of $leftTeam){
             
             $leftTeamCume += char.cume;
         }
         
-        const $rightTeam = this.scenarioHandler.locationHandler.GetAllCharsAtLocations("right");
+        const $rightTeam = this.scenario.locationHandler.GetAllCharsAtLocations("right");
         
         for(const char of $rightTeam){
             
@@ -243,11 +243,11 @@ class scenarioFx
     }
 }
 
-export class scenarioHandler
+export class scenario
 {
-    constructor(gameHandler){
+    constructor(scenarioHandler){
         
-        this.gameHandler = gameHandler;
+        this.scenarioHandler = scenarioHandler;
         
         this.locationHandler = new locationHandler(this);
         this.stageHandler = new stageHandler(this);
@@ -258,19 +258,45 @@ export class scenarioHandler
         this.usesLocationAssignment = true;
         this.playingNoninteractiveStages = false;
         
-        this.gameOver = false;
+        this.scenarioOver = false;
         
         this.fxs = [];
         
+        this.scenarioCharInstances = [];
+        this.scenarioCharBeginInstances = [];
+        
+    }
+    
+    ScenarioFlow(fromPrevoiusScenario = false){
+        
+        this.leftTeamHope = 0;
+        
+        this.rightTeamHope = 0;
+        
+        this.LoadScenarioChars(fromPrevoiusScenario);
+        
+        this.stageHandler.stages[0].EvalFlow();
+    }
+
+    LoadScenarioChars(fromPreviousScenario = false){
+        
+        let $sourceArr;
+        
+        if(fromPreviousScenario) $sourceArr = this.previousScenario;
+        else $sourceArr = this.scenarioHandler.gameCharInstances;
+        
+        for(const char of $sourceArr){
+            
+            this.scenarioCharInstances.push(char);
+            this.scenarioCharBeginInstances.push(char);
+        }
     }
     
     GetAllChars(unlockedFor = ""){
         
         let $returnArr = [];
         
-        for(const obj of this.gameHandler.database.data){
-            
-            if(obj.dataType != "char") continue
+        for(const obj of this.scenarioCharInstances){
             
             if(unlockedFor == "both" && (obj.unlocked.includes("left") || char.unlocked.includes("right"))) $returnArr.push(obj);
             else if(unlockedFor == "left" && obj.unlocked.includes("left")) $returnArr.push(obj);
@@ -334,7 +360,7 @@ export class scenarioHandler
     
     EvalScenarioBeginInterpersFxs(){
         
-        const $ui = this.gameHandler.uiHandler;
+        const $ui = this.scenarioHandler.gameHandler.uiHandler;
         
         let $spokenStrings = [];
         
@@ -350,7 +376,7 @@ export class scenarioHandler
                 
                     for(const targetString of fx.targetCharsStrings){
                         
-                        let $targChar = this.gameHandler.database.GetObjFromString(targetString);
+                        let $targChar = this.scenarioHandler.gameHandler.database.GetObjFromString(targetString);
                         
                         $interpersTargetArr.push($targChar);
                     }

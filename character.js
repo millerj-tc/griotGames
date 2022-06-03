@@ -11,14 +11,14 @@ class interpersHopeFx
 
 export class charHandler
 {
-    constructor(scenarioHandler){
+    constructor(scenario){
         
-        this.scenarioHandler = scenarioHandler;
+        this.scenario = scenario;
     }
     
     AddFunctionsToCharacters(){
         
-        for(const char of this.scenarioHandler.gameHandler.database.data){
+        for(const char of this.scenario.scenarioHandler.gameHandler.database.data){
             
             char.debuffed = false;
             char.IsDebuffed = this.IsDebuffed;

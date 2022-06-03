@@ -13,11 +13,11 @@ export class gag100Stage extends stage
         
         let $string;
         
-        const $ui = this.stageHandler.scenarioHandler.gameHandler.uiHandler;
+        const $ui = this.stageHandler.scenario.scenarioHandler.gameHandler.uiHandler;
         
-        //console.log(this.stageHandler.scenarioHandler.gameOver);
+        //console.log(this.stageHandler.scenario.scenarioOver);
         
-        if(this.stageHandler.scenarioHandler.gameOver == false && worstChars.length > 0){
+        if(this.stageHandler.scenario.scenarioOver == false && worstChars.length > 0){
             
             $string = "<br><br>" + this.worstCharacterText.replace("[names]",GetStringOfCharsFromArray(worstChars,"any",true));
             $string = ReplaceWordsBasedOnPluralSubjects(worstChars,$string);
@@ -27,7 +27,7 @@ export class gag100Stage extends stage
     
     _ReturnDisplayText(winners){
         
-        const $ui = this.stageHandler.scenarioHandler.gameHandler.uiHandler;
+        const $ui = this.stageHandler.scenario.scenarioHandler.gameHandler.uiHandler;
         
         //console.log(winners);
         
@@ -65,9 +65,9 @@ export class gag100Stage extends stage
     
     _WarnIfDupeCharsOnSameTeam(){
         
-        let $allChars = this.stageHandler.scenarioHandler.locationHandler.GetAllCharsAtLocations();
+        let $allChars = this.stageHandler.scenario.locationHandler.GetAllCharsAtLocations();
         
-        const $ui = this.stageHandler.scenarioHandler.gameHandler.uiHandler;
+        const $ui = this.stageHandler.scenario.scenarioHandler.gameHandler.uiHandler;
         
         for(const char0 of $allChars){
             
@@ -79,7 +79,7 @@ export class gag100Stage extends stage
                     
                     $ui.UpdateOutput("<i><b>I am very sorry to inform you that " + char0.name + " cannot occupy two spaces on the same team... This simulation is invalid, please try again</i></b>");
                     
-                    this.stageHandler.scenarioHandler.gameOver = true;
+                    this.stageHandler.scenario.scenarioOver = true;
                 }
             }
             
@@ -88,7 +88,7 @@ export class gag100Stage extends stage
     
     _RemoveDuplicateChars(){
         
-        let $allChars = this.stageHandler.scenarioHandler.locationHandler.GetAllCharsAtLocations();
+        let $allChars = this.stageHandler.scenario.locationHandler.GetAllCharsAtLocations();
         
         for(const char of $allChars){
             
@@ -97,9 +97,9 @@ export class gag100Stage extends stage
         
         let $returnArr = [];
         
-        const $ui = this.stageHandler.scenarioHandler.gameHandler.uiHandler;
+        const $ui = this.stageHandler.scenario.scenarioHandler.gameHandler.uiHandler;
         
-        const $scenHand = this.stageHandler.scenarioHandler;
+        const $scenHand = this.stageHandler.scenario;
         
         let $dupesFound = [];
         
@@ -166,7 +166,7 @@ export class gag100Stage extends stage
     
     _DeclareLocation(){
         
-        this.stageHandler.scenarioHandler.gameHandler.uiHandler.UpdateOutput("- <i>" + this.location.displayName.toUpperCase() + "</i> -<br><br>" );
+        this.stageHandler.scenario.scenarioHandler.gameHandler.uiHandler.UpdateOutput("- <i>" + this.location.displayName.toUpperCase() + "</i> -<br><br>" );
     }
     
     _TriggerStageFx(team){
@@ -182,7 +182,7 @@ export class gag100Stage extends stage
         
         let $returnString = "";
         
-        for(const fx of this.stageHandler.scenarioHandler.GetAllScenarioFxThatTargetStage(this,true)){
+        for(const fx of this.stageHandler.scenario.GetAllScenarioFxThatTargetStage(this,true)){
             
             let $replaceString = GetStringOfCharsFromArray([char],"any",true);
             
@@ -216,7 +216,7 @@ export class gag100Stage extends stage
         
         if(this.debug) console.warn("===");
         
-        //console.table(this.stageHandler.scenarioHandler.locationHandler.GetAllCharsAtLocations());
+        //console.table(this.stageHandler.scenario.locationHandler.GetAllCharsAtLocations());
         
         this._DeclareLocation();
         
@@ -225,13 +225,13 @@ export class gag100Stage extends stage
         
         let $winners = [];
         
-        const $ui = this.stageHandler.scenarioHandler.gameHandler.uiHandler;        
+        const $ui = this.stageHandler.scenario.scenarioHandler.gameHandler.uiHandler;        
         
         let $pool = this.location.GetCharsHere();
         
         this._WarnIfDupeCharsOnSameTeam();
         
-        if(this.stageHandler.scenarioHandler.gameOver) return
+        if(this.stageHandler.scenario.scenarioOver) return
         
         $pool = this._RemoveDuplicateChars($pool);
         
@@ -282,7 +282,7 @@ export class gag100Stage extends stage
         
         //$worstCharPool.sort(function(a, b){return b[$evalValue] - a[$evalValue]});
         
-        let $worstChars = this.stageHandler.scenarioHandler.gameHandler.database.GetCharsMoreThanOneStdBelowMeanForValue($evalValue,$worstCharPool);
+        let $worstChars = this.stageHandler.scenario.scenarioHandler.gameHandler.database.GetCharsMoreThanOneStdBelowMeanForValue($evalValue,$worstCharPool);
         
         //console.log($worstChars);
         
