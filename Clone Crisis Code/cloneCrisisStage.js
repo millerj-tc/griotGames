@@ -228,7 +228,7 @@ export class cloneCrisisStage extends stage
     
     _BetsyAndLoganAreScary(evalObj){
         
-        if(this.NPC != undefined && this.NPC.recruited){
+        if(this.NPC != undefined && this.NPC.recruited && this.NPC.name != "Venom"){
             
             let $matches = 0;
             
