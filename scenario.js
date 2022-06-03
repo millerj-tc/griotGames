@@ -335,9 +335,13 @@ export class scenario
         
         this.savedLocCharSlots = [];
         
+        console.error("CALL UPDATE CHAR PASSING SCENARIO.GETCHAR(NAME) FROM NAME STRING. COUNT COPIED PROPS WITH FOR/IN AND THROW ERROR IF THERE IS A PROP YOU FORGET TO COPY");
+        
         for(const loc of this.locationHandler.locations){
         
             for(const slot of loc.charSlots){
+                
+                for(const prop in slot) console.log(prop + slot[prop]);
                 
                 const $slotData = JSON.stringify(slot);
                 const $slotDeep = JSON.parse($slotData);
