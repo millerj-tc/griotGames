@@ -39,6 +39,8 @@ class scenarioFx
         
         this.scenarioHandler.gameHandler.uiHandler.CreateLocationTable();
         
+        this.scenarioHandler.gameHandler.uiHandler.CreateLocationRows();
+        
         this.scenarioHandler.gameHandler.uiHandler.CreateEvalGoButton();
         
         this.scenarioHandler.gameHandler.uiHandler._CreateCollapseButton();

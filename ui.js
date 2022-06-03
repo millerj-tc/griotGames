@@ -253,6 +253,8 @@ export class uiHandler
         //this.scenarioHandler.gameHandler.uiHandler.CreateLocationRow($loc,charSlots,bgColor);
         
         for(const loc of this.gameHandler.scenarioHandler.locationHandler.locations){
+            
+            loc.charSlots = [];
         
             let col0 = document.createElement("div");
             col0.style.display = "flex";
@@ -278,11 +280,8 @@ export class uiHandler
 
             col0.append(col0Content);
             if(this.gameHandler.scenarioHandler.usesLocationAssignment) col1.append(col1Content);
-            if(!this.gameHandler.scenarioHandler.playingNoninteractiveStages) col2.append(col2Content);console.log("APPENDING!");
+            if(!this.gameHandler.scenarioHandler.playingNoninteractiveStages) col2.append(col2Content);
             
-            console.log(loc);
-            
-            console.log(loc.charSlots);
 
             for(let i = 0; i < loc.charSlotsCount; i++){
 
@@ -403,6 +402,8 @@ export class uiHandler
         
         
         if(selector == null) return
+        
+        if(char == null) return
         
         for(let i=0; i < selector.length; i++){
             

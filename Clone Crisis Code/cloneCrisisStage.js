@@ -83,8 +83,6 @@ export class cloneCrisisStage extends stage
         this._NPCOpeningLineOutput();
         
         this._SetEvalPool($evalObj);
-        
-        console.log("alknagf");
 
         this._NoninteractiveCloneCrisisBattle($evalObj);
         
@@ -189,12 +187,10 @@ export class cloneCrisisStage extends stage
     }
     
     _NoninteractiveCloneCrisisBattle(evalObj){
-        
-        console.log("IM NOT INTERACTIVE");
+    
         
         this._NPCRecruitedAndUnlockedWithinTwoCharisma(evalObj);
-        
-        console.log("end noninteration");
+
     }
     
     _NPCRecruitedAndUnlockedWithinTwoCharisma(evalObj){
@@ -208,8 +204,6 @@ export class cloneCrisisStage extends stage
         console.log(evalObj);
         
         for(const char of evalObj.pool){
-            
-            console.log(char.name);
             
             if(Math.abs(char.charisma - this.NPC.charisma) <= 2){
                 

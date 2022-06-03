@@ -153,6 +153,7 @@ export class locationHandler
         
         let $destructoArrRight = ShuffleArray(this.scenarioHandler.GetAllChars(true));
         
+        
         for(const loc of this.locations){
             
             for(const slot of loc.charSlots){
@@ -161,8 +162,7 @@ export class locationHandler
                 
                 if(slot.alignment == "left") $chosenChar = $destructoArrLeft.shift();
                 else $chosenChar = $destructoArrRight.shift();
-                
-                //let $chosenChar = $destructoArr.shift();
+
                 
                 const $selectorDOM = document.getElementById(slot.selectId);
                 
