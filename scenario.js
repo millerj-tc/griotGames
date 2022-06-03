@@ -296,6 +296,8 @@ export class scenario
         
         let $returnArr = [];
         
+        console.error("HAVE TO FIGURE OUT FLOW HERE TO LOAD PROPERLY ON GAME START, RESET SIMULATION, AND REWIND TO THIS SCENARIO");
+        
         for(const obj of this.scenarioCharInstances){
             
             if(unlockedFor == "both" && (obj.unlocked.includes("left") || char.unlocked.includes("right"))) $returnArr.push(obj);
