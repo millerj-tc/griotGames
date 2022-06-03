@@ -234,6 +234,7 @@ export class scenarioHandler
         this.rightTeamHope = 0;
         
         this.usesLocationAssignment = true;
+        this.startWithNoninteractiveStages = false;
         
         this.gameOver = false;
         

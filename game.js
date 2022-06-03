@@ -2,6 +2,7 @@ import {uiHandler} from "./ui.js";
 import {database} from "./database.js";
 import {scenarioHandler} from "./scenario.js";
 import {initializeCloneCrisisScenario} from "./Clone Crisis Code/cloneCrisisScenario.js";
+import {initializeCloneCrisisScenarioPlus} from "./Clone Crisis Code/cloneCrisisScenarioPlus.js";
 
 export class gameHandler
 {
@@ -17,6 +18,8 @@ export class gameHandler
         this.submissionRunsUntilOfferLink = 5;
         this.submissionLink;
         
+        this.newGamePlus = false;
+        
         //this.locationHandler = new locationHandler(this);
         
         
@@ -24,30 +27,36 @@ export class gameHandler
     
     Start(){
         
-        // DEPRECATING RESIZE CODE FOR NOW
-        
-        //window.addEventListener("resize", this.uiHandler.ResizeOnResize);
-        
-        //this.uiHandler.ResizeOnResize();
+        if(this.newGamePlus) this.scenarioHandler.startWithNoninteractiveStages = true;
         
         this.scenarioHandler.usesLocationAssignment = false;
             
         this.uiHandler.CreateLocationTable();
         
-        const $loc = this.scenarioHandler.locationHandler.AddLocation("location","",3,"C8E3D4");
-        $loc.displayName = "";
-        
-        initializeCloneCrisisScenario();
-        
-        
+        let $loc;
+
+        if(this.newGamePlus){ 
+            //console.log("NEW GAME PLUS");
+            
+            $loc = this.scenarioHandler.locationHandler.AddLocation("location","",5,"C8E3D4");
+            $loc.displayName = "";
+            initializeCloneCrisisScenarioPlus();
+        }
+        else{
+            //console.log("nope");
+            
+            $loc = this.scenarioHandler.locationHandler.AddLocation("location","",3,"C8E3D4");
+            $loc.displayName = "";
+           initializeCloneCrisisScenario();
+        } 
         
         this.uiHandler.CreateEvalGoButton();
-        
-        
         
         this.uiHandler._CreateCollapseButton();
         
         this.uiHandler.CreateLockButton();
+        
+        this.uiHandler.SetRosterCollapsibleCoords();
         
         this.scenarioHandler.charHandler.AddFunctionsToCharacters();
         

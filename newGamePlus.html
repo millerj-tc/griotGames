@@ -3,6 +3,7 @@
         <script type="module">
             import {gameHandler} from './game.js';
             window.gameHandler = new gameHandler();
+            window.gameHandler.newGamePlus = true;
         </script>
     </head>
     <body style="font-family:sans-serif;background-color:F6EABE">
@@ -14,7 +15,11 @@
             
             <img src="images/marvel/frost-200.png" style="float:left;margin:150px;margin-top:0px"><i>Emma Frost:</i> "We have awoken to a strange problem, X-Team. There appear to be clones of all of us running amok. As the real X-Team, we must subdue these imposters and try to get a handle on this situation. I will be entering Cerebro in order to psychically assess the situation and will keep you posted." 
             
+            <br><br> However, we must collect as many allies as possible before we start facing the clones!
+            
             <br><br><button style="font-size:32pt" onclick="gameHandler.Start()">Start</button>
+            
+                <br><br><i>You are playing New Game+
             
                 <br><br><i>This game will be open until [DATE].
                 

@@ -16,9 +16,11 @@ export class stageHandler
 //        this.currentStage = this.currentStage.nextStage;
 //    }
     
-    AddStage(id){
+    AddStage(id,interactive = true){
         
         const $stage = new cloneCrisisStage(this,id);
+        
+        $stage.interactive = interactive;
         
         if(this.lastCreatedStage != undefined) this.lastCreatedStage.nextStage = $stage;
         

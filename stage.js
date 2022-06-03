@@ -185,6 +185,8 @@ export class stage
     
     _DeclareLocation(){
         
+        console.log(this.location);
+        
         if(this.location.displayName != "") this.stageHandler.scenarioHandler.gameHandler.uiHandler.UpdateOutput("- <i>" + this.location.displayName.toUpperCase() + "</i> -<br><br>" );
     }
     
