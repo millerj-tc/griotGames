@@ -34,6 +34,8 @@ export class scenarioHandler
         
         if(scenario == undefined) return;
         
+        scenario.savedLocCharSlots = this.currentScenario.savedLocCharSlots;
+        
         this.currentScenario = scenario;
         
         if(scenario != undefined && !this.gameHandler.gameOver){ 

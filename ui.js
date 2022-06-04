@@ -127,8 +127,6 @@ export class uiHandler
         $evalButton.style = "font-size:32pt"
         $evalButton.onclick = function(){
             
-            window.gameHandler.uiHandler.ClearOutput();
-            
             setTimeout(function(){
                 
                 const $collapseButton = document.getElementById("rosterCollapseButton");
@@ -245,7 +243,7 @@ export class uiHandler
         
         const $div = document.createElement("div");
         
-        $div.classList.add("outputDiv");
+        $div.classList.add("outputDiv" + this.gameHandler.scenarioHandler.currentScenario.id);
         
         $div.style.marginBottom = "20px";
         

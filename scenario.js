@@ -246,9 +246,10 @@ class scenarioFx
 
 export class scenario
 {
-    constructor(scenarioHandler){
+    constructor(scenarioHandler,id){
         
         this.scenarioHandler = scenarioHandler;
+        this.id = id;
         this.uiHandler = this.scenarioHandler.gameHandler.uiHandler;
         this.locationHandler = new locationHandler(this);
         this.stageHandler = new stageHandler(this);
@@ -306,9 +307,9 @@ export class scenario
         
         this.uiHandler.SetRosterCollapsibleCoords();
         
-        if(this.runCount == 0) this.locationHandler.RandomizeStartingTeams();
+        this._LoadChoices();
         
-        else this._LoadChoices();
+        this.locationHandler.RandomizeSlotsWithNoSaveData();
         
         if(this.runCount == 0) this.uiHandler.ExpandRosterDisplay();
         
@@ -321,7 +322,7 @@ export class scenario
     
     ScenarioRun(){
         
-        this.uiHandler.ClearOutput();
+        this._ClearThisScenarioOutput();
         
         this.stageHandler.stages[0].EvalFlow();
         
@@ -439,11 +440,16 @@ export class scenario
         char.ModHope(amt);
     }
     
+    _ClearThisScenarioOutput(){
+        
+        for(const div of document.querySelectorAll(".outputDiv" + this.id)) div.remove()
+    }
+    
     _StoreCurrentOutput(){
         
         this.uiHandler.storedOutputDivs = [];
         
-        const $divArr = document.querySelectorAll(".outputDiv");
+        const $divArr = document.querySelectorAll(".outputDiv" + this.id);
        
         
         for(const div of $divArr){
@@ -457,7 +463,7 @@ export class scenario
                 
         if(this.runCount < 1) return
         
-        const $outputDivs = document.querySelectorAll(".outputDiv");
+        const $outputDivs = document.querySelectorAll(".outputDiv" + this.id);
         
         console.log($outputDivs);
         

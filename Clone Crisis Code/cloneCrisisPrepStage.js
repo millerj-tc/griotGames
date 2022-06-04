@@ -29,7 +29,7 @@ export class cloneCrisisPrepStage extends cloneCrisisStage
         
         this._StageHeaderOutput();
         
-        this._NPCOpeningLineOutput();
+        this._MultipleNPCOpeningLineOutput();
         
         this._WarnIfDupeCharsOnSameTeam();
         
@@ -59,6 +59,25 @@ export class cloneCrisisPrepStage extends cloneCrisisStage
         
         this._NPCRecruitedAndUnlockedWithinTwoCharisma(evalObj);
 
+    }
+    
+    _MultipleNPCOpeningLineOutput(){
+        
+        for(const npc of this.npcs){
+        
+            const $npcPortrait = GetStringOfCharsFromArray(npc,"any","M",false);
+
+            if(npc.openingLine != undefined) {
+
+                const $newDiv = this.uiHandler.NewStageOutputDiv("<i>" + $npcPortrait + "</i>: " + npc.openingLine);
+
+                $newDiv.querySelector("img").style.float = "left";
+
+                $newDiv.querySelector("img").style.marginRight = "20px";
+
+
+            }
+        }
     }
     
     _NPCRecruitedAndUnlockedWithinTwoCharisma(evalObj){

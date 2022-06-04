@@ -63,9 +63,11 @@ export function initializeCloneCrisisPlus1Stages(scenario)
     
     $loc0.stageHeader = "NEW YORK";
     
-    $loc0.NPC = GH.database.GetObjFromString("Ghostrider");
+    const $grObj = GH.database.GetObjFromString("Ghostrider");
     
-    $loc0.NPC.openingLine = `"I'm GHOSTRIDER!"`;
+    $loc0.npcs = [$grObj];
+    
+    $grObj.openingLine = "I'M GHOSTRIDER";
     
     //$loc0.winText = "[winners names] recruit Daredevil!";
 }

@@ -149,15 +149,38 @@ export class locationHandler
         return $allChars
     }
     
-    RandomizeStartingTeams(){
+    _GetUnlockedCharsNotAssignedToASlot(alignment = "any",unlockedFor = "both"){
         
-        let $destructoArrLeft = ShuffleArray(this.scenario.GetAllChars("left"));
-        
-        let $destructoArrRight = ShuffleArray(this.scenario.GetAllChars("right"));   
+        let $returnArr = this.scenario.GetAllChars(unlockedFor);
         
         for(const loc of this.locations){
             
             for(const slot of loc.charSlots){
+                
+                if(slot.alignment != alignment && alignment != "any") continue
+                
+                if(slot.character == undefined) continue
+                
+                $returnArr = $returnArr.filter(c => slot.character.name != c.name)
+            }
+        }
+        
+        console.log($returnArr);
+        
+        return $returnArr
+    }
+    
+    RandomizeSlotsWithNoSaveData(){
+        
+        let $destructoArrLeft = ShuffleArray(this._GetUnlockedCharsNotAssignedToASlot("left","left"));
+        
+        let $destructoArrRight = ShuffleArray(this._GetUnlockedCharsNotAssignedToASlot("right","right"));
+        
+        for(const loc of this.locations){
+            
+            for(const slot of loc.charSlots){
+                
+                if(slot.character != null) return
                 
                 let $chosenChar;
                 

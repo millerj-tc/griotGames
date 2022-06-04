@@ -175,8 +175,6 @@ export class stage
                 
                 if(char0.name == char1.name && char0.alignment == char1.alignment && char0 != char1) {
                     
-                    $ui.ClearOutput();
-                    
                     $ui.UpdateOutput("<i><b>I am very sorry to inform you that " + char0.name + " cannot occupy two spaces on the same team... This simulation is invalid, please try again</i></b>");
                     
                     this.stageHandler.scenario.scenarioOver = true;
