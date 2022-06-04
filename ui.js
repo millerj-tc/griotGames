@@ -152,6 +152,32 @@ export class uiHandler
         document.getElementById("content").append($evalButton);
     }
     
+    CreateScenarioRewindButton(){
+        
+        const $rewindButton = document.createElement("button");
+        $rewindButton.style = "font-size:32pt"
+        $rewindButton.onclick = function(){
+            
+            setTimeout(function(){
+                
+                const $scenHandler = window.gameHandler.scenarioHandler;
+                
+                if($scenHandler.currentScenario.previousScenario != undefined);{
+                
+                    $scenHandler.currentScenario.ClearThisScenarioOutput();
+                    
+                    console.log($scenHandler.currentScenario.previousScenario.savedLocCharSlots);
+                    
+                    $scenHandler.GotoScenario($scenHandler.currentScenario.previousScenario);
+                }
+            },350);
+            
+        };
+        $rewindButton.innerHTML = "<<";
+        
+        document.getElementById("content").append($rewindButton);
+    }
+    
     CreateLocationTable(){
         
         const $SH = this.gameHandler.scenarioHandler.currentScenario;

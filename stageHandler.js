@@ -50,7 +50,7 @@ export class stageHandler
         
         if(this.scenario.scenarioOver){
             
-            this.scenario.scenarioHandler.GotoNextScenario(this.scenario.nextScenario);
+            this.scenario.scenarioHandler.GotoScenario(this.scenario.nextScenario);
 
         }
     }

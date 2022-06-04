@@ -299,6 +299,8 @@ export class scenario
         
         this.uiHandler.CreateLocationRows();
         
+        if(this.previousScenario != undefined) this.uiHandler.CreateScenarioRewindButton();
+        
         this.uiHandler.CreateEvalGoButton();
         
         this.uiHandler._CreateCollapseButton();
@@ -322,7 +324,7 @@ export class scenario
     
     ScenarioRun(){
         
-        this._ClearThisScenarioOutput();
+        this.ClearThisScenarioOutput();
         
         this.stageHandler.stages[0].EvalFlow();
         
@@ -440,7 +442,7 @@ export class scenario
         char.ModHope(amt);
     }
     
-    _ClearThisScenarioOutput(){
+    ClearThisScenarioOutput(){
         
         for(const div of document.querySelectorAll(".outputDiv" + this.id)) div.remove()
     }

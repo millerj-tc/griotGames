@@ -48,7 +48,7 @@ export class gameHandler
         
             $scen1.initScenarioFx = initializeCloneCrisisPlus1ScenarioFx;
             
-            this.scenarioHandler.GotoNextScenario($scen0);
+            this.scenarioHandler.GotoScenario($scen0);
         }
         
         else{
@@ -61,7 +61,7 @@ export class gameHandler
         
             $scen0.initScenarioFx = initializeCloneCrisisEasyScenarioFx;
             
-            this.scenarioHandler.GotoNextScenario($scen0);
+            this.scenarioHandler.GotoScenario($scen0);
         }
         
         

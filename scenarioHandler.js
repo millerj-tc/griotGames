@@ -30,11 +30,17 @@ export class scenarioHandler
         return $scenario
     }
     
-    GotoNextScenario(scenario){
+    GotoScenario(scenario){
         
         if(scenario == undefined) return;
         
-        scenario.savedLocCharSlots = this.currentScenario.savedLocCharSlots;
+        if(this.currentScenario != null && this.currentScenario.hasOwnProperty("nextScenario)" && scenario == this.currentScenario.nextScenario)){
+           
+            if(this.currentScenario.savedLocCharSlots.length == 0) console.warn("SCENARIO LOCATION CHAR SLOTS WERE NOT SAVED CORRECTLY -- REWIND MAY FAIL");
+
+            scenario.savedLocCharSlots = this.currentScenario.savedLocCharSlots;
+            
+        }
         
         this.currentScenario = scenario;
         
