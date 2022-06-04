@@ -53,6 +53,11 @@ export class stage
         
     }
     
+    _CreateEvalObj(){
+        
+        return new evaluation(this);
+    }
+    
     _StageHeaderOutput(){
         
         if(this.stageHeader != ""){

@@ -58,7 +58,7 @@ class location
         
         for(const slot of this.charSlots){
             
-            console.log(slot);
+            //console.log(slot);
             
             if(slot.character.removedDuringRun) continue
             

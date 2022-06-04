@@ -135,12 +135,12 @@ export class uiHandler
             
                     window.gameHandler.uiHandler.CollapseRosterDisplay();
                 }
-                
-                //window.gameHandler.scenarioHandler.currentScenario.EvalScenarioBeginInterpersFxs();
-                
+                        
                 window.gameHandler.ResetGameOnSimulationRun();
                 
-                window.gameHandler.scenarioHandler.currentScenario.ScenarioFlow();
+                window.gameHandler.scenarioHandler.currentScenario.ScenarioRun();
+                
+                window.gameHandler.scenarioHandler.currentScenario.ScenarioPrep();
             },350);
             
         };
@@ -248,7 +248,14 @@ export class uiHandler
         
         document.getElementById("output").append($div);
         
-        if($div.querySelector("img") != undefined) $div.style.minHeight = $div.querySelector("img").naturalHeight;
+        //console.log($div.querySelector("img"));
+        
+        if($div.querySelector("img") != undefined) {
+            
+            console.warn($div.querySelector("img"));
+            
+            $div.style.minHeight = $div.querySelector("img").naturalHeight;
+        }
         
         return $div
     }
@@ -320,7 +327,7 @@ export class uiHandler
 
                 $leftSelector.addEventListener("change", function() {
 
-                    const $charObj = window.gameHandler.database.GetObjFromString($leftSelector.value);
+                    const $charObj = window.gameHandler.scenarioHandler.currentScenario.GetScenarioChar($leftSelector.value);
                     $leftSlot.UpdateChar($charObj);
                 });
 
@@ -348,7 +355,7 @@ export class uiHandler
 
                 $rightSelector.addEventListener("change", function() {
 
-                    const $charObj = window.gameHandler.database.GetObjFromString($rightSelector.value);
+                    const $charObj = window.gameHandler.scenarioHandler.currentScenario.GetScenarioChar($rightSelector.value);
                     $rightSlot.UpdateChar($charObj);
                 });
 

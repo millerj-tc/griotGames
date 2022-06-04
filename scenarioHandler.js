@@ -40,7 +40,7 @@ export class scenarioHandler
         
         if(scenario != undefined && !this.gameHandler.gameOver){ 
 
-            scenario.ScenarioFlow();
+            scenario.ScenarioPrep();
         }
     }
     

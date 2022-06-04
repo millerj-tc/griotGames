@@ -1,7 +1,8 @@
 import {uiHandler} from "./ui.js";
 import {database} from "./database.js";
 import {scenarioHandler} from "./scenarioHandler.js";
-import {initializeCloneCrisisScenarioPlus} from "./Clone Crisis Code/cloneCrisisScenarioPlus.js";
+import {initializeCloneCrisisEasyStages,initializeCloneCrisisEasyLocations,initializeCloneCrisisEasyScenarioFx} from "./Clone Crisis Code/cloneCrisisScenario.js";
+import {initializeCloneCrisisPlusLocations, initializeCloneCrisisPlusStages,initializeCloneCrisisPlusScenarioFx,initializeCloneCrisisPlus1Locations, initializeCloneCrisisPlus1Stages,initializeCloneCrisisPlus1ScenarioFx} from "./Clone Crisis Code/cloneCrisisPrepScenario.js";
 
 export class gameHandler
 {
@@ -28,29 +29,58 @@ export class gameHandler
         
         this.scenarioHandler.LoadAllGameChars();
         
-        const $scen0 = this.scenarioHandler.AddScenario("scen0");
-        this.scenarioHandler.GotoNextScenario($scen0);
         
-
         if(this.newGamePlus){
             
-            $loc = this.scenarioHandler.currentScenario.locationHandler.AddLocation("location","",5,"C8E3D4");
-            $loc.displayName = "";
-            initializeCloneCrisisScenarioPlus();
+            const $scen0 = this.scenarioHandler.AddScenario("scen0");
+            
+            $scen0.initLocations = initializeCloneCrisisPlusLocations;
+        
+            $scen0.initStages = initializeCloneCrisisPlusStages;
+        
+            $scen0.initScenarioFx = initializeCloneCrisisPlusScenarioFx;
+            
+            const $scen1 = this.scenarioHandler.AddScenario("scen1");
+            
+            $scen1.initLocations = initializeCloneCrisisPlus1Locations;
+        
+            $scen1.initStages = initializeCloneCrisisPlus1Stages;
+        
+            $scen1.initScenarioFx = initializeCloneCrisisPlus1ScenarioFx;
+            
+            this.scenarioHandler.GotoNextScenario($scen0);
         }
+        
+        else{
+            
+            const $scen0 = this.scenarioHandler.AddScenario("scen0");
+            
+            $scen0.initLocations = initializeCloneCrisisEasyLocations;
+        
+            $scen0.initStages = initializeCloneCrisisEasyStages;
+        
+            $scen0.initScenarioFx = initializeCloneCrisisEasyScenarioFx;
+            
+            this.scenarioHandler.GotoNextScenario($scen0);
+        }
+        
+        
+        document.getElementById("output").innerHTML = "";
 
     
     }
     
     OfferSubmissionLinkAfterXRuns(){
         
-        //console.log(this.simulationCount);
+        console.log(this.simulationCount);
         
         if(this.simulationCount >= this.submissionRunsUntilOfferLink){
             
-            if(this.scenarioHandler.currentScenario.scenarioOver){
+            console.log(this.scenarioHandler.currentScenario);
             
-                this.uiHandler.NewStageOutputDiv("You may submit a roster to this link to have your solution compete with other participants " + this.submissionLink + "<br><br>After you submit, there may be an additional level of the simulation you can try to solve. However, you can only submit your roster for this level once.");
+            if(this.scenarioHandler.currentScenario.scenarioOver){
+                
+                this.uiHandler.NewStageOutputDiv("You may submit a roster to this link to have your solution compete with other participants " + this.submissionLink + "<br><br>After you submit, there may be an additional difficulty level of the simulation you can try to solve. However, you can only submit your roster for this difficulty level once.");
                 
             }
         }
@@ -59,12 +89,6 @@ export class gameHandler
     ResetGameOnSimulationRun(){
         
         this.simulationCount++;
-        
-        //this._RemoveUnslottedCharacters();
-        
-        //this._RestoreRemovedChars();
-        
-        //this.scenarioHandler.currentScenario.scenarioOver = false;
     }
     
     _RestoreRemovedChars(){

@@ -2,7 +2,7 @@ import {locationHandler} from "./location.js";
 import {stageHandler} from "./stageHandler.js";
 import {charHandler} from "./character.js";
 import {GetStringOfCharsFromArray,ReplaceWordsBasedOnPluralSubjects} from "./utils.js";
-import {initializeCloneCrisisEasyStages,initializeCloneCrisisEasyLocations,initializeCloneCrisisEasyScenarioFx} from "./Clone Crisis Code/cloneCrisisScenario.js";
+
 
 class scenarioFx
 {
@@ -266,17 +266,11 @@ export class scenario
         this.scenarioCharInstances = [];
         this.savedLocCharSlots = [];
         
-        this.initLocations = initializeCloneCrisisEasyLocations;
-        
-        this.initStages = initializeCloneCrisisEasyStages;
-        
-        this.initScenarioFx = initializeCloneCrisisEasyScenarioFx;
-        
         this.runCount = 0;
         
     }
     
-    ScenarioFlow(fromPreviousScenario = false){
+    ScenarioPrep(fromPreviousScenario = false){
         
         console.warn("===");
         
@@ -289,8 +283,6 @@ export class scenario
         this.locationHandler = new locationHandler(this);
         
         this.initLocations(this);
-        
-        console.log(this.locationHandler.locations[0]);
         
         this.LoadScenarioChars(fromPreviousScenario);
         
@@ -316,15 +308,20 @@ export class scenario
         
         if(this.runCount == 0) this.locationHandler.RandomizeStartingTeams();
         
-        else this.LoadChoices();
+        else this._LoadChoices();
         
-        this.uiHandler.ClearOutput();
-        
-        this.uiHandler.ExpandRosterDisplay();
+        if(this.runCount == 0) this.uiHandler.ExpandRosterDisplay();
         
         this.leftTeamHope = 0;
         
         this.rightTeamHope = 0;
+        
+        
+    }
+    
+    ScenarioRun(){
+        
+        this.uiHandler.ClearOutput();
         
         this.stageHandler.stages[0].EvalFlow();
         
@@ -335,36 +332,36 @@ export class scenario
         
         this.savedLocCharSlots = [];
         
-        console.error("CALL UPDATE CHAR PASSING SCENARIO.GETCHAR(NAME) FROM NAME STRING. COUNT COPIED PROPS WITH FOR/IN AND THROW ERROR IF THERE IS A PROP YOU FORGET TO COPY");
-        
         for(const loc of this.locationHandler.locations){
         
             for(const slot of loc.charSlots){
-                
-                for(const prop in slot) console.log(prop + slot[prop]);
-                
-                const $slotData = JSON.stringify(slot);
-                const $slotDeep = JSON.parse($slotData);
-                
-                this.savedLocCharSlots.push($slotDeep);
+                this.savedLocCharSlots.push({characterName: slot.character.name,alignment: slot.character.alignment, locationId: slot.location.id, selectId: slot.selectId});
             }
                 
         }
     }
     
-    LoadChoices(){
+    _LoadChoices(){
+        
+        console.log("loading");
         
         for(const savedCharSlot of this.savedLocCharSlots){
             
             for(const loc of this.locationHandler.locations){
                 
-                if(savedCharSlot.location != loc) continue
+                const $locObj = this.locationHandler.GetLocationById(savedCharSlot.locationId)
+                
+                if($locObj != loc) continue
                 
                 for(const charSlot of loc.charSlots){
                     
                     if(savedCharSlot.selectId == charSlot.selectId){
                         
-                        charSlot = savedCharSlot;
+                        let $charInst = this.GetScenarioChar(savedCharSlot.characterName);
+                        
+                        charSlot.UpdateChar($charInst);
+                        
+                        document.getElementById(savedCharSlot.selectId).value = savedCharSlot.characterName;
                     }
                 }
             }

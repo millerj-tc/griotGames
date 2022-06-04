@@ -1,3 +1,5 @@
+import {cloneCrisisStage} from "./cloneCrisisStage.js";
+
 export function initializeCloneCrisisEasyLocations(scenario){
     
     scenario.usesLocationAssignment = false;
@@ -9,6 +11,8 @@ export function initializeCloneCrisisEasyLocations(scenario){
 export function initializeCloneCrisisEasyStages(scenario)
 {
     const GH = window.gameHandler;
+    
+    scenario.GetScenarioStage = GetScenarioStage;
     
     const $loc0 = scenario.stageHandler.AddStage("loc0");
         
@@ -95,6 +99,11 @@ export function initializeCloneCrisisEasyStages(scenario)
     $loc8.location = scenario.locationHandler.GetLocationById("location");
 
     $loc8.winText = "[winners names] [[pursues/pursue]] the fleeing [specialOutputGroup0 names]!";
+}
+
+function GetScenarioStage(stageHandler,id){
+     
+    return new cloneCrisisStage(stageHandler,id);
 }
     
 export function initializeCloneCrisisEasyScenarioFx(scenario){

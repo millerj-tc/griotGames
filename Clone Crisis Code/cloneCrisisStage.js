@@ -25,19 +25,11 @@ export class cloneCrisisStage extends stage
         
         this.stageHandler.scenario.SaveChoices();
         
-        if(this.flowVar == 1){
-            
-            this._NoninteractiveEvalFlow();
-            return
-        }
-        
         this._ResetNPCRecruitmentProperties();
-        
-        this.stageHandler.scenario.scenarioHandler.gameHandler.OfferSubmissionLinkAfterXRuns();
         
         if(this.stageHandler.scenario.scenarioOver) return   
                 
-        const $evalObj = new evaluation(this);
+        const $evalObj = this._CreateEvalObj();
         
         this._DeclareLocation();
         
@@ -58,37 +50,8 @@ export class cloneCrisisStage extends stage
         this._ValidateWinnersAndLosers($evalObj);
         
         this._EndGameIfTeamAllCaptured();
-                
-        this._ResultDisplayText($evalObj);
-        
-        this._HighlightChangedDivs();
-        
-        this._StoreCurrentOutputToEvalArr();
-        
-        this.firstRun = false;
-                
-        this._TriggerStageFx($evalObj);
-        
-        this.stageHandler.GotoNextStage(this.nextStage);
-    }
-    
-    _NoninteractiveEvalFlow(){
         
         this.stageHandler.scenario.scenarioHandler.gameHandler.OfferSubmissionLinkAfterXRuns();
-                
-        const $evalObj = new evaluation(this);
-        
-        this._DeclareLocation();
-        
-        this._StageHeaderOutput();
-        
-        this._NPCOpeningLineOutput();
-        
-        this._SetEvalPool($evalObj);
-
-        this._NoninteractiveCloneCrisisBattle($evalObj);
-        
-        this._ValidateWinnersAndLosers($evalObj);
                 
         this._ResultDisplayText($evalObj);
         

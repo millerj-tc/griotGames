@@ -1,5 +1,3 @@
-import {cloneCrisisStage} from "./Clone Crisis Code/cloneCrisisStage.js";
-
 export class stageHandler
 {
     constructor(scenario){
@@ -18,7 +16,7 @@ export class stageHandler
     
     AddStage(id,interactive = true){
         
-        const $stage = new cloneCrisisStage(this,id);
+        const $stage = this.scenario.GetScenarioStage(this,id);
         
         $stage.interactive = interactive;
         
@@ -35,6 +33,9 @@ export class stageHandler
     
     GotoNextStage(stage){
         
+        console.log("NEXT STAGE");
+        console.log(this.scenario.scenarioOver);
+        
         if(stage == undefined) console.warn("NextStage is undefined!!");
         
         const $ui = this.scenario.scenarioHandler.gameHandler.uiHandler;
@@ -48,6 +49,13 @@ export class stageHandler
             $ui.UpdateOutput("<br><br>");
 
             stage.EvalFlow();
+        }
+        
+        if(this.scenario.scenarioOver){
+            
+            this.scenario.scenarioHandler.GotoNextScenario(this.scenario.nextScenario);
+            
+            console.warn(this.scenario.nextScenario);
         }
     }
 }
