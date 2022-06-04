@@ -25,8 +25,6 @@ export class scenarioHandler
         
         if(this.scenarios.length == 1) this.currentScenario = $scenario
         
-        console.log(this.currentScenario);
-        
         this.lastCreatedScenario = $scenario;
         
         return $scenario
@@ -34,7 +32,7 @@ export class scenarioHandler
     
     GotoNextScenario(scenario){
         
-        if(scenario == undefined) console.warn("NextScenario is undefined!!");
+        if(scenario == undefined) return;
         
         this.currentScenario = scenario;
         

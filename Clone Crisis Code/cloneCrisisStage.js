@@ -55,10 +55,6 @@ export class cloneCrisisStage extends stage
                 
         this._ResultDisplayText($evalObj);
         
-        this._HighlightChangedDivs();
-        
-        this._StoreCurrentOutputToEvalArr();
-        
         this.firstRun = false;
                 
         this._TriggerStageFx($evalObj);
@@ -165,8 +161,6 @@ export class cloneCrisisStage extends stage
         evalObj.npc = this.NPC;
         
         evalObj.charismaChar = null;
-        
-        console.log(evalObj);
         
         let $leftRecruiters = [];
         

@@ -66,46 +66,6 @@ export class stage
         }
     }
     
-    _StoreCurrentOutputToEvalArr(){
-        
-        this.evalArr = [];
-        
-        const $divArr = document.querySelectorAll(".outputDiv");
-       
-        
-        for(const div of $divArr){
-        
-            this.evalArr.push(div.innerText);
-        } 
-
-    }
-    
-    _HighlightChangedDivs(){
-        
-        if(this.firstRun) return
-        
-        const $outputDivs = document.querySelectorAll(".outputDiv");
-        
-        let $matches;
-        
-        for(const output of $outputDivs){
-            
-            $matches = 0;
-            
-            for(const oldOutput of this.evalArr){
-                
-                if(output.innerText == oldOutput){
-                    
-                    $matches++;
-                    
-                }
-            }
-
-            if($matches > 0) output.style.backgroundColor = "";
-            else output.style.backgroundColor = "yellow";
-        }
-    }
-    
     _DisplayDebuffOutput(char){
         
         let $returnString = "";

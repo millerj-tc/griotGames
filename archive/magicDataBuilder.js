@@ -6,9 +6,7 @@ export function GetCardsFromScryfall(db) {
     if (this.readyState == 4 && this.status == 200) {
         var txt = this.responseText;
         var obj = JSON.parse(txt);
-        console.log(obj.data);
-        
-        console.log(window.db);
+    
         
         console.log(BuildMagicData(name,obj.data,db));
         

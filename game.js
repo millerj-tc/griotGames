@@ -72,8 +72,6 @@ export class gameHandler
     
     OfferSubmissionLinkAfterXRuns(){
         
-        console.log(this.simulationCount);
-        
         if(this.simulationCount >= this.submissionRunsUntilOfferLink){
             
             console.log(this.scenarioHandler.currentScenario);

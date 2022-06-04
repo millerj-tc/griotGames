@@ -10,6 +10,8 @@ export class uiHandler
         
         this.rosterViewLocked = false;
         
+        this.storedOutputDivs = [];
+        
     }
     
     ResizeOnResize(){
@@ -138,9 +140,12 @@ export class uiHandler
                         
                 window.gameHandler.ResetGameOnSimulationRun();
                 
-                window.gameHandler.scenarioHandler.currentScenario.ScenarioRun();
+                if(window.gameHandler.scenarioHandler.currentScenario != undefined);{
                 
-                window.gameHandler.scenarioHandler.currentScenario.ScenarioPrep();
+                    window.gameHandler.scenarioHandler.currentScenario.ScenarioRun();
+
+                    window.gameHandler.scenarioHandler.currentScenario.ScenarioPrep();
+                }
             },350);
             
         };
@@ -248,11 +253,7 @@ export class uiHandler
         
         document.getElementById("output").append($div);
         
-        //console.log($div.querySelector("img"));
-        
         if($div.querySelector("img") != undefined) {
-            
-            console.warn($div.querySelector("img"));
             
             $div.style.minHeight = $div.querySelector("img").naturalHeight;
         }

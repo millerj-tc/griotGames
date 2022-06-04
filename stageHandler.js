@@ -33,9 +33,6 @@ export class stageHandler
     
     GotoNextStage(stage){
         
-        console.log("NEXT STAGE");
-        console.log(this.scenario.scenarioOver);
-        
         if(stage == undefined) console.warn("NextStage is undefined!!");
         
         const $ui = this.scenario.scenarioHandler.gameHandler.uiHandler;
@@ -54,8 +51,7 @@ export class stageHandler
         if(this.scenario.scenarioOver){
             
             this.scenario.scenarioHandler.GotoNextScenario(this.scenario.nextScenario);
-            
-            console.warn(this.scenario.nextScenario);
+
         }
     }
 }

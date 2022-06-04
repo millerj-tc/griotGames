@@ -33,26 +33,9 @@ export class cloneCrisisPrepStage extends cloneCrisisStage
         
         this._WarnIfDupeCharsOnSameTeam();
         
-        this._NoninteractiveEvalFlow();
-        
-        this.firstRun = false;
-        
-        this.stageHandler.scenario.scenarioOver = true;
-        
-        this.stageHandler.GotoNextStage(this.nextStage);
-    }
-    
-     _NoninteractiveEvalFlow(){
-
         this.stageHandler.scenario.scenarioHandler.gameHandler.OfferSubmissionLinkAfterXRuns();
 
         const $evalObj = this._CreateEvalObj();
-
-        this._DeclareLocation();
-
-        this._StageHeaderOutput();
-
-        this._NPCOpeningLineOutput();
 
         this._SetEvalPool($evalObj);
 
@@ -62,14 +45,12 @@ export class cloneCrisisPrepStage extends cloneCrisisStage
 
         this._ResultDisplayText($evalObj);
 
-        this._HighlightChangedDivs();
-
-        this._StoreCurrentOutputToEvalArr();
-
-        this.firstRun = false;
-
         this._TriggerStageFx($evalObj);
 
+        this.stageHandler.GotoNextStage(this.nextStage);
+        
+        this.stageHandler.scenario.scenarioOver = true;
+        
         this.stageHandler.GotoNextStage(this.nextStage);
     }
     
@@ -110,9 +91,7 @@ export class cloneCrisisPrepStage extends cloneCrisisStage
 
             const $rightRecruitersString = GetStringOfCharsFromArray($rightRecruiters,"any","S");
 
-            this.stageHandler.scenario.scenarioHandler.gameHandler.uiHandler.NewStageOutputDiv($recruitedString + " considers the arguments of " + $leftRecruitersString);
-
-            this.stageHandler.scenario.scenarioHandler.gameHandler.uiHandler.NewStageOutputDiv($recruitedString + " considers the arguments of " + $rightRecruitersString);
+            this.stageHandler.scenario.scenarioHandler.gameHandler.uiHandler.NewStageOutputDiv($recruitedString + " considers the arguments of " + $leftRecruitersString + " as well as "  +$rightRecruitersString);
             
             }
         

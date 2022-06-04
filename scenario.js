@@ -325,6 +325,12 @@ export class scenario
         
         this.stageHandler.stages[0].EvalFlow();
         
+        this._HighlightChangedDivs();
+        
+        this._StoreCurrentOutput();
+        
+        
+        
         this.runCount++;
     }
     
@@ -342,8 +348,6 @@ export class scenario
     }
     
     _LoadChoices(){
-        
-        console.log("loading");
         
         for(const savedCharSlot of this.savedLocCharSlots){
             
@@ -433,6 +437,48 @@ export class scenario
     _InterpersFxsHopeMods(char,amt){
         
         char.ModHope(amt);
+    }
+    
+    _StoreCurrentOutput(){
+        
+        this.uiHandler.storedOutputDivs = [];
+        
+        const $divArr = document.querySelectorAll(".outputDiv");
+       
+        
+        for(const div of $divArr){
+        
+            this.uiHandler.storedOutputDivs.push(div.innerText);
+        } 
+
+    }
+    
+    _HighlightChangedDivs(){
+                
+        if(this.runCount < 1) return
+        
+        const $outputDivs = document.querySelectorAll(".outputDiv");
+        
+        console.log($outputDivs);
+        
+        let $matches;
+        
+        for(const output of $outputDivs){
+            
+            $matches = 0;
+            
+            for(const oldOutput of this.uiHandler.storedOutputDivs){
+                                
+                if(output.innerText == oldOutput){
+                    
+                    $matches++;
+                    
+                }
+            }
+
+            if($matches > 0) output.style.backgroundColor = "";
+            else output.style.backgroundColor = "yellow";
+        }
     }
     
     EvalScenarioBeginInterpersFxs(){
