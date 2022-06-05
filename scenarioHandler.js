@@ -32,6 +32,8 @@ export class scenarioHandler
     
     GotoScenario(scenario){
         
+        console.error("WHAT IF YOU PUSH UNLOCKED CHARS TO AN ARRAY HELD BY THE SCENARIO THAT GETS RESET EVERYTIME YOU RUN IT BUT NOT WHEN YOU SWITCH SCENARIOS?";)
+        
         if(scenario == undefined) return;
         
         if(this.currentScenario != null && this.currentScenario.hasOwnProperty("nextScenario)" && scenario == this.currentScenario.nextScenario)){
