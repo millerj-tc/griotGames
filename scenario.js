@@ -310,6 +310,8 @@ export class scenario
         
         this.ClearThisScenarioOutput();
         
+        this.SaveChoices();
+        
         this.stageHandler.stages[0].EvalFlow();
         
         this._HighlightChangedDivs();

@@ -23,8 +23,6 @@ export class cloneCrisisPrepStage extends cloneCrisisStage
 
     EvalFlow(){
         
-        this.stageHandler.scenario.SaveChoices();
-        
         this._DeclareLocation();
         
         this._StageHeaderOutput();

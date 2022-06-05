@@ -23,8 +23,6 @@ export class cloneCrisisStage extends stage
 
     EvalFlow(){
         
-        this.stageHandler.scenario.SaveChoices();
-        
         this._ResetNPCRecruitmentProperties();
         
         if(this.stageHandler.scenario.scenarioOver) return   
