@@ -32,27 +32,6 @@ class scenarioFx
         
     }
     
-    MoveToInteractivePhase(){
-        
-        this.scenario.gameHandler.uiHandler.ExpandRosterDisplay();
-        
-        this.scenario.playingNoninteractiveStages = false;
-        
-        this.scenario.gameHandler.uiHandler.CreateLocationTable();
-        
-        this.scenario.gameHandler.uiHandler.CreateLocationRows();
-        
-        this.scenario.gameHandler.uiHandler.CreateEvalGoButton();
-        
-        this.scenario.gameHandler.uiHandler._CreateCollapseButton();
-        
-        this.scenario.gameHandler.uiHandler.CreateLockButton();
-        
-        this.scenario.gameHandler.uiHandler.SetRosterCollapsibleCoords();
-        
-        this.scenario.locationHandler.RandomizeStartingTeams();
-    }
-    
     SetWinLocation(location){
         
         this.winLocation = location;
