@@ -272,9 +272,7 @@ export class scenario
         
         this.CreateRosterDivButtons();
         
-        this._LoadChoices();
-        
-        this.locationHandler.RandomizeSlotsWithNoSaveData();
+        this._LoadPreviousChoicesForCharSlotsOrRandomize();
         
         this.uiHandler.ExpandRosterDisplay();
         
@@ -304,11 +302,11 @@ export class scenario
         
         this.fxs = [];
         
+        this._ResetLocationUnslottedChars();
+        
         this.LoadAndResetScenarioCharacters();
         
-        console.log(this.scenarioCharInstances);
-        
-        //if(this.runCount == 0) this.ScenarioPrep();
+        this._ResetCharacterObjectsInSlots();
         
         this.ClearThisScenarioOutput();
         
@@ -321,6 +319,14 @@ export class scenario
         this.runCount++;
     }
     
+    _ResetLocationUnslottedChars(){
+        
+        for(const loc of this.locationHandler.locations){
+            
+            loc.unslottedChars = [];
+        }
+    }
+    
     LoadAndResetScenarioCharacters(loadCharsFromLastScenarioRun){
         
         this.scenarioCharInstances = [];
@@ -329,6 +335,26 @@ export class scenario
         
         this.charHandler.AddFunctionsToCharacters(this.scenarioCharInstances);
         
+    }
+    
+    _ResetCharacterObjectsInSlots(){
+        
+        for(const loc of this.locationHandler.locations){
+            
+            for(const slot of loc.charSlots){
+                
+                const $freshChar = this.GetScenarioChar(slot.character.name)
+                
+                slot.UpdateChar($freshChar);
+            }
+        }
+    }
+    
+    _LoadPreviousChoicesForCharSlotsOrRandomize(){
+        
+        this._LoadChoices();
+        
+        this.locationHandler.RandomizeSlotsWithNoSaveData();
     }
     
     SaveChoices(){
@@ -387,7 +413,7 @@ export class scenario
     
     GetScenarioChar(name,alignment="any"){
         
-        console.log(this.scenarioCharInstances);
+        //console.log(this.scenarioCharInstances);
         
         for(const char of this.scenarioCharInstances){
             
@@ -426,8 +452,6 @@ export class scenario
         
         $returnString = $returnString.replace("[owner]",GetStringOfCharsFromArray([fx.ownerCharacter],"any",true));
         
-        //console.log($returnString);
-        
         $returnString = ReplaceWordsBasedOnPluralSubjects(targetChars,$returnString);
         
         return $returnString
@@ -462,8 +486,6 @@ export class scenario
         if(this.runCount < 1) return
         
         const $outputDivs = document.querySelectorAll(".outputDiv" + this.id);
-        
-        console.log($outputDivs);
         
         let $matches;
         
@@ -539,9 +561,6 @@ export class scenario
                             let $itsAlreadyBeenSaid = false;
                             
                             for(const spokenString of $spokenStrings){
-                                
-                                //console.warn(spokenString);
-                                //console.warn($outputText);
                                 
                                 if(spokenString == $outputText) $itsAlreadyBeenSaid = true;
                             }

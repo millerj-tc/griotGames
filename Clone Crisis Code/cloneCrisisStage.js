@@ -204,12 +204,7 @@ export class cloneCrisisStage extends stage
         
         let $returnArr = [];
         
-        //evalObj.testProp = "test";
-        
         for(const char of evalObj.pool){
-            
-            ////console.log(char.charisma);
-            ////console.log(this.NPC.charisma);
             
             let $charismaDiff = Math.abs(char.charisma - this.NPC.charisma);
             
@@ -217,19 +212,16 @@ export class cloneCrisisStage extends stage
             
             $diffArr.push($charismaDiff);
         }
-        
-        //console.log($diffArr);
+
         
         let $matchDiff = Math.min(...$diffArr);
-        
-        //console.log($matchDiff);
+
         
         for(const cpkg of $evalArr){
             
             if(cpkg.diff == $matchDiff) $returnArr.push(cpkg.char);
         }
-        
-        //console.log($returnArr);
+
         
         for(const char of $returnArr){
             
@@ -244,15 +236,14 @@ export class cloneCrisisStage extends stage
         }
         
         $returnArr.sort(function(a, b){return b.charisma - a.charisma})
-        
-        //console.log($returnArr);
-        //console.log(this.NPC.charisma);
-        
+
         if($returnArr.length >= 1){
             
             evalObj.charismaChar = $returnArr[0];
             
             this.NPC.alignment = $returnArr[0].alignment;
+            
+            evalObj.npc.alignment = $returnArr[0].alignment;
             
             this.NPC.recruited = true;
             

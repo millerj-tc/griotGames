@@ -110,9 +110,6 @@ export class stage
         }
         
         evalObj.initialPool = evalObj.pool;
-        
-        console.log(evalObj.pool);
-        
     }
     
     _RemoveCharsResultInMirror(chars,evalObj){
