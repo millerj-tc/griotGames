@@ -43,7 +43,7 @@ export class stageHandler
             
             //console.log("continuing");
             
-            $ui.UpdateOutput("<br><br>");
+            $ui.NewStageOutputDiv("<br><br>");
 
             stage.EvalFlow();
         }

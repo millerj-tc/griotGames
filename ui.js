@@ -142,7 +142,7 @@ export class uiHandler
                 
                     window.gameHandler.scenarioHandler.currentScenario.ScenarioRun();
 
-                    window.gameHandler.scenarioHandler.currentScenario.ScenarioPrep();
+                    //window.gameHandler.scenarioHandler.currentScenario.ScenarioPrep();
                 }
             },350);
             

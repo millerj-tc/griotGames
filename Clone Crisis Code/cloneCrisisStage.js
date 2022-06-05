@@ -316,6 +316,7 @@ export class cloneCrisisStage extends stage
     
     _LowestCunningConfusedUnlessAlone(evalObj){
         
+        console.log(evalObj.pool);
         
         const $lowestCunningChar = evalObj.pool.sort(function(a, b){return a.cunning - b.cunning})[0];
         

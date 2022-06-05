@@ -58,7 +58,7 @@ class location
         
         for(const slot of this.charSlots){
             
-            //console.log(slot);
+            console.log(slot);
             
             if(slot.character.removedDuringRun) continue
             
@@ -172,6 +172,8 @@ export class locationHandler
     
     RandomizeSlotsWithNoSaveData(){
         
+        console.log("shuffling");
+        
         let $destructoArrLeft = ShuffleArray(this._GetUnlockedCharsNotAssignedToASlot("left","left"));
         
         let $destructoArrRight = ShuffleArray(this._GetUnlockedCharsNotAssignedToASlot("right","right"));
@@ -184,8 +186,17 @@ export class locationHandler
                 
                 let $chosenChar;
                 
-                if(slot.alignment == "left") $chosenChar = $destructoArrLeft.shift();
-                else $chosenChar = $destructoArrRight.shift();
+                if(slot.alignment == "left") {
+                    
+                    $chosenChar = $destructoArrLeft.shift();
+                    
+                }
+                else {
+                    
+                    $chosenChar = $destructoArrRight.shift();
+                }
+                
+                
 
                 
                 const $selectorDOM = document.getElementById(slot.selectId);
@@ -194,6 +205,7 @@ export class locationHandler
                 
                 slot.UpdateChar($chosenChar);
                 
+                console.log("assigning " + $chosenChar.name + " to " + slot.alignment + " with alignment " + slot.character.alignment);
                 
                 //this.scenario.scenarioHandler.gameHandler.uiHandler.UpdateCharImage(slot);
             }

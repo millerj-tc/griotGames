@@ -42,11 +42,14 @@ export class scenarioHandler
             
         }
         
+        this.currentScenario.runCount = 0;
+        
         this.currentScenario = scenario;
         
         if(scenario != undefined && !this.gameHandler.gameOver){ 
 
-            scenario.ScenarioPrep();
+            if(scenario.runCount == 0) {scenario.ScenarioPrep();console.log("prepping")}
+            else scenario.ScenarioRun();
         }
     }
     

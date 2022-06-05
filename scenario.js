@@ -250,23 +250,15 @@ export class scenario
         
     }
     
-    ScenarioPrep(fromPreviousScenario = false){
+    ScenarioPrep(loadCharsFromLastScenarioRun = false){
         
         console.warn("===");
         
-        this.scenarioOver = false;
-        
-        this.fxs = [];
-        
-        this.scenarioCharInstances = [];
+        this.LoadAndResetScenarioCharacters();
         
         this.locationHandler = new locationHandler(this);
         
         this.initLocations(this);
-        
-        this.LoadScenarioChars(fromPreviousScenario);
-        
-        this.charHandler.AddFunctionsToCharacters(this.scenarioCharInstances);
         
         this.uiHandler.CreateLocationTable();
         
@@ -278,6 +270,23 @@ export class scenario
         
         this.uiHandler.CreateLocationRows();
         
+        this.CreateRosterDivButtons();
+        
+        this._LoadChoices();
+        
+        this.locationHandler.RandomizeSlotsWithNoSaveData();
+        
+        this.uiHandler.ExpandRosterDisplay();
+        
+        this.leftTeamHope = 0;
+        
+        this.rightTeamHope = 0;
+        
+        
+    }
+    
+    CreateRosterDivButtons(){
+        
         if(this.previousScenario != undefined) this.uiHandler.CreateScenarioRewindButton();
         
         this.uiHandler.CreateEvalGoButton();
@@ -287,21 +296,19 @@ export class scenario
         this.uiHandler.CreateLockButton();
         
         this.uiHandler.SetRosterCollapsibleCoords();
-        
-        this._LoadChoices();
-        
-        this.locationHandler.RandomizeSlotsWithNoSaveData();
-        
-        if(this.runCount == 0) this.uiHandler.ExpandRosterDisplay();
-        
-        this.leftTeamHope = 0;
-        
-        this.rightTeamHope = 0;
-        
-        
     }
     
-    ScenarioRun(){
+    ScenarioRun(loadCharsFromLastScenarioRun = false){
+        
+        this.scenarioOver = false;
+        
+        this.fxs = [];
+        
+        this.LoadAndResetScenarioCharacters();
+        
+        console.log(this.scenarioCharInstances);
+        
+        //if(this.runCount == 0) this.ScenarioPrep();
         
         this.ClearThisScenarioOutput();
         
@@ -311,9 +318,17 @@ export class scenario
         
         this._StoreCurrentOutput();
         
-        
-        
         this.runCount++;
+    }
+    
+    LoadAndResetScenarioCharacters(loadCharsFromLastScenarioRun){
+        
+        this.scenarioCharInstances = [];
+        
+        this.LoadScenarioChars(loadCharsFromLastScenarioRun);
+        
+        this.charHandler.AddFunctionsToCharacters(this.scenarioCharInstances);
+        
     }
     
     SaveChoices(){
@@ -367,16 +382,18 @@ export class scenario
             const $charDeepCopy = JSON.parse($jsonData);
 
             this.scenarioCharInstances.push($charDeepCopy);
-            //this.scenarioCharBeginInstances.push($charDeepCopy);
         }
     }
     
     GetScenarioChar(name,alignment="any"){
         
+        console.log(this.scenarioCharInstances);
+        
         for(const char of this.scenarioCharInstances){
             
             if(char.name == name && alignment == "any") return char
             else if (char.name == name && char.alignment == alignment) return char
+            else console.warn("GetScenario Char failed");
         }
     }
     
