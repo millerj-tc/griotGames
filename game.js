@@ -2,7 +2,7 @@ import {uiHandler} from "./ui.js";
 import {database} from "./database.js";
 import {scenarioHandler} from "./scenarioHandler.js";
 import {initializeCloneCrisisEasyStages,initializeCloneCrisisEasyLocations,initializeCloneCrisisEasyScenarioFx} from "./Clone Crisis Code/cloneCrisisScenario.js";
-import {initializeCloneCrisisPlusLocations, initializeCloneCrisisPlusStages,initializeCloneCrisisPlusScenarioFx,initializeCloneCrisisPlus1Locations, initializeCloneCrisisPlus1Stages,initializeCloneCrisisPlus1ScenarioFx} from "./Clone Crisis Code/cloneCrisisPrepScenario.js";
+import {initializeCloneCrisisPlusLocations, initializeCloneCrisisPlusStages,initializeCloneCrisisPlusScenarioFx,initializeCloneCrisisPlus1Locations, initializeCloneCrisisPlus1Stages,initializeCloneCrisisPlus1ScenarioFx,initializeCloneCrisisPlus2Locations, initializeCloneCrisisPlus2Stages,initializeCloneCrisisPlus2ScenarioFx} from "./Clone Crisis Code/cloneCrisisPrepScenario.js";
 import {RunTournament} from "./runTournament.js";
 
 export class gameHandler
@@ -48,6 +48,14 @@ export class gameHandler
             $scen1.initStages = initializeCloneCrisisPlus1Stages;
         
             $scen1.initScenarioFx = initializeCloneCrisisPlus1ScenarioFx;
+            
+            const $scen2 = this.scenarioHandler.AddScenario("scen2");
+            
+            $scen2.initLocations = initializeCloneCrisisPlus2Locations;
+        
+            $scen2.initStages = initializeCloneCrisisPlus2Stages;
+        
+            $scen2.initScenarioFx = initializeCloneCrisisPlus2ScenarioFx;
             
             this.scenarioHandler.GotoScenario($scen0);
         }

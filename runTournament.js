@@ -40,9 +40,9 @@ export function RunTournament()
                     
             for(const scenario of window.gameHandler.scenarioHandler.scenarios){
 
-                _LoadTournamentChoices(scenario,entry,"left");
+                let $leftTeam = _LoadTournamentChoices(scenario,entry,"left");
 
-                _LoadTournamentChoices(scenario,opp,"right");
+                let $rightTeam = _LoadTournamentChoices(scenario,opp,"right");
                 
                 scenario.scenarioHandler.GotoScenario(scenario);
                 
@@ -50,7 +50,12 @@ export function RunTournament()
                 
                 console.log("WINNERS FOR " + scenario.id + ": " + scenario.winningTeam);
                 
-                if(scenario.winningTeam == "left") entry.winCount++;
+                if(scenario.winningTeam == "left"){
+                    
+                    //for(const char of $leftTeam) console.log(char.name + " character win")
+                    
+                    entry.winCount++;
+                }
                 
             }
         
@@ -63,8 +68,8 @@ export function RunTournament()
     
  function _LoadTournamentChoices(scenario,entry,alignment){
      
-
-            
+     let $returnTeam = [];
+                
     for(const loc of scenario.locationHandler.locations){
 
         let $charsAssignedToLocation = [...entry[scenario.id][loc.id]];
@@ -82,12 +87,14 @@ export function RunTournament()
                 
                     scenario.savedLocCharSlots.push({characterName: $charInst.name,alignment: alignment, locationId: loc.id, selectId: charSlot.selectId});
                     
+                    $returnTeam.push({name:$charInst.name,wins:0});
 
-                    
                     break
 
                 }
             }
         }
     }
+     
+     return $returnTeam
 }
