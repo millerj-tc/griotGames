@@ -20,9 +20,13 @@ export class cloneCrisisNewGamePlusStage extends cloneCrisisStage
         this.evalDiv = document.createElement("div");
         this.NPC = null;
         this.tournamentMode = false;
+        
+        this.evalFlow = this.AltEvalFlow;
+        
+        this._CloneCrisisBattle = this._AltCloneCrisisBattle;
     }
 
-    EvalFlow(tournamentMode){
+    AltEvalFlow(tournamentMode){
         
         this.tournamentMode = tournamentMode;
         
@@ -64,9 +68,7 @@ export class cloneCrisisNewGamePlusStage extends cloneCrisisStage
     }
     
     
-    _CloneCrisisBattle(evalObj){
-        
-        //console.warn("BATTLE");
+    _AltCloneCrisisBattle(evalObj){
         
         this._NPCRecruitedByClosestCharisma(evalObj);
         
@@ -80,9 +82,9 @@ export class cloneCrisisNewGamePlusStage extends cloneCrisisStage
         
         this._LowestCunningConfusedOutput(evalObj);
         
-        this._CompareCunningOfEachTeamsSpeedster(evalObj);
+        this._HighestSpeedDebuffsGreatestPower(evalObj);
         
-        this._SpeedAndCunningDebuffOutput(evalObj);
+        this._HighestSpeedDebuffOutput(evalObj);
         
         this._AloneCharPowerTrumps(evalObj);
         
@@ -94,61 +96,3 @@ export class cloneCrisisNewGamePlusStage extends cloneCrisisStage
         
         this._SetSpecialOutputGroup0ToRemainingLosingChars(evalObj);
     }
-    
-    _CompareCunningOfEachTeamsSpeedster(evalObj){
-        
-        let $speedEvalPool = this._ReturnArrWithTeamDupedCharsRemoved(evalObj.pool);
-        
-        if($speedEvalPool.length == 0) return
-        
-        let $leftTeam = $speedEvalPool.filter(c => c.alignment == "left");
-        
-        let $rightTeam = $speedEvalPool.filter(c => c.alignment == "right");
-        
-        let $leftSpeedster = $leftTeam.sort(function(a, b){return b.speed - a.speed})[0];
-        
-        let $rightSpeedster = $rightTeam.sort(function(a, b){return b.speed - a.speed})[0];
-        
-        let $highestSpeedChar;
-        
-        if($leftSpeedster.cunning > $rightSpeedster.cunning) {
-            evalObj.outwittedSpeedChar = $rightSpeedster;
-            $highestSpeedChar = $leftSpeedster;
-        }
-        else if($leftSpeedster.cunning < $rightSpeedster.cunning) {
-            evalObj.outwittedSpeedChar = $leftSpeedster;
-            $highestSpeedChar = $rightSpeedster;
-        }
-        else console.warn("_CompareCunningOfEachTeamsSpeedster is malfunctioning, comparing " + $leftSpeedster.name + " and " + $rightSpeedster.name)
-        
-        let $enemyAlign = $highestSpeedChar.GetEnemyAlignment();
-        
-        const $enemyArr = evalObj.GetCharsFromPool($enemyAlign);
-
-        if($enemyArr.length < 1) return
-
-        const $highestPowerEnemyOfSpeediestChar = $enemyArr.sort(function(a, b){return b.power - a.power})[0];
-
-        if(this._CharLastTeammateAtLoc($highestPowerEnemyOfSpeediestChar)) return
-
-        evalObj.pool = evalObj.pool.filter(c => c != $highestPowerEnemyOfSpeediestChar);
-
-        evalObj.speedDebuffedChar = $highestPowerEnemyOfSpeediestChar;
-
-        evalObj.speediestChar = $highestSpeedChar;
-    }
-    
-    _SpeedAndCunningDebuffOutput(evalObj){
-        
-        if(evalObj.speedDebuffedChar != null){ 
-            
-            const $speediestCharOutput = GetStringOfCharsFromArray(evalObj.speediestChar,"any","S");
-            const $outwittedCharOutput = GetStringOfCharsFromArray(evalObj.outwittedSpeedChar, "any","S");
-            const $speedDebuffedCharOutput = GetStringOfCharsFromArray(evalObj.speedDebuffedChar,"any","S");
-            const $onTheirHeelsOutput = ReplacePronouns(evalObj.speedDebuffedChar, " on [their] heels!")
-            this.uiHandler.NewStageOutputDiv($speediestCharOutput + " has outwitted " + $outwittedCharOutput ", knocking " + $speedDebuffedCharOutput + $onTheirHeelsOutput);
-            
-        }
-    }
-
-}
