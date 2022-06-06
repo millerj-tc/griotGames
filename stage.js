@@ -102,12 +102,13 @@ export class stage
         
         evalObj.pool = this.location.GetCharsHere();
     
-        
         for(const char of evalObj.pool){
             
             char.stageImmune = false;
             
             char.stageDisabled = false;
+            
+            console.log(char.name + " has " + char.xp.left + "/" + char.xp.right + " xp");
         }
         
         evalObj.initialPool = evalObj.pool;
@@ -285,6 +286,22 @@ export class stage
             $ui.NewStageOutputDiv($outputText);
 
         } 
+    }
+    
+    _IncreaseXpForAllParticipatingChars(evalObj){
+        
+        for(const char of evalObj.pool){
+            
+            if(char.dataType != "char") return
+            
+            const $charObj =  this.stageHandler.scenario.GetScenarioChar(char.name);
+            
+            $charObj.xp[char.alignment]++;
+            
+            //console.log($charObj.name + " xp:" + $charObj.xp);
+        }
+        
+        console.log(this.stageHandler.scenario.scenarioCharInstances);
     }
     
 }

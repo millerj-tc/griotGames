@@ -28,6 +28,7 @@ export class charHandler
             char.AddInterpers = this.AddInterpers;
             char.GetEnemyAlignment = this.GetEnemyAlignment;
             char.hope = 0;
+            char.xp = {left:0,right:0};
             char.lastWonHope = null;
             char.removedDuringRun = false;
         }

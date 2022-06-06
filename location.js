@@ -178,8 +178,6 @@ export class locationHandler
                 
                 if(slot.character != null) return
                 
-
-                
                 let $chosenChar;
                 
                 if(slot.alignment == "left") {
@@ -203,7 +201,6 @@ export class locationHandler
                 
 
                 
-                //this.scenario.scenarioHandler.gameHandler.uiHandler.UpdateCharImage(slot);
             }
         }
 

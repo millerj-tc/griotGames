@@ -60,6 +60,8 @@ export class cloneCrisisStage extends stage
                 
         this._TriggerStageFx($evalObj);
         
+        this._IncreaseXpForAllParticipatingChars($evalObj);
+        
         this.stageHandler.GotoNextStage(this.nextStage);
     }
     

@@ -64,6 +64,8 @@ export class cloneCrisisNewGamePlusStage extends cloneCrisisStage
                 
         this._TriggerStageFx($evalObj);
         
+        this._IncreaseXpForAllParticipatingChars($evalObj);
+        
         this.stageHandler.GotoNextStage(this.nextStage);
     }
     
@@ -96,3 +98,4 @@ export class cloneCrisisNewGamePlusStage extends cloneCrisisStage
         
         this._SetSpecialOutputGroup0ToRemainingLosingChars(evalObj);
     }
+}
