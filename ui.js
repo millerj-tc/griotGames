@@ -164,16 +164,12 @@ export class uiHandler
                 const $scenHandler = window.gameHandler.scenarioHandler;
                 
                 if($scenHandler.currentScenario.previousScenario != null){
-                
-                    console.log("rewind button part 1");
                     
                     $scenHandler.currentScenario.ClearThisScenarioOutput();
                     
                     $scenHandler.GotoScenario($scenHandler.currentScenario.previousScenario);
                 }
                 else{
-                    
-                    console.log("rewind button part 2");
                     
                     $scenHandler.currentScenario.ClearThisScenarioOutput();
                     
