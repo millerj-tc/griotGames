@@ -37,6 +37,8 @@ export class stageHandler
         
         const $ui = this.scenario.scenarioHandler.gameHandler.uiHandler;
         
+        let $tournamentMode = this.currentStage.tournamentMode;
+        
         this.currentStage = stage;
         
         if(stage != undefined && !this.scenario.scenarioOver){ 
@@ -45,7 +47,7 @@ export class stageHandler
             
             $ui.NewStageOutputDiv("<br><br>");
 
-            stage.EvalFlow();
+            stage.EvalFlow($tournamentMode);
         }
         
         if(this.scenario.scenarioOver){

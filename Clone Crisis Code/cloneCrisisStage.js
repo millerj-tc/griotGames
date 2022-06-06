@@ -19,9 +19,12 @@ export class cloneCrisisStage extends stage
         this.debug = false;
         this.evalDiv = document.createElement("div");
         this.NPC = null;
+        this.tournamentMode = false;
     }
 
-    EvalFlow(){
+    EvalFlow(tournamentMode){
+        
+        this.tournamentMode = tournamentMode;
         
         this._ResetNPCRecruitmentProperties();
         
@@ -66,20 +69,22 @@ export class cloneCrisisStage extends stage
         
         const $rightTeam = this.location.GetCharsHere("any","right");
         
-        //console.log($leftTeam);
+
         
-        //console.log($rightTeam);
+
         
         if($leftTeam.length == 0){
             
             this.uiHandler.NewStageOutputDiv(`<span style="font-weight:bold;color:red;font-size:calc(15px + 1.5vw)">The right team has won!</span>`);
             this.stageHandler.scenario.scenarioOver = true;
+            this.stageHandler.scenario.SetScenarioWinningTeam("right");
         }
         
         if($rightTeam.length == 0){
             
             this.uiHandler.NewStageOutputDiv(`<span style="font-weight:bold;color:blue;font-size:calc(15px + 1.5vw)">The left team has won!</span>`);
             this.stageHandler.scenario.scenarioOver = true;
+            this.stageHandler.scenario.SetScenarioWinningTeam("left");
         } 
     }
     
@@ -122,7 +127,7 @@ export class cloneCrisisStage extends stage
         
         this._BetsyAndLoganAreScary(evalObj);
         
-        this._NPCRecruitOutput();
+        this._NPCRecruitOutput(evalObj);
         
         this._LowestCunningConfusedUnlessAlone(evalObj);
         
@@ -279,6 +284,8 @@ export class cloneCrisisStage extends stage
                 
                 this.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(this.NPC,"any","S") + " was thinking about joining up with " + GetStringOfCharsFromArray(evalObj.charismaChar,"any","S") + " but " + GetStringOfCharsFromArray($psylockeAndWolverine,"any","S") + ReplacePronouns(this.NPC," convince [them] to mind [their] own fucking business. They're pretty intimidating..."));
                 
+                if(this.tournamentMode) console.log(this.NPC.name + " scared by Betsy/Logan from joining with  " + evalObj.charismaChar.name);
+                
                 this.location.RemoveCharDuringRun(this.NPC);
             }
         }
@@ -292,13 +299,15 @@ export class cloneCrisisStage extends stage
         this.NPC.recruited = false;
     }
     
-    _NPCRecruitOutput(){
+    _NPCRecruitOutput(evalObj){
         
         if(this.NPC == null) return
         
         if(this.NPC.recruited){
             
             this.stageHandler.scenario.scenarioHandler.gameHandler.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(this.NPC,"any","S") + " has decided to side with the " + this.NPC.alignment + " team.");
+            
+            if(this.tournamentMode) console.log(this.NPC.name + " recruited by " + this.NPC.alignment + " team because of " + evalObj.charismaChar.name);
         }
         else if(!this.NPC.scaredByPowerCouple) this.stageHandler.scenario.scenarioHandler.gameHandler.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(this.NPC,"any","S") + " can't decide who to believe.");
     }

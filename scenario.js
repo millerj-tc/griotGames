@@ -63,7 +63,7 @@ class scenarioFx
     
     StageSelect(){
         
-        console.log("selecting");
+
         
         if(this.targetStage == "undefined") console.error("Essential properties for scenarioFx have not been set!");
         
@@ -252,7 +252,7 @@ export class scenario
     
     ScenarioPrep(loadCharsFromLastScenarioRun = false){
         
-        console.warn("===" + " " + this.id);
+        console.log("==" + " " + this.id);
         
         this.LoadAndResetScenarioCharacters();
         
@@ -296,7 +296,7 @@ export class scenario
         this.uiHandler.SetRosterCollapsibleCoords();
     }
     
-    ScenarioRun(loadCharsFromLastScenarioRun = false){
+    ScenarioRun(tournamentMode = false){
         
         this.scenarioOver = false;
         
@@ -312,13 +312,22 @@ export class scenario
         
         this.SaveChoices();
         
-        this.stageHandler.stages[0].EvalFlow();
+        this.stageHandler.currentStage = this.stageHandler.stages[0];
+        
+        this.stageHandler.stages[0].EvalFlow(tournamentMode);
         
         this._HighlightChangedDivs();
         
         this._StoreCurrentOutput();
         
         this.runCount++;
+    }
+    
+    SetScenarioWinningTeam(team){
+        
+
+        
+        this.winningTeam = team;
     }
     
     _ResetLocationUnslottedChars(){

@@ -2,72 +2,77 @@ export function RunTournament()
 {
     const $entries = [
         
-        {rosterName: "Henry", scen0: {location: ["Cyclops", "Colossus", "Bishop"]}},
+        {rosterName: "Joseph", winCount:0, scen0: {location: ["Cyclops", "Colossus", "Bishop"]}},
         
-        {rosterName: "Henry", scen0: {location: ["Wolverine", "Colossus", "Bishop"]}},
+        {rosterName: "Henry", winCount:0, scen0: {location: ["Wolverine", "Colossus", "Bishop"]}},
         
-        {rosterName: "Jamie", scenarios: [["Wolverine", "Colossus", "Beast"]]},
+        {rosterName: "Jamie", winCount:0, scen0: {location: ["Psylocke", "Colossus", "Bishop"]}},
         
-        {rosterName: "Cole", scenarios: [["Bishop", "Colossus", "Beast"]]}
+        {rosterName: "Cole", winCount:0, scen0: {location: ["Wolverine", "Beast", "Bishop"]}},
         
     ]
     
     console.log("tournament begin");
     
-    console.error("just use scenario object reference to get ids of scen, location and use those to lookup in entry with entry[scenId][locationId]");
-    
     for(const entry of $entries){
+        
+        console.error("=== evaluating " + entry.rosterName);
         
         let $competitionArr = $entries.filter(e => e != entry);
         
         for(const opp of $competitionArr){
             
-            let $scenCount = 0;
-            
+            console.warn("vs " + opp.rosterName);
+                    
             for(const scenario of window.gameHandler.scenarioHandler.scenarios){
-            
-                let $currentScenPicks = entry.scenarios[$scenCount];
 
-                let $currentScenObj = window.gameHandler.scenarioHandler.scenarios[$scenCount];
+                _LoadTournamentChoices(scenario,entry,"left");
 
-                _LoadTournamentChoices($currentScenObj,entry,"left");
-
-                _LoadTournamentChoices($currentScenObj,opp,"right");
-
-                $scenCount++;
+                _LoadTournamentChoices(scenario,opp,"right");
+                
+                scenario.scenarioHandler.GotoScenario(scenario);
+                
+                scenario.ScenarioRun(true);
+                
+                console.log("WINNERS FOR " + scenario.id + ": " + scenario.winningTeam);
+                
+                if(scenario.winningTeam == "left") entry.winCount++;
                 
             }
         
         }
+        
+        console.warn(entry.rosterName + " won " + entry.winCount + "/" + $competitionArr.length + " matches. WR%=" + (entry.winCount/$competitionArr.length));
         
     }
 }
     
  function _LoadTournamentChoices(scenario,entry,alignment){
      
-        let $locCount = 0;
-            
-        for(const loc of scenario.locationHandler.locations){
-            
-            for(const charSlot of loc.charSlots){
-                
-                console.log(entry.scenarios[$locCount]);                
-                let $charsAssignedToLocation = entry.scenarios[$locCount];
 
-                for(const char of entry.scenarios.locations[$locCount]){
+            
+    for(const loc of scenario.locationHandler.locations){
+
+        let $charsAssignedToLocation = [...entry[scenario.id][loc.id]];
+
+        for(const charSlot of loc.charSlots){
+            
+
+
+            for(const char of entry[scenario.id][loc.id]){
+
+                if(alignment == charSlot.alignment) {
+
+                    let $charInst = scenario.GetScenarioChar($charsAssignedToLocation.shift());
+
+                    scenario.savedLocCharSlots.push({characterName: $charInst.name,alignment: alignment, locationId: loc.id, selectId: charSlot.selectId});
                     
-                    if(alignment == charSlot.alignment) {
-                        
-                        let $charInst = scenario.GetScenarioChar($charsAssignedToLocation.shift());
 
-                        charSlot.UpdateChar($charInst);
+                    
+                    break
 
-                        document.getElementById(charSlot.selectId).value = $charInst.name;
-                        
-                    }
                 }
             }
-            
-            $locCount++;
         }
     }
+}

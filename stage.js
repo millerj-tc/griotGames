@@ -110,6 +110,22 @@ export class stage
         }
         
         evalObj.initialPool = evalObj.pool;
+        
+        let $tournamentString = "";
+        
+        for(const obj of evalObj.pool){
+            
+            if(obj.alignment == "left") $tournamentString += obj.name;
+        }
+        
+        $tournamentString += " vs ";
+        
+        for(const obj of evalObj.pool){
+            
+            if(obj.alignment == "right") $tournamentString += obj.name;
+        }
+        
+        if(this.tournamentMode) console.log($tournamentString);
     }
     
     _RemoveCharsResultInMirror(chars,evalObj){

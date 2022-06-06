@@ -178,6 +178,8 @@ export class locationHandler
                 
                 if(slot.character != null) return
                 
+
+                
                 let $chosenChar;
                 
                 if(slot.alignment == "left") {
