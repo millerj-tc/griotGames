@@ -92,7 +92,8 @@ export class uiHandler
 
         };
         
-        $lockButton.innerHTML = "🔓";
+        if(!this.rosterViewLocked) $lockButton.innerHTML = "🔓";
+        if(this.rosterViewLocked) $lockButton.innerHTML = "🔒";
         
         document.getElementById("content").append($lockButton);
     }

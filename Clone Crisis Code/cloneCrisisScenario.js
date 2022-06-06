@@ -122,7 +122,5 @@ export function initializeCloneCrisisEasyScenarioFx(scenario){
 
 function UndecidedNPCCond(evalObj){
     
-    console.log(evalObj.npc);
-    
     if(evalObj.hasOwnProperty("npc") && evalObj.npc.alignment == null) return true
 }
