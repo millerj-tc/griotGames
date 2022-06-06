@@ -252,7 +252,7 @@ export class scenario
     
     ScenarioPrep(loadCharsFromLastScenarioRun = false){
         
-        console.warn("===");
+        console.warn("===" + " " + this.id);
         
         this.LoadAndResetScenarioCharacters();
         
@@ -403,13 +403,23 @@ export class scenario
         
         let $returnArr = [];
         
-        if(this.previousScenario == null) $sourceArr = this.scenarioHandler.gameCharInstances;
-        else $sourceArr = this.previousScenario.scenarioCharInstances;
+        if(this.previousScenario == null) {
+            
+            console.log("loading fresh chars");
+            $sourceArr = this.scenarioHandler.gameCharInstances;
+            
+        }
+        else {
+            $sourceArr = this.previousScenario.scenarioCharInstances;
+            console.warn(this.previousScenario);
+        }
         
         for(const char of $sourceArr){
             
             const $jsonData = JSON.stringify(char);
             const $charDeepCopy = JSON.parse($jsonData);
+            
+            console.log(char.name + " is unlocked for " + char.unlocked);
 
             $returnArr.push($charDeepCopy);
         }

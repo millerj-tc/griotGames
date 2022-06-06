@@ -167,8 +167,6 @@ export class uiHandler
                 
                     $scenHandler.currentScenario.ClearThisScenarioOutput();
                     
-                    console.log($scenHandler.currentScenario.previousScenario.savedLocCharSlots);
-                    
                     $scenHandler.GotoScenario($scenHandler.currentScenario.previousScenario);
                 }
                 else{
