@@ -458,7 +458,7 @@ export class scenario
             else if (char.name == name && char.alignment == alignment) return char
         }
         
-        console.warn("GetScenarioChar failed!");    
+        console.warn("GetScenarioChar failed for input: " + name);    
     }
     
     GetAllChars(unlockedFor = ""){

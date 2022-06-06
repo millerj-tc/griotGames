@@ -2,13 +2,21 @@ export function RunTournament()
 {
     const $entries = [
         
-        {rosterName: "Joseph", winCount:0, scen0: {location: ["Cyclops", "Colossus", "Bishop"]}},
+        {rosterName: "Joseph", winCount:0, scen0: {location: ["Wolverine", "Cyclops", "Colossus"]}},
         
-        {rosterName: "Henry", winCount:0, scen0: {location: ["Wolverine", "Colossus", "Bishop"]}},
+        {rosterName: "Henry", winCount:0, scen0: {location: ["Psylocke", "Colossus", "Beast"]}},
         
-        {rosterName: "Jamie", winCount:0, scen0: {location: ["Psylocke", "Colossus", "Bishop"]}},
+        {rosterName: "Jamie", winCount:0, scen0: {location: ["Psylocke", "Beast", "Cyclops"]}},
         
         {rosterName: "Cole", winCount:0, scen0: {location: ["Wolverine", "Beast", "Bishop"]}},
+        
+        {rosterName: "Jenny", winCount:0, scen0: {location: ["Beast", "Cyclops", "Bishop"]}},
+        
+        {rosterName: "Rhys", winCount:0, scen0: {location: ["Bishop", "Wolverine", "Beast"]}},
+        
+        {rosterName: "Erik", winCount:0, scen0: {location: ["Wolverine", "Cyclops", "Beast"]}},
+        
+        {rosterName: "Brett", winCount:0, scen0: {location: ["Cyclops", "Colossus", "Beast"]}},
         
     ]
     
@@ -16,13 +24,13 @@ export function RunTournament()
     
     for(const entry of $entries){
         
-        console.error("=== evaluating " + entry.rosterName);
+        console.log("=== evaluating " + entry.rosterName);
         
         let $competitionArr = $entries.filter(e => e != entry);
         
         for(const opp of $competitionArr){
             
-            console.warn("vs " + opp.rosterName);
+            console.log("vs " + opp.rosterName);
                     
             for(const scenario of window.gameHandler.scenarioHandler.scenarios){
 
@@ -42,7 +50,7 @@ export function RunTournament()
         
         }
         
-        console.warn(entry.rosterName + " won " + entry.winCount + "/" + $competitionArr.length + " matches. WR%=" + (entry.winCount/$competitionArr.length));
+        console.log(entry.rosterName + " won " + entry.winCount + "/" + $competitionArr.length + " matches. WR%=" + (entry.winCount/$competitionArr.length));
         
     }
 }
@@ -62,9 +70,10 @@ export function RunTournament()
             for(const char of entry[scenario.id][loc.id]){
 
                 if(alignment == charSlot.alignment) {
+                    
 
                     let $charInst = scenario.GetScenarioChar($charsAssignedToLocation.shift());
-
+                
                     scenario.savedLocCharSlots.push({characterName: $charInst.name,alignment: alignment, locationId: loc.id, selectId: charSlot.selectId});
                     
 
