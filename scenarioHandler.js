@@ -31,15 +31,19 @@ export class scenarioHandler
     }
     
     GotoScenario(scenario){
-        
-        console.error("WHAT IF YOU PUSH UNLOCKED CHARS TO AN ARRAY HELD BY THE SCENARIO THAT GETS RESET EVERYTIME YOU RUN IT BUT NOT WHEN YOU SWITCH SCENARIOS?";)
-        
+                
         if(scenario == undefined) return;
         
-        if(this.currentScenario != null && this.currentScenario.hasOwnProperty("nextScenario)" && scenario == this.currentScenario.nextScenario)){
+        console.log(this.currentScenario);
+        
+        console.log(scenario);
+        
+        if(this.currentScenario != null && this.currentScenario.hasOwnProperty("nextScenario") && scenario == this.currentScenario.nextScenario){
            
             if(this.currentScenario.savedLocCharSlots.length == 0) console.warn("SCENARIO LOCATION CHAR SLOTS WERE NOT SAVED CORRECTLY -- REWIND MAY FAIL");
 
+            console.log("transferring saved char slots");
+            
             scenario.savedLocCharSlots = this.currentScenario.savedLocCharSlots;
             
         }
@@ -50,7 +54,10 @@ export class scenarioHandler
         
         if(scenario != undefined && !this.gameHandler.gameOver){ 
 
-            if(scenario.runCount == 0) {scenario.ScenarioPrep();console.log("prepping")}
+            if(scenario.runCount == 0) {
+                
+                scenario.ScenarioPrep();
+            }
             else scenario.ScenarioRun();
         }
     }

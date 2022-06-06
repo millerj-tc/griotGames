@@ -91,8 +91,8 @@ export class cloneCrisisPrepStage extends cloneCrisisStage
             for(const char of evalObj.pool){
 
                 if(Math.abs(char.charisma - npc.charisma) <= 2){
-                    
-                   console.error("is next line calling the right thing??? shouldn't it get scenarioCharInstances?"); this.stageHandler.scenario.scenarioHandler.gameHandler.database.GetObjFromString(npc.name).unlocked.push(char.alignment);
+                                        
+                    this.stageHandler.scenario.GetScenarioChar(npc.name).unlocked.push(char.alignment);
 
                     if(char.alignment == "left") $leftRecruiters.push(char);
 

@@ -162,13 +162,19 @@ export class uiHandler
                 
                 const $scenHandler = window.gameHandler.scenarioHandler;
                 
-                if($scenHandler.currentScenario.previousScenario != undefined);{
+                if($scenHandler.currentScenario.previousScenario != undefined){
                 
                     $scenHandler.currentScenario.ClearThisScenarioOutput();
                     
                     console.log($scenHandler.currentScenario.previousScenario.savedLocCharSlots);
                     
                     $scenHandler.GotoScenario($scenHandler.currentScenario.previousScenario);
+                }
+                else{
+                    
+                    $scenHandler.currentScenario.ClearThisScenarioOutput();
+                    
+                    $scenHandler.currentScenario.ScenarioPrep();
                 }
             },350);
             

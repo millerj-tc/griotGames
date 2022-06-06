@@ -161,14 +161,14 @@ export class locationHandler
             }
         }
         
-        console.log($returnArr);
+
         
         return $returnArr
     }
     
     RandomizeSlotsWithNoSaveData(){
         
-        console.log("shuffling");
+
         
         let $destructoArrLeft = ShuffleArray(this._GetUnlockedCharsNotAssignedToASlot("left","left"));
         
@@ -201,7 +201,7 @@ export class locationHandler
                 
                 slot.UpdateChar($chosenChar);
                 
-                console.log("assigning " + $chosenChar.name + " to " + slot.alignment + " with alignment " + slot.character.alignment);
+
                 
                 //this.scenario.scenarioHandler.gameHandler.uiHandler.UpdateCharImage(slot);
             }

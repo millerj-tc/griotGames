@@ -285,7 +285,7 @@ export class scenario
     
     CreateRosterDivButtons(){
         
-        if(this.previousScenario != undefined) this.uiHandler.CreateScenarioRewindButton();
+        this.uiHandler.CreateScenarioRewindButton();
         
         this.uiHandler.CreateEvalGoButton();
         
@@ -345,7 +345,7 @@ export class scenario
             
             for(const slot of loc.charSlots){
                 
-                const $freshChar = this.GetScenarioChar(slot.character.name)
+                const $freshChar = this.GetScenarioChar(slot.character.name);
                 
                 slot.UpdateChar($freshChar);
             }
@@ -401,28 +401,39 @@ export class scenario
         
         let $sourceArr;
         
-        if(fromPreviousScenario) $sourceArr = this.previousScenario.scenarioCharInstances;
-        else $sourceArr = this.scenarioHandler.gameCharInstances;
+        let $returnArr = [];
+        
+        if(this.previousScenario == null) $sourceArr = this.scenarioHandler.gameCharInstances;
+        else $sourceArr = this.previousScenario.scenarioCharInstances;
         
         for(const char of $sourceArr){
             
             const $jsonData = JSON.stringify(char);
             const $charDeepCopy = JSON.parse($jsonData);
 
-            this.scenarioCharInstances.push($charDeepCopy);
+            $returnArr.push($charDeepCopy);
         }
+        
+        this.scenarioCharInstances = [];
+        
+        this.scenarioCharInstances = $returnArr;
     }
     
     GetScenarioChar(name,alignment="any"){
         
-        //console.log(this.scenarioCharInstances);
+        
+        //-- SNEAKY ERRORS MAY RESULT FROM BEING PASSED NULL NAME
+        
+        
+        if(name == null) return false
         
         for(const char of this.scenarioCharInstances){
             
             if(char.name == name && alignment == "any") return char
             else if (char.name == name && char.alignment == alignment) return char
-            else console.warn("GetScenario Char failed");
         }
+        
+        console.warn("GetScenarioChar failed!");    
     }
     
     GetAllChars(unlockedFor = ""){
