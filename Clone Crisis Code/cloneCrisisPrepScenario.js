@@ -1,4 +1,5 @@
 import {cloneCrisisPrepStage} from "./cloneCrisisPrepStage.js";
+import {cloneCrisisNewGamePlusStage} from "./cloneCrisisNewGamePlusStage.js";
 
 export function initializeCloneCrisisPlusLocations(scenario){
     
@@ -129,3 +130,84 @@ export function initializeCloneCrisisPlus2ScenarioFx(scenario){
     
     
 }
+
+export function initializeCloneCrisisPlus3Locations(scenario){
+    
+    scenario.usesLocationAssignment = false;
+    
+    const $loc = scenario.locationHandler.AddLocation("location","",5,"C8E3D4");
+    $loc.displayName = "";
+}
+
+export function initializeCloneCrisisPlus3Stages(scenario)
+{
+    const GH = window.gameHandler;
+    
+    scenario.GetScenarioStage = GetScenarioStage3;
+    
+    const $loc2 = scenario.stageHandler.AddStage("loc2");
+
+    $loc2.location = scenario.locationHandler.GetLocationById("location");
+
+    $loc2.winText = "[winners names] [[pursues/pursue]] the fleeing [specialOutputGroup0 names]!";
+
+    const $loc3 = scenario.stageHandler.AddStage("loc3");
+
+    $loc3.location = scenario.locationHandler.GetLocationById("location");
+
+    $loc3.winText = "[winners names] [[pursues/pursue]] the fleeing [specialOutputGroup0 names]!";
+
+    const $loc4 = scenario.stageHandler.AddStage("loc4");
+
+    $loc4.location = scenario.locationHandler.GetLocationById("location");
+
+    $loc4.winText = "[winners names] [[pursues/pursue]] the fleeing [specialOutputGroup0 names]!";
+
+    const $loc5 = scenario.stageHandler.AddStage("loc5");
+
+    $loc5.location = scenario.locationHandler.GetLocationById("location");
+
+    $loc5.winText = "[winners names] [[pursues/pursue]] the fleeing [specialOutputGroup0 names]!";
+
+    const $loc6 = scenario.stageHandler.AddStage("loc6");
+
+    $loc6.location = scenario.locationHandler.GetLocationById("location");
+
+    $loc6.winText = "[winners names] [[pursues/pursue]] the fleeing [specialOutputGroup0 names]!";
+
+    const $loc7 = scenario.stageHandler.AddStage("loc7");
+
+    $loc7.location = scenario.locationHandler.GetLocationById("location");
+
+    $loc7.winText = "[winners names] [[pursues/pursue]] the fleeing [specialOutputGroup0 names]!";
+
+    const $loc8 = scenario.stageHandler.AddStage("loc8");
+
+    $loc8.location = scenario.locationHandler.GetLocationById("location");
+
+    $loc8.winText = "[winners names] [[pursues/pursue]] the fleeing [specialOutputGroup0 names]!";
+    
+    const $loc9 = scenario.stageHandler.AddStage("loc8");
+
+    $loc9.location = scenario.locationHandler.GetLocationById("location");
+
+    $loc9.winText = "[winners names] [[pursues/pursue]] the fleeing [specialOutputGroup0 names]!";
+    
+    const $loc10 = scenario.stageHandler.AddStage("loc8");
+
+    $loc10.location = scenario.locationHandler.GetLocationById("location");
+
+    $loc10.winText = "[winners names] [[pursues/pursue]] the fleeing [specialOutputGroup0 names]!";
+
+}
+
+function GetScenarioStage3(stageHandler,id){
+     
+    return new cloneCrisisNewGamePlusStage(stageHandler,id);
+}
+    
+export function initializeCloneCrisisPlus3ScenarioFx(scenario){
+    
+    
+}
+
