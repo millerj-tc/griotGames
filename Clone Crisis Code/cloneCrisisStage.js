@@ -282,6 +282,8 @@ export class cloneCrisisStage extends stage
                 
                 this.NPC.scaredByPowerCouple = true;
                 
+                evalObj.pool = evalObj.pool.filter(c => c != this.NPC);
+                
                 this.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(this.NPC,"any","S") + " was thinking about joining up with " + GetStringOfCharsFromArray(evalObj.charismaChar,"any","S") + " but " + GetStringOfCharsFromArray($psylockeAndWolverine,"any","S") + ReplacePronouns(this.NPC," convince [them] to mind [their] own fucking business. They're pretty intimidating..."));
                 
                 if(this.tournamentMode) console.log(this.NPC.name + " scared by Betsy/Logan from joining with  " + evalObj.charismaChar.name);
@@ -467,7 +469,7 @@ export class cloneCrisisStage extends stage
             
             evalObj.removedChar = null;
             
-            console.log(evalObj);
+
             
             this._GreatestUnmatchedPowerCapturesLowestToughness(evalObj);
         }

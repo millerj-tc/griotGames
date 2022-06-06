@@ -176,7 +176,7 @@ export class stage
         
         if($teammatesWithMyAlignment > 1) return false
         else if($teammatesWithMyAlignment == 1) return true
-        else console.warn("Error: _CharLastTeammateAtLoc() is malfunctioning");
+        else console.warn("Error: _CharLastTeammateAtLoc() is malfunctioning: " + char.name + " asked how many friends were present and was told " + $teammatesWithMyAlignment);
     }
     
     _WarnIfDupeCharsOnSameTeam(){

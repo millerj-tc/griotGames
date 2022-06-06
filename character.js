@@ -50,7 +50,7 @@ export class charHandler
         if(this.alignment == "left") return "right";
         else if(this.alignment == "right") return "left";
         else {
-            console.warn(".GetEnemyAlignment() is malfunctioning");
+            console.warn(".GetEnemyAlignment() is malfunctioning, my name is " + this.name + " and my alignment is " + this.alignment);
         }
     }
     
