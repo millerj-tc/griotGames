@@ -30,7 +30,6 @@ export function initializeCloneCrisisPlusStages(scenario)
     
     $loc0.npcs = [$daredevilObj,$jessicaJObj];
     
-    $loc0.winText = "[winners names] recruit Daredevil!";
 }
 
 function GetScenarioStage0(stageHandler,id){
@@ -68,8 +67,7 @@ export function initializeCloneCrisisPlus1Stages(scenario)
     $loc0.npcs = [$grObj];
     
     $grObj.openingLine = "I'M GHOSTRIDER";
-    
-    //$loc0.winText = "[winners names] recruit Daredevil!";
+
 }
 
 function GetScenarioStage1(stageHandler,id){

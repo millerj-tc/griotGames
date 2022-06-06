@@ -50,6 +50,7 @@ export class stage
         this.stalemateText = "";
         this.displayWintextAfterGameover = false;
         this.flowVar = 0;
+        this.tournamentMode = false;
         
     }
     

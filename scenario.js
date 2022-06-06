@@ -266,6 +266,8 @@ export class scenario
 
         this.initStages(this);
         
+        this._ResetCurrentStage();
+        
         this.initScenarioFx(this);
         
         this.uiHandler.CreateLocationRows();
@@ -312,7 +314,7 @@ export class scenario
         
         this.SaveChoices();
         
-        this.stageHandler.currentStage = this.stageHandler.stages[0];
+        this._ResetCurrentStage();
         
         this.stageHandler.stages[0].EvalFlow(tournamentMode);
         
@@ -328,6 +330,11 @@ export class scenario
 
         
         this.winningTeam = team;
+    }
+    
+    _ResetCurrentStage(){
+        
+        this.stageHandler.currentStage = this.stageHandler.stages[0];
     }
     
     _ResetLocationUnslottedChars(){
@@ -420,7 +427,6 @@ export class scenario
         }
         else {
             $sourceArr = this.previousScenario.scenarioCharInstances;
-            console.warn(this.previousScenario);
         }
         
         for(const char of $sourceArr){

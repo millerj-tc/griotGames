@@ -45,8 +45,6 @@ export class cloneCrisisPrepStage extends cloneCrisisStage
 
         this._TriggerStageFx($evalObj);
 
-        this.stageHandler.GotoNextStage(this.nextStage);
-        
         this.stageHandler.scenario.scenarioOver = true;
         
         this.stageHandler.GotoNextStage(this.nextStage);
@@ -82,6 +80,8 @@ export class cloneCrisisPrepStage extends cloneCrisisStage
         
         if(this.npcs == null) return
         
+        const $uiHandler = this.stageHandler.scenario.scenarioHandler.gameHandler.uiHandler;
+        
         for(const npc of this.npcs){    
         
             let $leftRecruiters = [];
@@ -107,8 +107,14 @@ export class cloneCrisisPrepStage extends cloneCrisisStage
             const $leftRecruitersString = GetStringOfCharsFromArray($leftRecruiters,"any","S");
 
             const $rightRecruitersString = GetStringOfCharsFromArray($rightRecruiters,"any","S");
+            
+            if($leftRecruiters.length == 0 && $rightRecruiters.length == 0) $uiHandler.NewStageOutputDiv($recruitedString + " doesn't really find anyone convincing...");
+            
+            else if ($rightRecruiters.length == 0) $uiHandler.NewStageOutputDiv($recruitedString + " considers the arguments of " + $leftRecruitersString)
+            
+            else if ($leftRecruiters.length == 0) $uiHandler.NewStageOutputDiv($recruitedString + " considers the arguments of " + $rightRecruitersString)
 
-            this.stageHandler.scenario.scenarioHandler.gameHandler.uiHandler.NewStageOutputDiv($recruitedString + " considers the arguments of " + $leftRecruitersString + " as well as "  +$rightRecruitersString);
+            else $uiHandler.NewStageOutputDiv($recruitedString + " considers the arguments of " + $leftRecruitersString + " as well as "  +$rightRecruitersString);
             
             }
         
