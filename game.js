@@ -3,6 +3,7 @@ import {database} from "./database.js";
 import {scenarioHandler} from "./scenarioHandler.js";
 import {initializeCloneCrisisEasyStages,initializeCloneCrisisEasyLocations,initializeCloneCrisisEasyScenarioFx} from "./Clone Crisis Code/cloneCrisisScenario.js";
 import {initializeCloneCrisisPlusLocations, initializeCloneCrisisPlusStages,initializeCloneCrisisPlusScenarioFx,initializeCloneCrisisPlus1Locations, initializeCloneCrisisPlus1Stages,initializeCloneCrisisPlus1ScenarioFx} from "./Clone Crisis Code/cloneCrisisPrepScenario.js";
+import {RunTournament} from "./runTournament.js";
 
 export class gameHandler
 {
@@ -66,8 +67,15 @@ export class gameHandler
         
         
         document.getElementById("output").innerHTML = "";
+        
+        window.addEventListener("keydown", function(event) {
 
-    
+            if (event.code === "KeyT"){
+                
+                RunTournament();
+
+            }
+        });
     }
     
     OfferSubmissionLinkAfterXRuns(){
