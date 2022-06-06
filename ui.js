@@ -284,7 +284,12 @@ export class uiHandler
         
         if($div.querySelector("img") != undefined) {
             
-            $div.style.minHeight = $div.querySelector("img").naturalHeight;
+            // -- HELPFUL TIP: this wasn't working correctly because it wasn't waiting for the image to load in
+            // before the fix, it was sometimes returning the image height as 0 bc it hadn't loaded yet.
+            
+            $div.querySelector("img").onload = function() {
+                $div.style.minHeight = $div.querySelector("img").height + "px";
+            };
         }
         
         return $div
