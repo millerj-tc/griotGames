@@ -143,7 +143,7 @@ export class uiHandler
                 
                     window.gameHandler.scenarioHandler.currentScenario.ScenarioRun();
 
-                    //window.gameHandler.scenarioHandler.currentScenario.ScenarioPrep();
+                    document.getElementById("output").querySelector(".outputDiv" + window.gameHandler.scenarioHandler.currentScenario.id).scrollIntoView(true);
                 }
             },350);
             
