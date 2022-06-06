@@ -32,34 +32,24 @@ export class scenarioHandler
     
     GotoScenario(scenario){
                 
-        if(scenario == undefined) return;
+        if(scenario == undefined || this.gameHandler.gameOver) return;
         
-        console.log(this.currentScenario);
-        
-        console.log(scenario);
+        this.gameHandler.uiHandler.storedOutputDivs = [];
         
         if(this.currentScenario != null && this.currentScenario.hasOwnProperty("nextScenario") && scenario == this.currentScenario.nextScenario){
            
             if(this.currentScenario.savedLocCharSlots.length == 0) console.warn("SCENARIO LOCATION CHAR SLOTS WERE NOT SAVED CORRECTLY -- REWIND MAY FAIL");
-
-            console.log("transferring saved char slots");
             
             scenario.savedLocCharSlots = this.currentScenario.savedLocCharSlots;
             
         }
-        
-        this.currentScenario.runCount = 0;
-        
-        this.currentScenario = scenario;
-        
-        if(scenario != undefined && !this.gameHandler.gameOver){ 
 
-            if(scenario.runCount == 0) {
-                
-                scenario.ScenarioPrep();
-            }
-            else scenario.ScenarioRun();
-        }
+        this.currentScenario = scenario;
+            
+        this.currentScenario.ScenarioPrep();
+        
+        
+        
     }
     
     LoadAllGameChars(){

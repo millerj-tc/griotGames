@@ -41,11 +41,9 @@ class location
         
         const $slot = new charSlot(this,alignment,selectId,imageSpanId);
         
-        this.charSlots.push($slot);
+
         
-        //let $currLength = this.charSlotRows;
-        
-        //this.charSlotRows.push({rowId:$currLength,image:imageSlotId, selector:selectSlotId});
+        this.charSlots.push($slot);        
         
         return $slot
     }

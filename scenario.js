@@ -380,7 +380,7 @@ export class scenario
                 
                 const $locObj = this.locationHandler.GetLocationById(savedCharSlot.locationId)
                 
-                if($locObj != loc) continue
+                if($locObj.id != loc.id) continue
                 
                 for(const charSlot of loc.charSlots){
                     
@@ -405,7 +405,7 @@ export class scenario
         
         if(this.previousScenario == null) {
             
-            console.log("loading fresh chars");
+
             $sourceArr = this.scenarioHandler.gameCharInstances;
             
         }
@@ -419,7 +419,7 @@ export class scenario
             const $jsonData = JSON.stringify(char);
             const $charDeepCopy = JSON.parse($jsonData);
             
-            console.log(char.name + " is unlocked for " + char.unlocked);
+
 
             $returnArr.push($charDeepCopy);
         }

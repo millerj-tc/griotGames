@@ -92,7 +92,7 @@ export class cloneCrisisPrepStage extends cloneCrisisStage
 
                 if(Math.abs(char.charisma - npc.charisma) <= 2){
                                         
-                    this.stageHandler.scenario.GetScenarioChar(npc.name).unlocked.push(char.alignment);
+                    if(!this.stageHandler.scenario.GetScenarioChar(npc.name).unlocked.includes(char.alignment)) this.stageHandler.scenario.GetScenarioChar(npc.name).unlocked.push(char.alignment);
 
                     if(char.alignment == "left") $leftRecruiters.push(char);
 
