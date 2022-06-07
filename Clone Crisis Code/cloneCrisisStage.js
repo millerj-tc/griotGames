@@ -525,8 +525,7 @@ export class cloneCrisisStage extends stage
         
         if(evalObj.removedChar != null){
         
-            console.log(evalObj.removedChar.name);
-            console.log(evalObj.winCreditOutput);
+
             
             const $winningAlignment = evalObj.removedChar.GetEnemyAlignment();
 

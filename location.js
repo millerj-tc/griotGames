@@ -67,7 +67,7 @@ class location
             if(name != "any" && slot.character.name != name) continue
             if(alignment == "any" || slot.character.alignment == alignment) $returnArr.push(slot.character)
             
-            console.log(slot.character.name + " is here with align " + slot.character.alignment + " at " + slot.selectId);
+
 
         }
         
@@ -89,7 +89,7 @@ class location
             
             if(slot.character == char){
                 
-                console.trace(slot.character.name + " removed from " + slot.selectId);
+
                 
                 slot.character.removedDuringRun = true;
             }
