@@ -232,9 +232,9 @@ export class stage
     
     _AutoSortWinnersAndLosers(evalObj,char,isWinner = true){
         
-        if(evalObj.stalemate) {console.log("stalemate");return}
+        if(evalObj.stalemate) {return}
         
-        if(char == null) {console.log("nullChar is " + char);return}
+        if(char == null) {return}
         
         if(isWinner){
             evalObj.winners = this.location.GetCharsHere("any",char.alignment,true);

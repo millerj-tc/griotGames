@@ -1,3 +1,5 @@
+import {statsTracker} from "./charStatTracking.js";
+
 export function RunTournament()
 {
     const $entries = [
@@ -6,31 +8,31 @@ export function RunTournament()
         
         {rosterName: "Sora", winCount:0, scen0: {location: ["Wolverine", "Cyclops", "Bishop"]}},
         
-        {rosterName: "Sora", winCount:0, scen0: {location: ["Wolverine", "Beast", "Bishop"]}},
-        
-        {rosterName: "Jenny", winCount:0, scen0: {location: ["Beast", "Cyclops", "Bishop"]}},
-        
-        {rosterName: "Rhys", winCount:0, scen0: {location: ["Bishop", "Wolverine", "Beast"]}},
-        
-        {rosterName: "Erik", winCount:0, scen0: {location: ["Wolverine", "Cyclops", "Beast"]}},
-        
-        {rosterName: "Brett", winCount:0, scen0: {location: ["Cyclops", "Colossus", "Beast"]}},
-        
-        {rosterName: "Henry", winCount:0, scen0: {location: ["Psylocke", "Colossus", "Beast"]}},
-        
-        {rosterName: "Jamie", winCount:0, scen0: {location: ["Psylocke", "Beast", "Cyclops"]}},
-        
-        {rosterName: "Cole", winCount:0, scen0: {location: ["Wolverine", "Beast", "Psylocke"]}},
-        
-        {rosterName: "Cloud", winCount:0, scen0: {location: ["Wolverine", "Colossus", "Psylocke"]}},
-        
-        {rosterName: "Squall", winCount:0, scen0: {location: ["Wolverine", "Cyclops", "Psylocke"]}},
-        
-        {rosterName: "Lightning", winCount:0, scen0: {location: ["Wolverine", "Bishop", "Psylocke"]}},
-        
-        {rosterName: "Yuna", winCount:0, scen0: {location: ["Beast", "Bishop", "Psylocke"]}},
-        
-        {rosterName: "Tidus", winCount:0, scen0: {location: ["Wolverine", "Bishop", "Psylocke"]}},
+//        {rosterName: "Riku", winCount:0, scen0: {location: ["Wolverine", "Beast", "Bishop"]}},
+//        
+//        {rosterName: "Jenny", winCount:0, scen0: {location: ["Beast", "Cyclops", "Bishop"]}},
+//        
+//        {rosterName: "Rhys", winCount:0, scen0: {location: ["Bishop", "Wolverine", "Beast"]}},
+//        
+//        {rosterName: "Erik", winCount:0, scen0: {location: ["Wolverine", "Cyclops", "Beast"]}},
+//        
+//        {rosterName: "Brett", winCount:0, scen0: {location: ["Cyclops", "Colossus", "Beast"]}},
+//        
+//        {rosterName: "Henry", winCount:0, scen0: {location: ["Psylocke", "Colossus", "Beast"]}},
+//        
+//        {rosterName: "Jamie", winCount:0, scen0: {location: ["Psylocke", "Beast", "Cyclops"]}},
+//        
+//        {rosterName: "Cole", winCount:0, scen0: {location: ["Wolverine", "Beast", "Psylocke"]}},
+//        
+//        {rosterName: "Cloud", winCount:0, scen0: {location: ["Wolverine", "Colossus", "Psylocke"]}},
+//        
+//        {rosterName: "Squall", winCount:0, scen0: {location: ["Wolverine", "Cyclops", "Psylocke"]}},
+//        
+//        {rosterName: "Lightning", winCount:0, scen0: {location: ["Wolverine", "Bishop", "Psylocke"]}},
+//        
+//        {rosterName: "Yuna", winCount:0, scen0: {location: ["Beast", "Bishop", "Psylocke"]}},
+//        
+//        {rosterName: "Tidus", winCount:0, scen0: {location: ["Wolverine", "Bishop", "Psylocke"]}},
         
 //        {rosterName: "Joseph", winCount:0, scen0: {location: ["Wolverine", "Psylocke", "Colossus"]},scen1: {location: ["Wolverine", "Psylocke", "Colossus"]},scen2: {location: ["Wolverine", "Psylocke", "Colossus"]},scen3: {location: ["Daredevil", "Bishop", "Colossus","Okoye","Wolverine"]}},
 //        
@@ -38,11 +40,13 @@ export function RunTournament()
         
     ]
     
+    const $statsTracker = new statsTracker();
+    
     console.log("tournament begin");
     
     for(const entry of $entries){
         
-        console.log("=== evaluating " + entry.rosterName);
+        console.log("===== evaluating " + entry.rosterName.toUpperCase() + " =====");
         
         let $competitionArr = $entries.filter(e => e != entry);
         
@@ -64,7 +68,7 @@ export function RunTournament()
                 
                 if(scenario.winningTeam == "left"){
                     
-                    //for(const char of $leftTeam) console.log(char.name + " character win")
+                    for(const char of scenario.savedLocCharSlots) $statsTracker.ReportMatchForChar(char,scenario)
                     
                     entry.winCount++;
                 }
@@ -76,6 +80,12 @@ export function RunTournament()
         console.log(entry.rosterName + " won " + entry.winCount + "/" + $competitionArr.length + " matches. WR%=" + (entry.winCount/$competitionArr.length));
         
     }
+    
+    $statsTracker.DisplayWinRatesByChar();
+    $statsTracker.DisplayWinRateForCharWithAllies("Wolverine", ["Bishop"]);
+    $statsTracker.DisplayWinRateForCharWithAllies("Wolverine", ["Cyclops"]);
+    $statsTracker.DisplayWinRateForCharWithAllies("Cyclops", ["Psylocke"]);
+    $statsTracker.DisplayWinRateForCharWithAllies("Wolverine", ["Wolverine"]);
 }
     
  function _LoadTournamentChoices(scenario,entry,alignment){
