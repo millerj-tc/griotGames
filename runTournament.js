@@ -24,9 +24,9 @@ export function RunTournament()
 //        
 //        {rosterName: "Lightning", winCount:0, scen0: {location: ["Wolverine", "Bishop", "Psylocke"]}},
         
-        {rosterName: "WoCyColDaGho", winCount:0, scen0: {location: ["Wolverine", "Cyclops", "Colossus"]},scen1: {location: ["Wolverine", "Cyclops", "Colossus"]},scen2: {location: ["Wolverine", "Cyclops", "Colossus"]},scen3: {location: ["Wolverine", "Cyclops", "Colossus","Daredevil","Ghostrider"]}},
+        {rosterName: "Joseph", winCount:0, scen0: {location: ["Wolverine", "Psylocke", "Colossus"]},scen1: {location: ["Wolverine", "Psylocke", "Colossus"]},scen2: {location: ["Wolverine", "Psylocke", "Colossus"]},scen3: {location: ["Psylocke", "Wolverine", "Ghostrider","Okoye","Daredevil"]}},
         
-        {rosterName: "Henry", winCount:0, scen0: {location: ["Beast", "Psylocke", "Cyclops"]},scen1: {location: ["Beast", "Psylocke", "Cyclops"]},scen2: {location: ["Beast", "Psylocke", "Cyclops"]},scen3: {location: ["Beast", "Psylocke", "Cyclops", "Black Panther", "Okoye"]}},
+        {rosterName: "Henry", winCount:0, scen0: {location: ["Beast", "Bishop", "Cyclops"]},scen1: {location: ["Beast", "Bishop", "Cyclops"]},scen2: {location: ["Beast", "Bishop", "Cyclops"]},scen3: {location: ["Bishop", "Cyclops", "Beast", "Okoye", "Daredevil"]}},
         
     ]
     

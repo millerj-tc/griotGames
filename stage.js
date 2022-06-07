@@ -17,6 +17,17 @@ export class evaluation
         this.initialPool = [];
     }
     
+    GetEvalObjChar(name, alignment = "any"){
+        
+        for(const char of this.pool){
+            
+            if(alignment == "any" && char.name == name) return char
+            else if(char.name == name && char.alignment == alignment) return char
+        }
+        
+        console.warn("GetEvalObjChar failed for " + name);
+    }
+    
     GetCharsFromPool(alignment = "any"){
         
         if(alignment == "any") return this.pool
@@ -138,6 +149,16 @@ export class stage
         else $passedCharArr = chars
         
         //let $testArr = evalObj.pool.filter()
+    }
+    
+    _CharHasAcrossTeamsDupeMatch(char,evalObj){
+        
+        for(const obj of evalObj.pool){
+            
+            if(obj.dataType == "char" && obj.name == char.name && obj.alignment != char.alignment) return true
+        }
+        
+        return false
     }
     
     _ReturnArrWithTeamDupedCharsRemoved(arr){

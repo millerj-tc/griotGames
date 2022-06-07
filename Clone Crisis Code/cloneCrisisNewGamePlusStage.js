@@ -72,11 +72,11 @@ export class cloneCrisisNewGamePlusStage extends cloneCrisisStage
     
     _AltCloneCrisisBattle(evalObj){
         
-        this._NPCRecruitedByClosestCharisma(evalObj);
+        this._UnlockedCharsSideWithNearestUntiedCharisma(evalObj);
         
-        this._BetsyAndLoganAreScary(evalObj);
+        this._BetsyAndLoganAreScaryPlus(evalObj);
         
-        this._NPCRecruitOutput(evalObj);
+        // -- Unlocked Char Side Select Output has to happen within loop because there could be multiple within stage
         
         this._LowestCunningConfusedUnlessAlone(evalObj);
         
@@ -160,5 +160,112 @@ export class cloneCrisisNewGamePlusStage extends cloneCrisisStage
         const $them = ReplacePronouns(evalObj.rageSlammedChar, "[them]");
         
         this.uiHandler.NewStageOutputDiv($enragedCharOutput + " has had enough!!" + $they    + $slammedCharOutput + " by the ankle and slam " + $them + " into the ground!");
+    }
+    
+    _UnlockedCharsSideWithNearestUntiedCharisma(evalObj){
+        
+        let $dupeRemovedPool = this._ReturnArrWithTeamDupedCharsRemoved(evalObj.pool);
+        
+        let $lockedCharsPool = [];
+        
+        for(const char of evalObj.pool){
+            
+            const $ogCharObj = this.stageHandler.scenario.scenarioHandler.GetGameChar(char.name);
+            
+            // only evaluate chars that are duped across teams
+            
+            if($ogCharObj.unlocked.length == 0 && this._CharHasAcrossTeamsDupeMatch(char,evalObj)) $lockedCharsPool.push(char);
+        }
+        
+        let $diffArr = [];
+        
+        for(const char of $lockedCharsPool){
+            
+            evalObj.thisLoopCharismaChar = null;
+            
+            evalObj.charismaStalemateChar = null;
+            
+            for(const otherChar of $dupeRemovedPool){
+                
+                let $charismaDiff = Math.abs(char.charisma - otherChar.charisma);
+                
+                if(char != otherChar) $diffArr.push({char:otherChar,diff:$charismaDiff});
+            }
+            
+            if($diffArr.length > 0){
+                
+                let $penultimateCharming = null;
+                
+                if($diffArr.length > 1) $penultimateCharming = $diffArr.sort(function(a,b){return a.diff - b.diff})[1];
+        
+                let $mostCharming = $diffArr.sort(function(a,b){return a.diff - b.diff})[0];
+
+                if($penultimateCharming != null && $penultimateCharming.diff == $mostCharming.diff && $penultimateCharming.char.charisma > $mostCharming.char.charisma) $mostCharming = $penultimateCharming
+                
+                else if($penultimateCharming.diff == $mostCharming.diff && $penultimateCharming.char.charisma == $mostCharming.char.charisma){
+                    
+                    if(char.alreadySpokenOnCharisma) continue
+                    
+                    console.log("most charming for " + char.name + " is " + $mostCharming.char.name + $mostCharming.char.alignment + " runner up was " + $penultimateCharming.char.name + $penultimateCharming.char.alignment);
+                    
+                    const $stalemateOutput = GetStringOfCharsFromArray(char,"any","S");
+        
+                    this.uiHandler.NewStageOutputDiv($stalemateOutput + " can't decide who to believe!");
+                    
+                    const $mirrorChar = evalObj.GetEvalObjChar(char.name,char.GetEnemyAlignment());
+                    
+                    $mirrorChar.alreadySpokenOnCharisma = true;
+                    
+                    //this.location.RemoveCharDuringRun($mirrorChar);
+
+                    char.stageImmune = true;
+                    
+                    $mirrorChar.stageImmune = true;
+                    
+                    //evalObj.pool = evalObj.pool.filter(c => c != $mirrorChar);
+
+                    
+                    continue
+                }
+            
+                evalObj.thisLoopCharismaChar = $mostCharming.char;
+                
+                if($mostCharming.char.alignment != char.alignment) this.location.RemoveCharDuringRun(char);
+                else {
+                    
+                    evalObj.convincedChar = char;
+                    
+                    const $mirrorChar = evalObj.GetEvalObjChar(char.name,char.GetEnemyAlignment());
+                    
+                    $mirrorChar.alreadySpokenOnCharisma = true;
+                
+                    this._UnlockedCharsSideSelectOutput(evalObj);
+                }
+            
+            }
+        
+        }
+        
+    }
+    
+    _CharmerCharms(charmer,charmee){
+        
+        
+    }
+    
+    _BetsyAndLoganAreScaryPlus(evalObj){
+        
+        console.error("write this code -- must happen within the unlocked char loop");
+    }
+    
+    _UnlockedCharsSideSelectOutput(evalObj){
+        
+        if(evalObj.thisLoopCharismaChar == null) return
+        
+        //if(evalObj.convincedChar.scaredByPowerCouple) return
+        
+        const $convincedOutput = GetStringOfCharsFromArray(evalObj.convincedChar,"any","S");
+        
+        this.uiHandler.NewStageOutputDiv($convincedOutput + " sides with team " + evalObj.convincedChar.alignment);
     }
 }

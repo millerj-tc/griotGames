@@ -383,7 +383,9 @@ export class cloneCrisisStage extends stage
         
         let $enemyAlign = $highestSpeedChar.GetEnemyAlignment();
         
-        const $enemyArr = evalObj.GetCharsFromPool($enemyAlign);
+        let $enemyArr = evalObj.GetCharsFromPool($enemyAlign);
+        
+        $enemyArr = $enemyArr.filter(c => c.stageImmune == false);
         
         if($enemyArr.length < 1) return
         
