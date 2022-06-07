@@ -47,7 +47,7 @@ export class cloneCrisisStage extends stage
         this._RemoveDebuffedCharsFromPool($evalObj);
         
         this._CloneCrisisBattle($evalObj);
-        
+            
         this._ValidateWinnersAndLosers($evalObj);
         
         this._EndGameIfTeamAllCaptured();
@@ -127,7 +127,7 @@ export class cloneCrisisStage extends stage
         
         this._NPCRecruitedByClosestCharisma(evalObj);
         
-        this._BetsyAndLoganAreScary(evalObj);
+        //this._BetsyAndLoganAreScary(evalObj);
         
         this._NPCRecruitOutput(evalObj);
         
@@ -148,6 +148,8 @@ export class cloneCrisisStage extends stage
         this._BishopIsImmune(evalObj);
         
         this._GreatestPowerCaptureOutput(evalObj);
+        
+        this._AutoSortWinnersAndLosers(evalObj,evalObj.winCredit);
         
         this._SetSpecialOutputGroup0ToRemainingLosingChars(evalObj);
     }
@@ -422,7 +424,6 @@ export class cloneCrisisStage extends stage
             
             for(const otherChar of evalObj.pool){
                 
-                //console.log(char.name + otherChar.name);
                 if(char.name == otherChar.name && char != otherChar) $matches++
             }
             
@@ -445,9 +446,8 @@ export class cloneCrisisStage extends stage
         
         if($enemyArr.length < 1) return
         
-        this._AutoSortWinnersAndLosers(evalObj,$greatestPowerChar);
-        
         evalObj.winCredit = $greatestPowerChar;
+        evalObj.winCreditOutput = $greatestPowerChar;
         
         const $lowestToughnessEnemyOfPowerfulestChar = $enemyArr.sort(function(a, b){return a.toughness - b.toughness})[0];
         
@@ -512,8 +512,8 @@ export class cloneCrisisStage extends stage
             if($bigStrongEnemies.length > 1){
                     
                 evalObj.removedChar = aloneChar;
-                this._AutoSortWinnersAndLosers(evalObj,$bigStrongEnemies[0]);
-                evalObj.winCredit = $bigStrongEnemies;
+                evalObj.winCredit = $bigStrongEnemies[0];
+                evalObj.winCreditOutput = $bigStrongEnemies;
                 this.location.RemoveCharDuringRun(aloneChar);
             }
         }
@@ -528,19 +528,27 @@ export class cloneCrisisStage extends stage
       
 
             let $powerSortedWinChars = this.location.GetCharsHere("any",$winningAlignment);
-            
-      
+
             
             $powerSortedWinChars.sort(function(a,b){return b.power - a.power});
             
             
 
-            this.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(evalObj.winCredit,"any","S") + ReplaceWordsBasedOnPluralSubjects(evalObj.winCredit," [[manages/manage]] to capture ") + GetStringOfCharsFromArray(evalObj.removedChar,"any","S") + "!");
+            this.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(evalObj.winCreditOutput,"any","S") + ReplaceWordsBasedOnPluralSubjects(evalObj.winCreditOutput," [[manages/manage]] to capture ") + GetStringOfCharsFromArray(evalObj.removedChar,"any","S") + "!");
         }
     }
     
     _SetSpecialOutputGroup0ToRemainingLosingChars(evalObj){
         
         evalObj.specialOutputGroup0 = evalObj.losers.filter(c => c != evalObj.removedChar);
+        
+        let $dupeCharCheckArr = [...evalObj.specialOutputGroup0];
+        
+        for(const char of $dupeCharCheckArr){
+            
+            const $ogCharObj = this.stageHandler.scenario.scenarioHandler.GetGameChar(char.name); 
+           
+            if(this._CharHasAcrossTeamsDupeMatch(char,evalObj) && $ogCharObj.unlocked.length == 0) evalObj.specialOutputGroup0 = evalObj.specialOutputGroup0.filter(c => c != char)
+        }
     }
 }

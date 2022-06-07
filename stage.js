@@ -17,7 +17,7 @@ export class evaluation
         this.initialPool = [];
     }
     
-    GetEvalObjChar(name, alignment = "any"){
+    GetEvalObjChar(name, alignment = "any",allowFalseReturn = false){
         
         for(const char of this.pool){
             
@@ -25,7 +25,8 @@ export class evaluation
             else if(char.name == name && char.alignment == alignment) return char
         }
         
-        console.warn("GetEvalObjChar failed for " + name);
+        if(allowFalseReturn) return false
+        else console.warn("GetEvalObjChar failed for " + name + " with alignment " + alignment);
     }
     
     GetCharsFromPool(alignment = "any"){
@@ -231,7 +232,9 @@ export class stage
     
     _AutoSortWinnersAndLosers(evalObj,char,isWinner = true){
         
-        if(evalObj.stalemate) return
+        if(evalObj.stalemate) {console.log("stalemate");return}
+        
+        if(char == null) {console.log("nullChar is " + char);return}
         
         if(isWinner){
             evalObj.winners = this.location.GetCharsHere("any",char.alignment,true);
