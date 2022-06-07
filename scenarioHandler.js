@@ -1,10 +1,13 @@
 import {scenario} from "./scenario.js";
+import {charHandler} from "./character.js";
 
 export class scenarioHandler
 {
     constructor(gameHandler){
         
         this.gameHandler = gameHandler;
+        
+        this.charHandler = new charHandler(this);
         
         this.scenarios = [];
         this.gameCharInstances = [];
@@ -60,5 +63,7 @@ export class scenarioHandler
             
             this.gameCharInstances.push({...obj});
         }
+        
+        this.charHandler.AddGenericPropertiesToCharacters(this.gameCharInstances);
     }
 }

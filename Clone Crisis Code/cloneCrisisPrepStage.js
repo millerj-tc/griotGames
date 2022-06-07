@@ -47,6 +47,8 @@ export class cloneCrisisPrepStage extends cloneCrisisStage
 
         this.stageHandler.scenario.scenarioOver = true;
         
+        this._IncreaseXpForAllParticipatingChars($evalObj);
+        
         this.stageHandler.GotoNextStage(this.nextStage);
     }
     

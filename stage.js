@@ -107,8 +107,6 @@ export class stage
             char.stageImmune = false;
             
             char.stageDisabled = false;
-            
-            console.log(char.name + " has " + char.xp.left + "/" + char.xp.right + " xp");
         }
         
         evalObj.initialPool = evalObj.pool;

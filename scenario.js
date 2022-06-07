@@ -232,7 +232,7 @@ export class scenario
         this.uiHandler = this.scenarioHandler.gameHandler.uiHandler;
         this.locationHandler = new locationHandler(this);
         this.stageHandler = new stageHandler(this);
-        this.charHandler = new charHandler(this);
+        //this.charHandler = new charHandler(this);
         this.leftTeamHope = 0;
         this.rightTeamHope = 0;
         
@@ -351,7 +351,7 @@ export class scenario
         
         this.LoadScenarioChars(loadCharsFromLastScenarioRun);
         
-        this.charHandler.AddFunctionsToCharacters(this.scenarioCharInstances);
+        this.scenarioHandler.charHandler.AddFunctionsToCharacters(this.scenarioCharInstances);
         
     }
     
@@ -433,8 +433,6 @@ export class scenario
             
             const $jsonData = JSON.stringify(char);
             const $charDeepCopy = JSON.parse($jsonData);
-            
-
 
             $returnArr.push($charDeepCopy);
         }
@@ -442,6 +440,7 @@ export class scenario
         this.scenarioCharInstances = [];
         
         this.scenarioCharInstances = $returnArr;
+        
     }
     
     GetScenarioChar(name,alignment="any"){

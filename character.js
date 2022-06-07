@@ -11,26 +11,32 @@ class interpersHopeFx
 
 export class charHandler
 {
-    constructor(scenario){
+    constructor(scenarioHandler){
         
-        this.scenario = scenario;
+        this.scenarioHandler = scenarioHandler;
+    }
+    
+    AddGenericPropertiesToCharacters(arr){
+        
+        for(const char of arr){
+            char.hope = 0;
+            char.xp = {left:0,right:0};
+            char.lastWonHope = null;
+            char.removedDuringRun = false;
+            char.debuffed = false;
+        }
     }
     
     AddFunctionsToCharacters(arr){
         
         for(const char of arr){
             
-            char.debuffed = false;
             char.IsDebuffed = this.IsDebuffed;
             char.Debuff = this.Debuff;
             char.Rebuff = this.Rebuff;
             char.ModHope = this.ModHope;
             char.AddInterpers = this.AddInterpers;
             char.GetEnemyAlignment = this.GetEnemyAlignment;
-            char.hope = 0;
-            char.xp = {left:0,right:0};
-            char.lastWonHope = null;
-            char.removedDuringRun = false;
         }
     }
     

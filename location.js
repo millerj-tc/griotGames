@@ -176,8 +176,6 @@ export class locationHandler
             
             for(const slot of loc.charSlots){
                 
-                if(loc.locationHandler.scenario.id == "scen3") console.log(slot);
-                
                 if(slot.character != null) continue
                 
                 let $chosenChar;
