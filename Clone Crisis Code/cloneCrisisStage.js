@@ -127,7 +127,7 @@ export class cloneCrisisStage extends stage
         
         this._NPCRecruitedByClosestCharisma(evalObj);
         
-        //this._BetsyAndLoganAreScary(evalObj);
+        //DEPRECATED -- PSYLOCKE ALREADY OP this._BetsyAndLoganAreScary(evalObj);
         
         this._NPCRecruitOutput(evalObj);
         
@@ -416,6 +416,8 @@ export class cloneCrisisStage extends stage
     
     _GreatestUnmatchedPowerCapturesLowestToughness(evalObj){
         
+        if(evalObj.removedChar != null) return
+        
         let $greatestPowerChar
         
         for(const char of evalObj.pool.sort(function(a, b){return b.power - a.power})){
@@ -510,7 +512,7 @@ export class cloneCrisisStage extends stage
             }
                    
             if($bigStrongEnemies.length > 1){
-                    
+
                 evalObj.removedChar = aloneChar;
                 evalObj.winCredit = $bigStrongEnemies[0];
                 evalObj.winCreditOutput = $bigStrongEnemies;
@@ -523,9 +525,10 @@ export class cloneCrisisStage extends stage
         
         if(evalObj.removedChar != null){
         
-            const $winningAlignment = evalObj.removedChar.GetEnemyAlignment();
+            console.log(evalObj.removedChar.name);
+            console.log(evalObj.winCreditOutput);
             
-      
+            const $winningAlignment = evalObj.removedChar.GetEnemyAlignment();
 
             let $powerSortedWinChars = this.location.GetCharsHere("any",$winningAlignment);
 

@@ -117,6 +117,8 @@ export function initializeCloneCrisisPlus2Stages(scenario)
     
     $okoyeObj.openingLine = `"My King, I am very skeptical about this conflict..."`;
     
+    $loc0.stalemateText = "The great battle commences!";
+    
     $loc0.npcs = [$bpObj,$okoyeObj];
 
 }

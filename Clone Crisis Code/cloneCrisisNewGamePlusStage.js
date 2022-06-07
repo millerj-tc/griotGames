@@ -74,8 +74,6 @@ export class cloneCrisisNewGamePlusStage extends cloneCrisisStage
         
         this._UnlockedCharsSideWithNearestUntiedCharisma(evalObj);
         
-        this._BetsyAndLoganAreScaryPlus(evalObj);
-        
         // -- Unlocked Char Side Select Output has to happen within loop because there could be multiple within stage
         
         this._LowestCunningConfusedUnlessAlone(evalObj);
@@ -163,7 +161,7 @@ export class cloneCrisisNewGamePlusStage extends cloneCrisisStage
         
         const $them = ReplacePronouns(evalObj.rageSlammedChar, "[them]");
         
-        this.uiHandler.NewStageOutputDiv($enragedCharOutput + " has had enough!!" + $they    + $slammedCharOutput + " by the ankle and slams " + $them + " into the ground!");
+        this.uiHandler.NewStageOutputDiv($enragedCharOutput + " has had enough!!" + $they + $slammedCharOutput + " by the ankle and slams " + $them + " into the ground!");
     }
     
     _UnlockedCharsSideWithNearestUntiedCharisma(evalObj){
@@ -248,11 +246,6 @@ export class cloneCrisisNewGamePlusStage extends cloneCrisisStage
         
     }
     
-    _BetsyAndLoganAreScaryPlus(evalObj){
-        
-        console.error("write this code -- must happen within the unlocked char loop");
-    }
-    
     _UnlockedCharsSideSelectOutput(evalObj){
         
         if(evalObj.thisLoopCharismaChar == null) return
@@ -267,6 +260,8 @@ export class cloneCrisisNewGamePlusStage extends cloneCrisisStage
     _EndGameIfTeamAllCapturedPlus(evalObj){
         
         let $leftTeam = this.location.GetCharsHere("any","left");
+        
+        console.log("right request incoming!!");
         
         let $rightTeam = this.location.GetCharsHere("any","right");
         
@@ -283,8 +278,11 @@ export class cloneCrisisNewGamePlusStage extends cloneCrisisStage
             const $ogCharObj = this.stageHandler.scenario.scenarioHandler.GetGameChar(char.name);
            
             //if there's a copy of the char on the right team and it was initially locked, remove from arr for this eval
-            if($leftTeam.filter(c => c.name == char.name).length > 0 && $ogCharObj.unlocked.length == 0) $rightTeam = $rightTeam.filter(c => c != char)
+            if($leftTeam.filter(c => c.name == char.name).length > 0 && $ogCharObj.unlocked.length == 0) {$rightTeam = $rightTeam.filter(c => c != char)}
         }
+        
+        console.log($leftTeam);
+        console.log($rightTeam);
         
         if($leftTeam.length == 0){
             

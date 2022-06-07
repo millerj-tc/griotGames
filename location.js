@@ -17,7 +17,15 @@ class charSlot
         this.character.alignment = this.alignment;
         this.character.location = this.location;
         
+        if(!this._ValidateCharUnlockedForTeam(this.character,this.character.alignment)) console.error(this.character.name + " is not unlocked for " + this.character.alignment + "!!!");
+        
         if(this.imageSpanId != undefined)                                                                                                                                              this.location.locationHandler.scenario.scenarioHandler.gameHandler.uiHandler.UpdateCharImage(this);
+    }
+    
+    _ValidateCharUnlockedForTeam(char,team){
+        
+        if(char.unlocked.includes(team)) return true
+        else return false
     }
 }
 
@@ -54,10 +62,12 @@ class location
         
         for(const slot of this.charSlots){
             
-            if(slot.character.removedDuringRun) continue
+            if(slot.character.removedDuringRun) {continue}
             
             if(name != "any" && slot.character.name != name) continue
-            if(alignment == "any" || slot.character.alignment == alignment) $returnArr.push(slot.character) 
+            if(alignment == "any" || slot.character.alignment == alignment) $returnArr.push(slot.character)
+            
+            console.log(slot.character.name + " is here with align " + slot.character.alignment + " at " + slot.selectId);
 
         }
         
@@ -78,6 +88,8 @@ class location
         for(const slot of this.charSlots){
             
             if(slot.character == char){
+                
+                console.trace(slot.character.name + " removed from " + slot.selectId);
                 
                 slot.character.removedDuringRun = true;
             }
