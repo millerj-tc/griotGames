@@ -159,6 +159,6 @@ export class cloneCrisisNewGamePlusStage extends cloneCrisisStage
         
         const $them = ReplacePronouns(evalObj.rageSlammedChar, "[them]");
         
-        this.uiHandler.NewStageOutputDiv($enragedCharOutput + " has had enough!!" + $they    + $slammedCharOutput + " by the ankle and slam " + $them + "into the ground!");
+        this.uiHandler.NewStageOutputDiv($enragedCharOutput + " has had enough!!" + $they    + $slammedCharOutput + " by the ankle and slam " + $them + " into the ground!");
     }
 }
