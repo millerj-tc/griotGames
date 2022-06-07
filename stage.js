@@ -299,7 +299,7 @@ export class stage
             //console.log($charObj.name + " xp:" + $charObj.xp);
         }
         
-        console.log(this.stageHandler.scenario.scenarioCharInstances);
+
     }
     
 }

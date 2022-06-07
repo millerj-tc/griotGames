@@ -24,6 +24,7 @@ export class charHandler
             char.lastWonHope = null;
             char.removedDuringRun = false;
             char.debuffed = false;
+            char.rage = 0;
         }
     }
     
@@ -37,6 +38,8 @@ export class charHandler
             char.ModHope = this.ModHope;
             char.AddInterpers = this.AddInterpers;
             char.GetEnemyAlignment = this.GetEnemyAlignment;
+            char.Enrage = this.Enrage;
+            char.Sooth = this.Sooth;
         }
     }
     
@@ -81,4 +84,10 @@ export class charHandler
         return this.debuffed
         
     }
+    
+    Enrage() {this.rage++}
+    
+    Sooth() {this.rage--}
+    
+    
 }

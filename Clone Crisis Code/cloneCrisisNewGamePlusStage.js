@@ -86,7 +86,15 @@ export class cloneCrisisNewGamePlusStage extends cloneCrisisStage
         
         this._HighestSpeedDebuffsGreatestPower(evalObj);
         
+        this._EnragedCharStrikesBack(evalObj);
+        
+        this._EnragedCharStrikesBackOutput(evalObj);
+        
         this._HighestSpeedDebuffOutput(evalObj);
+        
+        this._SpeedDebuffedCharGetsEnraged(evalObj);
+        
+        this._SpeedDebuffEnrageOutput(evalObj);
         
         this._AloneCharPowerTrumps(evalObj);
         
@@ -97,5 +105,60 @@ export class cloneCrisisNewGamePlusStage extends cloneCrisisStage
         this._GreatestPowerCaptureOutput(evalObj);
         
         this._SetSpecialOutputGroup0ToRemainingLosingChars(evalObj);
+    }
+    
+    _SpeedDebuffedCharGetsEnraged(evalObj){
+        
+        if(evalObj.speedDebuffedChar == undefined) return
+        
+        evalObj.speedDebuffedChar.Enrage();
+    }
+    
+    _SpeedDebuffEnrageOutput(evalObj){
+        
+        if(evalObj.speedDebuffedChar == undefined) return
+        
+        const $speedDebuffedCharOutput = GetStringOfCharsFromArray(evalObj.speedDebuffedChar,"any","S");
+        
+        this.uiHandler.NewStageOutputDiv($speedDebuffedCharOutput + " bellows in rage!");
+    }
+    
+    _EnragedCharStrikesBack(evalObj){
+        
+        if(evalObj.speedDebuffedChar == null) return
+        
+        if(evalObj.speedDebuffedChar.rage > 0){
+            
+            evalObj.pool.push(evalObj.speedDebuffedChar);
+            
+            evalObj.enragedChar = evalObj.speedDebuffedChar;
+            
+            evalObj.pool = evalObj.pool.filter(c => c != evalObj.speediestChar);
+            
+            evalObj.speedDebuffedChar.Sooth();
+            
+            evalObj.rageSlammedChar = evalObj.speediestChar;
+            
+            evalObj.speediestChar = null;
+            
+            evalObj.speedDebuffedChar = null;
+
+        }
+        
+    }
+    
+    _EnragedCharStrikesBackOutput(evalObj){
+        
+        if(evalObj.enragedChar == undefined) return
+        
+        const $enragedCharOutput = GetStringOfCharsFromArray(evalObj.enragedChar,"any","S");
+        
+        const $slammedCharOutput = GetStringOfCharsFromArray(evalObj.rageSlammedChar,"any","S");
+        
+        const $they = ReplacePronouns(evalObj.enragedChar, " Like lightning, [they] snags ");
+        
+        const $them = ReplacePronouns(evalObj.rageSlammedChar, "[them]");
+        
+        this.uiHandler.NewStageOutputDiv($enragedCharOutput + " has had enough!!" + $they    + $slammedCharOutput + " by the ankle and slam " + $them + "into the ground!");
     }
 }
