@@ -316,7 +316,7 @@ export class scenario
         
         this._ResetCurrentStage();
         
-        this.stageHandler.stages[0].EvalFlow(tournamentMode);
+        this.stageHandler.stages[0].stageFlowHandler.RunPhases(tournamentMode);
         
         this._HighlightChangedDivs();
         

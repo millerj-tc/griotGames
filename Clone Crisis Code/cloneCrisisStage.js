@@ -1,4 +1,4 @@
-import {stage,evaluation} from "./../stage.js";
+import {stage   } from "./../stage.js";
 import {ReplacePronouns,GetStringOfCharsFromArray,ReplaceWordsBasedOnPluralSubjects} from "./../utils.js";
 
 export class cloneCrisisStage extends stage
@@ -21,55 +21,12 @@ export class cloneCrisisStage extends stage
         this.NPC = null;
         this.tournamentMode = false;
     }
-
-    EvalFlow(tournamentMode){
-        
-        this.tournamentMode = tournamentMode;
-        
-        this._ResetNPCRecruitmentProperties();
-        
-        if(this.stageHandler.scenario.scenarioOver) return   
-                
-        const $evalObj = this._CreateEvalObj();
-        
-        this._DeclareLocation();
-        
-        this._StageHeaderOutput();
-        
-        this._NPCOpeningLineOutput();
-        
-        this._WarnIfDupeCharsOnSameTeam();
-        
-        this._SetEvalPool($evalObj);
-        
-        this._VsOutput($evalObj);
-        
-        this._RemoveDebuffedCharsFromPool($evalObj);
-        
-        this._CloneCrisisBattle($evalObj);
-            
-        this._ValidateWinnersAndLosers($evalObj);
-        
-        this._EndGameIfTeamAllCaptured();
-        
-        this.stageHandler.scenario.scenarioHandler.gameHandler.OfferSubmissionLinkAfterXRuns();
-                
-        this._ResultDisplayText($evalObj);
-        
-        this.firstRun = false;
-                
-        this._TriggerStageFx($evalObj);
-        
-        this._IncreaseXpForAllParticipatingChars($evalObj);
-        
-        this.stageHandler.GotoNextStage(this.nextStage);
-    }
     
     _EndGameIfTeamAllCaptured(){
         
-        const $leftTeam = this.location.GetCharsHere("any","left");
+        const $leftTeam = this.stage.location.GetCharsHere("any","left");
         
-        const $rightTeam = this.location.GetCharsHere("any","right");
+        const $rightTeam = this.stage.location.GetCharsHere("any","right");
         
 
         
@@ -77,28 +34,28 @@ export class cloneCrisisStage extends stage
         
         if($leftTeam.length == 0){
             
-            this.uiHandler.NewStageOutputDiv(`<span style="font-weight:bold;color:red;font-size:calc(15px + 1.5vw)">The right team has won!</span>`);
-            this.stageHandler.scenario.scenarioOver = true;
-            this.stageHandler.scenario.SetScenarioWinningTeam("right");
+            this.stage.uiHandler.NewStageOutputDiv(`<span style="font-weight:bold;color:red;font-size:calc(15px + 1.5vw)">The right team has won!</span>`);
+            this.stage.stageHandler.scenario.scenarioOver = true;
+            this.stage.stageHandler.scenario.SetScenarioWinningTeam("right");
         }
         
         if($rightTeam.length == 0){
             
-            this.uiHandler.NewStageOutputDiv(`<span style="font-weight:bold;color:blue;font-size:calc(15px + 1.5vw)">The left team has won!</span>`);
-            this.stageHandler.scenario.scenarioOver = true;
-            this.stageHandler.scenario.SetScenarioWinningTeam("left");
+            this.stage.uiHandler.NewStageOutputDiv(`<span style="font-weight:bold;color:blue;font-size:calc(15px + 1.5vw)">The left team has won!</span>`);
+            this.stage.stageHandler.scenario.scenarioOver = true;
+            this.stage.stageHandler.scenario.SetScenarioWinningTeam("left");
         } 
     }
     
     _NPCOpeningLineOutput(){
         
-        if(this.NPC == undefined) return
+        if(this.stage.NPC == undefined) return
         
-        const $npcPortrait = GetStringOfCharsFromArray(this.NPC,"any","M",false);
+        const $npcPortrait = GetStringOfCharsFromArray(this.stage.NPC,"any","M",false);
         
-        if(this.NPC.openingLine != undefined) {
+        if(this.stage.NPC.openingLine != undefined) {
             
-            const $newDiv = this.uiHandler.NewStageOutputDiv("<i>" + $npcPortrait + "</i>: " + this.NPC.openingLine);
+            const $newDiv = this.stage.uiHandler.NewStageOutputDiv("<i>" + $npcPortrait + "</i>: " + this.stage.NPC.openingLine);
             
             $newDiv.querySelector("img").style.float = "left";
 //            console.log($newDiv.querySelector("img").naturalHeight);
@@ -112,60 +69,27 @@ export class cloneCrisisStage extends stage
     
     _VsOutput(evalObj){
         
-        const $charsHere = this.location.GetCharsHere();
+        const $charsHere = this.stage.location.GetCharsHere();
         
         const $leftString = GetStringOfCharsFromArray($charsHere,"left","S");
         
         const $rightString = GetStringOfCharsFromArray($charsHere,"right","S");
         
-        this.uiHandler.NewStageOutputDiv($leftString + " vs " + $rightString);
-    }
-    
-    _CloneCrisisBattle(evalObj){
-        
-        //console.warn("BATTLE");
-        
-        this._NPCRecruitedByClosestCharisma(evalObj);
-        
-        //DEPRECATED -- PSYLOCKE ALREADY OP this._BetsyAndLoganAreScary(evalObj);
-        
-        this._NPCRecruitOutput(evalObj);
-        
-        this._LowestCunningConfusedUnlessAlone(evalObj);
-        
-        this._LowestCunningCyclopsShield(evalObj);
-        
-        this._LowestCunningConfusedOutput(evalObj);
-        
-        this._HighestSpeedDebuffsGreatestPower(evalObj);
-        
-        this._HighestSpeedDebuffOutput(evalObj);
-        
-        this._AloneCharPowerTrumps(evalObj);
-        
-        if(evalObj.winners.length == 0) this._GreatestUnmatchedPowerCapturesLowestToughness(evalObj);
-        
-        this._BishopIsImmune(evalObj);
-        
-        this._GreatestPowerCaptureOutput(evalObj);
-        
-        this._AutoSortWinnersAndLosers(evalObj,evalObj.winCredit);
-        
-        this._SetSpecialOutputGroup0ToRemainingLosingChars(evalObj);
+        this.stage.uiHandler.NewStageOutputDiv($leftString + " vs " + $rightString);
     }
     
     _NoninteractiveCloneCrisisBattle(evalObj){
     
         
-        this._NPCRecruitedAndUnlockedWithinTwoCharisma(evalObj);
+        this.stage._NPCRecruitedAndUnlockedWithinTwoCharisma(evalObj);
 
     }
     
     _NPCRecruitedAndUnlockedWithinTwoCharisma(evalObj){
         
-        if(this.NPC == null) return
+        if(this.stage.NPC == null) return
         
-        evalObj.npc = this.NPC;
+        evalObj.npc = this.stage.NPC;
         
         evalObj.charismaChar = null;
         
@@ -175,9 +99,9 @@ export class cloneCrisisStage extends stage
         
         for(const char of evalObj.pool){
             
-            if(Math.abs(char.charisma - this.NPC.charisma) <= 2){
+            if(Math.abs(char.charisma - this.stage.NPC.charisma) <= 2){
                 
-                this.stageHandler.scenario.scenarioHandler.gameHandler.database.GetObjFromString(this.NPC.name).unlocked.push(char.alignment);
+                this.stage.stageHandler.scenario.scenarioHandler.gameHandler.database.GetObjFromString(this.stage.NPC.name).unlocked.push(char.alignment);
                 
                 if(char.alignment == "left") $leftRecruiters.push(char);
                 
@@ -187,23 +111,23 @@ export class cloneCrisisStage extends stage
             }
         }
         
-        const $recruitedString = GetStringOfCharsFromArray(this.NPC, "any","S");
+        const $recruitedString = GetStringOfCharsFromArray(this.stage.NPC, "any","S");
         
         const $leftRecruitersString = GetStringOfCharsFromArray($leftRecruiters,"any","S");
         
         const $rightRecruitersString = GetStringOfCharsFromArray($rightRecruiters,"any","S");
 
-        this.stageHandler.scenario.scenarioHandler.gameHandler.uiHandler.NewStageOutputDiv($recruitedString + " considers the arguments of " + $leftRecruitersString);
+        this.stage.stageHandler.scenario.scenarioHandler.gameHandler.uiHandler.NewStageOutputDiv($recruitedString + " considers the arguments of " + $leftRecruitersString);
         
-        this.stageHandler.scenario.scenarioHandler.gameHandler.uiHandler.NewStageOutputDiv($recruitedString + " considers the arguments of " + $rightRecruitersString);
+        this.stage.stageHandler.scenario.scenarioHandler.gameHandler.uiHandler.NewStageOutputDiv($recruitedString + " considers the arguments of " + $rightRecruitersString);
     }
     
 
     _NPCRecruitedByClosestCharisma(evalObj){
         
-        if(this.NPC == null) return
+        if(this.stage.NPC == null) return
         
-        evalObj.npc = this.NPC;
+        evalObj.npc = this.stage.NPC;
         
         let $evalArr = [];
         
@@ -213,7 +137,7 @@ export class cloneCrisisStage extends stage
         
         for(const char of evalObj.pool){
             
-            let $charismaDiff = Math.abs(char.charisma - this.NPC.charisma);
+            let $charismaDiff = Math.abs(char.charisma - this.stage.NPC.charisma);
             
             $evalArr.push({char: char,diff: $charismaDiff});
             
@@ -248,27 +172,27 @@ export class cloneCrisisStage extends stage
             
             evalObj.charismaChar = $returnArr[0];
             
-            this.NPC.alignment = $returnArr[0].alignment;
+            this.stage.NPC.alignment = $returnArr[0].alignment;
             
             evalObj.npc.alignment = $returnArr[0].alignment;
             
-            this.NPC.recruited = true;
+            this.stage.NPC.recruited = true;
             
-            evalObj.pool.push(this.NPC);
+            evalObj.pool.push(this.stage.NPC);
             
-            this.location.AddUnslottedChar(this.NPC);
+            this.stage.location.AddUnslottedChar(this.stage.NPC);
         }
     }
     
     _BetsyAndLoganAreScary(evalObj){
         
-        if(this.NPC != undefined && this.NPC.recruited && this.NPC.name != "Venom"){
+        if(this.stage.NPC != undefined && this.stage.NPC.recruited && this.stage.NPC.name != "Venom"){
             
             let $matches = 0;
             
             let $psylockeAndWolverine = [];
             
-            for(const char of this.location.GetCharsHere("any",this.NPC.GetEnemyAlignment(),true)){
+            for(const char of this.stage.location.GetCharsHere("any",this.stage.NPC.GetEnemyAlignment(),true)){
                 
                 if(char.name == "Wolverine" || char.name == "Psylocke"){
                     
@@ -280,42 +204,42 @@ export class cloneCrisisStage extends stage
             
             if($matches == 2){
                 
-                this.NPC.recruited = false;
+                this.stage.NPC.recruited = false;
                 
-                this.NPC.alignment = null;
+                this.stage.NPC.alignment = null;
                 
-                this.NPC.scaredByPowerCouple = true;
+                this.stage.NPC.scaredByPowerCouple = true;
                 
-                evalObj.pool = evalObj.pool.filter(c => c != this.NPC);
+                evalObj.pool = evalObj.pool.filter(c => c != this.stage.NPC);
                 
-                this.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(this.NPC,"any","S") + " was thinking about joining up with " + GetStringOfCharsFromArray(evalObj.charismaChar,"any","S") + " but " + GetStringOfCharsFromArray($psylockeAndWolverine,"any","S") + ReplacePronouns(this.NPC," convince [them] to mind [their] own fucking business. They're pretty intimidating..."));
+                this.stage.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(this.stage.NPC,"any","S") + " was thinking about joining up with " + GetStringOfCharsFromArray(evalObj.charismaChar,"any","S") + " but " + GetStringOfCharsFromArray($psylockeAndWolverine,"any","S") + ReplacePronouns(this.stage.NPC," convince [them] to mind [their] own fucking business. They're pretty intimidating..."));
                 
-                if(this.tournamentMode) console.log(this.NPC.name + " scared by Betsy/Logan from joining with  " + evalObj.charismaChar.name);
+                if(this.stage.tournamentMode) console.log(this.stage.NPC.name + " scared by Betsy/Logan from joining with  " + evalObj.charismaChar.name);
                 
-                this.location.RemoveCharDuringRun(this.NPC);
+                this.stage.location.RemoveCharDuringRun(this.stage.NPC);
             }
         }
     }
     
     _ResetNPCRecruitmentProperties(){
         
-        if(this.NPC == null) return
+        if(this.stage.NPC == null) return
         
-        this.NPC.alignment = null;
-        this.NPC.recruited = false;
+        this.stage.NPC.alignment = null;
+        this.stage.NPC.recruited = false;
     }
     
     _NPCRecruitOutput(evalObj){
         
-        if(this.NPC == null) return
+        if(this.stage.NPC == null) return
         
-        if(this.NPC.recruited){
+        if(this.stage.NPC.recruited){
             
-            this.stageHandler.scenario.scenarioHandler.gameHandler.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(this.NPC,"any","S") + " has decided to side with the " + this.NPC.alignment + " team.");
+            this.stage.stageHandler.scenario.scenarioHandler.gameHandler.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(this.stage.NPC,"any","S") + " has decided to side with the " + this.stage.NPC.alignment + " team.");
             
-            if(this.tournamentMode) console.log(this.NPC.name + " recruited by " + this.NPC.alignment + " team because of " + evalObj.charismaChar.name);
+            if(this.stage.tournamentMode) console.log(this.stage.NPC.name + " recruited by " + this.stage.NPC.alignment + " team because of " + evalObj.charismaChar.name);
         }
-        else if(!this.NPC.scaredByPowerCouple) this.stageHandler.scenario.scenarioHandler.gameHandler.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(this.NPC,"any","S") + " can't decide who to believe.");
+        else if(!this.stage.NPC.scaredByPowerCouple) this.stage.stageHandler.scenario.scenarioHandler.gameHandler.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(this.stage.NPC,"any","S") + " can't decide who to believe.");
     }
     
     _LowestCunningConfusedUnlessAlone(evalObj){
@@ -346,15 +270,23 @@ export class cloneCrisisStage extends stage
         
         if(evalObj.confusedCharacter != null){
             
-            const $confusedCharAllies = this.location.GetCharsHere("any",evalObj.confusedCharacter.alignment,true);
+            const $confusedCharAllies = this.stage.location.GetCharsHere("any",evalObj.confusedCharacter.alignment,true);
             
             for(const char of $confusedCharAllies){
                 
                 if(char.name == "Cyclops"){
                     
-                    const $cyclops = this.location.GetCharsHere("Cyclops",evalObj.confusedCharacter.alignment,true);
+                    const $cyclops = this.stage.location.GetCharsHere("Cyclops",evalObj.confusedCharacter.alignment,true);
                     
-                    this.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray($cyclops,"any","S") + " explains the plan carefully to " + GetStringOfCharsFromArray(evalObj.confusedCharacter,"any","S") + ReplacePronouns(evalObj.confusedCharacter,", and [they] executes the plan better than usual!"));
+                    if(evalObj.confusedCharacter.name == "Cyclops"){
+                        
+                        this.stage.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray($cyclops,"any","S") + " is never out of sync with his team! He executes with perfect precision.");
+                    }
+                    else{
+                        
+                        this.stage.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray($cyclops,"any","S") + " explains the plan carefully to " + GetStringOfCharsFromArray(evalObj.confusedCharacter,"any","S") + ReplacePronouns(evalObj.confusedCharacter,", and [they] executes the plan better than usual!"));
+                    }
+                    
                     
                     evalObj.pool.push(evalObj.confusedCharacter);
                     
@@ -372,7 +304,7 @@ export class cloneCrisisStage extends stage
         
         const $pronounedString = ReplacePronouns(evalObj.confusedCharacter," imperfectly executes [their] team plan, [they] is out of position!");
         
-        if(evalObj.confusedCharacter != null) this.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(evalObj.confusedCharacter,"any","S") + $pronounedString);
+        if(evalObj.confusedCharacter != null) this.stage.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(evalObj.confusedCharacter,"any","S") + $pronounedString);
     }
     
     _HighestSpeedDebuffsGreatestPower(evalObj){
@@ -409,14 +341,14 @@ export class cloneCrisisStage extends stage
             const $speediestCharOutput = GetStringOfCharsFromArray(evalObj.speediestChar,"any","S");
             const $speedDebuffedCharOutput = GetStringOfCharsFromArray(evalObj.speedDebuffedChar,"any","S");
             const $onTheirHeelsOutput = ReplacePronouns(evalObj.speedDebuffedChar, " on [their] heels!")
-            this.uiHandler.NewStageOutputDiv($speediestCharOutput + " attacks with blinding speed, knocking " + $speedDebuffedCharOutput + $onTheirHeelsOutput);
+           this.stage.uiHandler.NewStageOutputDiv($speediestCharOutput + " attacks with blinding speed, knocking " + $speedDebuffedCharOutput + $onTheirHeelsOutput);
             
         }
     }
     
     _GreatestUnmatchedPowerCapturesLowestToughness(evalObj){
         
-        if(evalObj.removedChar != null) return
+        if(evalObj.removedChar != null || evalObj.winners.length > 0) return
         
         let $greatestPowerChar
         
@@ -454,7 +386,7 @@ export class cloneCrisisStage extends stage
         const $lowestToughnessEnemyOfPowerfulestChar = $enemyArr.sort(function(a, b){return a.toughness - b.toughness})[0];
         
         
-        this.location.RemoveCharDuringRun($lowestToughnessEnemyOfPowerfulestChar);
+        this.stage.location.RemoveCharDuringRun($lowestToughnessEnemyOfPowerfulestChar);
         
         
         evalObj.removedChar = $lowestToughnessEnemyOfPowerfulestChar;
@@ -469,7 +401,7 @@ export class cloneCrisisStage extends stage
             
             evalObj.winCredit.stageDisabled = true;
             
-            this.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(evalObj.removedChar,"any","S") + " is immune to the energy attack from " + GetStringOfCharsFromArray(evalObj.winCredit,"any","S") + "!");
+           this.stage.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(evalObj.removedChar,"any","S") + " is immune to the energy attack from " + GetStringOfCharsFromArray(evalObj.winCredit,"any","S") + "!");
             
             evalObj.removedChar.removedDuringRun = false;
             
@@ -497,7 +429,7 @@ export class cloneCrisisStage extends stage
             
              $bigStrongEnemies = [];
             
-            for(const enemy of this.location.GetCharsHere("any",aloneChar.GetEnemyAlignment())){
+            for(const enemy of this.stage.location.GetCharsHere("any",aloneChar.GetEnemyAlignment())){
                 
                 if(enemy.name == "Wolverine" ||
                   enemy.name == "Beast" ||
@@ -516,7 +448,7 @@ export class cloneCrisisStage extends stage
                 evalObj.removedChar = aloneChar;
                 evalObj.winCredit = $bigStrongEnemies[0];
                 evalObj.winCreditOutput = $bigStrongEnemies;
-                this.location.RemoveCharDuringRun(aloneChar);
+                this.stage.location.RemoveCharDuringRun(aloneChar);
             }
         }
     }
@@ -529,14 +461,14 @@ export class cloneCrisisStage extends stage
             
             const $winningAlignment = evalObj.removedChar.GetEnemyAlignment();
 
-            let $powerSortedWinChars = this.location.GetCharsHere("any",$winningAlignment);
+            let $powerSortedWinChars = this.stage.location.GetCharsHere("any",$winningAlignment);
 
             
             $powerSortedWinChars.sort(function(a,b){return b.power - a.power});
             
             
 
-            this.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(evalObj.winCreditOutput,"any","S") + ReplaceWordsBasedOnPluralSubjects(evalObj.winCreditOutput," [[manages/manage]] to capture ") + GetStringOfCharsFromArray(evalObj.removedChar,"any","S") + "!");
+           this.stage.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(evalObj.winCreditOutput,"any","S") + ReplaceWordsBasedOnPluralSubjects(evalObj.winCreditOutput," [[manages/manage]] to capture ") + GetStringOfCharsFromArray(evalObj.removedChar,"any","S") + "!");
         }
     }
     
@@ -548,7 +480,7 @@ export class cloneCrisisStage extends stage
         
         for(const char of $dupeCharCheckArr){
             
-            const $ogCharObj = this.stageHandler.scenario.scenarioHandler.GetGameChar(char.name); 
+            const $ogCharObj = this.stage.stageHandler.scenario.scenarioHandler.GetGameChar(char.name); 
            
             if(this._CharHasAcrossTeamsDupeMatch(char,evalObj) && $ogCharObj.unlocked.length == 0) evalObj.specialOutputGroup0 = evalObj.specialOutputGroup0.filter(c => c != char)
         }

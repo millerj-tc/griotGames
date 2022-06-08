@@ -47,13 +47,13 @@ export class stageHandler
             
             $ui.NewStageOutputDiv("<br><br>");
 
-            stage.EvalFlow($tournamentMode);
+            stage.stageFlowHandler.RunPhases($tournamentMode);
         }
         
-        if(this.scenario.scenarioOver){
-            
-            this.scenario.scenarioHandler.GotoScenario(this.scenario.nextScenario);
-
-        }
+//        if(this.scenario.scenarioOver){
+//            
+//            this.scenario.scenarioHandler.GotoScenario(this.scenario.nextScenario);
+//
+//        }
     }
 }

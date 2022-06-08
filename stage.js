@@ -1,56 +1,14 @@
 import {GetStringOfCharsFromArray} from "./utils.js";
 import {GetCharsByAlignment,ReplaceWordsBasedOnPluralSubjects} from "./utils.js";
 import {stageFxHandler} from "./stageFx.js";
-
-
-export class evaluation
-{
-    constructor(stage){
-        
-        this.stage = stage;
-        this.winners = [];
-        this.losers = [];
-        this.winTeam;
-        this.winChar;
-        this.location;
-        this.pool = [];
-        this.initialPool = [];
-    }
-    
-    GetEvalObjChar(name, alignment = "any",allowFalseReturn = false){
-        
-        for(const char of this.pool){
-            
-            if(alignment == "any" && char.name == name) return char
-            else if(char.name == name && char.alignment == alignment) return char
-        }
-        
-        if(allowFalseReturn) return false
-        else console.warn("GetEvalObjChar failed for " + name + " with alignment " + alignment);
-    }
-    
-    GetCharsFromPool(alignment = "any"){
-        
-        if(alignment == "any") return this.pool
-        else if (alignment == "left") return this.pool.filter(c => c.alignment == "left")
-        else if (alignment == "right") return this.pool.filter(c => c.alignment == "right")
-        else console.warn("evaluation.GetCharsFromPool() is malfunctioning");
-    }
-    
-    GetCharsFromInitialPool(alignment = "any"){
-        
-        if(alignment == "any") return this.initialPool
-        else if (alignment == "left") return this.initialPool.filter(c => c.alignment == "left")
-        else if (alignment == "right") return this.initialPool.filter(c => c.alignment == "right")
-        else console.warn("evaluation.GetCharsFromInitialPool() is malfunctioning");
-    }
-}
+import {stageFlowHandler} from "./stageFlowHandler.js";
 
 export class stage
 {
     constructor(stageHandler,id){
         
         this.stageHandler = stageHandler;
+        this.stageFlowHandler = new stageFlowHandler(this);
         this.stageFxHandler = new stageFxHandler(this);
         this.uiHandler = this.stageHandler.scenario.scenarioHandler.gameHandler.uiHandler;
         this.id = id;
@@ -66,16 +24,11 @@ export class stage
         
     }
     
-    _CreateEvalObj(){
-        
-        return new evaluation(this);
-    }
-    
     _StageHeaderOutput(){
         
-        if(this.stageHeader != ""){
+        if(this.stage.stageHeader != ""){
             
-            this.uiHandler.NewStageOutputDiv(this.stageHeader);
+            this.stage.uiHandler.NewStageOutputDiv(this.stage.stageHeader);
         }
     }
     
@@ -83,7 +36,7 @@ export class stage
         
         let $returnString = "";
         
-        for(const fx of this.stageHandler.scenario.GetAllScenarioFxThatTargetStage(this,true)){
+        for(const fx of this.stage.stageHandler.scenario.GetAllScenarioFxThatTargetStage(this.stage,true)){
             
             let $replaceString = GetStringOfCharsFromArray([char],"any","S");
             
@@ -112,7 +65,7 @@ export class stage
     
     _SetEvalPool(evalObj){
         
-        evalObj.pool = this.location.GetCharsHere();
+        evalObj.pool = this.stage.location.GetCharsHere();
     
         for(const char of evalObj.pool){
             
@@ -137,7 +90,7 @@ export class stage
             if(obj.alignment == "right") $tournamentString += obj.name;
         }
         
-        if(this.tournamentMode) console.log($tournamentString);
+        if(this.stage.tournamentMode) console.log($tournamentString);
     }
     
     _RemoveCharsResultInMirror(chars,evalObj){
@@ -151,60 +104,19 @@ export class stage
         
         //let $testArr = evalObj.pool.filter()
     }
-    
-    _CharHasAcrossTeamsDupeMatch(char,evalObj){
-        
-        for(const obj of evalObj.pool){
-            
-            if(obj.dataType == "char" && obj.name == char.name && obj.alignment != char.alignment) return true
-        }
-        
-        return false
-    }
-    
-    _ReturnArrWithTeamDupedCharsRemoved(arr){
-        
-        let $returnArr = [];
-        
-        for(const char of arr){
-         
-            let $matches = 0;
-            
-            for(const otherChar of arr){
 
-                if(char.name == otherChar.name && char.alignment != otherChar.alignment) $matches++
-            }
-            
-            if($matches > 0) continue
-            else{
-                
-                $returnArr.push(char);
-            }
-        
-        }
-        
-        return $returnArr
-    }
     
     _DeclareLocation(){
-        
-        if(this.location.displayName != "") this.stageHandler.scenario.scenarioHandler.gameHandler.uiHandler.UpdateOutput("- <i>" + this.location.displayName.toUpperCase() + "</i> -<br><br>" );
-    }
     
-     _CharLastTeammateAtLoc(char){
         
-        const $teammatesWithMyAlignment = this.location.GetCharsHere("any",char.alignment).length;
-        
-        if($teammatesWithMyAlignment > 1) return false
-        else if($teammatesWithMyAlignment == 1) return true
-        else console.warn("Error: _CharLastTeammateAtLoc() is malfunctioning: " + char.name + " asked how many friends were present and was told " + $teammatesWithMyAlignment);
+        if(this.stage.location.displayName != "") this.stage.stageHandler.scenario.scenarioHandler.gameHandler.uiHandler.UpdateOutput("- <i>" + this.stage.location.displayName.toUpperCase() + "</i> -<br><br>" );
     }
     
     _WarnIfDupeCharsOnSameTeam(){
         
-        let $allChars = this.stageHandler.scenario.locationHandler.GetAllCharsAtLocations();
+        let $allChars = this.stage.stageHandler.scenario.locationHandler.GetAllCharsAtLocations();
         
-        const $ui = this.stageHandler.scenario.scenarioHandler.gameHandler.uiHandler;
+        const $ui = this.stage.stageHandler.scenario.scenarioHandler.gameHandler.uiHandler;
         
         for(const char0 of $allChars){
             
@@ -214,7 +126,7 @@ export class stage
                     
                     $ui.UpdateOutput("<i><b>I am very sorry to inform you that " + char0.name + " cannot occupy two spaces on the same team... This simulation is invalid, please try again</i></b>");
                     
-                    this.stageHandler.scenario.scenarioOver = true;
+                    this.stage.stageHandler.scenario.scenarioOver = true;
                 }
             }
             
@@ -223,67 +135,55 @@ export class stage
     
     _TriggerStageFx(evalObj){
         
-        for(const fx of this.stageFxHandler.fxs){
+        for(const fx of this.stage.stageFxHandler.fxs){
             
             fx.TriggerFx(evalObj);
 
         }
     }
     
-    _AutoSortWinnersAndLosers(evalObj,char,isWinner = true){
+    _AutoSortWinnersAndLosers(evalObj){
+        
+        if(this._ReturnArrWithTeamDupedCharsRemoved(evalObj.pool).length == 0) evalObj.stalemate = true
         
         if(evalObj.stalemate) {return}
-        
-        if(char == null) {return}
-        
-        if(isWinner){
-            evalObj.winners = this.location.GetCharsHere("any",char.alignment,true);
-            evalObj.losers = this.location.GetCharsHere("any",char.GetEnemyAlignment(),true);
-        }
-        else{
-            evalObj.winners = this.location.GetCharsHere("any",char.GetEnemyAlignment(),true);
-            evalObj.losers = this.location.GetCharsHere("any",char.alignment,true);
-        }
+
+        evalObj.winners = this.stage.location.GetCharsHere("any",evalObj.winCredit.alignment,true);
+        evalObj.losers = this.stage.location.GetCharsHere("any",evalObj.winCredit.GetEnemyAlignment(),true);
         
     }
     
     _ValidateWinnersAndLosers(evalObj){
         
-        const $totalChars = this.location.GetCharsHere("any","any",true).length;
+        const $totalChars = this.stage.location.GetCharsHere("any","any",true).length;
         
         // if(evalObj.winners.length + evalObj.losers.length != $totalChars) console.error("Invalid winners and losers arrays on eval obj!");
     }
     
-    _CheckIfSkipResultDisplayText(){
-        
-
-        
-        if(!this.displayWintextAfterGameover && this.stageHandler.scenario.scenarioOver) return true
-        
-        return false
-    }
-    
-    
     _ResultDisplayText(evalObj){
         
-        if(this._CheckIfSkipResultDisplayText()) return
+        if(this._CheckIfSkipResultDisplayText()) return //<<HELP
         
-        const $ui = this.stageHandler.scenario.scenarioHandler.gameHandler.uiHandler;
+        const $ui = this.stage.stageHandler.scenario.scenarioHandler.gameHandler.uiHandler;
 
+        
+        console.log(evalObj);
+        console.log(evalObj.winners);
+        console.log(evalObj.winners.length);
         
         if(evalObj.winners.length == 0){
             
             let $stalemateOutput;
             
-            if(this.stalemateText == "") $stalemateOutput = "No one was able to accomplish anything here this time!"
-            else $stalemateOutput = this.stalemateText;
+            if(this.stage.stalemateText == "") $stalemateOutput = "No one was able to accomplish anything here this time!"
+            else $stalemateOutput = this.stage.stalemateText;
             
             $ui.NewStageOutputDiv($stalemateOutput);
             
         }
         else{
             
-            let $outputText = this.winText.replace("[winners names]",GetStringOfCharsFromArray(evalObj.winners,"any","S"));
+            let $outputText = this.stage.winText.replace("[winners names]",GetStringOfCharsFromArray(evalObj.winners,"any","S"));
             
             $outputText = $outputText.replace("[losers names]",GetStringOfCharsFromArray(evalObj.losers,"any","S"));
             
@@ -316,7 +216,7 @@ export class stage
             
             if(char.dataType != "char") return
             
-            const $charObj =  this.stageHandler.scenario.GetScenarioChar(char.name);
+            const $charObj =  this.stage.stageHandler.scenario.GetScenarioChar(char.name);
             
             $charObj.xp[char.alignment]++;
             

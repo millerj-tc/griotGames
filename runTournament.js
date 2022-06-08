@@ -4,9 +4,10 @@ export function RunTournament()
 {
     const $entries = [
         
-        {rosterName: "Joseph", winCount:0, scen0: {location: ["Wolverine", "Cyclops", "Colossus"]}},
+        {rosterName: "Joseph", winCount:0, scen0: {location: ["Bishop", "Cyclops", "Psylocke"]}},
         
-        {rosterName: "Sora", winCount:0, scen0: {location: ["Wolverine", "Cyclops", "Bishop"]}},
+        
+//        {rosterName: "Sora", winCount:0, scen0: {location: ["Wolverine", "Cyclops", "Bishop"]}},
         
 //        {rosterName: "Riku", winCount:0, scen0: {location: ["Wolverine", "Beast", "Bishop"]}},
 //        

@@ -102,8 +102,68 @@ export function initializeCloneCrisisEasyStages(scenario)
 }
 
 function GetScenarioStage(stageHandler,id){
+    
+    const $stage = new cloneCrisisStage(stageHandler,id);
+    
+    const $sfw = $stage.stageFlowHandler;
+    
+    $sfw.AddPhase($stage._ResetNPCRecruitmentProperties);
+    
+    $sfw.AddPhase($stage._DeclareLocation);
+
+    $sfw.AddPhase($stage._StageHeaderOutput);
+
+    $sfw.AddPhase($stage._NPCOpeningLineOutput);
+
+    $sfw.AddPhase($stage._WarnIfDupeCharsOnSameTeam);
+
+    $sfw.AddPhase($stage._SetEvalPool);
+
+    $sfw.AddPhase($stage._VsOutput);
+
+    $sfw.AddPhase($stage._RemoveDebuffedCharsFromPool);
+
+    $sfw.AddPhase($stage._NPCRecruitedByClosestCharisma);
+        
+    //DEPRECATED -- PSYLOCKE ALREADY OP this._BetsyAndLoganAreScary);
+
+    $sfw.AddPhase($stage._NPCRecruitOutput);
+
+    $sfw.AddPhase($stage._LowestCunningConfusedUnlessAlone);
+
+     $sfw.AddPhase($stage._LowestCunningCyclopsShield);
+
+     $sfw.AddPhase($stage._LowestCunningConfusedOutput);
+
+     $sfw.AddPhase($stage._HighestSpeedDebuffsGreatestPower);
+
+     $sfw.AddPhase($stage._HighestSpeedDebuffOutput);
+
+     $sfw.AddPhase($stage._AloneCharPowerTrumps);
+
+     $sfw.AddPhase($stage._GreatestUnmatchedPowerCapturesLowestToughness);
+
+     $sfw.AddPhase($stage._BishopIsImmune);
+
+     $sfw.AddPhase($stage._GreatestPowerCaptureOutput);
+
+     $sfw.AddPhase($stage._AutoSortWinnersAndLosers);
+
+     $sfw.AddPhase($stage._SetSpecialOutputGroup0ToRemainingLosingChars);
+
+     $sfw.AddPhase($stage._ValidateWinnersAndLosers);
+
+     $sfw.AddPhase($stage._EndGameIfTeamAllCaptured);
+
+     $sfw.AddPhase($stage.stageHandler.scenario.scenarioHandler.gameHandler.OfferSubmissionLinkAfterXRuns);
+
+     $sfw.AddPhase($stage._ResultDisplayText);
+    
+     $sfw.AddPhase($stage._TriggerStageFx);
+
+     $sfw.AddPhase($stage._IncreaseXpForAllParticipatingChars);
      
-    return new cloneCrisisStage(stageHandler,id);
+    return $stage
 }
     
 export function initializeCloneCrisisEasyScenarioFx(scenario){
