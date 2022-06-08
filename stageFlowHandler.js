@@ -52,6 +52,8 @@ class stagePhase
         
         const $scenario = this.stageFlowHandler.stage.stageHandler.scenario;
         
+        console.log($scenario.scenarioOver);
+        
         if($scenario.scenarioOver) $scenario.scenarioHandler.GotoScenario($scenario.nextScenario)
         
         this.RecordEvalState(evalObj,"preRun")

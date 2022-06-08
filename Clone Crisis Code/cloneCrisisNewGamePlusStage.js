@@ -25,89 +25,40 @@ export class cloneCrisisNewGamePlusStage extends cloneCrisisStage
         
         this._CloneCrisisBattle = this._AltCloneCrisisBattle;
     }
+        
+    _CyclopsAndBishopEnergyAttack(evalObj){
+        
+        const $s = this.stage;
+        
+        for(const cyclops of this.stage.location.GetCharsHere("Cyclops","any")){
+            
+            if(!cyclops.hasOwnProperty("alliedBishopEffectFire")) cyclops.alliedBishopEffectFire = false;
+            
+            const $alliedBishop = $s.location.GetCharsHere("Bishop",cyclops.alignment);
+            
+            if($alliedBishop.length > 0 && evalObj.speedDebuffedChar != $alliedBishop && evalObj.speedDebuffedChar != cyclops && cyclops.alliedBishopEffectFire != true){
+                
+                const $highesetToughEnemyOfAllies = $s.location.GetCharsHere("any", cyclops.GetEnemyAlignment(),true).sort(function(a,b){return b.toughness - a.toughness})[0];
+                
+                evalObj.pool = evalObj.pool.filter(c => c != $highesetToughEnemyOfAllies);
+                
+                const $cyclopsOp = GetStringOfCharsFromArray(cyclops,"any","S");
+                
+                const $bishopOp = GetStringOfCharsFromArray($alliedBishop,"any","S");
+                
+                const $highestToughnessEnemyOp = GetStringOfCharsFromArray($highesetToughEnemyOfAllies,"any","S");
+                
+                const $them = ReplacePronouns($highesetToughEnemyOfAllies,"[them]");
 
-    AltEvalFlow(tournamentMode){
-        
-        this.tournamentMode = tournamentMode;
-        
-        this._ResetNPCRecruitmentProperties();
-        
-        if(this.stageHandler.scenario.scenarioOver) return   
+                $s.uiHandler.NewStageOutputDiv($cyclopsOp + " aims a devastating blast at " + $bishopOp + "-- who absorbs the energy! " + $bishopOp + " releases the energy at " + $highestToughnessEnemyOp + " knocking " + $them + " hundreds of yards back, plowing through the dirt!");
                 
-        const $evalObj = this._CreateEvalObj();
-        
-        this._DeclareLocation();
-        
-        this._StageHeaderOutput();
-        
-        this._NPCOpeningLineOutput();
-        
-        this._WarnIfDupeCharsOnSameTeam();
-        
-        this._SetEvalPool($evalObj);
-        
-        this._VsOutput($evalObj);
-        
-        this._RemoveDebuffedCharsFromPool($evalObj);
-        
-        this._CloneCrisisBattle($evalObj);
-        
-        this._ValidateWinnersAndLosers($evalObj);
-        
-        this._EndGameIfTeamAllCapturedPlus($evalObj);
-        
-        this.stageHandler.scenario.scenarioHandler.gameHandler.OfferSubmissionLinkAfterXRuns();
-                
-        this._ResultDisplayText($evalObj);
-        
-        this.firstRun = false;
-                
-        this._TriggerStageFx($evalObj);
-        
-        this._IncreaseXpForAllParticipatingChars($evalObj);
-        
-        this.stageHandler.GotoNextStage(this.nextStage);
+                cyclops.alliedBishopEffectFire = true
+            }
+        }
     }
     
-    
-    _AltCloneCrisisBattle(evalObj){
+    /// OKOYE SWITCH SIDES IF HER TEAM CAPTURE BLACK PANTHER
         
-        this._UnlockedCharsSideWithNearestUntiedCharisma(evalObj);
-        
-        // -- Unlocked Char Side Select Output has to happen within loop because there could be multiple within stage
-        
-        this._LowestCunningConfusedUnlessAlone(evalObj);
-        
-        this._LowestCunningCyclopsShield(evalObj);
-        
-        this._LowestCunningConfusedOutput(evalObj);
-        
-        this._HighestSpeedDebuffsGreatestPower(evalObj);
-        
-        this._EnragedCharStrikesBack(evalObj);
-        
-        this._EnragedCharStrikesBackOutput(evalObj);
-        
-        this._HighestSpeedDebuffOutput(evalObj);
-        
-        this._SpeedDebuffedCharGetsEnraged(evalObj);
-        
-        this._SpeedDebuffEnrageOutput(evalObj);
-        
-        this._AloneCharPowerTrumps(evalObj);
-        
-        if(evalObj.winners.length == 0) this._GreatestUnmatchedPowerCapturesLowestToughness(evalObj);
-        
-        this._BishopIsImmune(evalObj);
-        
-        this._AlsoRemoveTeamDupedUnlockedCharIfMirrorIsCaptured(evalObj);
-        
-        this._GreatestPowerCaptureOutput(evalObj);
-        
-        this._AutoSortWinnersAndLosers(evalObj,evalObj.winCredit);
-        
-        this._SetSpecialOutputGroup0ToRemainingLosingChars(evalObj);
-    }
     
     _SpeedDebuffedCharGetsEnraged(evalObj){
         
@@ -258,6 +209,8 @@ export class cloneCrisisNewGamePlusStage extends cloneCrisisStage
     }
     
     _EndGameIfTeamAllCapturedPlus(evalObj){
+        
+        if(this.stage.stageHandler.scenario.scenarioOver) return
         
         let $leftTeam = this.stage.location.GetCharsHere("any","left");
         

@@ -262,6 +262,8 @@ function GetScenarioStage3(stageHandler,id){
     $sfw.AddPhase($stage._SpeedDebuffedCharGetsEnraged);
 
     $sfw.AddPhase($stage._SpeedDebuffEnrageOutput);
+    
+    $sfw.AddPhase($stage._CyclopsAndBishopEnergyAttack);
 
     $sfw.AddPhase($stage._AloneCharPowerTrumps);
 
@@ -272,6 +274,8 @@ function GetScenarioStage3(stageHandler,id){
     $sfw.AddPhase($stage._AlsoRemoveTeamDupedUnlockedCharIfMirrorIsCaptured);
 
     $sfw.AddPhase($stage._GreatestPowerCaptureOutput);
+    
+    $sfw.AddPhase($stage._CaptureOutput);
 
     $sfw.AddPhase($stage._AutoSortWinnersAndLosers);
 

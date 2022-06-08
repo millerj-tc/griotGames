@@ -83,6 +83,18 @@ class location
         return $returnArr
     }
     
+    CharHasAllyNamed(charName,allyName){
+        
+        for(const char of this.GetCharsHere(charName,"any",true)){
+            
+            if(this.GetCharsHere(allyName,char.alignment,true).length > 0) return true
+        }
+        
+        return false
+    }
+    
+    
+    
     RemoveCharDuringRun(char){
         
         for(const slot of this.charSlots){

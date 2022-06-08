@@ -24,6 +24,8 @@ export class cloneCrisisStage extends stage
     
     _EndGameIfTeamAllCaptured(){
         
+        if(this.stage.stageHandler.scenario.scenarioOver) return
+        
         const $leftTeam = this.stage.location.GetCharsHere("any","left");
         
         const $rightTeam = this.stage.location.GetCharsHere("any","right");
@@ -469,6 +471,20 @@ export class cloneCrisisStage extends stage
             
 
            this.stage.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(evalObj.winCreditOutput,"any","S") + ReplaceWordsBasedOnPluralSubjects(evalObj.winCreditOutput," [[manages/manage]] to capture ") + GetStringOfCharsFromArray(evalObj.removedChar,"any","S") + "!");
+        }
+    }
+    
+    /// capture outout -- remember to disable it for mirror so that you don't get dupe per scenario
+    
+    _CaptureOutput(evalObj){
+        
+        if(evalObj.removedChar != null && evalObj.removedChar.myCaptureOutputAlreadyHeard != true){
+            
+            const $removedCharOp = GetStringOfCharsFromArray(evalObj.removedChar,"any","S");
+            
+            this.stage.uiHandler.NewStageOutputDiv("<i>" + $removedCharOp + "</i>: " + evalObj.removedChar.captureText);
+            
+            this.stage.location.GetCharsHere(evalObj.removedChar.name,evalObj.removedChar.GetEnemyAlignment(),true).myCaptureOutputAlreadyHeard = true;
         }
     }
     

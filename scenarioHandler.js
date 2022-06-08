@@ -35,6 +35,8 @@ export class scenarioHandler
     
     GotoScenario(scenario){
                 
+        console.log(scenario);
+        
         if(scenario == undefined || this.gameHandler.gameOver) return;
         
         this.gameHandler.uiHandler.storedOutputDivs = [];

@@ -4,6 +4,7 @@ import {scenarioHandler} from "./scenarioHandler.js";
 import {initializeCloneCrisisEasyStages,initializeCloneCrisisEasyLocations,initializeCloneCrisisEasyScenarioFx} from "./Clone Crisis Code/cloneCrisisScenario.js";
 import {initializeCloneCrisisPlusLocations, initializeCloneCrisisPlusStages,initializeCloneCrisisPlusScenarioFx,initializeCloneCrisisPlus1Locations, initializeCloneCrisisPlus1Stages,initializeCloneCrisisPlus1ScenarioFx,initializeCloneCrisisPlus2Locations, initializeCloneCrisisPlus2Stages,initializeCloneCrisisPlus2ScenarioFx,initializeCloneCrisisPlus3Locations, initializeCloneCrisisPlus3Stages,initializeCloneCrisisPlus3ScenarioFx} from "./Clone Crisis Code/cloneCrisisPrepScenario.js";
 import {RunTournament} from "./runTournament.js";
+import {AddCloneCrisisSpecificCharProps} from "./Clone Crisis Code/cloneCrisisCharProps.js";
 
 export class gameHandler
 {
@@ -30,6 +31,7 @@ export class gameHandler
         
         this.scenarioHandler.LoadAllGameChars();
         
+        AddCloneCrisisSpecificCharProps(this.scenarioHandler.gameCharInstances);
         
         if(this.newGamePlus){
             

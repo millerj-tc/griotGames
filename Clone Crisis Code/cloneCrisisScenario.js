@@ -146,6 +146,8 @@ function GetScenarioStage(stageHandler,id){
      $sfw.AddPhase($stage._BishopIsImmune);
 
      $sfw.AddPhase($stage._GreatestPowerCaptureOutput);
+    
+     $sfw.AddPhase($stage._CaptureOutput);
 
      $sfw.AddPhase($stage._AutoSortWinnersAndLosers);
 
