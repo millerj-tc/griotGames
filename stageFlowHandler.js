@@ -31,6 +31,7 @@ class stagePhase
         
         this.stageFlowHandler = stageFlowHandler;
         this.stage = this.stageFlowHandler.stage;
+        this.uiHandler = this.stage.uiHandler;
         this._Run = func;
         this.previousPhase;
         this.nextPhase;
