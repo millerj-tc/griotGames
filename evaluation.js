@@ -47,4 +47,9 @@ export class evaluation
         
         evalObjChar.skipPhases.push(phaseFuncString);
     }
+    
+    UnskipPhaseForChar(phaseFuncString,evalObjChar){
+        
+        evalObjChar.skipPhases = evalObjChar.skipPhases.filter(f => f != phaseFuncString);
+    }
 }

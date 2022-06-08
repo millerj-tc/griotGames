@@ -126,6 +126,8 @@ function GetScenarioStage(stageHandler,id){
     $sfw.AddPhase($stage._NPCRecruitedByClosestCharisma);
         
     //DEPRECATED -- PSYLOCKE ALREADY OP this._BetsyAndLoganAreScary);
+    
+    $sfw.AddPhase($stage._DupedCharLosesToNumbers);
 
     $sfw.AddPhase($stage._NPCRecruitOutput);
 
@@ -134,14 +136,14 @@ function GetScenarioStage(stageHandler,id){
      $sfw.AddPhase($stage._LowestCunningCyclopsShield);
 
      $sfw.AddPhase($stage._LowestCunningConfusedOutput);
+    
+    $sfw.AddPhase($stage._GetHighestSpeedChar);
 
      $sfw.AddPhase($stage._HighestSpeedDebuffsGreatestPower);
 
      $sfw.AddPhase($stage._HighestSpeedDebuffOutput);
 
      $sfw.AddPhase($stage._AloneCharPowerTrumps);
-    
-    $sfw.AddPhase($stage._DupedCharLosesToNumbers);
     
     $sfw.AddPhase($stage._GetGreatestUnmatchedPowerChar);
     

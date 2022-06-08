@@ -240,6 +240,8 @@ function GetScenarioStage3(stageHandler,id){
     $sfw.AddPhase($stage._VsOutput);
 
     $sfw.AddPhase($stage._RemoveDebuffedCharsFromPool);
+    
+    $sfw.AddPhase($stage._DupedCharLosesToNumbers);
 
     $sfw.AddPhase($stage._UnlockedCharsSideWithNearestUntiedCharisma);
         
@@ -250,6 +252,8 @@ function GetScenarioStage3(stageHandler,id){
     $sfw.AddPhase($stage._LowestCunningCyclopsShield);
 
     $sfw.AddPhase($stage._LowestCunningConfusedOutput);
+    
+    $sfw.AddPhase($stage._GetHighestSpeedChar);
 
     $sfw.AddPhase($stage._HighestSpeedDebuffsGreatestPower);
 
@@ -266,8 +270,6 @@ function GetScenarioStage3(stageHandler,id){
     $sfw.AddPhase($stage._CyclopsAndBishopEnergyAttack);
 
     $sfw.AddPhase($stage._AloneCharPowerTrumps);
-    
-    $sfw.AddPhase($stage._DupedCharLosesToNumbers);
     
     $sfw.AddPhase($stage._GetGreatestUnmatchedPowerChar);
     

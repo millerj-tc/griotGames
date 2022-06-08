@@ -259,7 +259,11 @@ export class cloneCrisisStage extends stage
             
             if(char == $lowestCunningChar){
                 
-                evalObj.pool = evalObj.pool.filter(c => c != $lowestCunningChar);
+                evalObj.SkipPhaseForChar("_GetGreatestUnmatchedPowerChar",$lowestCunningChar);
+                
+                evalObj.SkipPhaseForChar("_GetHighestSpeedChar",$lowestCunningChar);
+                
+                //evalObj.pool = evalObj.pool.filter(c => c != $lowestCunningChar);
                 evalObj.confusedCharacter = char;
             }
 
@@ -288,7 +292,9 @@ export class cloneCrisisStage extends stage
                     }
                     
                     
-                    evalObj.pool.push(evalObj.confusedCharacter);
+                    evalObj.UnskipPhaseForChar("_GetGreatestUnmatchedPowerChar",evalObj.confusedCharacter);
+                
+                    evalObj.UnskipPhaseForChar("_GetHighestSpeedChar",evalObj.confusedCharacter);
                     
                     evalObj.confusedCharacter = null;
                     
@@ -307,13 +313,22 @@ export class cloneCrisisStage extends stage
         if(evalObj.confusedCharacter != null) this.stage.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(evalObj.confusedCharacter,"any","S") + $pronounedString);
     }
     
-    _HighestSpeedDebuffsGreatestPower(evalObj){
+    _GetHighestSpeedChar(evalObj){
         
         let $speedEvalPool = this._ReturnArrWithTeamDupedCharsRemoved(evalObj.pool);
         
         if($speedEvalPool.length == 0) return
         
         const $highestSpeedChar = $speedEvalPool.sort(function(a, b){return b.speed - a.speed})[0];
+        
+        evalObj.highestSpeedChar = $highestSpeedChar;
+    }
+    
+    _HighestSpeedDebuffsGreatestPower(evalObj){
+        
+        if(evalObj.highestSpeedChar == null) return
+        
+        const $highestSpeedChar = evalObj.highestSpeedChar;
         
         let $enemyAlign = $highestSpeedChar.GetEnemyAlignment();
         
@@ -477,16 +492,24 @@ export class cloneCrisisStage extends stage
         
         if($aloneChars.length < 1) return
         
+        let $aloneCharMirror = this.stage.location.GetCharsHere($aloneChars[0].name,$aloneChars[0].GetEnemyAlignment());
+        
         let $aloneCharEnemiesArr = this.stage.location.GetCharsHere("any",$aloneChars[0].GetEnemyAlignment());
+        
+        let $aloneCharNonMirrorEnemiesArr = $aloneCharEnemiesArr.filter(c => c.name != $aloneChars[0].name);
         
         //$aloneCharEnemiesArr = $aloneCharEnemiesArr.filter(c => c.name != $aloneChars[0].name);
         
-        if($aloneCharEnemiesArr.filter(c => c.name != $aloneChars[0].name).length > 1){
+        if($aloneCharMirror != null && $aloneCharNonMirrorEnemiesArr.length > 0){
             
             evalObj.removedChar = $aloneChars[0];
             evalObj.winCredit = $aloneCharEnemiesArr[0];
             evalObj.winCreditOutput = $aloneCharEnemiesArr;
             this.stage.location.RemoveCharDuringRun($aloneChars[0]);
+            
+            console.log("_DupedCharLosesToNumbersTriggered");
+        
+            this.stageFlowHandler.SkipToPhaseByFuncName(evalObj,"_GreatestPowerCaptureOutput");
         }
     }
     

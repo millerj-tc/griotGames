@@ -63,7 +63,7 @@ export function RunTournament()
                 
                 scenario.scenarioHandler.GotoScenario(scenario);
                 
-                scenario.ScenarioRun(true); //-- set to TRUE for tournament output during matches
+                scenario.ScenarioRun(false); //-- set to TRUE for tournament output during matches
                 
                 console.log("WINNERS FOR " + scenario.id + ": " + scenario.winningTeam);
                 

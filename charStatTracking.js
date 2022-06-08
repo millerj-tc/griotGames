@@ -28,8 +28,6 @@ class charStatsHolder
         
         this._GetCharXp($match,char,scenario);
         
-        console.log($match.xp);
-        
         this.matches.push($match);
     }
     
