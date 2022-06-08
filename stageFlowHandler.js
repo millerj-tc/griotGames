@@ -5,7 +5,7 @@ class evalState
     constructor(stagePhase,evalObj,stepId){
         
         this.stagePhase = stagePhase;
-        this.stepId = stepId;
+        this.stepId = stepId + "Iteration" + this.stagePhase.iterationCount;
         
         this.evalState = {};
         
@@ -39,6 +39,7 @@ class stagePhase
         this.evalStates = [];
         this.lastCreatedEvalState;
         this.currentEvalState;
+        this.iterationCount = 0;
         
         if(this.id != null) this.id = id
         else this.id = String(this.stageFlowHandler.stage.id + "Step" + this.stageFlowHandler.phases.length);
@@ -174,6 +175,14 @@ export class stageFlowHandler
         this.lastCreatedPhase = $phase;
         
         return $phase
+    }
+    
+    ResetPhaseIterationCounts(){
+        
+        for(const phase of this.phases){
+            
+            phase.iterationCount = 0;
+        }
     }
     
     RunPhases(tournamentMode = false){

@@ -122,7 +122,7 @@ export class cloneCrisisNewGamePlusStage extends cloneCrisisStage
         
         const $speedDebuffedCharOutput = GetStringOfCharsFromArray(evalObj.speedDebuffedChar,"any","S");
         
-        this.uiHandler.NewStageOutputDiv($speedDebuffedCharOutput + " bellows in rage!");
+        this.stage.uiHandler.NewStageOutputDiv($speedDebuffedCharOutput + " bellows in rage!");
     }
     
     _EnragedCharStrikesBack(evalObj){
@@ -161,7 +161,7 @@ export class cloneCrisisNewGamePlusStage extends cloneCrisisStage
         
         const $them = ReplacePronouns(evalObj.rageSlammedChar, "[them]");
         
-        this.uiHandler.NewStageOutputDiv($enragedCharOutput + " has had enough!!" + $they + $slammedCharOutput + " by the ankle and slams " + $them + " into the ground!");
+        this.stage.uiHandler.NewStageOutputDiv($enragedCharOutput + " has had enough!!" + $they + $slammedCharOutput + " by the ankle and slams " + $them + " into the ground!");
     }
     
     _UnlockedCharsSideWithNearestUntiedCharisma(evalObj){
@@ -172,7 +172,7 @@ export class cloneCrisisNewGamePlusStage extends cloneCrisisStage
         
         for(const char of evalObj.pool){
             
-            const $ogCharObj = this.stageHandler.scenario.scenarioHandler.GetGameChar(char.name);
+            const $ogCharObj = this.stage.stageHandler.scenario.scenarioHandler.GetGameChar(char.name);
             
             // only evaluate chars that are duped across teams
             
@@ -183,7 +183,7 @@ export class cloneCrisisNewGamePlusStage extends cloneCrisisStage
         
         for(const char of $lockedCharsPool){
             
-            evalObj.thisLoopCharismaChar = null;
+            evalObj.this.stageLoopCharismaChar = null;
             
             evalObj.charismaStalemateChar = null;
             
@@ -211,7 +211,7 @@ export class cloneCrisisNewGamePlusStage extends cloneCrisisStage
                     
                     const $stalemateOutput = GetStringOfCharsFromArray(char,"any","S");
         
-                    this.uiHandler.NewStageOutputDiv($stalemateOutput + " can't decide who to believe!");
+                    this.stage.uiHandler.NewStageOutputDiv($stalemateOutput + " can't decide who to believe!");
                     
                     if(evalObj.GetEvalObjChar(char.name,char.GetEnemyAlignment(),true) != false) {
                     
@@ -227,7 +227,7 @@ export class cloneCrisisNewGamePlusStage extends cloneCrisisStage
                     continue
                 }
             
-                evalObj.thisLoopCharismaChar = $mostCharming.char;
+                evalObj.this.stageLoopCharismaChar = $mostCharming.char;
                 
                 if($mostCharming.char.alignment == char.alignment){
                     
@@ -254,48 +254,43 @@ export class cloneCrisisNewGamePlusStage extends cloneCrisisStage
         
         const $convincedOutput = GetStringOfCharsFromArray(evalObj.convincedChar,"any","S");
         
-        this.uiHandler.NewStageOutputDiv($convincedOutput + " sides with team " + evalObj.convincedChar.alignment);
+        this.stage.uiHandler.NewStageOutputDiv($convincedOutput + " sides with team " + evalObj.convincedChar.alignment);
     }
     
     _EndGameIfTeamAllCapturedPlus(evalObj){
         
-        let $leftTeam = this.location.GetCharsHere("any","left");
+        let $leftTeam = this.stage.location.GetCharsHere("any","left");
         
-        console.log("right request incoming!!");
-        
-        let $rightTeam = this.location.GetCharsHere("any","right");
+        let $rightTeam = this.stage.location.GetCharsHere("any","right");
         
         for(const char of $leftTeam){
             
-            const $ogCharObj = this.stageHandler.scenario.scenarioHandler.GetGameChar(char.name);
+            const $ogCharObj = this.stage.stageHandler.scenario.scenarioHandler.GetGameChar(char.name);
            
-            //if there's a copy of the char on the right team and it was initially locked, remove from arr for this eval
+            //if there's a copy of the char on the right team and it was initially locked, remove from arr for this.stage eval
             if($rightTeam.filter(c => c.name == char.name).length > 0 && $ogCharObj.unlocked.length == 0) $leftTeam = $leftTeam.filter(c => c != char)
         }
         
         for(const char of $rightTeam){
             
-            const $ogCharObj = this.stageHandler.scenario.scenarioHandler.GetGameChar(char.name);
+            const $ogCharObj = this.stage.stageHandler.scenario.scenarioHandler.GetGameChar(char.name);
            
             //if there's a copy of the char on the right team and it was initially locked, remove from arr for this eval
             if($leftTeam.filter(c => c.name == char.name).length > 0 && $ogCharObj.unlocked.length == 0) {$rightTeam = $rightTeam.filter(c => c != char)}
         }
         
-        console.log($leftTeam);
-        console.log($rightTeam);
-        
         if($leftTeam.length == 0){
             
-            this.uiHandler.NewStageOutputDiv(`<span style="font-weight:bold;color:red;font-size:calc(15px + 1.5vw)">The right team has won!</span>`);
-            this.stageHandler.scenario.scenarioOver = true;
-            this.stageHandler.scenario.SetScenarioWinningTeam("right");
+            this.stage.uiHandler.NewStageOutputDiv(`<span style="font-weight:bold;color:red;font-size:calc(15px + 1.5vw)">The right team has won!</span>`);
+            this.stage.stageHandler.scenario.scenarioOver = true;
+            this.stage.stageHandler.scenario.SetScenarioWinningTeam("right");
         }
         
         if($rightTeam.length == 0){
             
-            this.uiHandler.NewStageOutputDiv(`<span style="font-weight:bold;color:blue;font-size:calc(15px + 1.5vw)">The left team has won!</span>`);
-            this.stageHandler.scenario.scenarioOver = true;
-            this.stageHandler.scenario.SetScenarioWinningTeam("left");
+            this.stage.uiHandler.NewStageOutputDiv(`<span style="font-weight:bold;color:blue;font-size:calc(15px + 1.5vw)">The left team has won!</span>`);
+            this.stage.stageHandler.scenario.scenarioOver = true;
+            this.stage.stageHandler.scenario.SetScenarioWinningTeam("left");
         } 
     }
     
@@ -303,13 +298,13 @@ export class cloneCrisisNewGamePlusStage extends cloneCrisisStage
         
         if(evalObj.removedChar == null) return
         
-        const $ogCharObj = this.stageHandler.scenario.scenarioHandler.GetGameChar(evalObj.removedChar.name);
+        const $ogCharObj = this.stage.stageHandler.scenario.scenarioHandler.GetGameChar(evalObj.removedChar.name);
         
         const $mirrorChar = evalObj.GetEvalObjChar(evalObj.removedChar.name,evalObj.removedChar.GetEnemyAlignment(),true); 
            
         if($ogCharObj.unlocked.length == 0) {
             
-            this.location.RemoveCharDuringRun($mirrorChar)
+            this.stage.location.RemoveCharDuringRun($mirrorChar)
         }
     }
 }

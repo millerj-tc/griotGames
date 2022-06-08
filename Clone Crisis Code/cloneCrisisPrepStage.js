@@ -20,54 +20,23 @@ export class cloneCrisisPrepStage extends cloneCrisisStage
         this.evalDiv = document.createElement("div");
         this.NPC = null;
     }
-
-    EvalFlow(){
-        
-        this._DeclareLocation();
-        
-        this._StageHeaderOutput();
-        
-        this._MultipleNPCOpeningLineOutput();
-        
-        this._WarnIfDupeCharsOnSameTeam();
-        
-        this.stageHandler.scenario.scenarioHandler.gameHandler.OfferSubmissionLinkAfterXRuns();
-
-        const $evalObj = this._CreateEvalObj();
-
-        this._SetEvalPool($evalObj);
-
-        this._NoninteractiveCloneCrisisBattle($evalObj);
-
-        this._ValidateWinnersAndLosers($evalObj);
-
-        this._ResultDisplayText($evalObj);
-
-        this._TriggerStageFx($evalObj);
-
-        this.stageHandler.scenario.scenarioOver = true;
-        
-        this._IncreaseXpForAllParticipatingChars($evalObj);
-        
-        this.stageHandler.GotoNextStage(this.nextStage);
-    }
     
     _NoninteractiveCloneCrisisBattle(evalObj){
     
         
-        this._NPCRecruitedAndUnlockedWithinTwoCharisma(evalObj);
+
 
     }
     
     _MultipleNPCOpeningLineOutput(){
         
-        for(const npc of this.npcs){
+        for(const npc of this.stage.npcs){
         
             const $npcPortrait = GetStringOfCharsFromArray(npc,"any","M",false);
 
             if(npc.openingLine != undefined) {
 
-                const $newDiv = this.uiHandler.NewStageOutputDiv("<i>" + $npcPortrait + "</i>: " + npc.openingLine);
+                const $newDiv = this.stage.uiHandler.NewStageOutputDiv("<i>" + $npcPortrait + "</i>: " + npc.openingLine);
 
                 $newDiv.querySelector("img").style.float = "left";
 
@@ -80,11 +49,11 @@ export class cloneCrisisPrepStage extends cloneCrisisStage
     
     _NPCRecruitedAndUnlockedWithinTwoCharisma(evalObj){
         
-        if(this.npcs == null) return
+        if(this.stage.npcs == null) return
         
-        const $uiHandler = this.stageHandler.scenario.scenarioHandler.gameHandler.uiHandler;
+        const $uiHandler = this.stage.stageHandler.scenario.scenarioHandler.gameHandler.uiHandler;
         
-        for(const npc of this.npcs){    
+        for(const npc of this.stage.npcs){    
         
             let $leftRecruiters = [];
 
@@ -94,7 +63,7 @@ export class cloneCrisisPrepStage extends cloneCrisisStage
 
                 if(Math.abs(char.charisma - npc.charisma) <= 2){
                                         
-                    if(!this.stageHandler.scenario.GetScenarioChar(npc.name).unlocked.includes(char.alignment)) this.stageHandler.scenario.GetScenarioChar(npc.name).unlocked.push(char.alignment);
+                    if(!this.stage.stageHandler.scenario.GetScenarioChar(npc.name).unlocked.includes(char.alignment)) this.stage.stageHandler.scenario.GetScenarioChar(npc.name).unlocked.push(char.alignment);
 
                     if(char.alignment == "left") $leftRecruiters.push(char);
 

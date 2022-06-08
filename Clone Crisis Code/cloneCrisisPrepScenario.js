@@ -13,7 +13,7 @@ export function initializeCloneCrisisPlusStages(scenario)
 {
     const GH = window.gameHandler;
     
-    scenario.GetScenarioStage = GetScenarioStage0;
+    scenario.GetScenarioStage = GetScenarioPrepStage;
     
     const $loc0 = scenario.stageHandler.AddStage("loc0");
         
@@ -35,9 +35,35 @@ export function initializeCloneCrisisPlusStages(scenario)
     
 }
 
-function GetScenarioStage0(stageHandler,id){
+function GetScenarioPrepStage(stageHandler,id){
      
-    return new cloneCrisisPrepStage(stageHandler,id);
+    const $stage = new cloneCrisisPrepStage(stageHandler,id);
+    
+    const $sfw = $stage.stageFlowHandler;
+    
+    $sfw.AddPhase($stage._DeclareLocation);
+        
+    $sfw.AddPhase($stage._StageHeaderOutput);
+
+     $sfw.AddPhase($stage._MultipleNPCOpeningLineOutput);
+
+     $sfw.AddPhase($stage._WarnIfDupeCharsOnSameTeam);
+
+     $sfw.AddPhase($stage.stageHandler.scenario.scenarioHandler.gameHandler.OfferSubmissionLinkAfterXRuns);
+
+     $sfw.AddPhase($stage._SetEvalPool);
+
+     $sfw.AddPhase($stage._NPCRecruitedAndUnlockedWithinTwoCharisma);
+
+     $sfw.AddPhase($stage._ValidateWinnersAndLosers);
+
+     $sfw.AddPhase($stage._ResultDisplayText);
+
+     $sfw.AddPhase($stage._TriggerStageFx);
+
+     $sfw.AddPhase($stage._IncreaseXpForAllParticipatingChars);
+     
+    return $stage
 }
     
 export function initializeCloneCrisisPlusScenarioFx(scenario){
@@ -57,7 +83,7 @@ export function initializeCloneCrisisPlus1Stages(scenario)
 {
     const GH = window.gameHandler;
     
-    scenario.GetScenarioStage = GetScenarioStage1;
+    scenario.GetScenarioStage = GetScenarioPrepStage;
     
     const $loc0 = scenario.stageHandler.AddStage("loc0");
         
@@ -78,11 +104,6 @@ export function initializeCloneCrisisPlus1Stages(scenario)
     $loc0.stalemateText = "The story continues in Wakanda...";
 
 }
-
-function GetScenarioStage1(stageHandler,id){
-     
-    return new cloneCrisisPrepStage(stageHandler,id);
-}
     
 export function initializeCloneCrisisPlus1ScenarioFx(scenario){
     
@@ -101,7 +122,7 @@ export function initializeCloneCrisisPlus2Stages(scenario)
 {
     const GH = window.gameHandler;
     
-    scenario.GetScenarioStage = GetScenarioStage1;
+    scenario.GetScenarioStage = GetScenarioPrepStage;
     
     const $loc0 = scenario.stageHandler.AddStage("loc0");
         
@@ -121,11 +142,6 @@ export function initializeCloneCrisisPlus2Stages(scenario)
     
     $loc0.npcs = [$bpObj,$okoyeObj];
 
-}
-
-function GetScenarioStage2(stageHandler,id){
-     
-    return new cloneCrisisPrepStage(stageHandler,id);
 }
     
 export function initializeCloneCrisisPlus2ScenarioFx(scenario){
@@ -205,7 +221,73 @@ export function initializeCloneCrisisPlus3Stages(scenario)
 
 function GetScenarioStage3(stageHandler,id){
      
-    return new cloneCrisisNewGamePlusStage(stageHandler,id);
+    const $stage = new cloneCrisisNewGamePlusStage(stageHandler,id);
+    
+    const $sfw = $stage.stageFlowHandler;
+        
+    $sfw.AddPhase($stage._ResetNPCRecruitmentProperties);
+
+    $sfw.AddPhase($stage._DeclareLocation);
+
+    $sfw.AddPhase($stage._StageHeaderOutput);
+
+    $sfw.AddPhase($stage._NPCOpeningLineOutput);
+
+    $sfw.AddPhase($stage._WarnIfDupeCharsOnSameTeam);
+
+    $sfw.AddPhase($stage._SetEvalPool);
+
+    $sfw.AddPhase($stage._VsOutput);
+
+    $sfw.AddPhase($stage._RemoveDebuffedCharsFromPool);
+
+    $sfw.AddPhase($stage._UnlockedCharsSideWithNearestUntiedCharisma);
+        
+    // -- Unlocked Char Side Select Output has to happen within loop because there could be multiple within stage
+
+    $sfw.AddPhase($stage._LowestCunningConfusedUnlessAlone);
+
+    $sfw.AddPhase($stage._LowestCunningCyclopsShield);
+
+    $sfw.AddPhase($stage._LowestCunningConfusedOutput);
+
+    $sfw.AddPhase($stage._HighestSpeedDebuffsGreatestPower);
+
+    $sfw.AddPhase($stage._EnragedCharStrikesBack);
+
+    $sfw.AddPhase($stage._EnragedCharStrikesBackOutput);
+
+    $sfw.AddPhase($stage._HighestSpeedDebuffOutput);
+
+    $sfw.AddPhase($stage._SpeedDebuffedCharGetsEnraged);
+
+    $sfw.AddPhase($stage._SpeedDebuffEnrageOutput);
+
+    $sfw.AddPhase($stage._AloneCharPowerTrumps);
+
+    $sfw.AddPhase($stage._GreatestUnmatchedPowerCapturesLowestToughness);
+
+    $sfw.AddPhase($stage._BishopIsImmune);
+
+    $sfw.AddPhase($stage._AlsoRemoveTeamDupedUnlockedCharIfMirrorIsCaptured);
+
+    $sfw.AddPhase($stage._GreatestPowerCaptureOutput);
+
+    $sfw.AddPhase($stage._AutoSortWinnersAndLosers);
+
+    $sfw.AddPhase($stage._SetSpecialOutputGroup0ToRemainingLosingChars);
+
+    $sfw.AddPhase($stage._ValidateWinnersAndLosers);
+
+    $sfw.AddPhase($stage._EndGameIfTeamAllCapturedPlus);
+
+    $sfw.AddPhase($stage.stageHandler.scenario.scenarioHandler.gameHandler.OfferSubmissionLinkAfterXRuns);
+
+    $sfw.AddPhase($stage._TriggerStageFx);
+
+    $sfw.AddPhase($stage._IncreaseXpForAllParticipatingChars);
+    
+    return $stage
 }
     
 export function initializeCloneCrisisPlus3ScenarioFx(scenario){

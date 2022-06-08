@@ -33,27 +33,24 @@ export class stageHandler
     
     GotoNextStage(stage){
         
-        if(stage == undefined) console.warn("NextStage is undefined!!");
-        
         const $ui = this.scenario.scenarioHandler.gameHandler.uiHandler;
         
         let $tournamentMode = this.currentStage.tournamentMode;
         
-        this.currentStage = stage;
-        
         if(stage != undefined && !this.scenario.scenarioOver){ 
             
-            //console.log("continuing");
+            this.currentStage = stage;
             
             $ui.NewStageOutputDiv("<br><br>");
 
             stage.stageFlowHandler.RunPhases($tournamentMode);
         }
         
-//        if(this.scenario.scenarioOver){
-//            
-//            this.scenario.scenarioHandler.GotoScenario(this.scenario.nextScenario);
-//
-//        }
+        else if(this.currentStage == this.stages[this.stages.length -1] || this.scenario.scenarioOver){
+            
+            this.scenario.scenarioHandler.GotoScenario(this.scenario.nextScenario);
+
+        }
+        else console.warn("something funky is happening with GotoNextStage coming from " + this.currentStage.id);
     }
 }
