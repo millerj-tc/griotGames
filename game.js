@@ -106,7 +106,7 @@ export class gameHandler
             
             if(this.scenarioHandler.currentScenario.scenarioOver){
                 
-                this.uiHandler.NewStageOutputDiv("You may submit a roster to this link to have your solution compete with other participants " + this.submissionLink + "<br><br>After you submit, there may be an additional difficulty level of the simulation you can try to solve. However, you can only submit your roster for this difficulty level once.");
+                this.uiHandler.NewStageOutputDiv("You may submit a roster to <a href='https://forms.gle/tHWHMmcnowk43fxS6'>this link</a> to have your solution compete with other participants " + this.submissionLink + "<br><br>After you submit, there may be an additional difficulty level of the simulation you can try to solve. However, you can only submit your roster for this difficulty level once.");
                 
             }
         }
