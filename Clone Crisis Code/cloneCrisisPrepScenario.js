@@ -266,6 +266,10 @@ function GetScenarioStage3(stageHandler,id){
     $sfw.AddPhase($stage._CyclopsAndBishopEnergyAttack);
 
     $sfw.AddPhase($stage._AloneCharPowerTrumps);
+    
+    $sfw.AddPhase($stage._GetGreatestUnmatchedPowerChar);
+    
+    $sfw.AddPhase($stage._GetGreatestUnmatchedPowerCharEnemies);
 
     $sfw.AddPhase($stage._GreatestUnmatchedPowerCapturesLowestToughness);
 

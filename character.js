@@ -25,6 +25,7 @@ export class charHandler
             char.removedDuringRun = false;
             char.debuffed = false;
             char.rage = 0;
+            char.skipPhases = [];
         }
     }
     

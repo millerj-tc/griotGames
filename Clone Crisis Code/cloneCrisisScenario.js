@@ -140,6 +140,10 @@ function GetScenarioStage(stageHandler,id){
      $sfw.AddPhase($stage._HighestSpeedDebuffOutput);
 
      $sfw.AddPhase($stage._AloneCharPowerTrumps);
+    
+    $sfw.AddPhase($stage._GetGreatestUnmatchedPowerChar);
+    
+    $sfw.AddPhase($stage._GetGreatestUnmatchedPowerCharEnemies);
 
      $sfw.AddPhase($stage._GreatestUnmatchedPowerCapturesLowestToughness);
 

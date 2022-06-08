@@ -10,6 +10,7 @@ export class evaluation
         this.location;
         this.pool = [];
         this.initialPool = [];
+        this.prePhaseSkipModPool = undefined;
     }
     
     GetEvalObjChar(name, alignment = "any",allowFalseReturn = false){
@@ -38,5 +39,12 @@ export class evaluation
         else if (alignment == "left") return this.initialPool.filter(c => c.alignment == "left")
         else if (alignment == "right") return this.initialPool.filter(c => c.alignment == "right")
         else console.warn("evaluation.GetCharsFromInitialPool() is malfunctioning");
+    }
+    
+    SkipPhaseForChar(phaseFuncString,evalObjChar){
+        
+        if(evalObjChar.skipPhases == undefined) evalObjChar.skipPhases = [];
+        
+        evalObjChar.skipPhases.push(phaseFuncString);
     }
 }

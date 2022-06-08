@@ -40,6 +40,7 @@ class stagePhase
         this.lastCreatedEvalState;
         this.currentEvalState;
         this.iterationCount = 0;
+        this.endRun = true;
         
         if(this.id != null) this.id = id
         else this.id = String(this.stageFlowHandler.stage.id + "Step" + this.stageFlowHandler.phases.length);
@@ -50,13 +51,17 @@ class stagePhase
         if(evalObj == undefined) console.warn(this.stageFlowHandler.stage.id + " " + this.previousPhase.id + " failed to pass me a legit evalObj " + "(I'm " + this.stageFlowHandler.stage.id + " " + this.id + ")")
         if(this._Run == undefined) console.warn("I don't have _Run() defined!!  " + "(I'm " + this.stageFlowHandler.stage.id + " " + this.id + ")")
         
-        const $scenario = this.stageFlowHandler.stage.stageHandler.scenario;
+        this.endRun = true;
         
-        console.log($scenario.scenarioOver);
+        console.log(this.id + " " + this.funcName + " is spinning up");
+        
+        const $scenario = this.stageFlowHandler.stage.stageHandler.scenario;
         
         if($scenario.scenarioOver) $scenario.scenarioHandler.GotoScenario($scenario.nextScenario)
         
-        this.RecordEvalState(evalObj,"preRun")
+        this.RecordEvalState(evalObj,"preRun");
+        
+        this._ModifyEvalObjPoolForSkippedPhases(evalObj);
         
         this._Run(evalObj);
         this._EndRun(evalObj);
@@ -65,12 +70,49 @@ class stagePhase
         
         const $stage = this.stageFlowHandler.stage;
         
-        this.RecordEvalState(evalObj,"postRun")
+        this._RestorePhaseSkippingCharsToEvalObjPool(evalObj);
+    
+        if(evalObj.removedChar != null && evalObj.removedChar.hasOwnProperty("name"))
+        {
+        console.log("removed char at " + this.id + " " + this.funcName + " is " + evalObj.removedChar.name);
+        }
+        this.RecordEvalState(evalObj,"postRun");
+        
+        if(!this.endRun) return
         
         if(this.nextPhase != undefined) this.nextPhase.StartRun(evalObj);
         
         else $stage.stageHandler.GotoNextStage($stage.nextStage);
     }
+    
+    _ModifyEvalObjPoolForSkippedPhases(evalObj){
+        
+        evalObj.prePhaseSkipModPool = undefined;
+        
+        if(evalObj == null || !evalObj.hasOwnProperty("pool") || evalObj.pool.length < 1) return
+        
+        evalObj.prePhaseSkipModPool = evalObj.pool;
+        
+        let $resultPool = [];
+        
+        for(const char of evalObj.pool){
+            
+            if(!char.skipPhases.includes(this.funcName)) $resultPool.push(char);
+        }
+        
+        if($resultPool.length == 0) console.warn("pool is empty at " + this.id + " " + this.funcName);
+        
+        evalObj.pool = $resultPool;
+    
+    }
+    
+    _RestorePhaseSkippingCharsToEvalObjPool(evalObj){
+        
+        if(evalObj.prePhaseSkipModPool == undefined) return
+        
+        evalObj.pool = evalObj.prePhaseSkipModPool;
+    }
+    
     RecordEvalState(evalObj,stepId){
         
         const $evalState = new evalState(this,evalObj,stepId);
@@ -211,7 +253,9 @@ export class stageFlowHandler
         }
     }
     
-    RunPhaseByFuncName(evalObj,funcName){
+    SkipToPhaseByFuncName(evalObj,funcName){ // -- WILL NOT EXECUTE STAGEPHASE.ENDRUN() FOR CURRENT PHASE
+        
+        this.currentPhase.endRun = false;
         
         for(const phase of this.phases){
             

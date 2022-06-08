@@ -256,15 +256,13 @@ export class cloneCrisisStage extends stage
             
             if(this._CharLastTeammateAtLoc(char)) continue
             
-            ////console.log(evalObj.pool);
             
             if(char == $lowestCunningChar){
                 
                 evalObj.pool = evalObj.pool.filter(c => c != $lowestCunningChar);
                 evalObj.confusedCharacter = char;
             }
-            
-            ////console.log(evalObj.pool);
+
         }
     }
     
@@ -329,7 +327,9 @@ export class cloneCrisisStage extends stage
         
         if(this._CharLastTeammateAtLoc($highestPowerEnemyOfSpeediestChar)) return
         
-        evalObj.pool = evalObj.pool.filter(c => c != $highestPowerEnemyOfSpeediestChar);
+        evalObj.SkipPhaseForChar("_GetGreatestUnmatchedPowerChar",$highestPowerEnemyOfSpeediestChar);
+        
+        //evalObj.pool = evalObj.pool.filter(c => c != $highestPowerEnemyOfSpeediestChar);
         
         evalObj.speedDebuffedChar = $highestPowerEnemyOfSpeediestChar;
         
@@ -348,37 +348,42 @@ export class cloneCrisisStage extends stage
         }
     }
     
-    _GreatestUnmatchedPowerCapturesLowestToughness(evalObj){
+    _GetGreatestUnmatchedPowerChar(evalObj){
         
         if(evalObj.removedChar != null || evalObj.winners.length > 0) return
         
-        let $greatestPowerChar
+        let $greatestPowerEvalPool = this._ReturnArrWithTeamDupedCharsRemoved(evalObj.pool);
         
-        for(const char of evalObj.pool.sort(function(a, b){return b.power - a.power})){
-         
-            let $matches = 0;
-            
-            for(const otherChar of evalObj.pool){
-                
-                if(char.name == otherChar.name && char != otherChar) $matches++
-            }
-            
-            if($matches > 0 || char.stageDisabled) continue
-            else{
-                
-                $greatestPowerChar = char;
-                break
-            }
+        if($greatestPowerEvalPool.length == 0) return
         
-        }
+        const $greatestPowerChar = $greatestPowerEvalPool.sort(function(a, b){return b.power - a.power})[0];
         
-        if($greatestPowerChar == undefined) return
+        evalObj.greatestPowerCharacter = $greatestPowerChar;
+    }
+    
+    _GetGreatestUnmatchedPowerCharEnemies(evalObj){
+        
+        if(evalObj.greatestPowerCharacter == null) return
+        
+        const $greatestPowerChar = evalObj.greatestPowerCharacter;
         
         let $enemyAlign = $greatestPowerChar.GetEnemyAlignment();
         
-        let $enemyArr = evalObj.GetCharsFromInitialPool($enemyAlign);
+        let $enemyArr = evalObj.GetCharsFromPool($enemyAlign);
         
         $enemyArr = $enemyArr.filter(c => c.stageImmune == false);
+        
+        evalObj.greatestPowerCharacterEnemyArr = $enemyArr;
+        
+    }
+    
+    _GreatestUnmatchedPowerCapturesLowestToughness(evalObj){
+        
+        if(evalObj.removedChar != null || evalObj.winners.length > 0 || evalObj.greatestPowerCharacterEnemyArr.length < 1) return
+        
+        const $enemyArr = evalObj.greatestPowerCharacterEnemyArr;
+        
+        const $greatestPowerChar = evalObj.greatestPowerCharacter;
         
         if($enemyArr.length < 1) return
         
@@ -399,11 +404,17 @@ export class cloneCrisisStage extends stage
         
         if(evalObj.removedChar != null && evalObj.removedChar.name == "Bishop" && (evalObj.winCredit.name == "Cyclops" || evalObj.winCredit.name == "Psylocke")){
             
-            evalObj.removedChar.stageImmune = true;
+            //evalObj.removedChar.stageImmune = true;
             
-            evalObj.winCredit.stageDisabled = true;
+            //evalObj.winCredit.stageDisabled = true;
             
-           this.stage.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(evalObj.removedChar,"any","S") + " is immune to the energy attack from " + GetStringOfCharsFromArray(evalObj.winCredit,"any","S") + "!");
+           
+            evalObj.SkipPhaseForChar("_GetGreatestUnmatchedPowerCharEnemies",evalObj.removedChar);
+            
+            evalObj.SkipPhaseForChar("_AloneCharPowerTrumps",evalObj.removedChar);
+            
+             evalObj.SkipPhaseForChar("_GetGreatestUnmatchedPowerChar",evalObj.winCredit);
+            this.stage.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(evalObj.removedChar,"any","S") + " is immune to the energy attack from " + GetStringOfCharsFromArray(evalObj.winCredit,"any","S") + "!");
             
             evalObj.removedChar.removedDuringRun = false;
             
@@ -411,7 +422,7 @@ export class cloneCrisisStage extends stage
             
 
             
-            this.stageFlowHandler.RunPhaseByFuncName(evalObj,"_GreatestUnmatchedPowerCapturesLowestToughness");
+            this.stageFlowHandler.SkipToPhaseByFuncName(evalObj,"_GetGreatestUnmatchedPowerChar");
         }
         
     }
@@ -473,9 +484,7 @@ export class cloneCrisisStage extends stage
            this.stage.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(evalObj.winCreditOutput,"any","S") + ReplaceWordsBasedOnPluralSubjects(evalObj.winCreditOutput," [[manages/manage]] to capture ") + GetStringOfCharsFromArray(evalObj.removedChar,"any","S") + "!");
         }
     }
-    
-    /// capture outout -- remember to disable it for mirror so that you don't get dupe per scenario
-    
+        
     _CaptureOutput(evalObj){
         
         if(evalObj.removedChar != null && evalObj.removedChar.myCaptureOutputAlreadyHeard != true){

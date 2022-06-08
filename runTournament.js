@@ -4,10 +4,14 @@ export function RunTournament()
 {
     const $entries = [
         
-        {rosterName: "Joseph", winCount:0, scen0: {location: ["Bishop", "Cyclops", "Psylocke"]}},
+        //{rosterName: "Joseph", winCount:0, scen0: {location: ["Bishop", "Cyclops", "Psylocke"]}},
+        
+        {rosterName: "Bishop", winCount:0, scen0: {location: ["Bishop", "Cyclops", "Beast"]}},
+        
+        {rosterName: "Psylocke", winCount:0, scen0: {location: ["Beast", "Cyclops", "Psylocke"]}},
         
         
-        {rosterName: "Sora", winCount:0, scen0: {location: ["Wolverine", "Cyclops", "Bishop"]}},
+        //{rosterName: "Sora", winCount:0, scen0: {location: ["Wolverine", "Cyclops", "Bishop"]}},
         
 //        {rosterName: "Jenny", winCount:0, scen0: {location: ["Beast", "Cyclops", "Bishop"]}},
 //        
@@ -63,7 +67,7 @@ export function RunTournament()
                 
                 scenario.scenarioHandler.GotoScenario(scenario);
                 
-                scenario.ScenarioRun(true);
+                scenario.ScenarioRun(false); //-- set to TRUE for tournament output during matches
                 
                 console.log("WINNERS FOR " + scenario.id + ": " + scenario.winningTeam);
                 
