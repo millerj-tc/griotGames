@@ -382,6 +382,9 @@ export class scenario
         for(const loc of this.locationHandler.locations){
         
             for(const slot of loc.charSlots){
+                
+                const $charXp = ((slot.character.xp.left + slot.character.xp.right)/2);
+                
                 this.savedLocCharSlots.push({characterName: slot.character.name,alignment: slot.character.alignment, locationId: slot.location.id, selectId: slot.selectId});
             }
                 

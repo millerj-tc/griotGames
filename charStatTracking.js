@@ -3,6 +3,7 @@ class matchResult
     constructor(){
         
         this.win;
+        this.xp;
         this.allyChars = [];
         this.enemyChars = [];
     }
@@ -20,10 +21,14 @@ class charStatsHolder
     AddMatchResults(char,scenario){
         
         const $match = new matchResult();
-        
+                
         this._GetCharTeammatesEnemies($match,char,scenario);
         
         this._GetScenarioWin($match,char,scenario);
+        
+        this._GetCharXp($match,char,scenario);
+        
+        console.log($match.xp);
         
         this.matches.push($match);
     }
@@ -50,6 +55,16 @@ class charStatsHolder
         match.enemyChars = $enemies;
     }
     
+    _GetCharXp(match,char,scenario){
+        
+        for(const scenarioChar of scenario.savedLocCharSlots){
+            
+            console.log(scenarioChar);
+            
+            if(this.charName == scenarioChar.characterName) match.xp = scenarioChar.xp
+        }
+    }
+    
     GetWinRate(){
         
         let $wins = 0;
@@ -62,6 +77,7 @@ class charStatsHolder
         
         return $wins/$matchCount
     }
+    
     GetWinRateWithAllies(allies){ //-- allies must be arr
         
         let $wins = 0;
@@ -87,6 +103,19 @@ class charStatsHolder
         }
         
         return $wins/$matchCount
+    }
+    
+    GetAverageXp(){
+        
+        let $xpSum = 0;
+        let $matchCount = 0;
+        
+        for(const match of this.matches){
+            $xpSum += match.xp;
+            $matchCount++;
+        }
+        
+        return $xpSum/$matchCount
     }
 }
 
@@ -139,6 +168,14 @@ export class statsTracker
         for(const char of this.charStatsHolders){
             
             console.log(char.charName + ": " + char.GetWinRate());
+        }
+    }
+    
+    DisplayAverageXpByChar(){
+        
+        for(const char of this.charStatsHolders){
+            
+            console.log(char.charName + " averageXp: " + char.GetAverageXp());
         }
     }
     

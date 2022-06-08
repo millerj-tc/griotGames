@@ -4,15 +4,15 @@ export function RunTournament()
 {
     const $entries = [
         
-//        {rosterName: "Joseph", winCount:0, scen0: {location: ["Bishop", "Cyclops", "Psylocke"]}},
-//        
-//        
-//        {rosterName: "Sora", winCount:0, scen0: {location: ["Wolverine", "Cyclops", "Bishop"]}},
+        {rosterName: "Joseph", winCount:0, scen0: {location: ["Bishop", "Cyclops", "Psylocke"]}},
+        
+        
+        {rosterName: "Sora", winCount:0, scen0: {location: ["Wolverine", "Cyclops", "Bishop"]}},
         
 //        {rosterName: "Jenny", winCount:0, scen0: {location: ["Beast", "Cyclops", "Bishop"]}},
-        
-        {rosterName: "Rhys", winCount:0, scen0: {location: ["Bishop", "Wolverine", "Beast"]}},
-        
+//        
+//        {rosterName: "Rhys", winCount:0, scen0: {location: ["Bishop", "Wolverine", "Beast"]}},
+//        
 //        {rosterName: "Erik", winCount:0, scen0: {location: ["Wolverine", "Cyclops", "Beast"]}},
 //        
 //        {rosterName: "Brett", winCount:0, scen0: {location: ["Cyclops", "Colossus", "Beast"]}},
@@ -83,6 +83,7 @@ export function RunTournament()
     }
     
     $statsTracker.DisplayWinRatesByChar();
+    //$statsTracker.DisplayAverageXpByChar();
     $statsTracker.DisplayWinRateForCharWithAllies("Wolverine", ["Bishop"]);
     $statsTracker.DisplayWinRateForCharWithAllies("Wolverine", ["Cyclops"]);
     $statsTracker.DisplayWinRateForCharWithAllies("Cyclops", ["Psylocke"]);
