@@ -167,10 +167,6 @@ export class stage
         const $ui = this.stage.stageHandler.scenario.scenarioHandler.gameHandler.uiHandler;
 
         
-        console.log(evalObj);
-        console.log(evalObj.winners);
-        console.log(evalObj.winners.length);
-        
         if(evalObj.winners.length == 0){
             
             let $stalemateOutput;

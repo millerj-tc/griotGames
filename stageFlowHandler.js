@@ -33,6 +33,7 @@ class stagePhase
         this.stage = this.stageFlowHandler.stage;
         this.uiHandler = this.stage.uiHandler;
         this._Run = func;
+        this.funcName = func.name;
         this.previousPhase;
         this.nextPhase;
         this.evalStates = [];
@@ -184,5 +185,26 @@ export class stageFlowHandler
         const $evalObj = new evaluation(this);
         
         this.currentPhase.StartRun($evalObj);
+    }
+    
+    _CheckForDupePhases(){
+        
+        const $testArr = [...this.phases];
+        
+        for(const phase of this.phases){
+            
+            for(const otherPhase of $testArr){
+                
+                if(phase.funcName == otherPhase.funcName) console.warn(this.stage.id = " has a duplicately named phase function!")
+            }
+        }
+    }
+    
+    RunPhaseByFuncName(evalObj,funcName){
+        
+        for(const phase of this.phases){
+            
+            if(phase.funcName == funcName) phase.StartRun(evalObj)
+        }
     }
 }

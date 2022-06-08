@@ -409,7 +409,7 @@ export class cloneCrisisStage extends stage
             
 
             
-            this._GreatestUnmatchedPowerCapturesLowestToughness(evalObj);
+            this.stageFlowHandler.RunPhaseByFuncName(evalObj,"_GreatestUnmatchedPowerCapturesLowestToughness");
         }
         
     }
