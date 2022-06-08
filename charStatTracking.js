@@ -59,8 +59,6 @@ class charStatsHolder
         
         for(const scenarioChar of scenario.savedLocCharSlots){
             
-            console.log(scenarioChar);
-            
             if(this.charName == scenarioChar.characterName) match.xp = scenarioChar.xp
         }
     }

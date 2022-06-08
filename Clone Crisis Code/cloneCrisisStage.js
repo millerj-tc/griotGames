@@ -379,7 +379,7 @@ export class cloneCrisisStage extends stage
     
     _GreatestUnmatchedPowerCapturesLowestToughness(evalObj){
         
-        if(evalObj.removedChar != null || evalObj.winners.length > 0 || evalObj.greatestPowerCharacterEnemyArr.length < 1) return
+        if(evalObj.greatestPowerCharacter == null || evalObj.removedChar != null || evalObj.winners.length > 0 || evalObj.greatestPowerCharacterEnemyArr.length < 1) return
         
         const $enemyArr = evalObj.greatestPowerCharacterEnemyArr;
         
@@ -411,7 +411,7 @@ export class cloneCrisisStage extends stage
            
             evalObj.SkipPhaseForChar("_GetGreatestUnmatchedPowerCharEnemies",evalObj.removedChar);
             
-            evalObj.SkipPhaseForChar("_AloneCharPowerTrumps",evalObj.removedChar);
+            //evalObj.SkipPhaseForChar("_AloneCharPowerTrumps",evalObj.removedChar);
             
              evalObj.SkipPhaseForChar("_GetGreatestUnmatchedPowerChar",evalObj.winCredit);
             this.stage.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(evalObj.removedChar,"any","S") + " is immune to the energy attack from " + GetStringOfCharsFromArray(evalObj.winCredit,"any","S") + "!");
@@ -463,6 +463,30 @@ export class cloneCrisisStage extends stage
                 evalObj.winCreditOutput = $bigStrongEnemies;
                 this.stage.location.RemoveCharDuringRun(aloneChar);
             }
+        }
+    }
+    
+    _DupedCharLosesToNumbers(evalObj){ // -- THIS MAY FAIL IF SOMEHOW YOU CAN GET MULTIPLE CHARACTERS ALONE
+        
+        let $aloneChars = [];
+        
+        for(const char of evalObj.pool){
+            
+            if(this._CharLastTeammateAtLoc(char)) $aloneChars.push(char);
+        }
+        
+        if($aloneChars.length < 1) return
+        
+        let $aloneCharEnemiesArr = this.stage.location.GetCharsHere("any",$aloneChars[0].GetEnemyAlignment());
+        
+        //$aloneCharEnemiesArr = $aloneCharEnemiesArr.filter(c => c.name != $aloneChars[0].name);
+        
+        if($aloneCharEnemiesArr.filter(c => c.name != $aloneChars[0].name).length > 1){
+            
+            evalObj.removedChar = $aloneChars[0];
+            evalObj.winCredit = $aloneCharEnemiesArr[0];
+            evalObj.winCreditOutput = $aloneCharEnemiesArr;
+            this.stage.location.RemoveCharDuringRun($aloneChars[0]);
         }
     }
     

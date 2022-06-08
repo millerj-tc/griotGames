@@ -48,12 +48,12 @@ class stagePhase
     
     StartRun(evalObj){
         
+        if(this.stage.stageHandler.scenario.scenarioOver) return
+        
         if(evalObj == undefined) console.warn(this.stageFlowHandler.stage.id + " " + this.previousPhase.id + " failed to pass me a legit evalObj " + "(I'm " + this.stageFlowHandler.stage.id + " " + this.id + ")")
         if(this._Run == undefined) console.warn("I don't have _Run() defined!!  " + "(I'm " + this.stageFlowHandler.stage.id + " " + this.id + ")")
         
         this.endRun = true;
-        
-        console.log(this.id + " " + this.funcName + " is spinning up");
         
         const $scenario = this.stageFlowHandler.stage.stageHandler.scenario;
         
@@ -71,11 +71,7 @@ class stagePhase
         const $stage = this.stageFlowHandler.stage;
         
         this._RestorePhaseSkippingCharsToEvalObjPool(evalObj);
-    
-        if(evalObj.removedChar != null && evalObj.removedChar.hasOwnProperty("name"))
-        {
-        console.log("removed char at " + this.id + " " + this.funcName + " is " + evalObj.removedChar.name);
-        }
+
         this.RecordEvalState(evalObj,"postRun");
         
         if(!this.endRun) return

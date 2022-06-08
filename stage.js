@@ -144,6 +144,8 @@ export class stage
     
     _AutoSortWinnersAndLosers(evalObj){
         
+        console.log(evalObj.removedChar);
+        
         if(this._ReturnArrWithTeamDupedCharsRemoved(evalObj.pool).length == 0) evalObj.stalemate = true
         
         if(evalObj.stalemate) {return}

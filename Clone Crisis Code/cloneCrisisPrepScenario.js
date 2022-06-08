@@ -267,6 +267,8 @@ function GetScenarioStage3(stageHandler,id){
 
     $sfw.AddPhase($stage._AloneCharPowerTrumps);
     
+    $sfw.AddPhase($stage._DupedCharLosesToNumbers);
+    
     $sfw.AddPhase($stage._GetGreatestUnmatchedPowerChar);
     
     $sfw.AddPhase($stage._GetGreatestUnmatchedPowerCharEnemies);
