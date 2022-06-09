@@ -1,18 +1,46 @@
 import {statsTracker} from "./charStatTracking.js";
 
-//Bishop: 0.4090909090909091
-//charStatTracking.js:166 Cyclops: 0.5584415584415584
-//charStatTracking.js:166 Colossus: 0.6153846153846154
-//charStatTracking.js:166 Daredevil: 0.4158415841584158
-//charStatTracking.js:166 Ghostrider: 0.4868421052631579
-//charStatTracking.js:166 Okoye: 0.41935483870967744
-//charStatTracking.js:166 Wolverine: 0.5523809523809524
-//charStatTracking.js:166 Psylocke: 0.41304347826086957
-//charStatTracking.js:166 Beast: 0.6
-//charStatTracking.js:166 Black Panther: 0.5925925925925926
-//charStatTracking.js:166 Punisher: 0.4090909090909091
-//charStatTracking.js:166 Jessica Jones: 0.5471698113207547
+//one nimble dodge
+//Bishop: 0.40625
+//charStatTracking.js:166 Cyclops: 0.48717948717948717
+//charStatTracking.js:166 Colossus: 0.5866666666666667
+//charStatTracking.js:166 Daredevil: 0.4444444444444444
+//charStatTracking.js:166 Ghostrider: 0.43243243243243246
+//charStatTracking.js:166 Okoye: 0.36507936507936506
+//charStatTracking.js:166 Wolverine: 0.5294117647058824
+//charStatTracking.js:166 Beast: 0.6710526315789473
+//charStatTracking.js:166 Psylocke: 0.4772727272727273
+//charStatTracking.js:166 Black Panther: 0.7884615384615384
+//charStatTracking.js:166 Punisher: 0.4262295081967213
+//charStatTracking.js:166 Jessica Jones: 0.3958333333333333
 
+// two nimble dodges
+//Bishop: 0.375
+//charStatTracking.js:166 Beast: 0.631578947368421
+//charStatTracking.js:166 Colossus: 0.5833333333333334
+//charStatTracking.js:166 Cyclops: 0.48
+//charStatTracking.js:166 Okoye: 0.3793103448275862
+//charStatTracking.js:166 Daredevil: 0.4329896907216495
+//charStatTracking.js:166 Wolverine: 0.5612244897959183
+//charStatTracking.js:166 Psylocke: 0.45977011494252873
+//charStatTracking.js:166 Black Panther: 0.7692307692307693
+//charStatTracking.js:166 Punisher: 0.4426229508196721
+//charStatTracking.js:166 Jessica Jones: 0.4
+//charStatTracking.js:166 Ghostrider: 0.4857142857142857
+
+// three nimble dodges
+//Bishop: 0.375
+//charStatTracking.js:166 Beast: 0.6266666666666667
+//charStatTracking.js:166 Colossus: 0.5833333333333334
+//charStatTracking.js:166 Cyclops: 0.4864864864864865
+//charStatTracking.js:166 Okoye: 0.38596491228070173
+//charStatTracking.js:166 Daredevil: 0.43157894736842106
+//charStatTracking.js:166 Wolverine: 0.5625
+//charStatTracking.js:166 Psylocke: 0.45977011494252873
+//charStatTracking.js:166 Black Panther: 0.7692307692307693
+//charStatTracking.js:166 Punisher: 0.43333333333333335
+//charStatTracking.js:166 Jessica Jones: 0.4
+//charStatTracking.js:166 Ghostrider: 0.4852941176470588
 
 export function RunTournament()
 {
@@ -80,6 +108,10 @@ export function RunTournament()
         
         {rosterName: "Charm School", winCount:0, scen0: {location: ["Wolverine", "Cyclops", "Bishop"]},scen1: {location: ["Wolverine", "Cyclops", "Bishop"]},scen2: {location: ["Wolverine", "Cyclops", "Bishop"]},scen3: {location: ["Black Panther", "Cyclops", "Daredevil", "Colossus", "Beast"]}},
         
+        {rosterName: "New Powers", winCount:0, scen0: {location: ["Wolverine", "Cyclops", "Bishop"]},scen1: {location: ["Wolverine", "Cyclops", "Bishop"]},scen2: {location: ["Wolverine", "Cyclops", "Bishop"]},scen3: {location: ["Ghostrider", "Bishop", "Cyclops", "Daredevil", "Punisher"]}},
+        
+        {rosterName: "GhostFlex", winCount:0, scen0: {location: ["Wolverine", "Cyclops", "Bishop"]},scen1: {location: ["Wolverine", "Cyclops", "Bishop"]},scen2: {location: ["Wolverine", "Cyclops", "Bishop"]},scen3: {location: ["Beast", "Black Panther", "Colossus", "Ghostrider", "Wolverine"]}},
+        
     ]
     
     const $statsTracker = new statsTracker();
@@ -88,7 +120,7 @@ export function RunTournament()
     
     for(const entry of $entries){
         
-        console.log("===== evaluating " + entry.rosterName.toUpperCase() + " =====");
+        console.log("=============== evaluating " + entry.rosterName.toUpperCase() + " ===============");
         
         let $competitionArr = $entries.filter(e => e != entry);
         

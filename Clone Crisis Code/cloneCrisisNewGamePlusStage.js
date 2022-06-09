@@ -109,7 +109,7 @@ export class cloneCrisisNewGamePlusStage extends cloneCrisisStage
             
             if(evalObj.undecidedChars.includes(char)) continue
             
-            if(char.nimblyDodged) continue
+            if(char.nimblyDodged > 1) continue
             
             const $filterBaitedChars = evalObj.pool.filter(c => c.baited != true);
             
@@ -117,7 +117,9 @@ export class cloneCrisisNewGamePlusStage extends cloneCrisisStage
     
             if($baitTarget == null) continue
             
-            char.nimblyDodged = true;
+            if(char.nimblyDodged == undefined) char.nimblyDodged = 1;
+            
+            else char.nimblyDodged++;
             
             $baitTarget.baited = true;
             
