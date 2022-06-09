@@ -595,4 +595,4 @@ export class cloneCrisisStage extends stage
             if(this._CharHasAcrossTeamsDupeMatch(char,evalObj) && $ogCharObj.unlocked.length == 0) evalObj.specialOutputGroup0 = evalObj.specialOutputGroup0.filter(c => c != char)
         }
     }
-}
+    }

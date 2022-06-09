@@ -64,7 +64,9 @@ export class cloneCrisisNewGamePlusStage extends cloneCrisisStage
         const $s = this.stage;
         
         
-        for(const ghostR of this.stage.location.GetCharsHere("Ghostrider","any")){
+        for(const ghostR of evalObj.pool){
+            
+            if(ghostR.name != "Ghostrider") continue
             
             let $affectedChars = [];
             
@@ -84,6 +86,8 @@ export class cloneCrisisNewGamePlusStage extends cloneCrisisStage
                     evalObj.SkipPhaseForChar("_GetGreatestUnmatchedPowerChar",target);
                     
                     evalObj.SkipPhaseForChar("_HighestSpeedDebuffsGreatestPower",target);
+                    
+                    evalObj.SkipPhaseForChar("_NimbleDodge",target);
                 }
                 
                 const $ghostROp = GetStringOfCharsFromArray(ghostR,"any","S");
@@ -91,6 +95,39 @@ export class cloneCrisisNewGamePlusStage extends cloneCrisisStage
                 const $targetsOp = GetStringOfCharsFromArray($affectedChars,"any","S");
                 
                 $s.uiHandler.NewStageOutputDiv("<i>" + $ghostROp + `</i>: "LOOK INTO MY EYES MORTALS! SEE YOUR SINS!! I'M GHOSTRIDER!!!" ` + $targetsOp + " can't look away! The Penance Stare burns!");
+            }
+        }
+    }
+    
+    _NimbleDodge(evalObj){
+        
+        const $s = this.stage;
+        
+        for(const char of evalObj.pool){
+            
+            if(char.name != "Okoye" && char.name != "Punisher" && char.name != "Daredevil" && char.name != "Bishop") continue
+            
+            if(evalObj.undecidedChars.includes(char)) continue
+            
+            if(char.nimblyDodged) continue
+            
+            char.nimblyDodged = true;
+            
+            const $baitTarget = evalObj.pool.filter(c => c.alignment != char.alignment).sort(function(a,b){return b.power - a.power})[0];
+            
+            if($baitTarget != null){
+                
+                evalObj.SkipPhaseForChar("_GetHighestSpeedChar",$baitTarget);
+                
+                evalObj.SkipPhaseForChar("_GetGreatestUnmatchedPowerChar",$baitTarget);
+                
+                evalObj.SkipPhaseForChar("_HighestSpeedDebuffsGreatestPower",$baitTarget);
+             
+                const $charOp = GetStringOfCharsFromArray(char,"any","S");
+                
+                const $baitTargetOp = GetStringOfCharsFromArray($baitTarget,"any","S");
+                
+                $s.uiHandler.NewStageOutputDiv($charOp + " baits in " + $baitTargetOp + " and then tumbles away!");
             }
         }
     }
