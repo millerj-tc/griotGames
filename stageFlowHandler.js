@@ -9,6 +9,8 @@ class evalState
         
         this.evalState = {};
         
+        this.pool = [...evalObj.pool];
+        
         for(const prop in evalObj){
             
             if(typeof prop == "function") continue
@@ -41,6 +43,8 @@ class stagePhase
         this.currentEvalState;
         this.iterationCount = 0;
         this.endRun = true;
+        
+        this.skipPhaseChars = [];
         
         if(this.id != null) this.id = id
         else this.id = String(this.stageFlowHandler.stage.id + "Step" + this.stageFlowHandler.phases.length);
@@ -76,7 +80,8 @@ class stagePhase
 
         this.RecordEvalState(evalObj,"postRun");
         
-        //console.log("exiting phase " + this.funcName + " with winCredit going to " + evalObj.winCredit);
+        console.log("exiting phase " + this.id + " " + this.funcName + " with evalPool");
+        console.log(this.evalStates[this.evalStates.length - 1]);
         
         if(!this.endRun) return
         
@@ -87,17 +92,16 @@ class stagePhase
     
     _ModifyEvalObjPoolForSkippedPhases(evalObj){
         
-        evalObj.prePhaseSkipModPool = undefined;
+        this.skipPhaseChars = [];
         
         if(evalObj == null || !evalObj.hasOwnProperty("pool") || evalObj.pool.length < 1) return
-        
-        evalObj.prePhaseSkipModPool = evalObj.pool;
         
         let $resultPool = [];
         
         for(const char of evalObj.pool){
             
             if(!char.skipPhases.includes(this.funcName)) $resultPool.push(char);
+            else this.skipPhaseChars.push(char);
         }
         
         if($resultPool.length == 0) console.warn("pool is empty at " + this.id + " " + this.funcName);
@@ -108,9 +112,9 @@ class stagePhase
     
     _RestorePhaseSkippingCharsToEvalObjPool(evalObj){
         
-        if(evalObj.prePhaseSkipModPool == undefined) return
+        if(this.skipPhaseChars.length == 0) return
         
-        evalObj.pool = evalObj.prePhaseSkipModPool;
+        for(const char of this.skipPhaseChars) evalObj.pool.push(char);
     }
     
     RecordEvalState(evalObj,stepId){

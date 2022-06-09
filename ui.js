@@ -366,6 +366,7 @@ export class uiHandler
 
                     const $charObj = window.gameHandler.scenarioHandler.currentScenario.GetScenarioChar($leftSelector.value);
                     $leftSlot.UpdateChar($charObj);
+                    window.gameHandler.choiceCount++;
                 });
 
                 let $rightSelector = document.createElement("select");
@@ -394,6 +395,7 @@ export class uiHandler
 
                     const $charObj = window.gameHandler.scenarioHandler.currentScenario.GetScenarioChar($rightSelector.value);
                     $rightSlot.UpdateChar($charObj);
+                    window.gameHandler.choiceCount++;
                 });
 
 

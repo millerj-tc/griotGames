@@ -17,8 +17,8 @@ export class gameHandler
         this.scenarioHandler = new scenarioHandler(this);
         
         this.simulationCount = 0;
-        this.submissionRunsUntilOfferLink = 5;
-        this.submissionLink;
+        this.choiceCount = 0;
+        this.choiceCountUntilOfferSubmissionLink = 8;
         
         this.newGamePlus = false;
         
@@ -130,7 +130,7 @@ export class gameHandler
     
     _OfferSubmissionLinkAfterXRuns(){
         
-        if(this.simulationCount >= this.submissionRunsUntilOfferLink){
+        if(this.choiceCount >= this.choiceCountUntilOfferSubmissionLink){
             
             if(!this.newGamePlus){
                     
