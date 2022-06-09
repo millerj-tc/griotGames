@@ -3,21 +3,21 @@ import {statsTracker} from "./charStatTracking.js";
 // two nimble dodges
 
 //Joseph won 5/15 matches. WR%=0.3333333333333333
-//runTournament.js:154 Henry won 6/15 matches. WR%=0.4
-//runTournament.js:154 Jamie won 7/15 matches. WR%=0.4666666666666667
-//runTournament.js:154 Jenny won 7/15 matches. WR%=0.4666666666666667
-//runTournament.js:154 Dean won 7/15 matches. WR%=0.4666666666666667
-//runTournament.js:154 Vlad won 4/15 matches. WR%=0.26666666666666666
-//runTournament.js:154 Saucy won 13/15 matches. WR%=0.8666666666666667
-//runTournament.js:154 Tempo won 6/15 matches. WR%=0.4
-//runTournament.js:154 Flex won 14/15 matches. WR%=0.9333333333333333
-//runTournament.js:154 Smarties won 5/15 matches. WR%=0.3333333333333333
-//runTournament.js:154 Swing won 9/15 matches. WR%=0.6
-//runTournament.js:154 Apple won 4/15 matches. WR%=0.26666666666666666
-//runTournament.js:154 ZTeam won 1/15 matches. WR%=0.06666666666666667
-//runTournament.js:154 Charm School won 11/15 matches. WR%=0.7333333333333333
-//runTournament.js:154 New Powers won 1/15 matches. WR%=0.06666666666666667
-//runTournament.js:154 GhostFlex won 15/15 matches. WR%=1
+//Henry won 6/15 matches. WR%=0.4
+//Jamie won 7/15 matches. WR%=0.4666666666666667
+//Jenny won 7/15 matches. WR%=0.4666666666666667
+//Dean won 7/15 matches. WR%=0.4666666666666667
+//Vlad won 4/15 matches. WR%=0.26666666666666666
+//Saucy won 13/15 matches. WR%=0.8666666666666667
+//Tempo won 6/15 matches. WR%=0.4
+//Flex won 14/15 matches. WR%=0.9333333333333333
+//Smarties won 5/15 matches. WR%=0.3333333333333333
+//Swing won 9/15 matches. WR%=0.6
+//Apple won 4/15 matches. WR%=0.26666666666666666
+//ZTeam won 1/15 matches. WR%=0.06666666666666667
+//Charm School won 11/15 matches. WR%=0.7333333333333333
+//New Powers won 1/15 matches. WR%=0.06666666666666667
+//GhostFlex won 15/15 matches. WR%=1
 
 export function RunTournament()
 {
@@ -88,6 +88,8 @@ export function RunTournament()
         {rosterName: "New Powers", winCount:0, scen0: {location: ["Wolverine", "Cyclops", "Bishop"]},scen1: {location: ["Wolverine", "Cyclops", "Bishop"]},scen2: {location: ["Wolverine", "Cyclops", "Bishop"]},scen3: {location: ["Ghostrider", "Bishop", "Cyclops", "Daredevil", "Punisher"]}},
         
         {rosterName: "GhostFlex", winCount:0, scen0: {location: ["Wolverine", "Cyclops", "Bishop"]},scen1: {location: ["Wolverine", "Cyclops", "Bishop"]},scen2: {location: ["Wolverine", "Cyclops", "Bishop"]},scen3: {location: ["Beast", "Black Panther", "Colossus", "Ghostrider", "Wolverine"]}},
+        
+        {rosterName: "GhostdareFlex", winCount:0, scen0: {location: ["Wolverine", "Cyclops", "Bishop"]},scen1: {location: ["Wolverine", "Cyclops", "Bishop"]},scen2: {location: ["Wolverine", "Cyclops", "Bishop"]},scen3: {location: ["Beast", "Black Panther", "Colossus", "Ghostrider", "Daredevil"]}},
         
     ]
     
