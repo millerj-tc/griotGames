@@ -59,7 +59,7 @@ class stagePhase
         
         this.endRun = true;
         
-        //console.log("spinning up " + this.funcName);
+        //console.log("spinning up " + this.id + " " + this.funcName + " with NPC " + this.stage.NPC.name + " and is recruited " + this.stage.NPC.recruited);
         
         const $scenario = this.stageFlowHandler.stage.stageHandler.scenario;
         

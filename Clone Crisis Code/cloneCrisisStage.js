@@ -241,7 +241,10 @@ export class cloneCrisisStage extends stage
             
             if(this.stage.tournamentMode) console.log(this.stage.NPC.name + " recruited by " + this.stage.NPC.alignment + " team because of " + evalObj.charismaChar.name);
         }
-        else if(!this.stage.NPC.scaredByPowerCouple) this.stage.stageHandler.scenario.scenarioHandler.gameHandler.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(this.stage.NPC,"any","S") + " can't decide who to believe.");
+        else {
+            
+            this.stage.stageHandler.scenario.scenarioHandler.gameHandler.uiHandler.NewStageOutputDiv(GetStringOfCharsFromArray(this.stage.NPC,"any","S") + " can't decide who to believe.");
+        }
     }
     
     _LowestCunningConfusedUnlessAlone(evalObj){
@@ -508,8 +511,8 @@ export class cloneCrisisStage extends stage
         
         let $removeTeam = [];
         
-        if($leftTeam.length == $mirroredChars) {$removeTeam = $leftTeam;console.log("duped char loses to #s triggered")}
-        if($rightTeam.length == $mirroredChars) {$removeTeam = $rightTeam;console.log("duped char loses to #s triggered")}
+        if($leftTeam.length == $mirroredChars) $removeTeam = $leftTeam//;console.log("duped char loses to #s triggered")}
+        if($rightTeam.length == $mirroredChars) $removeTeam = $rightTeam//;console.log("duped char loses to #s triggered")}
         
 //        for(const char of $rightTeam) console.log(char.name);
         

@@ -126,10 +126,10 @@ function GetScenarioStage(stageHandler,id){
     $sfw.AddPhase($stage._NPCRecruitedByClosestCharisma);
         
     //DEPRECATED -- PSYLOCKE ALREADY OP this._BetsyAndLoganAreScary);
-    
-    $sfw.AddPhase($stage._DupedCharLosesToNumbers);
 
     $sfw.AddPhase($stage._NPCRecruitOutput);
+    
+    $sfw.AddPhase($stage._DupedCharLosesToNumbers);
 
     $sfw.AddPhase($stage._LowestCunningConfusedUnlessAlone);
 
