@@ -147,9 +147,7 @@ export class stage
         if(this._ReturnArrWithTeamDupedCharsRemoved(evalObj.pool).length == 0) evalObj.stalemate = true
         
         if(evalObj.stalemate) {return}
-
-        console.log(evalObj.winCredit);
-        console.log(evalObj);
+        
         evalObj.winners = this.stage.location.GetCharsHere("any",evalObj.winCredit.alignment,true);
         evalObj.losers = this.stage.location.GetCharsHere("any",evalObj.winCredit.GetEnemyAlignment(),true);
         

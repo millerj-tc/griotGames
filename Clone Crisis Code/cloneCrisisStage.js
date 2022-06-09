@@ -29,9 +29,6 @@ export class cloneCrisisStage extends stage
         const $leftTeam = this.stage.location.GetCharsHere("any","left");
         
         const $rightTeam = this.stage.location.GetCharsHere("any","right");
-        
-
-        
 
         
         if($leftTeam.length == 0){
@@ -39,6 +36,8 @@ export class cloneCrisisStage extends stage
             this.stage.uiHandler.NewStageOutputDiv(`<span style="font-weight:bold;color:red;font-size:calc(15px + 1.5vw)">The right team has won!</span>`);
             this.stage.stageHandler.scenario.scenarioOver = true;
             this.stage.stageHandler.scenario.SetScenarioWinningTeam("right");
+            this.stage.stageHandler.scenario.scenarioHandler.gameHandler.EndGame();
+
         }
         
         if($rightTeam.length == 0){
@@ -46,7 +45,8 @@ export class cloneCrisisStage extends stage
             this.stage.uiHandler.NewStageOutputDiv(`<span style="font-weight:bold;color:blue;font-size:calc(15px + 1.5vw)">The left team has won!</span>`);
             this.stage.stageHandler.scenario.scenarioOver = true;
             this.stage.stageHandler.scenario.SetScenarioWinningTeam("left");
-        } 
+            this.stage.stageHandler.scenario.scenarioHandler.gameHandler.EndGame();
+        }
     }
     
     _NPCOpeningLineOutput(){

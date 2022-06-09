@@ -96,20 +96,15 @@ export class gameHandler
 
             }
         });
-    }
-    
-    OfferSubmissionLinkAfterXRuns(){
         
-        if(this.simulationCount >= this.submissionRunsUntilOfferLink){
-            
-            console.log(this.scenarioHandler.currentScenario);
-            
-            if(this.scenarioHandler.currentScenario.scenarioOver){
-                    
-                this.uiHandler.NewStageOutputDiv("You may submit a roster to <a href='https://forms.gle/tHWHMmcnowk43fxS6'>this link</a> to have your solution compete with other participants " + this.submissionLink + "<br><br>After you submit, there may be an additional difficulty level of the simulation you can try to solve. However, you can only submit your roster for this difficulty level once.");
+        window.addEventListener("keydown", function(event) {
+
+            if (event.code === "KeyN"){
                 
+                RunTournament();
+
             }
-        }
+        });
     }
     
     ResetGameOnSimulationRun(){
@@ -133,6 +128,29 @@ export class gameHandler
         for(const loc of this.scenarioHandler.currentScenario.locationHandler.locations){
             
             loc.unslottedChars = [];
+        }
+    }
+    
+    EndGame(){
+        
+        this._OfferSubmissionLinkAfterXRuns();
+    }
+    
+    _OfferSubmissionLinkAfterXRuns(){
+        
+        if(this.simulationCount >= this.submissionRunsUntilOfferLink){
+            
+            if(!this.newGamePlus){
+                    
+                this.uiHandler.NewStageOutputDiv("You may submit a roster to <a href='https://forms.gle/tHWHMmcnowk43fxS6' target='_blank' rel='noopener noreferrer'>this link</a> to have your solution compete with other participants. <br><br>After you submit, there may be an additional difficulty level of the simulation you can try to solve. However, you can only submit your roster for this difficulty level once.");
+            }
+            
+            else{
+                
+                this.uiHandler.NewStageOutputDiv("You may submit a roster to <a href='' target='_blank' rel='noopener noreferrer'>this link</a> to have your solution compete with other participants.");
+            }
+                
+            
         }
     }
 }

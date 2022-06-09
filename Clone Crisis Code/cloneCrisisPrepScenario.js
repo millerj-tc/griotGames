@@ -293,8 +293,6 @@ function GetScenarioStage3(stageHandler,id){
 
     $sfw.AddPhase($stage._EndGameIfTeamAllCapturedPlus);
 
-    $sfw.AddPhase($stage.stageHandler.scenario.scenarioHandler.gameHandler.OfferSubmissionLinkAfterXRuns);
-
     $sfw.AddPhase($stage._TriggerStageFx);
 
     $sfw.AddPhase($stage._IncreaseXpForAllParticipatingChars);

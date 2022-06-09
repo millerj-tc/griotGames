@@ -55,6 +55,8 @@ class stagePhase
         
         this.endRun = true;
         
+
+        
         const $scenario = this.stageFlowHandler.stage.stageHandler.scenario;
         
         if($scenario.scenarioOver) $scenario.scenarioHandler.GotoScenario($scenario.nextScenario)
