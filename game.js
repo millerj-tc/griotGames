@@ -88,14 +88,14 @@ export class gameHandler
         
         document.getElementById("output").innerHTML = "";
         
-        window.addEventListener("keydown", function(event) {
-
-            if (event.code === "KeyT"){
-                
-                RunTournament();
-
-            }
-        });
+//        window.addEventListener("keydown", function(event) {
+//
+//            if (event.code === "KeyT"){
+//                
+//                RunTournament();
+//
+//            }
+//        });
 
     }
     
