@@ -29,7 +29,7 @@ export function AddCloneCrisisSpecificCharProps(arr){
         
         if(char.name == "Daredevil"){
             
-            char.captureText = `"My senses tell me that my decision is correct -- I did the right thing."`;
+            char.captureText = `"My senses tell me that my decision was correct -- I did the right thing."`;
         }
         
         if(char.name == "Jessica Jones"){

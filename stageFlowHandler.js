@@ -55,7 +55,7 @@ class stagePhase
         
         this.endRun = true;
         
-
+        //console.log("spinning up " + this.funcName);
         
         const $scenario = this.stageFlowHandler.stage.stageHandler.scenario;
         

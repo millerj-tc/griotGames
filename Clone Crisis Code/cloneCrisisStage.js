@@ -483,34 +483,65 @@ export class cloneCrisisStage extends stage
     
     _DupedCharLosesToNumbers(evalObj){ // -- THIS MAY FAIL IF SOMEHOW YOU CAN GET MULTIPLE CHARACTERS ALONE
         
-        let $aloneChars = [];
+        let $leftTeam = this.stage.location.GetCharsHere("any","left",true);
         
-        for(const char of evalObj.pool){
+        let $rightTeam = this.stage.location.GetCharsHere("any","right",true);
+        
+        let $mirroredChars = 0;
+        
+        for(const char of $leftTeam){
             
-            if(this._CharLastTeammateAtLoc(char)) $aloneChars.push(char);
+            for(const otherChar of $rightTeam){
+                
+                if(char.name == otherChar.name){
+                    
+                    $mirroredChars++
+//                    console.log("matching " + char.name + " and " + otherChar.name)
+                
+                } 
+            }
         }
         
-        if($aloneChars.length < 1) return
+        let $removeTeam = [];
         
-        let $aloneCharMirror = this.stage.location.GetCharsHere($aloneChars[0].name,$aloneChars[0].GetEnemyAlignment());
+        if($leftTeam.length == $mirroredChars) $removeTeam = $leftTeam
+        if($rightTeam.length == $mirroredChars) $removeTeam = $rightTeam
         
-        let $aloneCharEnemiesArr = this.stage.location.GetCharsHere("any",$aloneChars[0].GetEnemyAlignment());
+//        for(const char of $rightTeam) console.log(char.name);
         
-        let $aloneCharNonMirrorEnemiesArr = $aloneCharEnemiesArr.filter(c => c.name != $aloneChars[0].name);
-        
-        //$aloneCharEnemiesArr = $aloneCharEnemiesArr.filter(c => c.name != $aloneChars[0].name);
-        
-        if($aloneCharMirror != null && $aloneCharNonMirrorEnemiesArr.length > 0){
+        for(const char of $removeTeam){
             
-            evalObj.removedChar = $aloneChars[0];
-            evalObj.winCredit = $aloneCharEnemiesArr[0];
-            evalObj.winCreditOutput = $aloneCharEnemiesArr;
-            this.stage.location.RemoveCharDuringRun($aloneChars[0]);
+            evalObj.removedChar = char;
+            evalObj.winCredit = this.stage.location.GetCharsHere(char.name,char.GetEnemyAlignment(),true)[0];
+            evalObj.winCreditOutput = this.stage.location.GetCharsHere("any",char.GetEnemyAlignment(),true);
+            this.stage.location.RemoveCharDuringRun(char);
             
-            console.log("_DupedCharLosesToNumbersTriggered");
+//            console.log("_DupedCharLosesToNumbersTriggered at " + this.stage.location.id + " " + this.id + " for " + char.name);
+//            console.log("left team length: " + $leftTeam.length);
+//            console.log("right team length: " + $rightTeam.length);
+//            console.log(evalObj.winCredit);
         
             this.stageFlowHandler.SkipToPhaseByFuncName(evalObj,"_GreatestPowerCaptureOutput");
+            
+            break
         }
+        
+//        let $aloneChars = [];
+//        
+//        for(const char of evalObj.pool){
+//            
+//            if(this._CharLastTeammateAtLoc(char)) $aloneChars.push(char);
+//        }
+//        
+//        if($aloneChars.length < 1) return
+//        
+//        let $aloneCharMirror = this.stage.location.GetCharsHere($aloneChars[0].name,$aloneChars[0].GetEnemyAlignment());
+//        
+//        let $aloneCharEnemiesArr = this.stage.location.GetCharsHere("any",$aloneChars[0].GetEnemyAlignment());
+//        
+//        let $aloneCharNonMirrorEnemiesArr = $aloneCharEnemiesArr.filter(c => c.name != $aloneChars[0].name);
+        
+        //$aloneCharEnemiesArr = $aloneCharEnemiesArr.filter(c => c.name != $aloneChars[0].name);
     }
     
     _GreatestPowerCaptureOutput(evalObj){

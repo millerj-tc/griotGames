@@ -204,6 +204,8 @@ export class uiHandler
             gap: 5px;
             padding: 5px;`;
         
+        this.locationTable.classList.add("rosterBackground");
+        
         let $gridTemplateColumns = "auto";
         
         if($SH.usesLocationAssignment) $gridTemplateColumns += " auto";

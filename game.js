@@ -96,15 +96,7 @@ export class gameHandler
 
             }
         });
-        
-        window.addEventListener("keydown", function(event) {
 
-            if (event.code === "KeyN"){
-                
-                RunTournament();
-
-            }
-        });
     }
     
     ResetGameOnSimulationRun(){
@@ -147,7 +139,7 @@ export class gameHandler
             
             else{
                 
-                this.uiHandler.NewStageOutputDiv("You may submit a roster to <a href='' target='_blank' rel='noopener noreferrer'>this link</a> to have your solution compete with other participants.");
+                this.uiHandler.NewStageOutputDiv("You may submit a roster to <a href='https://forms.gle/fCJL7KMQxiYrALp46' target='_blank' rel='noopener noreferrer'>this link</a> to have your solution compete with other participants.");
             }
                 
             

@@ -4,7 +4,7 @@ export function initializeCloneCrisisEasyLocations(scenario){
     
     scenario.usesLocationAssignment = false;
     
-    const $loc = scenario.locationHandler.AddLocation("location","",3,"C8E3D4");
+    const $loc = scenario.locationHandler.AddLocation("location","",3,"#1363DF");
     $loc.displayName = "";
 }
 

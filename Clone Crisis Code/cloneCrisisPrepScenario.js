@@ -5,7 +5,7 @@ export function initializeCloneCrisisPlusLocations(scenario){
     
     scenario.usesLocationAssignment = false;
     
-    const $loc = scenario.locationHandler.AddLocation("location","",3,"C8E3D4");
+    const $loc = scenario.locationHandler.AddLocation("location","",3,"#1363DF");
     $loc.displayName = "";
 }
 
@@ -48,9 +48,7 @@ function GetScenarioPrepStage(stageHandler,id){
      $sfw.AddPhase($stage._MultipleNPCOpeningLineOutput);
 
      $sfw.AddPhase($stage._WarnIfDupeCharsOnSameTeam);
-
-     $sfw.AddPhase($stage.stageHandler.scenario.scenarioHandler.gameHandler.OfferSubmissionLinkAfterXRuns);
-
+    
      $sfw.AddPhase($stage._SetEvalPool);
 
      $sfw.AddPhase($stage._NPCRecruitedAndUnlockedWithinTwoCharisma);
@@ -75,7 +73,7 @@ export function initializeCloneCrisisPlus1Locations(scenario){
     
     scenario.usesLocationAssignment = false;
     
-    const $loc = scenario.locationHandler.AddLocation("location","",3,"C8E3D4");
+    const $loc = scenario.locationHandler.AddLocation("location","",3,"#1363DF");
     $loc.displayName = "";
 }
 
@@ -114,7 +112,7 @@ export function initializeCloneCrisisPlus2Locations(scenario){
     
     scenario.usesLocationAssignment = false;
     
-    const $loc = scenario.locationHandler.AddLocation("location","",3,"C8E3D4");
+    const $loc = scenario.locationHandler.AddLocation("location","",3,"1363DF");
     $loc.displayName = "";
 }
 
@@ -138,7 +136,7 @@ export function initializeCloneCrisisPlus2Stages(scenario)
     
     $okoyeObj.openingLine = `"My King, I am very skeptical about this conflict..."`;
     
-    $loc0.stalemateText = "The great battle commences!";
+    $loc0.stalemateText = "<br><br><b>The great battle commences</b>!";
     
     $loc0.npcs = [$bpObj,$okoyeObj];
 
@@ -153,7 +151,7 @@ export function initializeCloneCrisisPlus3Locations(scenario){
     
     scenario.usesLocationAssignment = false;
     
-    const $loc = scenario.locationHandler.AddLocation("location","",5,"C8E3D4");
+    const $loc = scenario.locationHandler.AddLocation("location","",5,"1363DF");
     $loc.displayName = "";
 }
 

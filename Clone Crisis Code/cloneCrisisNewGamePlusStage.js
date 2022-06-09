@@ -134,7 +134,7 @@ export class cloneCrisisNewGamePlusStage extends cloneCrisisStage
         
         for(const char of $lockedCharsPool){
             
-            evalObj.this.stageLoopCharismaChar = null;
+            evalObj.stageLoopCharismaChar = null;
             
             evalObj.charismaStalemateChar = null;
             
@@ -178,7 +178,7 @@ export class cloneCrisisNewGamePlusStage extends cloneCrisisStage
                     continue
                 }
             
-                evalObj.this.stageLoopCharismaChar = $mostCharming.char;
+                evalObj.stageLoopCharismaChar = $mostCharming.char;
                 
                 if($mostCharming.char.alignment == char.alignment){
                     
@@ -188,7 +188,7 @@ export class cloneCrisisNewGamePlusStage extends cloneCrisisStage
                     
                     $mirrorChar.alreadySpokenOnCharisma = true;
                 
-                    this._UnlockedCharsSideSelectOutput(evalObj);
+                    this.stage._UnlockedCharsSideSelectOutput(evalObj);
                 }
             
             }

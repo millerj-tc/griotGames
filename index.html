@@ -4,19 +4,20 @@
             import {gameHandler} from './game.js';
             window.gameHandler = new gameHandler();
         </script>
+        <link rel="stylesheet" type="text/css" href="style.css"/>
     </head>
-    <body style="font-family:sans-serif;background-color:F6EABE">
-        <div id="content" style="background-color: lightblue; position:fixed;overflow-y:hidden;transition:transform 0.75s;z-index: 100">
+    <body style="font-family:sans-serif">
+        <div id="content" style="position:fixed;overflow-y:hidden;transition:transform 0.75s;z-index: 100">
             <div style="max-width:65vw;font-size:calc(15px + 1.2vw)">
             </div>
         </div>
-        <div id="output" style="position:fixed;top:50px;left:50px;max-height:80vh;margin-right:50px;font-size:calc(15px + 1.2vw);text-align:left;padding:50px;overflow-y:auto;transition:transform 0.75s">
+        <div id="output" class="output" style="position:fixed;top:50px;left:50px;max-height:80vh;margin-right:50px;font-size:calc(15px + 1.2vw);text-align:left;padding:50px;overflow-y:auto;transition:transform 0.75s">
             
             <img src="images/marvel/frost-200.png" style="float:left;margin:25px;margin-top:0px"><i>Emma Frost:</i> "We have awoken to a strange problem, X-Team. There appear to be clones of all of us running amok. As the real X-Team, we must subdue these imposters and try to get a handle on this situation. I will be entering Cerebro in order to psychically assess the situation and will keep you posted." 
             
             <br><br><br><button style="font-size:32pt;width:200px;margin:25px" onclick="gameHandler.Start()">Start</button>
             
-                <br><br><i>This game will be open until [DATE].
+                <br><br><i>This game will be open until Sunday June 12th at 6pm CST.
                 
                 <br><br>You can also check out the <a href="https://millerj-tc.github.io/griotGames/FAQ.html" target="_blank" rel="noopener noreferrer">FAQ here</a>.
                 
