@@ -378,8 +378,6 @@ export class cloneCrisisStage extends stage
         const $greatestPowerChar = $greatestPowerEvalPool.sort(function(a, b){return b.power - a.power})[0];
         
         evalObj.greatestPowerCharacter = $greatestPowerChar;
-        
-        console.log(evalObj.greatestPowerCharacter);
     }
     
     _GetGreatestUnmatchedPowerCharEnemies(evalObj){
