@@ -111,9 +111,15 @@ export class cloneCrisisNewGamePlusStage extends cloneCrisisStage
             
             if(char.nimblyDodged) continue
             
+            const $filterBaitedChars = evalObj.pool.filter(c => c.baited != true);
+            
+            const $baitTarget = $filterBaitedChars.filter(c => c.alignment != char.alignment).sort(function(a,b){return b.power - a.power})[0];
+    
+            if($baitTarget == null) continue
+            
             char.nimblyDodged = true;
             
-            const $baitTarget = evalObj.pool.filter(c => c.alignment != char.alignment).sort(function(a,b){return b.power - a.power})[0];
+            $baitTarget.baited = true;
             
             if($baitTarget != null){
                 
@@ -154,8 +160,6 @@ export class cloneCrisisNewGamePlusStage extends cloneCrisisStage
         if(evalObj.speedDebuffedChar == null) return
         
         if(evalObj.speedDebuffedChar.rage > 0){
-            
-            evalObj.pool.push(evalObj.speedDebuffedChar);
             
             evalObj.enragedChar = evalObj.speedDebuffedChar;
             

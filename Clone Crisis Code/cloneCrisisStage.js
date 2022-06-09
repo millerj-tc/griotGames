@@ -381,7 +381,7 @@ export class cloneCrisisStage extends stage
         const $greatestPowerChar = $greatestPowerEvalPool.sort(function(a, b){return b.power - a.power})[0];
         
         evalObj.greatestPowerCharacter = $greatestPowerChar;
-    }
+     }
     
     _GetGreatestUnmatchedPowerCharEnemies(evalObj){
         
@@ -392,7 +392,7 @@ export class cloneCrisisStage extends stage
         let $enemyAlign = $greatestPowerChar.GetEnemyAlignment();
         
         let $enemyArr = evalObj.GetCharsFromPool($enemyAlign);
-        
+    
         $enemyArr = $enemyArr.filter(c => c.stageImmune == false);
         
         evalObj.greatestPowerCharacterEnemyArr = $enemyArr;

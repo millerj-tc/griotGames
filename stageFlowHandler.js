@@ -80,8 +80,11 @@ class stagePhase
 
         this.RecordEvalState(evalObj,"postRun");
         
-        //console.log("exiting phase " + this.id + " " + this.funcName + " with evalPool");
-        //console.log(this.evalStates[this.evalStates.length - 1]);
+        let $name = "";
+        
+        //if(evalObj.hasOwnProperty("greatestPowerCharacter")) $name = evalObj.greatestPowerCharacter.name;
+        
+        //console.log("exiting phase " + this.id + " " + this.funcName + " with greatestPower" + $name +  " winCredit " + evalObj.winCredit);
         
         if(!this.endRun) return
         
@@ -100,8 +103,15 @@ class stagePhase
         
         for(const char of evalObj.pool){
             
-            if(!char.skipPhases.includes(this.funcName)) $resultPool.push(char);
-            else this.skipPhaseChars.push(char);
+            if(!char.skipPhases.includes(this.funcName)){ 
+        
+                $resultPool.push(char);
+            }
+            else{
+                
+                this.skipPhaseChars.push(char);
+                char.skipPhases = char.skipPhases.filter(p => p!= this.funcName);
+            } 
         }
         
         if($resultPool.length == 0) console.warn("pool is empty at " + this.id + " " + this.funcName);
