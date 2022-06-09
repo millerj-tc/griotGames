@@ -148,8 +148,6 @@ export class stage
         
         if(evalObj.stalemate) {return}
         
-        console.log(evalObj);
-        
         evalObj.winners = this.stage.location.GetCharsHere("any",evalObj.winCredit.alignment,true);
         evalObj.losers = this.stage.location.GetCharsHere("any",evalObj.winCredit.GetEnemyAlignment(),true);
         

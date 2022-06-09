@@ -1,5 +1,19 @@
 import {statsTracker} from "./charStatTracking.js";
 
+//Bishop: 0.4090909090909091
+//charStatTracking.js:166 Cyclops: 0.5584415584415584
+//charStatTracking.js:166 Colossus: 0.6153846153846154
+//charStatTracking.js:166 Daredevil: 0.4158415841584158
+//charStatTracking.js:166 Ghostrider: 0.4868421052631579
+//charStatTracking.js:166 Okoye: 0.41935483870967744
+//charStatTracking.js:166 Wolverine: 0.5523809523809524
+//charStatTracking.js:166 Psylocke: 0.41304347826086957
+//charStatTracking.js:166 Beast: 0.6
+//charStatTracking.js:166 Black Panther: 0.5925925925925926
+//charStatTracking.js:166 Punisher: 0.4090909090909091
+//charStatTracking.js:166 Jessica Jones: 0.5471698113207547
+
+
 export function RunTournament()
 {
     const $entries = [
