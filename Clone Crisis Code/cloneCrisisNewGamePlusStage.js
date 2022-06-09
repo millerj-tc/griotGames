@@ -58,6 +58,42 @@ export class cloneCrisisNewGamePlusStage extends cloneCrisisStage
     }
     
     /// OKOYE SWITCH SIDES IF HER TEAM CAPTURE BLACK PANTHER
+    
+    _PenanceStare(evalObj){
+        
+        const $s = this.stage;
+        
+        
+        for(const ghostR of this.stage.location.GetCharsHere("Ghostrider","any")){
+            
+            let $affectedChars = [];
+            
+            for(const char of this.stage.location.GetCharsHere("any",ghostR.GetEnemyAlignment())){
+                
+                if(char.name == "Psylocke" || char.name == "Wolverine" || char.name == "Punisher") $affectedChars.push(char);
+            }
+            
+            if($affectedChars.length > 0 && ghostR.penanceStared != true && !evalObj.undecidedChars.includes(ghostR)){
+                
+                ghostR.penanceStared = true;
+                
+                for(const target of $affectedChars){
+                
+                    evalObj.SkipPhaseForChar("_GetHighestSpeedChar",target);
+                    
+                    evalObj.SkipPhaseForChar("_GetGreatestUnmatchedPowerChar",target);
+                    
+                    evalObj.SkipPhaseForChar("_HighestSpeedDebuffsGreatestPower",target);
+                }
+                
+                const $ghostROp = GetStringOfCharsFromArray(ghostR,"any","S");
+                
+                const $targetsOp = GetStringOfCharsFromArray($affectedChars,"any","S");
+                
+                $s.uiHandler.NewStageOutputDiv("<i>" + $ghostROp + `</i>: "LOOK INTO MY EYES MORTALS! SEE YOUR SINS!! I'M GHOSTRIDER!!!" ` + $targetsOp + " can't look away! The Penance Stare burns!");
+            }
+        }
+    }
         
     
     _SpeedDebuffedCharGetsEnraged(evalObj){
@@ -86,11 +122,11 @@ export class cloneCrisisNewGamePlusStage extends cloneCrisisStage
             
             evalObj.enragedChar = evalObj.speedDebuffedChar;
             
-            evalObj.pool = evalObj.pool.filter(c => c != evalObj.speediestChar);
-            
             evalObj.speedDebuffedChar.Sooth();
             
             evalObj.rageSlammedChar = evalObj.speediestChar;
+            
+            evalObj.SkipPhaseForChar("_GetGreatestUnmatchedPowerChar",evalObj.rageSlammedChar);
             
             evalObj.speediestChar = null;
             
@@ -120,6 +156,8 @@ export class cloneCrisisNewGamePlusStage extends cloneCrisisStage
         let $dupeRemovedPool = this._ReturnArrWithTeamDupedCharsRemoved(evalObj.pool);
         
         let $lockedCharsPool = [];
+        
+        evalObj.undecidedChars = [];
         
         for(const char of evalObj.pool){
             
@@ -172,7 +210,11 @@ export class cloneCrisisNewGamePlusStage extends cloneCrisisStage
                     
                         $mirrorChar.stageImmune = true;
                         
-                        //evalObj.pool = evalObj.pool.filter(c => c!= $mirrorChar);
+                        evalObj.undecidedChars.push(char);
+                        
+                        evalObj.undecidedChars.push($mirrorChar);
+                    
+                        
                     }
                             
                     continue

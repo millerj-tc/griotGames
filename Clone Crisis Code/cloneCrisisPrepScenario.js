@@ -251,6 +251,8 @@ function GetScenarioStage3(stageHandler,id){
 
     $sfw.AddPhase($stage._LowestCunningConfusedOutput);
     
+    $sfw.AddPhase($stage._PenanceStare);
+    
     $sfw.AddPhase($stage._GetHighestSpeedChar);
 
     $sfw.AddPhase($stage._HighestSpeedDebuffsGreatestPower);

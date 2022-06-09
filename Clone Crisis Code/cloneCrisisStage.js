@@ -369,11 +369,17 @@ export class cloneCrisisStage extends stage
         
         let $greatestPowerEvalPool = this._ReturnArrWithTeamDupedCharsRemoved(evalObj.pool);
         
-        if($greatestPowerEvalPool.length == 0) return
+        if($greatestPowerEvalPool.length == 0){ 
+            
+            evalObj.stalemate = true;
+            return
+        }
         
         const $greatestPowerChar = $greatestPowerEvalPool.sort(function(a, b){return b.power - a.power})[0];
         
         evalObj.greatestPowerCharacter = $greatestPowerChar;
+        
+        console.log(evalObj.greatestPowerCharacter);
     }
     
     _GetGreatestUnmatchedPowerCharEnemies(evalObj){

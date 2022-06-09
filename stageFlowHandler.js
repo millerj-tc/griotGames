@@ -76,6 +76,8 @@ class stagePhase
 
         this.RecordEvalState(evalObj,"postRun");
         
+        //console.log("exiting phase " + this.funcName + " with winCredit going to " + evalObj.winCredit);
+        
         if(!this.endRun) return
         
         if(this.nextPhase != undefined) this.nextPhase.StartRun(evalObj);
