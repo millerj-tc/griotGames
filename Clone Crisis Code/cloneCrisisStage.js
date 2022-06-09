@@ -508,8 +508,8 @@ export class cloneCrisisStage extends stage
         
         let $removeTeam = [];
         
-        if($leftTeam.length == $mirroredChars) $removeTeam = $leftTeam
-        if($rightTeam.length == $mirroredChars) $removeTeam = $rightTeam
+        if($leftTeam.length == $mirroredChars) {$removeTeam = $leftTeam;console.log("duped char loses to #s triggered")}
+        if($rightTeam.length == $mirroredChars) {$removeTeam = $rightTeam;console.log("duped char loses to #s triggered")}
         
 //        for(const char of $rightTeam) console.log(char.name);
         

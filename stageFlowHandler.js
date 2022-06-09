@@ -80,8 +80,8 @@ class stagePhase
 
         this.RecordEvalState(evalObj,"postRun");
         
-        console.log("exiting phase " + this.id + " " + this.funcName + " with evalPool");
-        console.log(this.evalStates[this.evalStates.length - 1]);
+        //console.log("exiting phase " + this.id + " " + this.funcName + " with evalPool");
+        //console.log(this.evalStates[this.evalStates.length - 1]);
         
         if(!this.endRun) return
         
