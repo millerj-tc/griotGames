@@ -1,46 +1,23 @@
 import {statsTracker} from "./charStatTracking.js";
 
-//one nimble dodge
-//Bishop: 0.40625
-//charStatTracking.js:166 Cyclops: 0.48717948717948717
-//charStatTracking.js:166 Colossus: 0.5866666666666667
-//charStatTracking.js:166 Daredevil: 0.4444444444444444
-//charStatTracking.js:166 Ghostrider: 0.43243243243243246
-//charStatTracking.js:166 Okoye: 0.36507936507936506
-//charStatTracking.js:166 Wolverine: 0.5294117647058824
-//charStatTracking.js:166 Beast: 0.6710526315789473
-//charStatTracking.js:166 Psylocke: 0.4772727272727273
-//charStatTracking.js:166 Black Panther: 0.7884615384615384
-//charStatTracking.js:166 Punisher: 0.4262295081967213
-//charStatTracking.js:166 Jessica Jones: 0.3958333333333333
-
 // two nimble dodges
-//Bishop: 0.375
-//charStatTracking.js:166 Beast: 0.631578947368421
-//charStatTracking.js:166 Colossus: 0.5833333333333334
-//charStatTracking.js:166 Cyclops: 0.48
-//charStatTracking.js:166 Okoye: 0.3793103448275862
-//charStatTracking.js:166 Daredevil: 0.4329896907216495
-//charStatTracking.js:166 Wolverine: 0.5612244897959183
-//charStatTracking.js:166 Psylocke: 0.45977011494252873
-//charStatTracking.js:166 Black Panther: 0.7692307692307693
-//charStatTracking.js:166 Punisher: 0.4426229508196721
-//charStatTracking.js:166 Jessica Jones: 0.4
-//charStatTracking.js:166 Ghostrider: 0.4857142857142857
 
-// three nimble dodges
-//Bishop: 0.375
-//charStatTracking.js:166 Beast: 0.6266666666666667
-//charStatTracking.js:166 Colossus: 0.5833333333333334
-//charStatTracking.js:166 Cyclops: 0.4864864864864865
-//charStatTracking.js:166 Okoye: 0.38596491228070173
-//charStatTracking.js:166 Daredevil: 0.43157894736842106
-//charStatTracking.js:166 Wolverine: 0.5625
-//charStatTracking.js:166 Psylocke: 0.45977011494252873
-//charStatTracking.js:166 Black Panther: 0.7692307692307693
-//charStatTracking.js:166 Punisher: 0.43333333333333335
-//charStatTracking.js:166 Jessica Jones: 0.4
-//charStatTracking.js:166 Ghostrider: 0.4852941176470588
+//Joseph won 5/15 matches. WR%=0.3333333333333333
+//runTournament.js:154 Henry won 6/15 matches. WR%=0.4
+//runTournament.js:154 Jamie won 7/15 matches. WR%=0.4666666666666667
+//runTournament.js:154 Jenny won 7/15 matches. WR%=0.4666666666666667
+//runTournament.js:154 Dean won 7/15 matches. WR%=0.4666666666666667
+//runTournament.js:154 Vlad won 4/15 matches. WR%=0.26666666666666666
+//runTournament.js:154 Saucy won 13/15 matches. WR%=0.8666666666666667
+//runTournament.js:154 Tempo won 6/15 matches. WR%=0.4
+//runTournament.js:154 Flex won 14/15 matches. WR%=0.9333333333333333
+//runTournament.js:154 Smarties won 5/15 matches. WR%=0.3333333333333333
+//runTournament.js:154 Swing won 9/15 matches. WR%=0.6
+//runTournament.js:154 Apple won 4/15 matches. WR%=0.26666666666666666
+//runTournament.js:154 ZTeam won 1/15 matches. WR%=0.06666666666666667
+//runTournament.js:154 Charm School won 11/15 matches. WR%=0.7333333333333333
+//runTournament.js:154 New Powers won 1/15 matches. WR%=0.06666666666666667
+//runTournament.js:154 GhostFlex won 15/15 matches. WR%=1
 
 export function RunTournament()
 {
