@@ -1,23 +1,47 @@
 import {statsTracker} from "./charStatTracking.js";
 
-// two nimble dodges
+// ["Beast", "Colossus", "Psylocke"] won 12/15 matches. WR%=0.8
 
-//Joseph won 5/15 matches. WR%=0.3333333333333333
-//Henry won 6/15 matches. WR%=0.4
-//Jamie won 7/15 matches. WR%=0.4666666666666667
-//Jenny won 7/15 matches. WR%=0.4666666666666667
-//Dean won 7/15 matches. WR%=0.4666666666666667
-//Vlad won 4/15 matches. WR%=0.26666666666666666
-//Saucy won 13/15 matches. WR%=0.8666666666666667
-//Tempo won 6/15 matches. WR%=0.4
-//Flex won 14/15 matches. WR%=0.9333333333333333
-//Smarties won 5/15 matches. WR%=0.3333333333333333
-//Swing won 9/15 matches. WR%=0.6
-//Apple won 4/15 matches. WR%=0.26666666666666666
-//ZTeam won 1/15 matches. WR%=0.06666666666666667
-//Charm School won 11/15 matches. WR%=0.7333333333333333
-//New Powers won 1/15 matches. WR%=0.06666666666666667
-//GhostFlex won 15/15 matches. WR%=1
+// ["Beast","Bishop", "Wolverine"] won 11/15 matches. WR%=0.7333333333333333
+
+// ["Cyclops", "Psylocke", "Wolverine"] won 10/15 matches. WR%=0.6666666666666666
+// ["Beast", "Psylocke", "Wolverine"] won 10/15 matches. WR%=0.6666666666666666
+// Jamie won 10/15 matches. WR%=0.6666666666666666
+
+// Erik won 9/15 matches. WR%=0.6
+// Tyler won 9/15 matches. WR%=0.6
+
+//Red XIII won 8/15 matches. WR%=0.5333333333333333
+// Cloud won 8/15 matches. WR%=0.5333333333333333
+// Brett won 8/15 matches. WR%=0.5333333333333333
+
+// Yuna won 7/15 matches. WR%=0.4666666666666667
+// Lightning won 5/15 matches. WR%=0.3333333333333333
+// Tidus won 5/15 matches. WR%=0.3333333333333333
+
+//Joseph won 4/15 matches. WR%=0.26666666666666666
+// Jenny won 3/15 matches. WR%=0.2
+// Sora won 2/15 matches. WR%=0.13333333333333333
+
+// two nimble dodges NEW GAME +
+
+// GhostFlex won 15/15 matches. WR%=1
+// Flex won 14/15 matches. WR%=0.9333333333333333
+// Saucy won 13/15 matches. WR%=0.8666666666666667
+// Charm School won 11/15 matches. WR%=0.7333333333333333
+// Swing won 9/15 matches. WR%=0.6
+// Jamie won 7/15 matches. WR%=0.4666666666666667
+// Jenny won 7/15 matches. WR%=0.4666666666666667
+// Dean won 7/15 matches. WR%=0.4666666666666667
+// Henry won 6/15 matches. WR%=0.4
+// Tempo won 6/15 matches. WR%=0.4
+// Smarties won 5/15 matches. WR%=0.3333333333333333
+// Joseph won 5/15 matches. WR%=0.3333333333333333
+// Apple won 4/15 matches. WR%=0.26666666666666666
+// Vlad won 4/15 matches. WR%=0.26666666666666666
+// ZTeam won 1/15 matches. WR%=0.06666666666666667
+// New Powers won 1/15 matches. WR%=0.06666666666666667
+
 
 export function RunTournament()
 {
@@ -90,6 +114,10 @@ export function RunTournament()
         {rosterName: "GhostFlex", winCount:0, scen0: {location: ["Wolverine", "Cyclops", "Bishop"]},scen1: {location: ["Wolverine", "Cyclops", "Bishop"]},scen2: {location: ["Wolverine", "Cyclops", "Bishop"]},scen3: {location: ["Beast", "Black Panther", "Colossus", "Ghostrider", "Wolverine"]}},
         
         {rosterName: "GhostdareFlex", winCount:0, scen0: {location: ["Wolverine", "Cyclops", "Bishop"]},scen1: {location: ["Wolverine", "Cyclops", "Bishop"]},scen2: {location: ["Wolverine", "Cyclops", "Bishop"]},scen3: {location: ["Beast", "Black Panther", "Colossus", "Ghostrider", "Daredevil"]}},
+        
+        {rosterName:"Ananda Guneratne", winCount:0,scen0:{location:[		'Cyclops',	'Psylocke',	'Wolverine'	]}, scen1: {location:[	'Cyclops',	'Psylocke',	'Wolverine'	]}, scen2: {location:[	'Cyclops',	'Psylocke',	'Wolverine'	]}, scen3: {location:[	'Beast',	'Daredevil',	'Jessica Jones',	'Ghostrider',	'Okoye'	]}},
+        
+        
         
     ]
     
