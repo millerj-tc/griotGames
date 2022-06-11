@@ -24,5 +24,48 @@
                 <br><br>This is optimized for Google Chrome on desktop. It works on my mobile browser, but I will have to keep working on it for more wide support.</i> 
 
         </div>
+        <script type="module">
+
+  // Import the functions you need from the SDKs you need
+
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.3/firebase-app.js";
+
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.8.3/firebase-analytics.js";
+
+  // TODO: Add SDKs for Firebase products that you want to use
+
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+
+  // Your web app's Firebase configuration
+
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+
+  const firebaseConfig = {
+
+    apiKey: "AIzaSyBvjgVPY_ZOM0hoEYc4ewSXFIdw17cFZCE",
+
+    authDomain: "griot-games.firebaseapp.com",
+
+    projectId: "griot-games",
+
+    storageBucket: "griot-games.appspot.com",
+
+    messagingSenderId: "225872980699",
+
+    appId: "1:225872980699:web:5a2f4ee4f30bcde76cbafe",
+
+    measurementId: "G-KZQ8J7P5E4"
+
+  };
+
+
+  // Initialize Firebase
+
+  const app = initializeApp(firebaseConfig);
+
+  const analytics = getAnalytics(app);
+
+</script>
     </body>
 </HTML>
