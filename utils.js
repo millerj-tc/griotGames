@@ -6,10 +6,8 @@ export function GetStringOfCharsFromArray(array,alignment = "any",getPics="",dis
     
         let $debug = false;
     
-        if($passedArray.hasOwnProperty("dataType") && $passedArray.dataType == "char") $passedArray = [$passedArray];
-    
-        //if($passedArray.length > 1) $debug = true;
-    
+        if($passedArray.hasOwnProperty("data") && $passedArray.data.hasOwnProperty("dataType") && $passedArray..data.dataType == "char") $passedArray = [$passedArray];
+        
         if($debug) console.log($passedArray);
         
         for(const char of $passedArray){
@@ -17,7 +15,7 @@ export function GetStringOfCharsFromArray(array,alignment = "any",getPics="",dis
             let $pushedString;
             
             const $thumbImg = document.createElement("img");
-            $thumbImg.src = char["image" + getPics];
+            $thumbImg.src = char.GetImage(getPics);
             
             let $leftBar = document.createElement("img");
             if(char.alignment == "left") $leftBar.src = "images/leftBar" + getPics + ".png";
@@ -29,9 +27,9 @@ export function GetStringOfCharsFromArray(array,alignment = "any",getPics="",dis
             
             //
             
-            if(getPics != "" && displayInline) $pushedString = `<span style="display:inline-block">` + $leftBar.outerHTML + $thumbImg.outerHTML + $rightBar.outerHTML + " " + char.name + `</span>`;
-            else if(getPics != "" && !displayInline)  $pushedString = $leftBar.outerHTML + $thumbImg.outerHTML + $rightBar.outerHTML + " " + char.name;
-            else $pushedString = char.name
+            if(getPics != "" && displayInline) $pushedString = `<span style="display:inline-block">` + $leftBar.outerHTML + $thumbImg.outerHTML + $rightBar.outerHTML + " " + char.GetName() + `</span>`;
+            else if(getPics != "" && !displayInline)  $pushedString = $leftBar.outerHTML + $thumbImg.outerHTML + $rightBar.outerHTML + " " + char.GetName();
+            else $pushedString = char.GetName()
             
             if(alignment == "any") $nameArr.push($pushedString) 
             else if(char.alignment == alignment) $nameArr.push($pushedString) 
@@ -52,9 +50,7 @@ export function GetStringOfCharsFromArray(array,alignment = "any",getPics="",dis
             else if($nameArr.length == 2) $returnString += $nameArr[i]
             else $returnString += $nameArr[i] + ",";
         }
-    
-        //$returnString = `<span style="display:inline-block">` + $returnString + `</span>`
-        
+            
         return $returnString
     }
 

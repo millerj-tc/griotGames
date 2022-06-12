@@ -1,5 +1,5 @@
 import {scenario} from "./scenario.js";
-import {charHandler} from "./character.js";
+import {character} from "./character.js";
 
 export class scenarioHandler
 {
@@ -69,7 +69,13 @@ export class scenarioHandler
             
             if(obj.dataType != "char") continue
             
-            this.gameCharInstances.push({...obj});
+            const $char = new character(this);
+            
+            $char.data = obj;
+            
+            $char.AddGenericProperties();
+            
+            this.gameCharInstances.push($char);
         }
         
         this.charHandler.AddGenericPropertiesToCharacters(this.gameCharInstances);

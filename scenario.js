@@ -1,6 +1,5 @@
 import {locationHandler} from "./location.js";
 import {stageHandler} from "./stageHandler.js";
-import {charHandler} from "./character.js";
 import {GetStringOfCharsFromArray,ReplaceWordsBasedOnPluralSubjects} from "./utils.js";
 
 
@@ -232,7 +231,6 @@ export class scenario
         this.uiHandler = this.scenarioHandler.gameHandler.uiHandler;
         this.locationHandler = new locationHandler(this);
         this.stageHandler = new stageHandler(this);
-        //this.charHandler = new charHandler(this);
         this.leftTeamHope = 0;
         this.rightTeamHope = 0;
         
