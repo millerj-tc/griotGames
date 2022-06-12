@@ -9,21 +9,9 @@ class evalState
         
         this.evalState = {};
         
-        this.pool = [...evalObj.pool];
+        this.dataPool = [];
         
-        for(const prop in evalObj){
-            
-            if(typeof prop == "function") continue
-            
-            try {this.evalState[prop.key] = prop.value}
-            catch(err) {
-                if(err.message.includes("circular structure")){continue}
-                else{
-                    console.warn("non-circular error while copying evalObj into evalState at " + this.stagePhase.id);
-                    console.warn(err.message);
-                }
-            }
-        }
+        for(const char in evalObj.pool) this.dataPool.push(char.data)
     }
 }
 
@@ -202,6 +190,17 @@ class stagePhase
         if(!this.stage.displayWintextAfterGameover && this.stage.stageHandler.scenario.scenarioOver) return true
         
         return false
+    }
+    
+    UpdateScenarioCharsWithDataFromEvalObj(evalObj){
+        
+        for(const scenChar of this.stageFlowHandler.stage.stageHandler.scenario.scenarioCharInstances){
+            
+            for(const evalObjChar of evalObj.pool){
+                
+                if(scenChar.data.name == evalObjChar.data.name) scenChar.data = evalObjChar.data
+            }
+        }
     }
     
     
