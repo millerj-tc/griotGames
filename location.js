@@ -8,23 +8,23 @@ class charSlot
         this.alignment = alignment;
         this.imageSpanId = imageSpanId;
         this.selectId = selectId;
-        this.character;
+        this.charData;
     }
     
-    UpdateChar(character){
+    UpdateChar(charData){
         
-        this.character = {...character};
-        this.character.alignment = this.alignment;
-        this.character.location = this.location;
+        this.charData = {...charData};
+        this.charData.alignment = this.alignment;
+        this.charData.location = this.location;
         
-        if(!this._ValidateCharUnlockedForTeam(this.character,this.character.alignment)) console.error(this.character.name + " is not unlocked for " + this.character.alignment + "!!!");
+        if(!this._ValidateCharUnlockedForTeam(this.charData,this.charData.alignment)) console.error(this.charData.name + " is not unlocked for " + this.charData.alignment + "!!!");
         
         if(this.imageSpanId != undefined)                                                                                                                                              this.location.locationHandler.scenario.scenarioHandler.gameHandler.uiHandler.UpdateCharImage(this);
     }
     
-    _ValidateCharUnlockedForTeam(char,team){
+    _ValidateCharUnlockedForTeam(charData,team){
         
-        if(char.unlocked.includes(team)) return true
+        if(charData.unlocked.includes(team)) return true
         else return false
     }
 }
@@ -62,10 +62,10 @@ class location
         
         for(const slot of this.charSlots){
             
-            if(slot.character.removedDuringRun) {continue}
+            if(slot.charData.removedDuringRun) {continue}
             
-            if(name != "any" && slot.character.name != name) continue
-            if(alignment == "any" || slot.character.alignment == alignment) $returnArr.push(slot.character)
+            if(name != "any" && slot.charData.name != name) continue
+            if(alignment == "any" || slot.charData.alignment == alignment) $returnArr.push(slot.charData)
             
 
 
@@ -99,11 +99,11 @@ class location
         
         for(const slot of this.charSlots){
             
-            if(slot.character == char){
+            if(slot.charData == char){
                 
 
                 
-                slot.character.removedDuringRun = true;
+                slot.charData.removedDuringRun = true;
             }
         }
         
@@ -157,10 +157,10 @@ export class locationHandler
             
             for(const slot of loc.charSlots){
                 
-                if(slot.character.removedDuringRun) continue
+                if(slot.charData.removedDuringRun) continue
                 
-                if(team == "any") $allChars.push(slot.character);
-                else if (slot.character.alignment == team) $allChars.push(slot.character);
+                if(team == "any") $allChars.push(slot.charData);
+                else if (slot.charData.alignment == team) $allChars.push(slot.charData);
             }
         }
         
@@ -177,9 +177,9 @@ export class locationHandler
                 
                 if(slot.alignment != alignment && alignment != "any") continue
                 
-                if(slot.character == undefined) continue
+                if(slot.charData == undefined) continue
                 
-                $returnArr = $returnArr.filter(c => slot.character.name != c.name)
+                $returnArr = $returnArr.filter(c => slot.charData.name != c.name)
             }
         }
         
@@ -200,7 +200,7 @@ export class locationHandler
             
             for(const slot of loc.charSlots){
                 
-                if(slot.character != null) continue
+                if(slot.charData != null) continue
                 
                 let $chosenChar;
                 
