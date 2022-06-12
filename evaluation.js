@@ -13,12 +13,14 @@ export class evaluation
         this.prePhaseSkipModPool = undefined;
     }
     
-    GetEvalObjChar(name, alignment = "any",allowFalseReturn = false){
+    AddCharToPool(char) {this.pool.push(char.data)}
+    
+    GetEvalObjCharData(name, alignment = "any",allowFalseReturn = false){
         
-        for(const char of this.pool){
+        for(const charData of this.pool){
             
-            if(alignment == "any" && char.name == name) return char
-            else if(char.name == name && char.alignment == alignment) return char
+            if(alignment == "any" && charData.name == name) return charData
+            else if(charData.name == name && charData.alignment == alignment) return charData
         }
         
         if(allowFalseReturn) return false
@@ -41,15 +43,20 @@ export class evaluation
         else console.warn("evaluation.GetCharsFromInitialPool() is malfunctioning");
     }
     
-    SkipPhaseForChar(phaseFuncString,evalObjChar){
+    SkipPhaseForChar(phaseFuncString,charName){
         
-        if(evalObjChar.skipPhases == undefined) evalObjChar.skipPhases = [];
+        const $evalCharData = this.GetEvalObjCharData(charName);
         
-        evalObjChar.skipPhases.push(phaseFuncString);
+        if($evalCharData.skipPhases == undefined) $evalCharData.skipPhases = [];
+        
+        $evalCharData.skipPhases.push(phaseFuncString);
     }
     
-    UnskipPhaseForChar(phaseFuncString,evalObjChar){
+    UnskipPhaseForChar(phaseFuncString,charName){
         
-        evalObjChar.skipPhases = evalObjChar.skipPhases.filter(f => f != phaseFuncString);
+        const $evalCharData = this.GetEvalObjCharData(charName);
+        
+        
+        $evalCharData.skipPhases = $evalCharData.skipPhases.filter(f => f != phaseFuncString);
     }
 }
