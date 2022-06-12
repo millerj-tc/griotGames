@@ -119,7 +119,11 @@ class location
     
     AddUnslottedChar(char){
         
-        this.unslottedChars.push({...char});
+        const $char = new character(this.locationHandler.scenario.scenarioHandler);
+        
+        $char.data = char.data;
+        
+        this.unslottedChars.push($char);
     }
 }
 
@@ -164,7 +168,7 @@ export class locationHandler
                 if(slot.character.removedDuringRun) continue
                 
                 if(team == "any") $allChars.push(slot.character);
-                else if (slot.character.alignment == team) $allChars.push(slot.character);
+                else if (slot.character.data.alignment == team) $allChars.push(slot.character);
             }
         }
         
@@ -183,7 +187,7 @@ export class locationHandler
                 
                 if(slot.character == undefined) continue
                 
-                $returnArr = $returnArr.filter(c => slot.character.name != c.name)
+                $returnArr = $returnArr.filter(c => slot.character.data.name != c.data.name)
             }
         }
         
