@@ -10,6 +10,7 @@ export class character
             this.data.xp = {left:0,right:0};
             this.data.removedDuringRun = false;
             this.data.skipPhases = [];
+            this.data.immuneSys = []; //immuneSys is going to be the holder for received statusFX
     }
     
     GetName() return this.data.name

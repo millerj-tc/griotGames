@@ -147,3 +147,8 @@ let total = arr.reduce((acc, curr)=> acc + curr, 0);
 
 return Math.sqrt(total / arr.length)
 }
+
+export function GenerateUniqueId(){
+    
+    return Date.now() + Math.random();
+}
