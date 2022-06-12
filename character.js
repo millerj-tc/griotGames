@@ -14,7 +14,7 @@ export class character
             this.data.immuneSys = []; //immuneSys is going to be the holder for received statusFX
     }
     
-    GetName() {return this.data.name}
+    GetName() return this.data.name
     
     GetImage(size = "S"){
         
@@ -24,9 +24,9 @@ export class character
         else console.warn("GetImage has failed for " + this.data.name);   
     }
     
-    GetPronouns() {return this.data.pronouns}
+    GetPronouns() return this.data.pronouns
     
-    GetAlignment() {return this.alignment}
+    GetAlignment() return this.alignment
     
     GetEnemyAlignment(){
         
