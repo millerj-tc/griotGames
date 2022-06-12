@@ -1,5 +1,6 @@
 import {locationHandler} from "./location.js";
 import {stageHandler} from "./stageHandler.js";
+import {character} from "./character.js";
 import {GetStringOfCharsFromArray,ReplaceWordsBasedOnPluralSubjects} from "./utils.js";
 
 
@@ -349,8 +350,6 @@ export class scenario
         
         this.LoadScenarioChars(loadCharsFromLastScenarioRun);
         
-        this.scenarioHandler.charHandler.AddFunctionsToCharacters(this.scenarioCharInstances);
-        
     }
     
     _ResetCharacterObjectsInSlots(){
@@ -432,10 +431,14 @@ export class scenario
         
         for(const char of $sourceArr){
             
-            const $jsonData = JSON.stringify(char);
-            const $charDeepCopy = JSON.parse($jsonData);
+            const $jsonData = JSON.stringify(char.data);
+            const $charDeepCopyData = JSON.parse($jsonData);
+            
+            const $scenChar = new character(this.scenarioHandler);
+            
+            $scenChar.data = $charDeepCopyData;
 
-            $returnArr.push($charDeepCopy);
+            $returnArr.push($scenChar);
         }
         
         this.scenarioCharInstances = [];
@@ -454,8 +457,8 @@ export class scenario
         
         for(const char of this.scenarioCharInstances){
             
-            if(char.name == name && alignment == "any") return char
-            else if (char.name == name && char.alignment == alignment) return char
+            if(char.data.name == name && alignment == "any") return char
+            else if (char.data.name == name && char.data.alignment == alignment) return char
         }
         
         console.warn("GetScenarioChar failed for input: " + name);    
@@ -467,9 +470,9 @@ export class scenario
         
         for(const obj of this.scenarioCharInstances){
             
-            if(unlockedFor == "both" && (obj.unlocked.includes("left") || char.unlocked.includes("right"))) $returnArr.push(obj);
-            else if(unlockedFor == "left" && obj.unlocked.includes("left")) $returnArr.push(obj);
-            else if(unlockedFor == "right" && obj.unlocked.includes("right")) $returnArr.push(obj);
+            if(unlockedFor == "both" && (obj.data.unlocked.includes("left") || char.unlocked.includes("right"))) $returnArr.push(obj);
+            else if(unlockedFor == "left" && obj.data.unlocked.includes("left")) $returnArr.push(obj);
+            else if(unlockedFor == "right" && obj.data.unlocked.includes("right")) $returnArr.push(obj);
             else if(unlockedFor == "") $returnArr.push(obj);
         }
         

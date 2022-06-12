@@ -7,8 +7,6 @@ export class scenarioHandler
         
         this.gameHandler = gameHandler;
         
-        this.charHandler = new charHandler(this);
-        
         this.scenarios = [];
         this.gameCharInstances = [];
         this.lastCreatedScenario = undefined;
@@ -77,7 +75,5 @@ export class scenarioHandler
             
             this.gameCharInstances.push($char);
         }
-        
-        this.charHandler.AddGenericPropertiesToCharacters(this.gameCharInstances);
     }
 }

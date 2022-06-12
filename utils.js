@@ -6,7 +6,7 @@ export function GetStringOfCharsFromArray(array,alignment = "any",getPics="",dis
     
         let $debug = false;
     
-        if($passedArray.hasOwnProperty("data") && $passedArray.data.hasOwnProperty("dataType") && $passedArray..data.dataType == "char") $passedArray = [$passedArray];
+        if($passedArray.hasOwnProperty("data") && $passedArray.data.hasOwnProperty("dataType") && $passedArray.data.dataType == "char") $passedArray = [$passedArray];
         
         if($debug) console.log($passedArray);
         

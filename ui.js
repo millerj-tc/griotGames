@@ -153,6 +153,17 @@ export class uiHandler
         document.getElementById("content").append($evalButton);
     }
     
+    CreateStageContinueButton(scenarioId){
+        
+        const $stageContinueButton = document.createElement("button");
+        $stageContinueButton.classList.add("stageContinueButton");
+        $stageContinueButton.innerHTML = "continue";
+        
+        document.getElementById("outputDiv" + scenarioId).append($stageContinueButton);
+        
+        return $stageContinueButton
+    }
+    
     CreateScenarioRewindButton(){
         
         const $rewindButton = document.createElement("button");
@@ -471,8 +482,8 @@ export class uiHandler
         const $availableChars = this.gameHandler.scenarioHandler.currentScenario.GetAllChars(slot.alignment);
         
         const $alphaSortedChars = $availableChars.sort(function(a, b) {
-            let textA = a.name.toUpperCase();
-            let textB = b.name  .toUpperCase();
+            let textA = a.data.name.toUpperCase();
+            let textB = b.data.name.toUpperCase();
             return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
         });
         
@@ -480,7 +491,7 @@ export class uiHandler
             
             let $option = document.createElement("option");
             
-            $option.text = char.name;
+            $option.text = char.data.name;
             
             selector.add($option);
         }

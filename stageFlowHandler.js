@@ -32,6 +32,7 @@ class stagePhase
         this.iterationCount = 0;
         this.endRun = true;
         this.waitToGotoNextPhaseOrStage = false;
+        this.waitForContinueButtonPress = false;
         
         this.skipPhaseChars = [];
         
@@ -42,6 +43,12 @@ class stagePhase
     ChangeNextPhaseTo(phase){
         
         this.nextPhase = phase;
+    }
+    
+    SetToWaitForContinueButtonPress(){
+        
+        this.waitToGotoNextPhaseOrStage = true;
+        this.waitForContinueButtonPress = true;
     }
     
     StartRun(evalObj){
@@ -198,6 +205,25 @@ class stagePhase
         if(!this.stage.displayWintextAfterGameover && this.stage.stageHandler.scenario.scenarioOver) return true
         
         return false
+    }
+    
+    CreateContinueButton(evalObj){
+        
+        if(this.waitForContinueButtonPress){
+            
+            const $contButton = this.uiHandler.CreateStageContinueButton(this.stage.stageHandler.scenario.id);
+            
+            const $this = this;
+            
+            const $evalObj = evalObj;
+            
+            $contButton.onclick = function(){
+                
+                if($this.nextPhase != undefined) $this.nextPhase.StartRun($evalObj);
+        
+                else $this.stageHandler.GotoNextStage($this.stage.nextStage);
+            }
+        }
     }
     
     UpdateScenarioCharsWithDataFromEvalObj(evalObj){

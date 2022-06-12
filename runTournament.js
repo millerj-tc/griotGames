@@ -53,6 +53,10 @@ export function RunTournament()
     {rosterName:"	Cole's Cole	", winCount:0,scen0:{location:[		'Beast',	'Bishop',	'Wolverine'	]}},
     {rosterName:"	Rhys's Yes Team	", winCount:0,scen0:{location:[		'Beast',	'Bishop',	'Wolverine'	]}},
     {rosterName:"	David Havetwobergs's Goggled Geese Who Giggle and Gaggle.	", winCount:0,scen0:{location:[		'Beast',	'Bishop',	'Wolverine'	]}},
+        
+    {rosterName:"	Ananda Guneratne	", winCount:0,scen0:{location:[		'Cyclops',	'Psylocke',	'Wolverine'	]}, scen1: {location:[	'Cyclops',	'Psylocke',	'Wolverine'	]}, scen2: {location:[	'Cyclops',	'Psylocke',	'Wolverine'	]}, scen3: {location:[	'Beast',	'Daredevil',	'Jessica Jones',	'Ghostrider'	'Okoye',	]}},
+    {rosterName:"	Abram's Thebigboys	", winCount:0,scen0:{location:[		'Beast',	'Bishop',	'Wolverine'	]}, scen1: {location:[	'Beast',	'Bishop',	'Wolverine'	]}, scen2: {location:[	'Beast',	'Bishop',	'Wolverine'	]}, scen3: {location:[	'Beast',	'Bishop',	'Cyclops',	'Wolverine'	'Ghostrider',	]}},
+    {rosterName:"	Jamie's Inane Clone Posse 2: Electric Boogaloo	", winCount:0,scen0:{location:[		'Beast',	'Cyclops',	'Wolverine'	]}, scen1: {location:[	'Beast',	'Cyclops',	'Wolverine'	]}, scen2: {location:[	'Beast',	'Cyclops',	'Wolverine'	]}, scen3: {location:[	'Beast',	'Bishop',	'Psylocke',	'Ghostrider'	'Black Panther',	]}},
 
 //        {rosterName: "Joseph", winCount:0, scen0: {location: ["Bishop", "Cyclops", "Psylocke"]}},
 //        
