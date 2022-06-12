@@ -64,10 +64,17 @@ export class stage
     }
     
     _SetEvalPool(evalObj){
-                
-        for(const charData of this.stage.location.GetCharsHere()) evalObj.AddCharToPool(charData)
         
-        evalObj.initialPool = [...evalObj.pool];
+        evalObj.pool = this.stage.location.GetCharsHere();
+    
+        for(const char of evalObj.pool){
+            
+            char.stageImmune = false;
+            
+            char.stageDisabled = false;
+        }
+        
+        evalObj.initialPool = evalObj.pool;
         
         let $tournamentString = "";
         
