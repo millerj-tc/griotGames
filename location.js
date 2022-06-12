@@ -1,4 +1,5 @@
 import {ShuffleArray} from "./utils.js";
+import {character} from "./character.js";
 
 class charSlot
 {
@@ -13,7 +14,10 @@ class charSlot
     
     UpdateChar(character){
         
-        this.character = {...character};
+        this.character = new character(this.location.locationHandler.scenario.scenarioHandler);
+        
+        this.character.data = character.data;
+        
         this.character.alignment = this.alignment;
         this.character.location = this.location;
         

@@ -55,15 +55,15 @@ export class scenarioHandler
         
     }
     
-    GetGameChar(name){
+    GetGameCharObj(name){
         
         for(const obj of this.gameHandler.database.data){
             
-            if(obj.dataType == "char" && obj.name == name) return obj
+            if(obj.dataType == "char" && obj.data.name == name) return obj
         }
     }
     
-    LoadAllGameChars(){
+    LoadAllGameChars(){ //gameCharInstances gets to have actual objects to make sure that they have proper functions, etc.
         
         for(const obj of this.gameHandler.database.data){
             
