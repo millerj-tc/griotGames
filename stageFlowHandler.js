@@ -31,11 +31,17 @@ class stagePhase
         this.currentEvalState;
         this.iterationCount = 0;
         this.endRun = true;
+        this.waitToGotoNextPhaseOrStage = false;
         
         this.skipPhaseChars = [];
         
         if(this.id != null) this.id = id
         else this.id = String(this.stageFlowHandler.stage.id + "Step" + this.stageFlowHandler.phases.length);
+    }
+    
+    ChangeNextPhaseTo(phase){
+        
+        this.nextPhase = phase;
     }
     
     StartRun(evalObj){
@@ -75,6 +81,8 @@ class stagePhase
         //console.log("exiting phase " + this.id + " " + this.funcName + " with greatestPower" + $name +  " winCredit " + evalObj.winCredit);
         
         if(!this.endRun) return
+        
+        if(this.waitToGotoNextPhaseOrStage) return
         
         if(this.nextPhase != undefined) this.nextPhase.StartRun(evalObj);
         
