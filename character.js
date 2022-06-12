@@ -22,7 +22,7 @@ export class character
         else console.warn("GetImage has failed for " + this.data.name);   
     }
     
-    
+    GetPronouns() return this.data.pronouns
     
     GetEnemyAlignment(){
         
