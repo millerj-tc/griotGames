@@ -53,8 +53,6 @@ class cardZone
         
         const $slot = new cardSlot(this,alignment,selectId,imageSpanId);
         
-
-        
         this.cardSlots.push($slot);        
         
         return $slot

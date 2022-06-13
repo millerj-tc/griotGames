@@ -4,7 +4,7 @@ export function initPOTFCCardZones(scenario)
 {
     scenario.usesCardZoneAssignment = false;
     
-    const $cz = scenario.cardZoneHandler.AddCardZone("cardZone","",1,"#1363DF");
+    const $cz = scenario.cardZoneHandler.AddCardZone("cardZone","images/potfc/solet-100.jpg",1,"#1363DF");
     $cz.displayName = "";
 }
 

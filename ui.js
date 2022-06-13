@@ -200,14 +200,6 @@ export class uiHandler
         
         document.getElementById("content").innerHTML = "";
         
-        //        if(this.cardZoneTable != null){
-//        
-//            for(const div of this.cardZoneTable.querySelectorAll("div")){
-//
-//                div.remove();
-//            }
-//        }
-        
         this.cardZoneTable = document.createElement("div");
         this.cardZoneTable.style = `display: grid;
             justify-items: center;
