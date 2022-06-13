@@ -53,27 +53,27 @@ export class scenarioHandler
         
     }
     
-    GetGameCharObj(name){
-        
-        for(const obj of this.gameHandler.database.data){
-            
-            if(obj.dataType == "char" && obj.data.name == name) return obj
-        }
-    }
+//    GetGameCharObj(name){
+//        
+//        for(const obj of this.gameHandler.database.data){
+//            
+//            if(obj.dataType == "char" && obj.data.name == name) return obj
+//        }
+//    }
     
-    LoadAllGameChars(){ //gameCharInstances gets to have actual objects to make sure that they have proper functions, etc.
-        
-        for(const obj of this.gameHandler.database.data){
-            
-            if(obj.dataType != "char") continue
-            
-            const $char = new character(this);
-            
-            $char.data = obj;
-            
-            $char.AddGenericProperties();
-            
-            this.gameCharInstances.push($char);
-        }
-    }
+//    LoadAllGameCha(){ //gameCharInstances gets to have actual objects to make sure that they have proper functions, etc.
+//        
+//        for(const obj of this.gameHandler.database.data){
+//            
+//            if(obj.dataType != "char") continue
+//            
+//            const $char = new character(this);
+//            
+//            $char.data = obj;
+//            
+//            $char.AddGenericProperties();
+//            
+//            this.gameCharInstances.push($char);
+//        }
+//    }
 }

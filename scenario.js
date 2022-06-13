@@ -1,6 +1,7 @@
 import {locationHandler} from "./location.js";
 import {stageHandler} from "./stageHandler.js";
 import {character} from "./character.js";
+import {card} from "./card.js";
 import {GetStringOfCharsFromArray,ReplaceWordsBasedOnPluralSubjects} from "./utils.js";
 
 
@@ -413,7 +414,7 @@ export class scenario
         }
     }
 
-    LoadScenarioChars(fromPreviousScenario = false){
+    LoadScenarioCards(fromPreviousScenario = false){
         
         let $sourceArr;
         
@@ -422,21 +423,26 @@ export class scenario
         if(this.previousScenario == null) {
             
 
-            $sourceArr = this.scenarioHandler.gameCharInstances;
+            $sourceArr = this.scenarioHandler.gameHandler.database.data;
             
         }
         else {
-            $sourceArr = this.previousScenario.scenarioCharInstances;
+            $sourceArr = this.previousScenario.scenarioCardInstances;
         }
         
-        for(const char of $sourceArr){
+        for(const card of $sourceArr){
             
-            const $jsonData = JSON.stringify(char.data);
+            const $jsonData = JSON.stringify(card.data);
             const $charDeepCopyData = JSON.parse($jsonData);
             
-            const $scenChar = new character(this.scenarioHandler);
+            let $scenChar;
+            
+            if(card.dataType == "char") $scenChar = new character(this)
+            else $scenChar = new card(this);
             
             $scenChar.data = $charDeepCopyData;
+            
+            $scenChar.AddGenericProperties();
 
             $returnArr.push($scenChar);
         }
@@ -447,7 +453,7 @@ export class scenario
         
     }
     
-    GetScenarioChar(name,alignment="any"){
+    GetScenarioCard(name,alignment="any"){
         
         
         //-- SNEAKY ERRORS MAY RESULT FROM BEING PASSED NULL NAME
@@ -455,34 +461,30 @@ export class scenario
         
         if(name == null) return false
         
-        for(const char of this.scenarioCharInstances){
+        for(const card of this.scenarioCardInstances){
             
-            if(char.data.name == name && alignment == "any") return char
-            else if (char.data.name == name && char.data.alignment == alignment) return char
+            if(card.data.name == name && alignment == "any") return card
+            else if (card.data.name == name && card.data.alignment == alignment) return card
         }
         
-        console.warn("GetScenarioChar failed for input: " + name);    
+        console.warn("GetScenarioCard failed for input: " + name);    
     }
     
     GetAllChars(unlockedFor = ""){
         
         let $returnArr = [];
         
-        for(const obj of this.scenarioCharInstances){
+        for(const card of this.scenarioCharInstances){
             
-            if(unlockedFor == "both" && (obj.data.unlocked.includes("left") || char.unlocked.includes("right"))) $returnArr.push(obj);
-            else if(unlockedFor == "left" && obj.data.unlocked.includes("left")) $returnArr.push(obj);
-            else if(unlockedFor == "right" && obj.data.unlocked.includes("right")) $returnArr.push(obj);
-            else if(unlockedFor == "") $returnArr.push(obj);
+            if(card.dataType != "char") continue
+            
+            if(unlockedFor == "both" && (card.data.unlocked.includes("left") || char.unlocked.includes("right"))) $returnArr.push(card);
+            else if(unlockedFor == "left" && card.data.unlocked.includes("left")) $returnArr.push(card);
+            else if(unlockedFor == "right" && card.data.unlocked.includes("right")) $returnArr.push(card);
+            else if(unlockedFor == "") $returnArr.push(card);
         }
         
         return $returnArr
-    }
-    
-    GetTeamHope(team){
-        
-        if(team == "left") return this.leftTeamHope
-        if(team == "right") return this.rightTeamHope
     }
     
     _GetInterpersMessageString(fx,targetChars){
@@ -496,11 +498,6 @@ export class scenario
         $returnString = ReplaceWordsBasedOnPluralSubjects(targetChars,$returnString);
         
         return $returnString
-    }
-    
-    _InterpersFxsHopeMods(char,amt){
-        
-        char.ModHope(amt);
     }
     
     ClearThisScenarioOutput(){
@@ -545,77 +542,6 @@ export class scenario
 
             if($matches > 0) output.style.backgroundColor = "";
             else output.style.backgroundColor = "yellow";
-        }
-    }
-    
-    EvalScenarioBeginInterpersFxs(){
-        
-        const $ui = this.scenarioHandler.gameHandler.uiHandler;
-        
-        let $spokenStrings = [];
-        
-        for(const char of this.locationHandler.GetAllCharsAtLocations()){
-            
-            if(!char.hasOwnProperty("interpersFxs")) continue
-            
-            if(char.interpersFxs.length > 0){
-                
-                for(const fx of char.interpersFxs){
-                    
-                    let $interpersTargetArr = [];
-                
-                    for(const targetString of fx.targetCharsStrings){
-                        
-                        let $targChar = this.scenarioHandler.gameHandler.database.GetObjFromString(targetString);
-                        
-                        $interpersTargetArr.push($targChar);
-                    }
-                    
-                    if(fx.location = "team"){
-                        
-                        let $charTeamMembers = this.locationHandler.GetAllCharsAtLocations(char.alignment);
-                        
-                        let $targMatches = [];
-                        
-                        for(const otherChar of $charTeamMembers){
-                            
-                            for(const target of $interpersTargetArr){
-                                
-                                if(otherChar.name == target.name){
-                                    
-                                    $targMatches.push(otherChar);
-                                    this._InterpersFxsHopeMods(otherChar,fx.hopeModifier);
-                                    //$charsWhoHaveSpoken.push(char);
-                                    //console.warn(otherChar);
-                                }
-                            }
-                        }
-                        
-                        if($targMatches.length > 0){
-                            
-                            
-                            // if it's not sorted, semantically identical strings in a different order of characters will both print
-                            $targMatches = $targMatches.sort();
-                            
-                            let $outputText = this._GetInterpersMessageString(fx,$targMatches);
-                            
-                            let $itsAlreadyBeenSaid = false;
-                            
-                            for(const spokenString of $spokenStrings){
-                                
-                                if(spokenString == $outputText) $itsAlreadyBeenSaid = true;
-                            }
-                            
-                            if(!$itsAlreadyBeenSaid){
-                                $ui.UpdateOutput($outputText);
-
-                                $spokenStrings.push($outputText);
-                            }
-                            
-                        }
-                    }
-                }
-            }
         }
     }
     

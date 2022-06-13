@@ -1,16 +1,16 @@
-export class character
+import {card} from "./card.js";
+
+export class character extends card
 {
-    constructor(scenarioHandler){
+    constructor(scenario){
         
-        this.scenarioHandler = scenarioHandler;
+        super(scenario);
+        this._AddAdditionalProperties = this.AddGenericPropertiesChar;
     }
     
-    AddGenericProperties(){
+    AddGenericPropertiesChar(){
 
             this.data.xp = {left:0,right:0};
-            this.data.alignment;
-            this.data.removedDuringRun = false;
-            this.data.skipPhases = [];
             this.data.immuneSys = []; //immuneSys is going to be the holder for received statusFX
     }
     
@@ -25,15 +25,4 @@ export class character
     }
     
     GetPronouns() {return this.data.pronouns}
-    
-    GetAlignment() {return this.alignment}
-    
-    GetEnemyAlignment(){
-        
-        if(this.data.alignment == "left") return "right";
-        else if(this.data.alignment == "right") return "left";
-        else {
-            console.warn(".GetEnemyAlignment() is malfunctioning, my name is " + this.name + " and my alignment is " + this.data.alignment);
-        }
-    }
 }

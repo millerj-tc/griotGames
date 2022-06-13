@@ -1,45 +1,45 @@
 import {ShuffleArray} from "./utils.js";
-import {character} from "./character.js";
 
-class charSlot
+class cardSlot
 {
-    constructor(location,alignment="left",selectId,imageSpanId){
+    constructor(cardZone,alignment="left",selectId,imageSpanId){
         
-        this.location = location;
+        this.cardZone = cardZone;
         this.alignment = alignment;
         this.imageSpanId = imageSpanId;
         this.selectId = selectId;
-        this.character;
+        this.subSlots = [];
+        this.card;
     }
     
-    UpdateChar(character){
+    UpdateCard(card){
         
-        this.character = new character(this.location.locationHandler.scenario.scenarioHandler);
+        this.card = card;
         
-        this.character.data = character.data;
+        this.card.data = card.data;
         
-        this.character.alignment = this.alignment;
-        this.character.location = this.location;
+        this.card.alignment = this.alignment;
+        this.card.cardZone = this.cardZone;
         
-        if(!this._ValidateCharUnlockedForTeam(this.character,this.character.alignment)) console.error(this.character.name + " is not unlocked for " + this.character.alignment + "!!!");
+        if(!this._ValidateCharUnlockedForTeam(this.card,this.card.alignment)) console.error(this.card.name + " is not unlocked for " + this.card.alignment + "!!!");
         
-        if(this.imageSpanId != undefined)                                                                                                                                              this.location.locationHandler.scenario.scenarioHandler.gameHandler.uiHandler.UpdateCharImage(this);
+        if(this.imageSpanId != undefined)                                                                                                                                              this.cardZone.cardZoneHandler.scenario.scenarioHandler.gameHandler.uiHandler.UpdateCharImage(this);
     }
     
-    _ValidateCharUnlockedForTeam(char,team){
+    _ValidateCardUnlockedForTeam(char,team){
         
-        if(char.unlocked.includes(team)) return true
+        if(card.unlocked.includes(team)) return true
         else return false
     }
 }
 
-class location
+class cardZone
 {
-    constructor(locationHandler,id,img)
+    constructor(cardZoneHandler,id,img)
     {
         this.id = id;
         this.image = img;
-        this.locationHandler = locationHandler;
+        this.cardZoneHandler = cardZoneHandler;
         this.displayName = "";
         
         this.charSlots = [];
@@ -66,10 +66,10 @@ class location
         
         for(const slot of this.charSlots){
             
-            if(slot.character.removedDuringRun) {continue}
+            if(slot.card.removedDuringRun) {continue}
             
-            if(name != "any" && slot.character.name != name) continue
-            if(alignment == "any" || slot.character.alignment == alignment) $returnArr.push(slot.character)
+            if(name != "any" && slot.card.name != name) continue
+            if(alignment == "any" || slot.card.alignment == alignment) $returnArr.push(slot.card)
             
 
 
@@ -119,7 +119,7 @@ class location
     
     AddUnslottedChar(char){
         
-        const $char = new character(this.locationHandler.scenario.scenarioHandler);
+        const $char = new character(this.cardZoneHandler.scenario.scenarioHandler);
         
         $char.data = char.data;
         
@@ -127,43 +127,43 @@ class location
     }
 }
 
-export class locationHandler
+export class cardZoneHandler
 {
     constructor(scenario){
         
         this.scenario = scenario;
-        this.locations = [];
+        this.cardZones = [];
     }
     
-    AddLocation(id,img,charSlotsCount,bgColor){
+    AddCardZone(id,img,charSlotsCount,bgColor){
         
-        const $loc = new location(this,id,img);
-        this.locations.push($loc);
-        $loc.bgColor = bgColor;
-        $loc.charSlotsCount = charSlotsCount;
+        const $czone = new cardZone(this,id,img);
+        this.cardZones.push($czone);
+        $czone.bgColor = bgColor;
+        $czone.charSlotsCount = charSlotsCount;
         
-        //this.scenario.scenarioHandler.gameHandler.uiHandler.CreateLocationRow($loc,charSlots,bgColor);
+        //this.scenario.scenarioHandler.gameHandler.uiHandler.CreateczoneationRow($czone,charSlots,bgColor);
         
-        return $loc
+        return $czone
     }
     
-    GetLocationById(id){
+    GetCardZoneById(id){
         
         //console.log(this.locations);
         
-        for(const loc of this.locations){
+        for(const czone of this.cardZones){
             
-            if(loc.id == id) return loc
+            if(czone.id == id) return czone
         }
     }
     
-    GetAllCharsAtLocations(team="any"){
+    GetAllCharsAtCardZones(team="any"){
         
         let $allChars = [];
         
-        for(const loc of this.locations){
+        for(const czone of this.cardZones){
             
-            for(const slot of loc.charSlots){
+            for(const slot of czone.charSlots){
                 
                 if(slot.character.removedDuringRun) continue
                 
@@ -179,9 +179,9 @@ export class locationHandler
         
         let $returnArr = this.scenario.GetAllChars(unlockedFor);
         
-        for(const loc of this.locations){
+        for(const czone of this.cardZones){
             
-            for(const slot of loc.charSlots){
+            for(const slot of czone.charSlots){
                 
                 if(slot.alignment != alignment && alignment != "any") continue
                 
@@ -204,9 +204,9 @@ export class locationHandler
         
         let $destructoArrRight = ShuffleArray(this._GetUnlockedCharsNotAssignedToASlot("right","right"));
         
-        for(const loc of this.locations){
+        for(const czone of this.cardZones){
             
-            for(const slot of loc.charSlots){
+            for(const slot of czone.charSlots){
                 
                 if(slot.character != null) continue
                 
