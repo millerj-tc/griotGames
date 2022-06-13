@@ -308,7 +308,7 @@ export class uiHandler
             
             console.log("cz " + cz.id);
             console.log(cz);
-            console.error("must load in cardslots into cardzone on init since that isn't automatic anymore");
+            console.error("must load in cardslots into cardzone on init since that isn't automatic anymore. Set grid layout in scenario -- assign each grid space to different elements.");
             
             cz.cardSlots = [];
         
