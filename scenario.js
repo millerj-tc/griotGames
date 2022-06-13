@@ -349,7 +349,7 @@ export class scenario
         
         this.scenarioCharInstances = [];
         
-        this.LoadScenarioChars(loadCharsFromLastScenarioRun);
+        this.LoadScenarioCards(loadCharsFromLastScenarioRun);
         
     }
     
@@ -420,6 +420,8 @@ export class scenario
         
         let $returnArr = [];
         
+        let $firstScen = true;
+        
         if(this.previousScenario == null) {
             
 
@@ -427,22 +429,27 @@ export class scenario
             
         }
         else {
+            $firstScen = false;
             $sourceArr = this.previousScenario.scenarioCardInstances;
         }
         
-        for(const card of $sourceArr){
+        for(const c of $sourceArr){
             
-            const $jsonData = JSON.stringify(card.data);
+            let $jsonData
+            
+            if($firstScen) $jsonData = JSON.stringify(c);
+            else $jsonData = JSON.stringify(c.data);
+            
             const $charDeepCopyData = JSON.parse($jsonData);
             
             let $scenChar;
             
-            if(card.dataType == "char") $scenChar = new character(this)
+            if(c.dataType == "char") $scenChar = new character(this)
             else $scenChar = new card(this);
             
             $scenChar.data = $charDeepCopyData;
             
-            $scenChar.AddGenericProperties();
+            if($firstScen) $scenChar.AddGenericProperties();
 
             $returnArr.push($scenChar);
         }
@@ -451,6 +458,21 @@ export class scenario
         
         this.scenarioCharInstances = $returnArr;
         
+    }
+    
+    GetAllCards(unlockedFor = ""){
+        
+        let $returnArr = [];
+        
+        for(const c of this.scenarioCharInstances){
+            
+            if(unlockedFor == "both" && (c.data.unlocked.includes("left") || char.unlocked.includes("right"))) $returnArr.push(c);
+            else if(unlockedFor == "left" && c.data.unlocked.includes("left")) $returnArr.push(c);
+            else if(unlockedFor == "right" && c.data.unlocked.includes("right")) $returnArr.push(c);
+            else if(unlockedFor == "") $returnArr.push(c);
+        }
+        
+        return $returnArr
     }
     
     GetScenarioCard(name,alignment="any"){

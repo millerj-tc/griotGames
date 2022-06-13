@@ -1,10 +1,9 @@
 import {uiHandler} from "./ui.js";
 import {database} from "./database.js";
 import {scenarioHandler} from "./scenarioHandler.js";
-import {initializeCloneCrisisEasyStages,initializeCloneCrisisEasyCardZones,initializeCloneCrisisEasyScenarioFx} from "./Clone Crisis Code/cloneCrisisScenario.js";
-import {initializeCloneCrisisPlusCardZones, initializeCloneCrisisPlusStages,initializeCloneCrisisPlusScenarioFx,initializeCloneCrisisPlus1CardZones, initializeCloneCrisisPlus1Stages,initializeCloneCrisisPlus1ScenarioFx,initializeCloneCrisisPlus2CardZones, initializeCloneCrisisPlus2Stages,initializeCloneCrisisPlus2ScenarioFx,initializeCloneCrisisPlus3CardZones, initializeCloneCrisisPlus3Stages,initializeCloneCrisisPlus3ScenarioFx} from "./Clone Crisis Code/cloneCrisisPrepScenario.js";
 import {RunTournament} from "./runTournament.js";
-import {AddCloneCrisisSpecificCharProps} from "./Clone Crisis Code/cloneCrisisCharProps.js";
+import {initPOTFCCardZones,initPOTFCStages,initPOTFCScenarioFX} from "./Protectors of the Fey Circle/potfcStoryScenario.js";
+
 
 export class gameHandler
 {
@@ -27,64 +26,17 @@ export class gameHandler
         
     }
     
-    Start(){
-        
-        this.scenarioHandler.LoadAllGameChars();
-        
-        AddCloneCrisisSpecificCharProps(this.scenarioHandler.gameCharInstances);
-        
-        if(this.newGamePlus){
+    Start(){        
             
-            const $scen0 = this.scenarioHandler.AddScenario("scen0");
-            
-            $scen0.initCardZones = initializeCloneCrisisPlusCardZones;
+        const $scen0 = this.scenarioHandler.AddScenario("potfcStory");
+
+        $scen0.initCardZones = initPOTFCCardZones;
+
+        $scen0.initStages = initPOTFCStages;
+
+        $scen0.initScenarioFx = initPOTFCScenarioFX;
         
-            $scen0.initStages = initializeCloneCrisisPlusStages;
-        
-            $scen0.initScenarioFx = initializeCloneCrisisPlusScenarioFx;
-            
-            const $scen1 = this.scenarioHandler.AddScenario("scen1");
-            
-            $scen1.initCardZones = initializeCloneCrisisPlus1CardZones;
-        
-            $scen1.initStages = initializeCloneCrisisPlus1Stages;
-        
-            $scen1.initScenarioFx = initializeCloneCrisisPlus1ScenarioFx;
-            
-            const $scen2 = this.scenarioHandler.AddScenario("scen2");
-            
-            $scen2.initCardZones = initializeCloneCrisisPlus2CardZones;
-        
-            $scen2.initStages = initializeCloneCrisisPlus2Stages;
-        
-            $scen2.initScenarioFx = initializeCloneCrisisPlus2ScenarioFx;
-            
-            this.scenarioHandler.GotoScenario($scen0);
-            
-            const $scen3 = this.scenarioHandler.AddScenario("scen3");
-            
-            $scen3.initCardZones = initializeCloneCrisisPlus3CardZones;
-        
-            $scen3.initStages = initializeCloneCrisisPlus3Stages;
-        
-            $scen3.initScenarioFx = initializeCloneCrisisPlus3ScenarioFx;
-            
-            this.scenarioHandler.GotoScenario($scen0);
-        }
-        
-        else{
-            
-            const $scen0 = this.scenarioHandler.AddScenario("scen0");
-            
-            $scen0.initCardZones = initializeCloneCrisisEasyCardZones;
-        
-            $scen0.initStages = initializeCloneCrisisEasyStages;
-        
-            $scen0.initScenarioFx = initializeCloneCrisisEasyScenarioFx;
-            
-            this.scenarioHandler.GotoScenario($scen0);
-        }
-        
+        this.scenarioHandler.GotoScenario($scen0);
         
         document.getElementById("output").innerHTML = "";
         

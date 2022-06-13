@@ -310,24 +310,28 @@ export class uiHandler
     
     CreateCardZoneRows(){
         
-        //this.scenario.scenarioHandler.gameHandler.uiHandler.CreateCardZoneRow($loc,charSlots,bgColor);
+        console.log("begin cz rows");
         
-        for(const loc of this.gameHandler.scenarioHandler.currentScenario.cardZoneHandler.cardZones){
+        for(const cz of this.gameHandler.scenarioHandler.currentScenario.cardZoneHandler.cardZones){
             
-            loc.charSlots = [];
+            console.log("cz " + cz.id);
+            console.log(cz);
+            console.error("must load in cardslots into cardzone on init since that isn't automatic anymore");
+            
+            cz.cardSlots = [];
         
             let col0 = document.createElement("div");
             col0.style.display = "flex";
             col0.style.alignItems = "center";
-            col0.style.backgroundColor = loc.bgColor;
+            col0.style.backgroundColor = cz.bgColor;
 
             let col1 = document.createElement("div");
-            col1.style.backgroundColor = loc.bgColor;
+            col1.style.backgroundColor = cz.bgColor;
 
             let col2 = document.createElement("div");
             col2.style.display = "flex";
             col2.style.alignItems = "center";
-            col2.style.backgroundColor = loc.bgColor;
+            col2.style.backgroundColor = cz.bgColor;
 
 
             this.cardZoneTable.append(col0);
@@ -343,30 +347,32 @@ export class uiHandler
             if(!this.gameHandler.scenarioHandler.currentScenario.playingNoninteractiveStages) col2.append(col2Content);
             
 
-            for(let i = 0; i < loc.charSlotsCount; i++){
+            for(let i = 0; i < cz.cardSlots.length; i++){
+                
+                console.log("Creating cz row");
 
                 let $leftSlotDiv = document.createElement("div");
-                $leftSlotDiv.id = this.SetDivId("left",loc.id,i);
+                $leftSlotDiv.id = this.SetDivId("left",cz.id,i);
                 $leftSlotDiv.style = "min-height:125px;grid-column-start:1";
 
                 col0Content.append($leftSlotDiv);
 
                 let $rightSlotDiv = document.createElement("div");
-                $rightSlotDiv.id = this.SetDivId("right",loc.id,i);
+                $rightSlotDiv.id = this.SetDivId("right",cz.id,i);
                 $rightSlotDiv.style = "min-height:125px;grid-column-start:3;vertical-align:middle";
                 col2Content.append($rightSlotDiv);
 
                 let $leftSelector = document.createElement("select");
                 $leftSelector.style = "position:relative;top:" + $leftSlotDiv.clientHeight/2 + "px;";
-                $leftSelector.id = this.SetSelectorId("left",loc.id,i);
+                $leftSelector.id = this.SetSelectorId("left",cz.id,i);
 
                 const $leftImage = document.createElement("span");
                 $leftImage.style = "float:right";
-                $leftImage.id = `left`+ loc.id + `Char` + i + `Image`;
+                $leftImage.id = `left`+ cz.id + `Char` + i + `Image`;
                 $leftImage.width = 200;
                 $leftImage.height = 200;
 
-                let $leftSlot = loc.AddCharSlot("left",$leftSelector.id,$leftImage.id);
+                let $leftSlot = cz.AddCharSlot("left",$leftSelector.id,$leftImage.id);
 
                 $leftSlotDiv.append($leftSelector);
                 $leftSlotDiv.append($leftImage);
@@ -382,17 +388,17 @@ export class uiHandler
 
                 let $rightSelector = document.createElement("select");
                 $rightSelector.style = "position:relative;top:" + $rightSlotDiv.clientHeight/2 + "px;";
-                $rightSelector.id = this.SetSelectorId("right",loc.id,i);
+                $rightSelector.id = this.SetSelectorId("right",cz.id,i);
 
                 const $rightImage = document.createElement("span");
                 $rightImage.style = "float:left";
-                $rightImage.id = `right`+ loc.id + `Char` + i + `Image`;
+                $rightImage.id = `right`+ cz.id + `Char` + i + `Image`;
                 $rightImage.width = 200;
                 $rightImage.height = 200;
 
                 let $rightSlot;
 
-                if(!this.gameHandler.scenarioHandler.currentScenario.playingNoninteractiveStages) $rightSlot = loc.AddCharSlot("right",$rightSelector.id,$rightImage.id);
+                if(!this.gameHandler.scenarioHandler.currentScenario.playingNoninteractiveStages) $rightSlot = cz.AddCharSlot("right",$rightSelector.id,$rightImage.id);
 
                 $rightSlotDiv.append($rightImage);
                 $rightSlotDiv.append($rightSelector);
@@ -414,20 +420,20 @@ export class uiHandler
 
             if(this.gameHandler.scenarioHandler.currentScenario.usesCardZoneAssignment){
 
-                let $locCount = this.gameHandler.scenarioHandler.currentScenario.cardZoneHandler.cardZones.length;
+                let $czCount = this.gameHandler.scenarioHandler.currentScenario.cardZoneHandler.cardZones.length;
 
-                let $locImg = document.createElement("img");
+                let $czImg = document.createElement("img");
 
-                $locImg.src = loc.image;
+                $czImg.src = cz.image;
 
-                col1Content.append($locImg);
+                col1Content.append($czImg);
                 col1Content.style = `justify-items: center;
                     align-items: center;
                     vertical-align:center;
                     text-align:center;
                     grid-column-start: 2;
-                    grid-row-start: ` + Number(1 + $locCount) + `;
-                    grid-row-end:` + Number($locCount + loc.charSlots) + `;`
+                    grid-row-start: ` + Number(1 + $czCount) + `;
+                    grid-row-end:` + Number($czCount + cz.charSlots) + `;`
 
             }
             

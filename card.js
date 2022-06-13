@@ -1,4 +1,4 @@
-class card
+export class card
 {
     constructor(scenario){
         

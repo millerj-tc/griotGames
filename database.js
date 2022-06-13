@@ -9,7 +9,7 @@ export class database
         
         this.gameHandler = gameHandler;
         
-        this.data = marvelData;
+        this.data = potfcData;
     }
     
     GetCharsMoreThanOneStdBelowMeanForValue(value,poolToReturn=this.data,poolToEvaluate=this.data){
