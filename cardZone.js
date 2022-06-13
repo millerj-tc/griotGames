@@ -21,12 +21,12 @@ class cardSlot
         this.card.alignment = this.alignment;
         this.card.cardZone = this.cardZone;
         
-        if(!this._ValidateCharUnlockedForTeam(this.card,this.card.alignment)) console.error(this.card.name + " is not unlocked for " + this.card.alignment + "!!!");
+        if(!this._ValidateCardUnlockedForTeam(this.card,this.card.alignment)) console.error(this.card.name + " is not unlocked for " + this.card.alignment + "!!!");
         
-        if(this.imageSpanId != undefined)                                                                                                                                              this.cardZone.cardZoneHandler.scenario.scenarioHandler.gameHandler.uiHandler.UpdateCharImage(this);
+        if(this.imageSpanId != undefined)                                                                                                                                              this.cardZone.cardZoneHandler.scenario.scenarioHandler.gameHandler.uiHandler.UpdateCardImage(this);
     }
     
-    _ValidateCardUnlockedForTeam(char,team){
+    _ValidateCardUnlockedForTeam(card,team){
         
         if(card.unlocked.includes(team)) return true
         else return false
@@ -42,29 +42,29 @@ class cardZone
         this.cardZoneHandler = cardZoneHandler;
         this.displayName = "";
         
-        this.charSlots = [];
+        this.cardSlots = [];
         
-        this.unslottedChars = [];
+        this.unslottedCards = [];
         
         //this.chars = [];
     }
     
-    AddCharSlot(alignment,selectId,imageSpanId){
+    AddCardSlot(alignment,selectId,imageSpanId){
         
-        const $slot = new charSlot(this,alignment,selectId,imageSpanId);
+        const $slot = new cardSlot(this,alignment,selectId,imageSpanId);
         
 
         
-        this.charSlots.push($slot);        
+        this.cardSlots.push($slot);        
         
         return $slot
     }
     
-    GetCharsHere(name="any",alignment="any", getUnslotted = true){
+    GetCardsHere(name="any",alignment="any", getUnslotted = true){
         
         let $returnArr = [];
         
-        for(const slot of this.charSlots){
+        for(const slot of this.cardSlots){
             
             if(slot.card.removedDuringRun) {continue}
             
@@ -77,21 +77,21 @@ class cardZone
         
         if(getUnslotted){
         
-            for(const char of this.unslottedChars){
+            for(const card of this.unslottedCards){
 
-                if((char.name == name || name == "any") &&
-                    (char.alignment == alignment || alignment == "any")) $returnArr.push(char);
+                if((card.name == name || name == "any") &&
+                    (card.alignment == alignment || alignment == "any")) $returnArr.push(card);
             }
         }
         
         return $returnArr
     }
     
-    CharHasAllyNamed(charName,allyName){
+    CardHasAllyNamed(cardName,allyName){
         
-        for(const char of this.GetCharsHere(charName,"any",true)){
+        for(const card of this.GetCardsHere(cardName,"any",true)){
             
-            if(this.GetCharsHere(allyName,char.alignment,true).length > 0) return true
+            if(this.GetCardsHere(allyName,card.alignment,true).length > 0) return true
         }
         
         return false
@@ -99,31 +99,31 @@ class cardZone
     
     
     
-    RemoveCharDuringRun(char){
+    RemoveCardDuringRun(card){
         
-        for(const slot of this.charSlots){
+        for(const slot of this.cardSlots){
             
-            if(slot.character == char){
+            if(slot.card == card){
                 
 
                 
-                slot.character.removedDuringRun = true;
+                slot.card.removedDuringRun = true;
             }
         }
         
-        for(const unslottedChar of this.unslottedChars){
+        for(const unslottedCard of this.unslottedCards){
             
-            if(char == unslottedChar) this.unslottedChars = this.unslottedChars.filter(c => c != char);
+            if(card == unslottedCard) this.unslottedCards = this.unslottedCards.filter(c => c != card);
         }
     }
     
-    AddUnslottedChar(char){
+    AddUnslottedCard(card){
         
-        const $char = new character(this.cardZoneHandler.scenario.scenarioHandler);
+        const $card = this.cardZoneHandler.scenario.GetScenarioCard(card.data.name);
         
-        $char.data = char.data;
+        $card.data = card.data;
         
-        this.unslottedChars.push($char);
+        this.unslottedCards.push($card);
     }
 }
 
@@ -135,12 +135,12 @@ export class cardZoneHandler
         this.cardZones = [];
     }
     
-    AddCardZone(id,img,charSlotsCount,bgColor){
+    AddCardZone(id,img,cardSlotsCount,bgColor){
         
         const $czone = new cardZone(this,id,img);
         this.cardZones.push($czone);
         $czone.bgColor = bgColor;
-        $czone.charSlotsCount = charSlotsCount;
+        $czone.cardSlotsCount = cardSlotsCount;
         
         //this.scenario.scenarioHandler.gameHandler.uiHandler.CreateczoneationRow($czone,charSlots,bgColor);
         
@@ -157,37 +157,37 @@ export class cardZoneHandler
         }
     }
     
-    GetAllCharsAtCardZones(team="any"){
+    GetAllCardsAtCardZones(team="any"){
         
-        let $allChars = [];
+        let $allCards = [];
         
         for(const czone of this.cardZones){
             
-            for(const slot of czone.charSlots){
+            for(const slot of czone.cardSlots){
                 
                 if(slot.character.removedDuringRun) continue
                 
-                if(team == "any") $allChars.push(slot.character);
-                else if (slot.character.data.alignment == team) $allChars.push(slot.character);
+                if(team == "any") $allCards.push(slot.character);
+                else if (slot.character.data.alignment == team) $allCards.push(slot.character);
             }
         }
         
-        return $allChars
+        return $allCards
     }
     
-    _GetUnlockedCharsNotAssignedToASlot(alignment = "any",unlockedFor = "both"){
+    _GetUnlockedCardsNotAssignedToASlot(alignment = "any",unlockedFor = "both"){
         
-        let $returnArr = this.scenario.GetAllChars(unlockedFor);
+        let $returnArr = this.scenario.GetAllCards(unlockedFor);
         
         for(const czone of this.cardZones){
             
-            for(const slot of czone.charSlots){
+            for(const slot of czone.cardSlots){
                 
                 if(slot.alignment != alignment && alignment != "any") continue
                 
-                if(slot.character == undefined) continue
+                if(slot.card == undefined) continue
                 
-                $returnArr = $returnArr.filter(c => slot.character.data.name != c.data.name)
+                $returnArr = $returnArr.filter(c => slot.card.data.name != c.data.name)
             }
         }
         
@@ -200,26 +200,26 @@ export class cardZoneHandler
         
 
         
-        let $destructoArrLeft = ShuffleArray(this._GetUnlockedCharsNotAssignedToASlot("left","left"));
+        let $destructoArrLeft = ShuffleArray(this._GetUnlockedCardsNotAssignedToASlot("left","left"));
         
-        let $destructoArrRight = ShuffleArray(this._GetUnlockedCharsNotAssignedToASlot("right","right"));
+        let $destructoArrRight = ShuffleArray(this._GetUnlockedCardsNotAssignedToASlot("right","right"));
         
         for(const czone of this.cardZones){
             
-            for(const slot of czone.charSlots){
+            for(const slot of czone.cardSlots){
                 
-                if(slot.character != null) continue
+                if(slot.card != null) continue
                 
-                let $chosenChar;
+                let $chosenCard;
                 
                 if(slot.alignment == "left") {
                     
-                    $chosenChar = $destructoArrLeft.shift();
+                    $chosenCard = $destructoArrLeft.shift();
                     
                 }
                 else {
                     
-                    $chosenChar = $destructoArrRight.shift();
+                    $chosenCard = $destructoArrRight.shift();
                 }
                 
                 
@@ -227,9 +227,9 @@ export class cardZoneHandler
                 
                 const $selectorDOM = document.getElementById(slot.selectId);
                 
-                this.scenario.scenarioHandler.gameHandler.uiHandler.SetSelectorToChar($selectorDOM,$chosenChar);
+                this.scenario.scenarioHandler.gameHandler.uiHandler.SetSelectorToCard($selectorDOM,$chosenCard);
                 
-                slot.UpdateChar($chosenChar);
+                slot.UpdateCard($chosenCard);
                 
 
                 
