@@ -5,6 +5,7 @@ import {initializeCloneCrisisEasyStages,initializeCloneCrisisEasyLocations,initi
 import {initializeCloneCrisisPlusLocations, initializeCloneCrisisPlusStages,initializeCloneCrisisPlusScenarioFx,initializeCloneCrisisPlus1Locations, initializeCloneCrisisPlus1Stages,initializeCloneCrisisPlus1ScenarioFx,initializeCloneCrisisPlus2Locations, initializeCloneCrisisPlus2Stages,initializeCloneCrisisPlus2ScenarioFx,initializeCloneCrisisPlus3Locations, initializeCloneCrisisPlus3Stages,initializeCloneCrisisPlus3ScenarioFx} from "./Clone Crisis Code/cloneCrisisPrepScenario.js";
 import {RunTournament} from "./runTournament.js";
 import {AddCloneCrisisSpecificCharProps} from "./Clone Crisis Code/cloneCrisisCharProps.js";
+import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.8.3/firebase-database.js";
 
 export class gameHandler
 {
@@ -28,6 +29,10 @@ export class gameHandler
     }
     
     Start(){
+
+        const db = getDatabase();
+        
+        const $dateNowString = String(Date.now());
         
         this.scenarioHandler.LoadAllGameChars();
         
@@ -70,6 +75,10 @@ export class gameHandler
             $scen3.initScenarioFx = initializeCloneCrisisPlus3ScenarioFx;
             
             this.scenarioHandler.GotoScenario($scen0);
+            
+            set(ref(db, 'gameType/gameStartTime' + $dateNowString), {
+                gameType: "newGamePlus"
+            });
         }
         
         else{
@@ -83,6 +92,10 @@ export class gameHandler
             $scen0.initScenarioFx = initializeCloneCrisisEasyScenarioFx;
             
             this.scenarioHandler.GotoScenario($scen0);
+            
+            set(ref(db, 'gameType/gameStartTime' + $dateNowString), {
+                gameType: "normalGame"
+            });
         }
         
         

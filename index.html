@@ -31,6 +31,8 @@
   import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.3/firebase-app.js";
 
   import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.8.3/firebase-analytics.js";
+            
+  import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.8.3/firebase-database.js";
 
   // TODO: Add SDKs for Firebase products that you want to use
 
@@ -48,6 +50,8 @@
     authDomain: "griot-games.firebaseapp.com",
 
     projectId: "griot-games",
+      
+    databaseURL: "https://griot-games-default-rtdb.firebaseio.com/",
 
     storageBucket: "griot-games.appspot.com",
 
@@ -65,6 +69,8 @@
   const app = initializeApp(firebaseConfig);
 
   const analytics = getAnalytics(app);
+            
+ const db = getDatabase(app);
 
 </script>
     </body>
