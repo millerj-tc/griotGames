@@ -6,7 +6,7 @@ export class uiHandler
         
         //this.availableChars = this.gameHandler.database.data;
         
-        this.locationTable;
+        this.cardZoneTable;
         
         this.rosterViewLocked = false;
         
@@ -194,38 +194,38 @@ export class uiHandler
         document.getElementById("content").append($rewindButton);
     }
     
-    CreateLocationTable(){
+    CreateCardZoneTable(){
         
         const $SH = this.gameHandler.scenarioHandler.currentScenario;
         
         document.getElementById("content").innerHTML = "";
         
-        //        if(this.locationTable != null){
+        //        if(this.cardZoneTable != null){
 //        
-//            for(const div of this.locationTable.querySelectorAll("div")){
+//            for(const div of this.cardZoneTable.querySelectorAll("div")){
 //
 //                div.remove();
 //            }
 //        }
         
-        this.locationTable = document.createElement("div");
-        this.locationTable.style = `display: grid;
+        this.cardZoneTable = document.createElement("div");
+        this.cardZoneTable.style = `display: grid;
             justify-items: center;
             align-items: center;
             gap: 5px;
             padding: 5px;`;
         
-        this.locationTable.classList.add("rosterBackground");
+        this.cardZoneTable.classList.add("rosterBackground");
         
         let $gridTemplateColumns = "auto";
         
-        if($SH.usesLocationAssignment) $gridTemplateColumns += " auto";
+        if($SH.usesCardZoneAssignment) $gridTemplateColumns += " auto";
         if(!$SH.playingNoninteractiveStages) $gridTemplateColumns += " auto";
         
            
-        this.locationTable.style.gridTemplateColumns = $gridTemplateColumns
+        this.cardZoneTable.style.gridTemplateColumns = $gridTemplateColumns
         
-        document.getElementById("content").append(this.locationTable);
+        document.getElementById("content").append(this.cardZoneTable);
         
         const $col0Head = document.createElement("div");
         let $span = document.createElement("span");
@@ -234,17 +234,17 @@ export class uiHandler
         $span.style.fontSize = "24pt";
         $span.innerHTML = "Left Team";
         $col0Head.append($span);
-        this.locationTable.append($col0Head);
+        this.cardZoneTable.append($col0Head);
         
         
-        if(this.gameHandler.scenarioHandler.currentScenario.usesLocationAssignment){
+        if(this.gameHandler.scenarioHandler.currentScenario.usesCardZoneAssignment){
             const $col1Head = document.createElement("div");
             let $mspan = document.createElement("span");
             $mspan.style.fontWeight = "bold";
             $mspan.style.fontSize = "24pt";
-            $mspan.innerHTML = "Locations";
+            $mspan.innerHTML = "CardZones";
             $col1Head.append($mspan);
-            this.locationTable.append($col1Head);
+            this.cardZoneTable.append($col1Head);
         }
         
         if(!$SH.playingNoninteractiveStages){
@@ -255,7 +255,7 @@ export class uiHandler
             $rspan.style.fontSize = "24pt";
             $rspan.innerHTML = "Right Team";
             $col2Head.append($rspan);
-            this.locationTable.append($col2Head);
+            this.cardZoneTable.append($col2Head);
             
         }
     }
@@ -308,11 +308,11 @@ export class uiHandler
         return $div
     }
     
-    CreateLocationRows(){
+    CreateCardZoneRows(){
         
-        //this.scenario.scenarioHandler.gameHandler.uiHandler.CreateLocationRow($loc,charSlots,bgColor);
+        //this.scenario.scenarioHandler.gameHandler.uiHandler.CreateCardZoneRow($loc,charSlots,bgColor);
         
-        for(const loc of this.gameHandler.scenarioHandler.currentScenario.locationHandler.locations){
+        for(const loc of this.gameHandler.scenarioHandler.currentScenario.cardZoneHandler.cardZones){
             
             loc.charSlots = [];
         
@@ -330,16 +330,16 @@ export class uiHandler
             col2.style.backgroundColor = loc.bgColor;
 
 
-            this.locationTable.append(col0);
-            if(this.gameHandler.scenarioHandler.currentScenario.usesLocationAssignment) this.locationTable.append(col1);
-            if(!this.gameHandler.scenarioHandler.currentScenario.playingNoninteractiveStages) this.locationTable.append(col2);
+            this.cardZoneTable.append(col0);
+            if(this.gameHandler.scenarioHandler.currentScenario.usesCardZoneAssignment) this.cardZoneTable.append(col1);
+            if(!this.gameHandler.scenarioHandler.currentScenario.playingNoninteractiveStages) this.cardZoneTable.append(col2);
 
             const col0Content = document.createElement("div");
             const col1Content = document.createElement("div");
             const col2Content = document.createElement("div");
 
             col0.append(col0Content);
-            if(this.gameHandler.scenarioHandler.currentScenario.usesLocationAssignment) col1.append(col1Content);
+            if(this.gameHandler.scenarioHandler.currentScenario.usesCardZoneAssignment) col1.append(col1Content);
             if(!this.gameHandler.scenarioHandler.currentScenario.playingNoninteractiveStages) col2.append(col2Content);
             
 
@@ -412,9 +412,9 @@ export class uiHandler
 
             }
 
-            if(this.gameHandler.scenarioHandler.currentScenario.usesLocationAssignment){
+            if(this.gameHandler.scenarioHandler.currentScenario.usesCardZoneAssignment){
 
-                let $locCount = this.gameHandler.scenarioHandler.currentScenario.locationHandler.locations.length;
+                let $locCount = this.gameHandler.scenarioHandler.currentScenario.cardZoneHandler.cardZones.length;
 
                 let $locImg = document.createElement("img");
 

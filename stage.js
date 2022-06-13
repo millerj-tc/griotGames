@@ -12,7 +12,7 @@ export class stage
         this.stageFxHandler = new stageFxHandler(this);
         this.uiHandler = this.stageHandler.scenario.scenarioHandler.gameHandler.uiHandler;
         this.id = id;
-        this.location;
+        this.cardZone;
         this.nextStage;
         this.evalArr = [];
         this.firstRun = true;
@@ -65,7 +65,7 @@ export class stage
     
     _SetEvalPool(evalObj){
         
-        evalObj.pool = this.stage.location.GetCharsHere();
+        evalObj.pool = this.stage.cardZone.GetCharsHere();
     
         for(const char of evalObj.pool){
             
@@ -106,15 +106,15 @@ export class stage
     }
 
     
-    _DeclareLocation(){
+    _DeclareCardZone(){
     
         
-        if(this.stage.location.displayName != "") this.stage.stageHandler.scenario.scenarioHandler.gameHandler.uiHandler.UpdateOutput("- <i>" + this.stage.location.displayName.toUpperCase() + "</i> -<br><br>" );
+        if(this.stage.cardZone.displayName != "") this.stage.stageHandler.scenario.scenarioHandler.gameHandler.uiHandler.UpdateOutput("- <i>" + this.stage.cardZone.displayName.toUpperCase() + "</i> -<br><br>" );
     }
     
     _WarnIfDupeCharsOnSameTeam(){
         
-        let $allChars = this.stage.stageHandler.scenario.locationHandler.GetAllCharsAtLocations();
+        let $allChars = this.stage.stageHandler.scenario.cardZoneHandler.GetAllCharsAtCardZones();
         
         const $ui = this.stage.stageHandler.scenario.scenarioHandler.gameHandler.uiHandler;
         
@@ -148,14 +148,14 @@ export class stage
         
         if(evalObj.stalemate) {return}
         
-        evalObj.winners = this.stage.location.GetCharsHere("any",evalObj.winCredit.alignment,true);
-        evalObj.losers = this.stage.location.GetCharsHere("any",evalObj.winCredit.GetEnemyAlignment(),true);
+        evalObj.winners = this.stage.cardZone.GetCharsHere("any",evalObj.winCredit.alignment,true);
+        evalObj.losers = this.stage.cardZone.GetCharsHere("any",evalObj.winCredit.GetEnemyAlignment(),true);
         
     }
     
     _ValidateWinnersAndLosers(evalObj){
         
-        const $totalChars = this.stage.location.GetCharsHere("any","any",true).length;
+        const $totalChars = this.stage.cardZone.GetCharsHere("any","any",true).length;
         
         // if(evalObj.winners.length + evalObj.losers.length != $totalChars) console.error("Invalid winners and losers arrays on eval obj!");
     }

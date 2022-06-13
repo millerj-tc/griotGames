@@ -169,7 +169,7 @@ class stagePhase
     
      _CharLastTeammateAtLoc(char){
         
-        const $teammatesWithMyAlignment = this.stage.location.GetCharsHere("any",char.alignment).length;
+        const $teammatesWithMyAlignment = this.stage.cardZone.GetCharsHere("any",char.alignment).length;
         
         if($teammatesWithMyAlignment > 1) return false
         else if($teammatesWithMyAlignment == 1) return true

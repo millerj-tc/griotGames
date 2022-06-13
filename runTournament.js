@@ -185,9 +185,9 @@ export function RunTournament()
      
      let $returnTeam = [];
                 
-    for(const loc of scenario.locationHandler.locations){
+    for(const loc of scenario.cardZoneHandler.cardZones){
 
-        let $charsAssignedToLocation = [...entry[scenario.id][loc.id]];
+        let $charsAssignedToCardZone = [...entry[scenario.id][loc.id]];
 
         for(const charSlot of loc.charSlots){
             
@@ -198,9 +198,9 @@ export function RunTournament()
                 if(alignment == charSlot.alignment) {
                     
 
-                    let $charInst = scenario.GetScenarioChar($charsAssignedToLocation.shift());
+                    let $charInst = scenario.GetScenarioChar($charsAssignedToCardZone.shift());
                 
-                    scenario.savedLocCharSlots.push({characterName: $charInst.name,alignment: alignment, locationId: loc.id, selectId: charSlot.selectId});
+                    scenario.savedLocCharSlots.push({characterName: $charInst.name,alignment: alignment, cardZoneId: loc.id, selectId: charSlot.selectId});
                     
                     $returnTeam.push({name:$charInst.name,wins:0});
 

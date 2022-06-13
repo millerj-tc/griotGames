@@ -149,7 +149,7 @@ export class cardZoneHandler
     
     GetCardZoneById(id){
         
-        //console.log(this.locations);
+        //console.log(this.cardZones);
         
         for(const czone of this.cardZones){
             

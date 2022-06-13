@@ -1,4 +1,4 @@
-import {locationHandler} from "./location.js";
+import {cardZoneHandler} from "./cardZone.js";
 import {stageHandler} from "./stageHandler.js";
 import {character} from "./character.js";
 import {card} from "./card.js";
@@ -19,7 +19,7 @@ class scenarioFx
         this.newNextStage;
         this.targetChars;
         this.incrementingStage;
-        this.winLocation;
+        this.winCardZone;
         this.winningChar;
         this.winTeam;
         this.fxType = type;
@@ -33,9 +33,9 @@ class scenarioFx
         
     }
     
-    SetWinLocation(location){
+    SetWinCardZone(cardZone){
         
-        this.winLocation = location;
+        this.winCardZone = cardZone;
     }
     
     SetIncrementingStage(stage){
@@ -80,11 +80,11 @@ class scenarioFx
         let $winningCharString
         
         if(this.currentLeftIncrements == this.requiredIncrements){
-            $winningCharString = GetStringOfCharsFromArray(this.winLocation.GetCharsHere(),"left",true);
+            $winningCharString = GetStringOfCharsFromArray(this.winCardZone.GetCharsHere(),"left",true);
             this.targetStage.rightDebuffCount++
         }
         if(this.currentRightIncrements == this.requiredIncrements){
-            $winningCharString = GetStringOfCharsFromArray(this.winLocation.GetCharsHere(),"right",true);
+            $winningCharString = GetStringOfCharsFromArray(this.winCardZone.GetCharsHere(),"right",true);
             this.targetStage.leftDebuffCount++
         }
         
@@ -99,9 +99,9 @@ class scenarioFx
         
         let $text = this.completeEffectOutputText;
         
-        if(this.currentLeftIncrements == this.requiredIncrements) this.targetChars = this.scenario.locationHandler.GetAllCharsAtLocations("left");
+        if(this.currentLeftIncrements == this.requiredIncrements) this.targetChars = this.scenario.cardZoneHandler.GetAllCharsAtCardZones("left");
         
-        if(this.currentRightIncrements == this.requiredIncrements) this.targetChars = this.scenario.locationHandler.GetAllCharsAtLocations("right");
+        if(this.currentRightIncrements == this.requiredIncrements) this.targetChars = this.scenario.cardZoneHandler.GetAllCharsAtCardZones("right");
         
         for(const char of this.targetChars){
             
@@ -109,7 +109,7 @@ class scenarioFx
             //console.trace();
         }
         
-        //console.log("HOPE TEXT " + this.winLocation.id);
+        //console.log("HOPE TEXT " + this.winCardZone.id);
         
         this.PrintCompleteEffectOutput($text);
     }
@@ -177,7 +177,7 @@ class scenarioFx
     
     _TeamWins(team){
         
-        let $winningChars = this.scenario.locationHandler.GetAllCharsAtLocations();
+        let $winningChars = this.scenario.cardZoneHandler.GetAllCharsAtCardZones();
             
             let $winningCharString;
         
@@ -194,14 +194,14 @@ class scenarioFx
         
         let $rightTeamCume = 0 ;
         
-        const $leftTeam = this.scenario.locationHandler.GetAllCharsAtLocations("left");
+        const $leftTeam = this.scenario.cardZoneHandler.GetAllCharsAtCardZones("left");
         
         for(const char of $leftTeam){
             
             $leftTeamCume += char.cume;
         }
         
-        const $rightTeam = this.scenario.locationHandler.GetAllCharsAtLocations("right");
+        const $rightTeam = this.scenario.cardZoneHandler.GetAllCharsAtCardZones("right");
         
         for(const char of $rightTeam){
             
@@ -231,12 +231,12 @@ export class scenario
         this.scenarioHandler = scenarioHandler;
         this.id = id;
         this.uiHandler = this.scenarioHandler.gameHandler.uiHandler;
-        this.locationHandler = new locationHandler(this);
+        this.cardZoneHandler = new cardZoneHandler(this);
         this.stageHandler = new stageHandler(this);
         this.leftTeamHope = 0;
         this.rightTeamHope = 0;
         
-        this.usesLocationAssignment = true;
+        this.usesCardZoneAssignment = true;
         this.playingNoninteractiveStages = false;
         
         this.scenarioOver = false;
@@ -256,11 +256,11 @@ export class scenario
         
         this.LoadAndResetScenarioCharacters();
         
-        this.locationHandler = new locationHandler(this);
+        this.cardZoneHandler = new cardZoneHandler(this);
         
-        this.initLocations(this);
+        this.initCardZones(this);
         
-        this.uiHandler.CreateLocationTable();
+        this.uiHandler.CreateCardZoneTable();
         
         this.stageHandler = new stageHandler(this);  
 
@@ -270,7 +270,7 @@ export class scenario
         
         this.initScenarioFx(this);
         
-        this.uiHandler.CreateLocationRows();
+        this.uiHandler.CreateCardZoneRows();
         
         this.CreateRosterDivButtons();
         
@@ -304,7 +304,7 @@ export class scenario
         
         this.fxs = [];
         
-        this._ResetLocationUnslottedChars();
+        this._ResetCardZoneUnslottedChars();
         
         this.LoadAndResetScenarioCharacters();
         
@@ -337,9 +337,9 @@ export class scenario
         this.stageHandler.currentStage = this.stageHandler.stages[0];
     }
     
-    _ResetLocationUnslottedChars(){
+    _ResetCardZoneUnslottedChars(){
         
-        for(const loc of this.locationHandler.locations){
+        for(const loc of this.cardZoneHandler.cardZones){
             
             loc.unslottedChars = [];
         }
@@ -355,7 +355,7 @@ export class scenario
     
     _ResetCharacterObjectsInSlots(){
         
-        for(const loc of this.locationHandler.locations){
+        for(const loc of this.cardZoneHandler.cardZones){
             
             for(const slot of loc.charSlots){
                 
@@ -370,20 +370,20 @@ export class scenario
         
         this._LoadChoices();
         
-        this.locationHandler.RandomizeSlotsWithNoSaveData();
+        this.cardZoneHandler.RandomizeSlotsWithNoSaveData();
     }
     
     SaveChoices(){
         
         this.savedLocCharSlots = [];
         
-        for(const loc of this.locationHandler.locations){
+        for(const loc of this.cardZoneHandler.cardZones){
         
             for(const slot of loc.charSlots){
                 
                 const $charXp = ((slot.character.xp.left + slot.character.xp.right)/2);
                 
-                this.savedLocCharSlots.push({characterName: slot.character.name,alignment: slot.character.alignment, locationId: slot.location.id, selectId: slot.selectId});
+                this.savedLocCharSlots.push({characterName: slot.character.name,alignment: slot.character.alignment, cardZoneId: slot.cardZone.id, selectId: slot.selectId});
             }
                 
         }
@@ -393,9 +393,9 @@ export class scenario
         
         for(const savedCharSlot of this.savedLocCharSlots){
             
-            for(const loc of this.locationHandler.locations){
+            for(const loc of this.cardZoneHandler.cardZones){
                 
-                const $locObj = this.locationHandler.GetLocationById(savedCharSlot.locationId)
+                const $locObj = this.cardZoneHandler.GetCardZoneById(savedCharSlot.cardZoneId)
                 
                 if($locObj.id != loc.id) continue
                 

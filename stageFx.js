@@ -18,7 +18,7 @@ class stageFx
     
     IncrementTarget(){
         
-        this.scenarioFxTarget.SetWinLocation(this.stageFxHandler.stage.location);
+        this.scenarioFxTarget.SetWinCardZone(this.stageFxHandler.stage.cardZone);
         
         this.scenarioFxTarget.SetIncrementingStage(this.stageFxHandler.stage);
         

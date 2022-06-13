@@ -8,7 +8,7 @@ export function initializeMagicScenario0()
         
     $vala0.winText = "[names] braves the fires of Valakut, gaining valuable intelligence."
         
-    $vala0.location = GH.scenarioHandler.locationHandler.GetLocationById("valakut");
+    $vala0.cardZone = GH.scenarioHandler.cardZoneHandler.GetCardZoneById("valakut");
     
     const $urbo0 = GH.scenarioHandler.stageHandler.AddStage("urborg0");
     
@@ -18,7 +18,7 @@ export function initializeMagicScenario0()
         
     $urbo0.winText = "[names] slays the necromancer king of Urborg, inspiring many."
         
-    $urbo0.location = GH.scenarioHandler.locationHandler.GetLocationById("urborg");
+    $urbo0.cardZone = GH.scenarioHandler.cardZoneHandler.GetCardZoneById("urborg");
     
     console.log($vala0);
     

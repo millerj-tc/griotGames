@@ -1,11 +1,11 @@
 import {cloneCrisisPrepStage} from "./cloneCrisisPrepStage.js";
 import {cloneCrisisNewGamePlusStage} from "./cloneCrisisNewGamePlusStage.js";
 
-export function initializeCloneCrisisPlusLocations(scenario){
+export function initializeCloneCrisisPlusCardZones(scenario){
     
-    scenario.usesLocationAssignment = false;
+    scenario.usesCardZoneAssignment = false;
     
-    const $loc = scenario.locationHandler.AddLocation("location","",3,"#1363DF");
+    const $loc = scenario.cardZoneHandler.AddCardZone("cardZone","",3,"#1363DF");
     $loc.displayName = "";
 }
 
@@ -17,7 +17,7 @@ export function initializeCloneCrisisPlusStages(scenario)
     
     const $loc0 = scenario.stageHandler.AddStage("loc0");
         
-    $loc0.location = scenario.locationHandler.GetLocationById("location");
+    $loc0.cardZone = scenario.cardZoneHandler.GetCardZoneById("cardZone");
     
     $loc0.stageHeader = "NEW YORK";
     
@@ -41,7 +41,7 @@ function GetScenarioPrepStage(stageHandler,id){
     
     const $sfw = $stage.stageFlowHandler;
     
-    $sfw.AddPhase($stage._DeclareLocation);
+    $sfw.AddPhase($stage._DeclareCardZone);
         
     $sfw.AddPhase($stage._StageHeaderOutput);
 
@@ -69,11 +69,11 @@ export function initializeCloneCrisisPlusScenarioFx(scenario){
     
 }
 
-export function initializeCloneCrisisPlus1Locations(scenario){
+export function initializeCloneCrisisPlus1CardZones(scenario){
     
-    scenario.usesLocationAssignment = false;
+    scenario.usesCardZoneAssignment = false;
     
-    const $loc = scenario.locationHandler.AddLocation("location","",3,"#1363DF");
+    const $loc = scenario.cardZoneHandler.AddCardZone("cardZone","",3,"#1363DF");
     $loc.displayName = "";
 }
 
@@ -85,7 +85,7 @@ export function initializeCloneCrisisPlus1Stages(scenario)
     
     const $loc0 = scenario.stageHandler.AddStage("loc0");
         
-    $loc0.location = scenario.locationHandler.GetLocationById("location");
+    $loc0.cardZone = scenario.cardZoneHandler.GetCardZoneById("cardZone");
     
     $loc0.stageHeader = "NEW YORK Part 2";
     
@@ -108,11 +108,11 @@ export function initializeCloneCrisisPlus1ScenarioFx(scenario){
     
 }
 
-export function initializeCloneCrisisPlus2Locations(scenario){
+export function initializeCloneCrisisPlus2CardZones(scenario){
     
-    scenario.usesLocationAssignment = false;
+    scenario.usesCardZoneAssignment = false;
     
-    const $loc = scenario.locationHandler.AddLocation("location","",3,"1363DF");
+    const $loc = scenario.cardZoneHandler.AddCardZone("cardZone","",3,"1363DF");
     $loc.displayName = "";
 }
 
@@ -124,7 +124,7 @@ export function initializeCloneCrisisPlus2Stages(scenario)
     
     const $loc0 = scenario.stageHandler.AddStage("loc0");
         
-    $loc0.location = scenario.locationHandler.GetLocationById("location");
+    $loc0.cardZone = scenario.cardZoneHandler.GetCardZoneById("cardZone");
     
     $loc0.stageHeader = "Wakanda";
     
@@ -147,11 +147,11 @@ export function initializeCloneCrisisPlus2ScenarioFx(scenario){
     
 }
 
-export function initializeCloneCrisisPlus3Locations(scenario){
+export function initializeCloneCrisisPlus3CardZones(scenario){
     
-    scenario.usesLocationAssignment = false;
+    scenario.usesCardZoneAssignment = false;
     
-    const $loc = scenario.locationHandler.AddLocation("location","",5,"1363DF");
+    const $loc = scenario.cardZoneHandler.AddCardZone("cardZone","",5,"1363DF");
     $loc.displayName = "";
 }
 
@@ -163,55 +163,55 @@ export function initializeCloneCrisisPlus3Stages(scenario)
     
     const $loc2 = scenario.stageHandler.AddStage("loc2");
 
-    $loc2.location = scenario.locationHandler.GetLocationById("location");
+    $loc2.cardZone = scenario.cardZoneHandler.GetCardZoneById("cardZone");
 
     $loc2.winText = "[winners names] [[pursues/pursue]] the fleeing [specialOutputGroup0 names]!";
 
     const $loc3 = scenario.stageHandler.AddStage("loc3");
 
-    $loc3.location = scenario.locationHandler.GetLocationById("location");
+    $loc3.cardZone = scenario.cardZoneHandler.GetCardZoneById("cardZone");
 
     $loc3.winText = "[winners names] [[pursues/pursue]] the fleeing [specialOutputGroup0 names]!";
 
     const $loc4 = scenario.stageHandler.AddStage("loc4");
 
-    $loc4.location = scenario.locationHandler.GetLocationById("location");
+    $loc4.cardZone = scenario.cardZoneHandler.GetCardZoneById("cardZone");
 
     $loc4.winText = "[winners names] [[pursues/pursue]] the fleeing [specialOutputGroup0 names]!";
 
     const $loc5 = scenario.stageHandler.AddStage("loc5");
 
-    $loc5.location = scenario.locationHandler.GetLocationById("location");
+    $loc5.cardZone = scenario.cardZoneHandler.GetCardZoneById("cardZone");
 
     $loc5.winText = "[winners names] [[pursues/pursue]] the fleeing [specialOutputGroup0 names]!";
 
     const $loc6 = scenario.stageHandler.AddStage("loc6");
 
-    $loc6.location = scenario.locationHandler.GetLocationById("location");
+    $loc6.cardZone = scenario.cardZoneHandler.GetCardZoneById("cardZone");
 
     $loc6.winText = "[winners names] [[pursues/pursue]] the fleeing [specialOutputGroup0 names]!";
 
     const $loc7 = scenario.stageHandler.AddStage("loc7");
 
-    $loc7.location = scenario.locationHandler.GetLocationById("location");
+    $loc7.cardZone = scenario.cardZoneHandler.GetCardZoneById("cardZone");
 
     $loc7.winText = "[winners names] [[pursues/pursue]] the fleeing [specialOutputGroup0 names]!";
 
     const $loc8 = scenario.stageHandler.AddStage("loc8");
 
-    $loc8.location = scenario.locationHandler.GetLocationById("location");
+    $loc8.cardZone = scenario.cardZoneHandler.GetCardZoneById("cardZone");
 
     $loc8.winText = "[winners names] [[pursues/pursue]] the fleeing [specialOutputGroup0 names]!";
     
     const $loc9 = scenario.stageHandler.AddStage("loc8");
 
-    $loc9.location = scenario.locationHandler.GetLocationById("location");
+    $loc9.cardZone = scenario.cardZoneHandler.GetCardZoneById("cardZone");
 
     $loc9.winText = "[winners names] [[pursues/pursue]] the fleeing [specialOutputGroup0 names]!";
     
     const $loc10 = scenario.stageHandler.AddStage("loc8");
 
-    $loc10.location = scenario.locationHandler.GetLocationById("location");
+    $loc10.cardZone = scenario.cardZoneHandler.GetCardZoneById("cardZone");
 
     $loc10.winText = "[winners names] [[pursues/pursue]] the fleeing [specialOutputGroup0 names]!";
 
@@ -225,7 +225,7 @@ function GetScenarioStage3(stageHandler,id){
         
     $sfw.AddPhase($stage._ResetNPCRecruitmentProperties);
 
-    $sfw.AddPhase($stage._DeclareLocation);
+    $sfw.AddPhase($stage._DeclareCardZone);
 
     $sfw.AddPhase($stage._StageHeaderOutput);
 

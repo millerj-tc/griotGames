@@ -12,7 +12,7 @@ export function initializeArtbreederScenario0()
     
     //console.log($sanc0.worstCharacterText);
         
-    $sanc0.location = GH.scenarioHandler.locationHandler.GetLocationById("sanctuary");
+    $sanc0.cardZone = GH.scenarioHandler.cardZoneHandler.GetCardZoneById("sanctuary");
     
     const $spires0 = GH.scenarioHandler.stageHandler.AddStage("spires0");
     
@@ -24,7 +24,7 @@ export function initializeArtbreederScenario0()
     
     $spires0.worstCharacterText = "[names] cynically underestimated the importance of lighting the Spires."
         
-    $spires0.location = GH.scenarioHandler.locationHandler.GetLocationById("spires");
+    $spires0.cardZone = GH.scenarioHandler.cardZoneHandler.GetCardZoneById("spires");
     
     const $sanc1 = GH.scenarioHandler.stageHandler.AddStage("sanctuary1");
     
@@ -34,7 +34,7 @@ export function initializeArtbreederScenario0()
     
     $sanc1.worstCharacterText = "[names] [[nurses/nurse]] their wounds after catching the wrong end of the demon's horns.";
     
-    $sanc1.location = GH.scenarioHandler.locationHandler.GetLocationById("sanctuary");
+    $sanc1.cardZone = GH.scenarioHandler.cardZoneHandler.GetCardZoneById("sanctuary");
     
     const $xora0 = GH.scenarioHandler.stageHandler.AddStage("xora0");
     
@@ -44,7 +44,7 @@ export function initializeArtbreederScenario0()
     
     $xora0.worstCharacterText = "[names] [[is/are]] deterred by a Xorian stone storm. They take shelter in a ruined castle."
         
-    $xora0.location = GH.scenarioHandler.locationHandler.GetLocationById("xora");
+    $xora0.cardZone = GH.scenarioHandler.cardZoneHandler.GetCardZoneById("xora");
     
     const $sanc2 = GH.scenarioHandler.stageHandler.AddStage("sanc2");
     
@@ -54,7 +54,7 @@ export function initializeArtbreederScenario0()
     
     $sanc2.worstCharacterText = "[names] [[loses/lose]] track of their teammates and [[gets/get]] lost in a labyrinth beneath the Sanctuary.";
         
-    $sanc2.location = GH.scenarioHandler.locationHandler.GetLocationById("sanctuary");
+    $sanc2.cardZone = GH.scenarioHandler.cardZoneHandler.GetCardZoneById("sanctuary");
     
     const $spires1 = GH.scenarioHandler.stageHandler.AddStage("spires1");
     
@@ -64,7 +64,7 @@ export function initializeArtbreederScenario0()
     
     $spires1.worstCharacterText = "[names] [[is/are]] leaning against the wall huffing and puffing halfway down the steps to the dungeons. Running is not their strong suit."
         
-    $spires1.location = GH.scenarioHandler.locationHandler.GetLocationById("spires");
+    $spires1.cardZone = GH.scenarioHandler.cardZoneHandler.GetCardZoneById("spires");
     
     const $xora1 = GH.scenarioHandler.stageHandler.AddStage("xora1");
     
@@ -74,7 +74,7 @@ export function initializeArtbreederScenario0()
     
     $xora1.worstCharacterText = "Exhaustion and apathy have struck [names]. They cheer on their teammates while trying to appear to be helpful.";
         
-    $xora1.location = GH.scenarioHandler.locationHandler.GetLocationById("xora");
+    $xora1.cardZone = GH.scenarioHandler.cardZoneHandler.GetCardZoneById("xora");
     
     ///
     

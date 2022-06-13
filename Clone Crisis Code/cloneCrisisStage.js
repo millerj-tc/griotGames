@@ -26,9 +26,9 @@ export class cloneCrisisStage extends stage
         
         if(this.stage.stageHandler.scenario.scenarioOver) return
         
-        const $leftTeam = this.stage.location.GetCharsHere("any","left");
+        const $leftTeam = this.stage.cardZone.GetCharsHere("any","left");
         
-        const $rightTeam = this.stage.location.GetCharsHere("any","right");
+        const $rightTeam = this.stage.cardZone.GetCharsHere("any","right");
 
         
         if($leftTeam.length == 0){
@@ -71,7 +71,7 @@ export class cloneCrisisStage extends stage
     
     _VsOutput(evalObj){
         
-        const $charsHere = this.stage.location.GetCharsHere();
+        const $charsHere = this.stage.cardZone.GetCharsHere();
         
         const $leftString = GetStringOfCharsFromArray($charsHere,"left","S");
         
@@ -182,7 +182,7 @@ export class cloneCrisisStage extends stage
             
             evalObj.pool.push(this.stage.NPC);
             
-            this.stage.location.AddUnslottedChar(this.stage.NPC);
+            this.stage.cardZone.AddUnslottedChar(this.stage.NPC);
         }
     }
     
@@ -194,7 +194,7 @@ export class cloneCrisisStage extends stage
             
             let $psylockeAndWolverine = [];
             
-            for(const char of this.stage.location.GetCharsHere("any",this.stage.NPC.GetEnemyAlignment(),true)){
+            for(const char of this.stage.cardZone.GetCharsHere("any",this.stage.NPC.GetEnemyAlignment(),true)){
                 
                 if(char.name == "Wolverine" || char.name == "Psylocke"){
                     
@@ -218,7 +218,7 @@ export class cloneCrisisStage extends stage
                 
                 if(this.stage.tournamentMode) console.log(this.stage.NPC.name + " scared by Betsy/Logan from joining with  " + evalObj.charismaChar.name);
                 
-                this.stage.location.RemoveCharDuringRun(this.stage.NPC);
+                this.stage.cardZone.RemoveCharDuringRun(this.stage.NPC);
             }
         }
     }
@@ -277,13 +277,13 @@ export class cloneCrisisStage extends stage
         
         if(evalObj.confusedCharacter != null){
             
-            const $confusedCharAllies = this.stage.location.GetCharsHere("any",evalObj.confusedCharacter.alignment,true);
+            const $confusedCharAllies = this.stage.cardZone.GetCharsHere("any",evalObj.confusedCharacter.alignment,true);
             
             for(const char of $confusedCharAllies){
                 
                 if(char.name == "Cyclops"){
                     
-                    const $cyclops = this.stage.location.GetCharsHere("Cyclops",evalObj.confusedCharacter.alignment,true);
+                    const $cyclops = this.stage.cardZone.GetCharsHere("Cyclops",evalObj.confusedCharacter.alignment,true);
                     
                     if(evalObj.confusedCharacter.name == "Cyclops"){
                         
@@ -415,7 +415,7 @@ export class cloneCrisisStage extends stage
         const $lowestToughnessEnemyOfPowerfulestChar = $enemyArr.sort(function(a, b){return a.toughness - b.toughness})[0];
         
         
-        this.stage.location.RemoveCharDuringRun($lowestToughnessEnemyOfPowerfulestChar);
+        this.stage.cardZone.RemoveCharDuringRun($lowestToughnessEnemyOfPowerfulestChar);
         
         
         evalObj.removedChar = $lowestToughnessEnemyOfPowerfulestChar;
@@ -464,7 +464,7 @@ export class cloneCrisisStage extends stage
             
              $bigStrongEnemies = [];
             
-            for(const enemy of this.stage.location.GetCharsHere("any",aloneChar.GetEnemyAlignment())){
+            for(const enemy of this.stage.cardZone.GetCharsHere("any",aloneChar.GetEnemyAlignment())){
                 
                 if(enemy.name == "Wolverine" ||
                   enemy.name == "Beast" ||
@@ -483,16 +483,16 @@ export class cloneCrisisStage extends stage
                 evalObj.removedChar = aloneChar;
                 evalObj.winCredit = $bigStrongEnemies[0];
                 evalObj.winCreditOutput = $bigStrongEnemies;
-                this.stage.location.RemoveCharDuringRun(aloneChar);
+                this.stage.cardZone.RemoveCharDuringRun(aloneChar);
             }
         }
     }
     
     _DupedCharLosesToNumbers(evalObj){ // -- THIS MAY FAIL IF SOMEHOW YOU CAN GET MULTIPLE CHARACTERS ALONE
         
-        let $leftTeam = this.stage.location.GetCharsHere("any","left",true);
+        let $leftTeam = this.stage.cardZone.GetCharsHere("any","left",true);
         
-        let $rightTeam = this.stage.location.GetCharsHere("any","right",true);
+        let $rightTeam = this.stage.cardZone.GetCharsHere("any","right",true);
         
         let $mirroredChars = 0;
         
@@ -519,11 +519,11 @@ export class cloneCrisisStage extends stage
         for(const char of $removeTeam){
             
             evalObj.removedChar = char;
-            evalObj.winCredit = this.stage.location.GetCharsHere(char.name,char.GetEnemyAlignment(),true)[0];
-            evalObj.winCreditOutput = this.stage.location.GetCharsHere("any",char.GetEnemyAlignment(),true);
-            this.stage.location.RemoveCharDuringRun(char);
+            evalObj.winCredit = this.stage.cardZone.GetCharsHere(char.name,char.GetEnemyAlignment(),true)[0];
+            evalObj.winCreditOutput = this.stage.cardZone.GetCharsHere("any",char.GetEnemyAlignment(),true);
+            this.stage.cardZone.RemoveCharDuringRun(char);
             
-//            console.log("_DupedCharLosesToNumbersTriggered at " + this.stage.location.id + " " + this.id + " for " + char.name);
+//            console.log("_DupedCharLosesToNumbersTriggered at " + this.stage.cardZone.id + " " + this.id + " for " + char.name);
 //            console.log("left team length: " + $leftTeam.length);
 //            console.log("right team length: " + $rightTeam.length);
 //            console.log(evalObj.winCredit);
@@ -542,9 +542,9 @@ export class cloneCrisisStage extends stage
 //        
 //        if($aloneChars.length < 1) return
 //        
-//        let $aloneCharMirror = this.stage.location.GetCharsHere($aloneChars[0].name,$aloneChars[0].GetEnemyAlignment());
+//        let $aloneCharMirror = this.stage.cardZone.GetCharsHere($aloneChars[0].name,$aloneChars[0].GetEnemyAlignment());
 //        
-//        let $aloneCharEnemiesArr = this.stage.location.GetCharsHere("any",$aloneChars[0].GetEnemyAlignment());
+//        let $aloneCharEnemiesArr = this.stage.cardZone.GetCharsHere("any",$aloneChars[0].GetEnemyAlignment());
 //        
 //        let $aloneCharNonMirrorEnemiesArr = $aloneCharEnemiesArr.filter(c => c.name != $aloneChars[0].name);
         
@@ -559,7 +559,7 @@ export class cloneCrisisStage extends stage
             
             const $winningAlignment = evalObj.removedChar.GetEnemyAlignment();
 
-            let $powerSortedWinChars = this.stage.location.GetCharsHere("any",$winningAlignment);
+            let $powerSortedWinChars = this.stage.cardZone.GetCharsHere("any",$winningAlignment);
 
             
             $powerSortedWinChars.sort(function(a,b){return b.power - a.power});
@@ -578,7 +578,7 @@ export class cloneCrisisStage extends stage
             
             this.stage.uiHandler.NewStageOutputDiv("<i>" + $removedCharOp + "</i>: " + evalObj.removedChar.captureText);
             
-            this.stage.location.GetCharsHere(evalObj.removedChar.name,evalObj.removedChar.GetEnemyAlignment(),true).myCaptureOutputAlreadyHeard = true;
+            this.stage.cardZone.GetCharsHere(evalObj.removedChar.name,evalObj.removedChar.GetEnemyAlignment(),true).myCaptureOutputAlreadyHeard = true;
         }
     }
     

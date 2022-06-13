@@ -65,7 +65,7 @@ export class gag100Stage extends stage
     
     _WarnIfDupeCharsOnSameTeam(){
         
-        let $allChars = this.stageHandler.scenario.locationHandler.GetAllCharsAtLocations();
+        let $allChars = this.stageHandler.scenario.cardZoneHandler.GetAllCharsAtCardZones();
         
         const $ui = this.stageHandler.scenario.scenarioHandler.gameHandler.uiHandler;
         
@@ -88,7 +88,7 @@ export class gag100Stage extends stage
     
     _RemoveDuplicateChars(){
         
-        let $allChars = this.stageHandler.scenario.locationHandler.GetAllCharsAtLocations();
+        let $allChars = this.stageHandler.scenario.cardZoneHandler.GetAllCharsAtCardZones();
         
         for(const char of $allChars){
             
@@ -113,9 +113,9 @@ export class gag100Stage extends stage
                     
                     $dupeMatches++;
                     
-                    //-- skip the rest if this is not relevant to the current location
+                    //-- skip the rest if this is not relevant to the current cardZone
                    
-                    if(char0.location != this.location && char1.location != this.location) continue
+                    if(char0.cardZone != this.cardZone && char1.cardZone != this.cardZone) continue
                     
                     //if(char0.alignment == char1.alignment) 
                     //else {
@@ -137,7 +137,7 @@ export class gag100Stage extends stage
                                 char0.lastWonHope = true;
                             }
                             
-                            if(char0.location == this.location) $returnArr.push(char0);
+                            if(char0.cardZone == this.cardZone) $returnArr.push(char0);
                         }
                          else if((char0.hope < char1.hope) && !$dupePrinted){
                         
@@ -149,7 +149,7 @@ export class gag100Stage extends stage
                             }
                             
                              
-                             if(char1.location == this.location) $returnArr.push(char1);
+                             if(char1.cardZone == this.cardZone) $returnArr.push(char1);
                          }
                     
                         else if(!$dupePrinted) $ui.UpdateOutput(GetStringOfCharsFromArray([char0],"any",true) + " cannot decide between teams. They are sitting this one out.<br><br>");
@@ -158,15 +158,15 @@ export class gag100Stage extends stage
                 }
             
                 
-            if($dupeMatches == 0 && char0.location == this.location) $returnArr.push(char0);
+            if($dupeMatches == 0 && char0.cardZone == this.cardZone) $returnArr.push(char0);
         }
             
         return $returnArr
     }
     
-    _DeclareLocation(){
+    _DeclareCardZone(){
         
-        this.stageHandler.scenario.scenarioHandler.gameHandler.uiHandler.UpdateOutput("- <i>" + this.location.displayName.toUpperCase() + "</i> -<br><br>" );
+        this.stageHandler.scenario.scenarioHandler.gameHandler.uiHandler.UpdateOutput("- <i>" + this.cardZone.displayName.toUpperCase() + "</i> -<br><br>" );
     }
     
     _TriggerStageFx(team){
@@ -216,9 +216,9 @@ export class gag100Stage extends stage
         
         if(this.debug) console.warn("===");
         
-        //console.table(this.stageHandler.scenario.locationHandler.GetAllCharsAtLocations());
+        //console.table(this.stageHandler.scenario.cardZoneHandler.GetAllCharsAtCardZones());
         
-        this._DeclareLocation();
+        this._DeclareCardZone();
         
         let $leftSiders = [];
         let $rightSiders = [];
@@ -227,7 +227,7 @@ export class gag100Stage extends stage
         
         const $ui = this.stageHandler.scenario.scenarioHandler.gameHandler.uiHandler;        
         
-        let $pool = this.location.GetCharsHere();
+        let $pool = this.cardZone.GetCharsHere();
         
         this._WarnIfDupeCharsOnSameTeam();
         
@@ -286,7 +286,7 @@ export class gag100Stage extends stage
         
         //console.log($worstChars);
         
-        //$worstChars = $worstChars.filter(char => char.location == this.location);
+        //$worstChars = $worstChars.filter(char => char.cardZone == this.cardZone);
         
         for(let i = 0; i < 50; i++){
             

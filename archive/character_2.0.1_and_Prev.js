@@ -1,6 +1,6 @@
 class interpersHopeFx
 {
-    constructor(char,location="team"){
+    constructor(char,cardZone="team"){
         
         this.ownerCharacter = char;
         this.targetCharsStrings; //ARRAY!
@@ -44,11 +44,11 @@ export class charHandler
         }
     }
     
-    AddInterpers(type,location){
+    AddInterpers(type,cardZone){
                     
         let $fx;
         
-        if(type == "hope") $fx = new interpersHopeFx(this,location);
+        if(type == "hope") $fx = new interpersHopeFx(this,cardZone);
 
         this.interpersFxs.push($fx);
         

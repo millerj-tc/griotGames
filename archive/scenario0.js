@@ -10,15 +10,15 @@
  
  NEUTRAL FX
  - flip evaluation for stage
- - characters rotate between locations
+ - characters rotate between cardZones
  - change order of "stages"
- - different stages take place at different locations (which have natural implications)
+ - different stages take place at different cardZones (which have natural implications)
  
  REWARDS FOR WINNING STAGES
  - block a stage if you would lose it
- - rotate extra character to another location/stage
+ - rotate extra character to another cardZone/stage
  - checkbox/hurdle for game win cons
- - checkbox/hurdle for stage buffs (win, mod, etc) -- can be other location stage
+ - checkbox/hurdle for stage buffs (win, mod, etc) -- can be other cardZone stage
  - knock enemy characters out of evaluations
  - sway dupe characters to fight for you (alignment-hope)
  

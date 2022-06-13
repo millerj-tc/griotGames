@@ -1,8 +1,8 @@
 import {uiHandler} from "./ui.js";
 import {database} from "./database.js";
 import {scenarioHandler} from "./scenarioHandler.js";
-import {initializeCloneCrisisEasyStages,initializeCloneCrisisEasyLocations,initializeCloneCrisisEasyScenarioFx} from "./Clone Crisis Code/cloneCrisisScenario.js";
-import {initializeCloneCrisisPlusLocations, initializeCloneCrisisPlusStages,initializeCloneCrisisPlusScenarioFx,initializeCloneCrisisPlus1Locations, initializeCloneCrisisPlus1Stages,initializeCloneCrisisPlus1ScenarioFx,initializeCloneCrisisPlus2Locations, initializeCloneCrisisPlus2Stages,initializeCloneCrisisPlus2ScenarioFx,initializeCloneCrisisPlus3Locations, initializeCloneCrisisPlus3Stages,initializeCloneCrisisPlus3ScenarioFx} from "./Clone Crisis Code/cloneCrisisPrepScenario.js";
+import {initializeCloneCrisisEasyStages,initializeCloneCrisisEasyCardZones,initializeCloneCrisisEasyScenarioFx} from "./Clone Crisis Code/cloneCrisisScenario.js";
+import {initializeCloneCrisisPlusCardZones, initializeCloneCrisisPlusStages,initializeCloneCrisisPlusScenarioFx,initializeCloneCrisisPlus1CardZones, initializeCloneCrisisPlus1Stages,initializeCloneCrisisPlus1ScenarioFx,initializeCloneCrisisPlus2CardZones, initializeCloneCrisisPlus2Stages,initializeCloneCrisisPlus2ScenarioFx,initializeCloneCrisisPlus3CardZones, initializeCloneCrisisPlus3Stages,initializeCloneCrisisPlus3ScenarioFx} from "./Clone Crisis Code/cloneCrisisPrepScenario.js";
 import {RunTournament} from "./runTournament.js";
 import {AddCloneCrisisSpecificCharProps} from "./Clone Crisis Code/cloneCrisisCharProps.js";
 
@@ -22,7 +22,7 @@ export class gameHandler
         
         this.newGamePlus = false;
         
-        //this.locationHandler = new locationHandler(this);
+        //this.cardZoneHandler = new cardZoneHandler(this);
         
         
     }
@@ -37,7 +37,7 @@ export class gameHandler
             
             const $scen0 = this.scenarioHandler.AddScenario("scen0");
             
-            $scen0.initLocations = initializeCloneCrisisPlusLocations;
+            $scen0.initCardZones = initializeCloneCrisisPlusCardZones;
         
             $scen0.initStages = initializeCloneCrisisPlusStages;
         
@@ -45,7 +45,7 @@ export class gameHandler
             
             const $scen1 = this.scenarioHandler.AddScenario("scen1");
             
-            $scen1.initLocations = initializeCloneCrisisPlus1Locations;
+            $scen1.initCardZones = initializeCloneCrisisPlus1CardZones;
         
             $scen1.initStages = initializeCloneCrisisPlus1Stages;
         
@@ -53,7 +53,7 @@ export class gameHandler
             
             const $scen2 = this.scenarioHandler.AddScenario("scen2");
             
-            $scen2.initLocations = initializeCloneCrisisPlus2Locations;
+            $scen2.initCardZones = initializeCloneCrisisPlus2CardZones;
         
             $scen2.initStages = initializeCloneCrisisPlus2Stages;
         
@@ -63,7 +63,7 @@ export class gameHandler
             
             const $scen3 = this.scenarioHandler.AddScenario("scen3");
             
-            $scen3.initLocations = initializeCloneCrisisPlus3Locations;
+            $scen3.initCardZones = initializeCloneCrisisPlus3CardZones;
         
             $scen3.initStages = initializeCloneCrisisPlus3Stages;
         
@@ -76,7 +76,7 @@ export class gameHandler
             
             const $scen0 = this.scenarioHandler.AddScenario("scen0");
             
-            $scen0.initLocations = initializeCloneCrisisEasyLocations;
+            $scen0.initCardZones = initializeCloneCrisisEasyCardZones;
         
             $scen0.initStages = initializeCloneCrisisEasyStages;
         
@@ -106,7 +106,7 @@ export class gameHandler
     
     _RestoreRemovedChars(){
         
-        for(const loc of this.scenarioHandler.currentScenario.locationHandler.locations){
+        for(const loc of this.scenarioHandler.currentScenario.cardZoneHandler.cardZones){
             
             for(const slot of loc.charSlots){
                 
@@ -117,7 +117,7 @@ export class gameHandler
     
     _RemoveUnslottedCharacters(){
         
-        for(const loc of this.scenarioHandler.currentScenario.locationHandler.locations){
+        for(const loc of this.scenarioHandler.currentScenario.cardZoneHandler.cardZones){
             
             loc.unslottedChars = [];
         }

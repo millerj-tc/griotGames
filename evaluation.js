@@ -7,7 +7,7 @@ export class evaluation
         this.losers = [];
         this.winTeam;
         this.winChar;
-        this.location;
+        this.cardZone;
         this.pool = [];
         this.initialPool = [];
         this.prePhaseSkipModPool = undefined;

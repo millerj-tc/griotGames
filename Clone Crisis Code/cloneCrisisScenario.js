@@ -1,10 +1,10 @@
 import {cloneCrisisStage} from "./cloneCrisisStage.js";
 
-export function initializeCloneCrisisEasyLocations(scenario){
+export function initializeCloneCrisisEasyCardZones(scenario){
     
-    scenario.usesLocationAssignment = false;
+    scenario.usesCardZoneAssignment = false;
     
-    const $loc = scenario.locationHandler.AddLocation("location","",3,"#1363DF");
+    const $loc = scenario.cardZoneHandler.AddCardZone("cardZone","",3,"#1363DF");
     $loc.displayName = "";
 }
 
@@ -16,7 +16,7 @@ export function initializeCloneCrisisEasyStages(scenario)
     
     const $loc0 = scenario.stageHandler.AddStage("loc0");
         
-    $loc0.location = scenario.locationHandler.GetLocationById("location");
+    $loc0.cardZone = scenario.cardZoneHandler.GetCardZoneById("cardZone");
     
     $loc0.stageHeader = "NEW YORK";
     
@@ -30,7 +30,7 @@ export function initializeCloneCrisisEasyStages(scenario)
     
     const $loc01 = scenario.stageHandler.AddStage("loc01");
         
-    $loc01.location = scenario.locationHandler.GetLocationById("location");
+    $loc01.cardZone = scenario.cardZoneHandler.GetCardZoneById("cardZone");
     
     $loc01.stageHeader = "On the way to Wakanda...";
     
@@ -48,7 +48,7 @@ export function initializeCloneCrisisEasyStages(scenario)
     // -- Must explicitly set here so that $loc01 is not set to nextStage for $loc0
     $loc0.nextStage = $loc1;
         
-    $loc1.location = scenario.locationHandler.GetLocationById("location");
+    $loc1.cardZone = scenario.cardZoneHandler.GetCardZoneById("cardZone");
     
     $loc1.stageHeader = "WAKANDA";
     
@@ -60,43 +60,43 @@ export function initializeCloneCrisisEasyStages(scenario)
     
     const $loc2 = scenario.stageHandler.AddStage("loc2");
 
-    $loc2.location = scenario.locationHandler.GetLocationById("location");
+    $loc2.cardZone = scenario.cardZoneHandler.GetCardZoneById("cardZone");
 
     $loc2.winText = "[winners names] [[pursues/pursue]] the fleeing [specialOutputGroup0 names]!";
 
     const $loc3 = scenario.stageHandler.AddStage("loc3");
 
-    $loc3.location = scenario.locationHandler.GetLocationById("location");
+    $loc3.cardZone = scenario.cardZoneHandler.GetCardZoneById("cardZone");
 
     $loc3.winText = "[winners names] [[pursues/pursue]] the fleeing [specialOutputGroup0 names]!";
 
     const $loc4 = scenario.stageHandler.AddStage("loc4");
 
-    $loc4.location = scenario.locationHandler.GetLocationById("location");
+    $loc4.cardZone = scenario.cardZoneHandler.GetCardZoneById("cardZone");
 
     $loc4.winText = "[winners names] [[pursues/pursue]] the fleeing [specialOutputGroup0 names]!";
 
     const $loc5 = scenario.stageHandler.AddStage("loc5");
 
-    $loc5.location = scenario.locationHandler.GetLocationById("location");
+    $loc5.cardZone = scenario.cardZoneHandler.GetCardZoneById("cardZone");
 
     $loc5.winText = "[winners names] [[pursues/pursue]] the fleeing [specialOutputGroup0 names]!";
 
     const $loc6 = scenario.stageHandler.AddStage("loc6");
 
-    $loc6.location = scenario.locationHandler.GetLocationById("location");
+    $loc6.cardZone = scenario.cardZoneHandler.GetCardZoneById("cardZone");
 
     $loc6.winText = "[winners names] [[pursues/pursue]] the fleeing [specialOutputGroup0 names]!";
 
     const $loc7 = scenario.stageHandler.AddStage("loc7");
 
-    $loc7.location = scenario.locationHandler.GetLocationById("location");
+    $loc7.cardZone = scenario.cardZoneHandler.GetCardZoneById("cardZone");
 
     $loc7.winText = "[winners names] [[pursues/pursue]] the fleeing [specialOutputGroup0 names]!";
 
     const $loc8 = scenario.stageHandler.AddStage("loc8");
 
-    $loc8.location = scenario.locationHandler.GetLocationById("location");
+    $loc8.cardZone = scenario.cardZoneHandler.GetCardZoneById("cardZone");
 
     $loc8.winText = "[winners names] [[pursues/pursue]] the fleeing [specialOutputGroup0 names]!";
 }
@@ -109,7 +109,7 @@ function GetScenarioStage(stageHandler,id){
     
     $sfw.AddPhase($stage._ResetNPCRecruitmentProperties);
     
-    $sfw.AddPhase($stage._DeclareLocation);
+    $sfw.AddPhase($stage._DeclareCardZone);
 
     $sfw.AddPhase($stage._StageHeaderOutput);
 

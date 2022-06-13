@@ -30,15 +30,15 @@ export class cloneCrisisNewGamePlusStage extends cloneCrisisStage
         
         const $s = this.stage;
         
-        for(const cyclops of this.stage.location.GetCharsHere("Cyclops","any")){
+        for(const cyclops of this.stage.cardZone.GetCharsHere("Cyclops","any")){
             
             if(!cyclops.hasOwnProperty("alliedBishopEffectFire")) cyclops.alliedBishopEffectFire = false;
             
-            const $alliedBishop = $s.location.GetCharsHere("Bishop",cyclops.alignment);
+            const $alliedBishop = $s.cardZone.GetCharsHere("Bishop",cyclops.alignment);
             
             if($alliedBishop.length > 0 && evalObj.speedDebuffedChar != $alliedBishop && evalObj.speedDebuffedChar != cyclops && cyclops.alliedBishopEffectFire != true){
                 
-                const $highesetToughEnemyOfAllies = $s.location.GetCharsHere("any", cyclops.GetEnemyAlignment(),true).sort(function(a,b){return b.toughness - a.toughness})[0];
+                const $highesetToughEnemyOfAllies = $s.cardZone.GetCharsHere("any", cyclops.GetEnemyAlignment(),true).sort(function(a,b){return b.toughness - a.toughness})[0];
                 
                 evalObj.pool = evalObj.pool.filter(c => c != $highesetToughEnemyOfAllies);
                 
@@ -70,7 +70,7 @@ export class cloneCrisisNewGamePlusStage extends cloneCrisisStage
             
             let $affectedChars = [];
             
-            for(const char of this.stage.location.GetCharsHere("any",ghostR.GetEnemyAlignment())){
+            for(const char of this.stage.cardZone.GetCharsHere("any",ghostR.GetEnemyAlignment())){
                 
                 if(char.name == "Psylocke" || char.name == "Wolverine" || char.name == "Punisher") $affectedChars.push(char);
             }
@@ -297,9 +297,9 @@ export class cloneCrisisNewGamePlusStage extends cloneCrisisStage
         
         if(this.stage.stageHandler.scenario.scenarioOver) return
         
-        let $leftTeam = this.stage.location.GetCharsHere("any","left");
+        let $leftTeam = this.stage.cardZone.GetCharsHere("any","left");
         
-        let $rightTeam = this.stage.location.GetCharsHere("any","right");
+        let $rightTeam = this.stage.cardZone.GetCharsHere("any","right");
         
         for(const char of $leftTeam){
             
@@ -346,7 +346,7 @@ export class cloneCrisisNewGamePlusStage extends cloneCrisisStage
            
         if($ogCharObj.unlocked.length == 0) {
             
-            this.stage.location.RemoveCharDuringRun($mirrorChar)
+            this.stage.cardZone.RemoveCharDuringRun($mirrorChar)
         }
     }
 }
