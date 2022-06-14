@@ -8,6 +8,30 @@ export function initPOTFCCardZones(scenario)
     $cz.displayName = "";
 }
 
+export function initPOTFCCardZoneMenu(scenario)
+{
+    const $cardZoneMenu = this.uiHandler.AddGrid();
+        
+    const $testDiv0 = document.createElement("div");
+    $testDiv0.innerHTML = "0";
+
+    const $testDiv1 = document.createElement("div");
+    $testDiv1.innerHTML = "1";
+
+    const $testDiv2 = document.createElement("div");
+    $testDiv2.innerHTML = "2";
+
+    $testGrid.PrepGridElement($testDiv0,"zero");
+    $testGrid.PrepGridElement($testDiv1,"one");
+    $testGrid.PrepGridElement($testDiv2,"two")
+        .AddCustomClasses(["fullRow"]);
+
+    const $gridDOM = $testGrid.BuildGrid();
+    $gridDOM.classList.add("testGrid");
+
+    document.getElementById("output").append($gridDOM);
+}
+
 export function initPOTFCStages(scenario)
 {
     const GH = window.gameHandler;

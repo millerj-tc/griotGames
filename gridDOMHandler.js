@@ -1,12 +1,9 @@
 class gridElement
 {
-    constructor(DOM,startX,startY,endX = null, endY = null){
+    constructor(DOM,gridAreaId){
         
         this.DOM = DOM;
-        this.startX = startX;
-        this.startY = startY;
-        this.endX = endX;
-        this.endY = endY;
+        this.DOM.style.gridArea = gridAreaId;
         this.customClasses = [];
     }
     
@@ -28,9 +25,9 @@ export class gridDOMHandler
         this.gridElements = [];
     }
     
-    PrepGridElement(DOM,startX,startY,endX = startX, endY = startY){
+    PrepGridElement(DOM,gridAreaId){
         
-        const $ge = new gridElement(DOM,startX,startY,endX,endY);
+        const $ge = new gridElement(DOM,gridAreaId);
         
         this.gridElements.push($ge);
     
@@ -40,31 +37,26 @@ export class gridDOMHandler
     _AppendGridElement(ge){
         
         this.DOM.append(ge.DOM);
-        
-        ge.DOM.style.gridColumnStart = ge.startX;
-        ge.DOM.style.gridColumnEnd = ge.endX;
-        ge.DOM.style.gridRowStart = ge.startY;
-        ge.DOM.style.gridRowEnd = ge.endY;
     }
     
-    _SetGridWidth(){
-        
-        const xs = this.gridElements.map(object => {
-            return object.endX;
-        });
-
-        const maxX = Math.max(...xs);
-        
-        let $gridTemplateColumns = "auto auto";
-        
-        for(let i = 1; i < maxX; i++){
-            
-            $gridTemplateColumns += " auto";
-        }
-        
-        this.DOM.style.gridTemplateColumns = $gridTemplateColumns;
-        
-    }
+//    _SetGridWidth(){
+//        
+//        const xs = this.gridElements.map(object => {
+//            return object.endX;
+//        });
+//
+//        const maxX = Math.max(...xs);
+//        
+//        let $gridTemplateColumns = "auto auto";
+//        
+//        for(let i = 1; i < maxX; i++){
+//            
+//            $gridTemplateColumns += " auto";
+//        }
+//        
+//        this.DOM.style.gridTemplateColumns = $gridTemplateColumns;
+//        
+//    }
     
     ApplyClassesToAllGridElements(customClasses){ //arr
         
@@ -87,7 +79,7 @@ export class gridDOMHandler
             this.DOM.classList.add(cls);
         }
         
-        this._SetGridWidth();
+        //this._SetGridWidth();
         
         for(const ge of this.gridElements){
             

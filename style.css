@@ -21,20 +21,29 @@
 
 }
 
-.testGridCell{
-    
+.testGrid{
+    grid-template-areas: 
+        'zero one'
+        'two two';
     justify-items:center;
     align-items:center;
     vertical-align:center;
     text-align:center;
     background-color:aqua;
-/*    width:50;*/
+    
 }
 
-.fullRow.testGridCell{
+.fullRow{
     
-    background-color:blue;
-    width:100
+    background-color: blue;
+    width:100px;
+}
+
+.testGrid > div:not(.fullRow){
+    
+    background-color: red;
+    width:50px;
+    height:100px;
 }
 
 .indexButtonHelpText{
