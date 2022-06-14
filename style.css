@@ -21,6 +21,22 @@
 
 }
 
+.testGridCell{
+    
+    justify-items:center;
+    align-items:center;
+    vertical-align:center;
+    text-align:center;
+    background-color:aqua;
+/*    width:50;*/
+}
+
+.fullRow.testGridCell{
+    
+    background-color:blue;
+    width:100
+}
+
 .indexButtonHelpText{
     
     font-size: calc(10pt + 0.6vw);

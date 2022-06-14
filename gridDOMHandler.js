@@ -1,6 +1,6 @@
 class gridElement
 {
-    constructor(DOM,startX,startY,endX = startX, endY = startY){
+    constructor(DOM,startX,startY,endX = null, endY = null){
         
         this.DOM = DOM;
         this.startX = startX;
@@ -10,17 +10,12 @@ class gridElement
         this.customClasses = [];
     }
     
-    AddCustomClasses(classes){ //arr
+    AddCustomClasses(classes =[]){ //arr
         
         for(const cls of classes){
             
-            this.customClasses.push(cls);
+            this.DOM.classList.add(cls);
         }
-    }
-    
-    ClearCustomClasses(){
-        
-        this.customClasses = [];
     }
 }
 
@@ -42,7 +37,7 @@ export class gridDOMHandler
         return $ge
     }
     
-    _InsertGridElement(ge){
+    _AppendGridElement(ge){
         
         this.DOM.append(ge.DOM);
         
@@ -60,7 +55,7 @@ export class gridDOMHandler
 
         const maxX = Math.max(...xs);
         
-        let $gridTemplateColumns = "auto";
+        let $gridTemplateColumns = "auto auto";
         
         for(let i = 1; i < maxX; i++){
             
@@ -71,7 +66,18 @@ export class gridDOMHandler
         
     }
     
-    BuildGrid(customClasses){ //arr
+    ApplyClassesToAllGridElements(customClasses){ //arr
+        
+        for(const ge of this.gridElements){
+            
+            for(const cls of customClasses){
+                
+                ge.DOM.classList.add(cls);
+            }
+        }
+    }
+    
+    BuildGrid(customClasses =[]){ //arr
         
         this.DOM = document.createElement("div");
         this.DOM.style.display = "grid";
@@ -82,6 +88,11 @@ export class gridDOMHandler
         }
         
         this._SetGridWidth();
+        
+        for(const ge of this.gridElements){
+            
+            this._AppendGridElement(ge);
+        }
         
         return this.DOM
     }

@@ -1,3 +1,5 @@
+import {gridDOMHandler} from "./gridDOMHandler.js";
+
 export class uiHandler
 {
     constructor(gameHandler){
@@ -12,6 +14,11 @@ export class uiHandler
         
         this.storedOutputDivs = [];
         
+    }
+    
+    AddGrid(){
+        
+        return new gridDOMHandler(this);
     }
     
     ResizeOnResize(){

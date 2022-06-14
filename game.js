@@ -48,6 +48,29 @@ export class gameHandler
 
             }
         });
+        
+        const $testGrid = this.uiHandler.AddGrid();
+        
+        const $testDiv0 = document.createElement("div");
+        $testDiv0.innerHTML = "0";
+        
+        const $testDiv1 = document.createElement("div");
+        $testDiv1.innerHTML = "1";
+        
+        const $testDiv2 = document.createElement("div");
+        $testDiv2.innerHTML = "2";
+        
+        $testGrid.PrepGridElement($testDiv0,1,1);
+        $testGrid.PrepGridElement($testDiv1,1,1);
+        $testGrid.PrepGridElement($testDiv2,1,2,2,3)
+            .AddCustomClasses(["fullRow"]);
+        $testGrid.ApplyClassesToAllGridElements(["testGridCell"]);
+        
+        const $gridDOM = $testGrid.BuildGrid();
+        
+        console.error("just use grid template areas?");
+        
+        document.getElementById("output").append($gridDOM);
 
     }
     
