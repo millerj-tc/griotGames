@@ -39,25 +39,6 @@ export class gridDOMHandler
         this.DOM.append(ge.DOM);
     }
     
-//    _SetGridWidth(){
-//        
-//        const xs = this.gridElements.map(object => {
-//            return object.endX;
-//        });
-//
-//        const maxX = Math.max(...xs);
-//        
-//        let $gridTemplateColumns = "auto auto";
-//        
-//        for(let i = 1; i < maxX; i++){
-//            
-//            $gridTemplateColumns += " auto";
-//        }
-//        
-//        this.DOM.style.gridTemplateColumns = $gridTemplateColumns;
-//        
-//    }
-    
     ApplyClassesToAllGridElements(customClasses){ //arr
         
         for(const ge of this.gridElements){
@@ -78,9 +59,7 @@ export class gridDOMHandler
             
             this.DOM.classList.add(cls);
         }
-        
-        //this._SetGridWidth();
-        
+                
         for(const ge of this.gridElements){
             
             this._AppendGridElement(ge);
