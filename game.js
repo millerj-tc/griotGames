@@ -2,7 +2,7 @@ import {uiHandler} from "./ui.js";
 import {database} from "./database.js";
 import {scenarioHandler} from "./scenarioHandler.js";
 import {RunTournament} from "./runTournament.js";
-import {initPOTFCCardZones,initPOTFCStages,initPOTFCScenarioFX} from "./Protectors of the Fey Circle/potfcStoryScenario.js";
+import {initPOTFCCardZones,initPOTFCCardZoneMenu, initPOTFCStages,initPOTFCScenarioFX} from "./Protectors of the Fey Circle/potfcStoryScenario.js";
 
 
 export class gameHandler
@@ -31,6 +31,8 @@ export class gameHandler
         const $scen0 = this.scenarioHandler.AddScenario("potfcStory");
 
         $scen0.initCardZones = initPOTFCCardZones;
+        
+        $scen0.initCardZoneMenu = initPOTFCCardZoneMenu;
 
         $scen0.initStages = initPOTFCStages;
 

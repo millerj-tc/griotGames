@@ -10,26 +10,20 @@ export function initPOTFCCardZones(scenario)
 
 export function initPOTFCCardZoneMenu(scenario)
 {
-    const $cardZoneMenu = this.uiHandler.AddGrid();
-        
-    const $testDiv0 = document.createElement("div");
-    $testDiv0.innerHTML = "0";
+    const $salonMenu = this.uiHandler.AddGrid();
+    
+    $salonMenu.PrepGridTextElement("The Salon","salonHeader",true);
+    $salonMenu.PrepGridTextElement("A story of","salonGenrePrompt")
+        .AddCustomClasses(["prompt"]);
+    $salonMenu.PrepGridTextElement("genreSelector","genreSelector",true);
+    $salonMenu.PrepGridTextElement("starring","salonActorPrompt")
+        .AddCustomClasses(["prompt"]);
 
-    const $testDiv1 = document.createElement("div");
-    $testDiv1.innerHTML = "1";
-
-    const $testDiv2 = document.createElement("div");
-    $testDiv2.innerHTML = "2";
-
-    $testGrid.PrepGridElement($testDiv0,"zero");
-    $testGrid.PrepGridElement($testDiv1,"one");
-    $testGrid.PrepGridElement($testDiv2,"two")
-        .AddCustomClasses(["fullRow"]);
-
-    const $gridDOM = $testGrid.BuildGrid();
-    $gridDOM.classList.add("testGrid");
-
+    const $gridDOM = $salonMenu.BuildGrid(["salonMenu"]);
+    
     document.getElementById("output").append($gridDOM);
+    
+    document.getElementById("content").prepend($gridDOM);
 }
 
 export function initPOTFCStages(scenario)

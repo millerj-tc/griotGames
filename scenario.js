@@ -260,7 +260,9 @@ export class scenario
         
         this.initCardZones(this);
         
-        this.uiHandler.CreateCardZoneTable();
+        
+        
+        //this.uiHandler.CreateCardZoneTable();
         
         this.stageHandler = new stageHandler(this);  
 
@@ -270,17 +272,15 @@ export class scenario
         
         this.initScenarioFx(this);
         
-        this.uiHandler.CreateCardZoneRows();
+        this.initCardZoneMenu(this);
+        
+        //this.uiHandler.CreateCardZoneRows();
         
         this.CreateRosterDivButtons();
         
         this._LoadPreviousChoicesForCharSlotsOrRandomize();
         
         this.uiHandler.ExpandRosterDisplay();
-        
-        this.leftTeamHope = 0;
-        
-        this.rightTeamHope = 0;
         
         
     }

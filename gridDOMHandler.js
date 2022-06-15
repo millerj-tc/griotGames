@@ -25,12 +25,25 @@ export class gridDOMHandler
         this.gridElements = [];
     }
     
-    PrepGridElement(DOM,gridAreaId){
+    PrepGridElement(DOM,gridAreaId,addGridAreaIdAsClass = false){
         
         const $ge = new gridElement(DOM,gridAreaId);
         
+        if(addGridAreaIdAsClass) $ge.DOM.classList.add(gridAreaId);
+        
         this.gridElements.push($ge);
     
+        return $ge
+    }
+    
+    PrepGridTextElement(text,gridAreaId,addGridAreaIdAsClass = false){
+        
+        const $div = document.createElement("div");
+        
+        $div.innerHTML = text;
+        
+        const $ge = this.PrepGridElement($div,gridAreaId,addGridAreaIdAsClass);
+        
         return $ge
     }
     

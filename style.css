@@ -21,16 +21,23 @@
 
 }
 
-.testGrid{
+.salonMenu{
     grid-template-areas: 
-        'zero one'
-        'two two';
+        'salonHeader salonHeader'
+        'salonGenrePrompt genreSelector'
+        'salonActorPrompt salonActorPrompt';
+/*
     justify-items:center;
     align-items:center;
     vertical-align:center;
     text-align:center;
+*/
     background-color:aqua;
     
+}
+
+.salonMenu > .salonGenrePrompt{
+    text-align: right;
 }
 
 .fullRow{
@@ -39,7 +46,7 @@
     width:100px;
 }
 
-.testGrid > div:not(.fullRow){
+.testMenu > .testId{
     
     background-color: red;
     width:50px;

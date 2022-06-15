@@ -16,9 +16,11 @@ export class uiHandler
         
     }
     
-    AddGrid(){
+    AddGrid(classes = []){
         
-        return new gridDOMHandler(this);
+       const $gdh = new gridDOMHandler(this);
+        
+        return $gdh
     }
     
     ResizeOnResize(){
