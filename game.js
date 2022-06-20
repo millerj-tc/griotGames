@@ -3,6 +3,8 @@ import {database} from "./database.js";
 import {scenarioHandler} from "./scenarioHandler.js";
 import {RunTournament} from "./runTournament.js";
 import {initPOTFCCardZones,initPOTFCCardZoneMenu, initPOTFCStages,initPOTFCScenarioFX} from "./Protectors of the Fey Circle/potfcStoryScenario.js";
+import {inputReader} from "./inputReader.js";
+import {salonGenreMessageHandler} from "./salonGenre.js";
 
 
 export class gameHandler
@@ -26,7 +28,11 @@ export class gameHandler
         
     }
     
-    Start(){        
+    Start(){
+        
+        const $sgmh = new salonGenreMessageHandler();
+        
+        inputReader.inputReceived("salonGenre","start");
             
         const $scen0 = this.scenarioHandler.AddScenario("potfcStory");
 
