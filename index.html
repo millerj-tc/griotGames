@@ -1,18 +1,16 @@
 <HTML>
     <head>
         <script type="module">
-            import {gameHandler} from './game.js';
+            import {gameHandler} from './gameHandler.js';
             window.gameHandler = new gameHandler();
         </script>
         <link rel="stylesheet" type="text/css" href="style.css"/>
     </head>
     <body style="font-family:sans-serif">
-        <div id="content" style="position:fixed;overflow-y:hidden;transition:transform 0.75s;z-index: 100">
-            <div style="max-width:65vw;font-size:calc(15px + 1.2vw)">
-            </div>
+        <div id="content">
         </div>
         <div id="output" class="output">    
-                <div style="position:relative;text-align: center"><button class="indexButton" onclick="gameHandler.Start()">Grand Adventure Games</button>
+                <div><button class="indexButton" onclick="gameHandler.Start()">Grand Adventure Games</button>
                     <br><div class="indexButtonHelpText"><i>Assemble a team of characters to compete in the 101th Grand Adventure Games</i></div>
             
                 <br><br><button class="indexButton" onclick="gameHandler.Start()">Explore Mode</button>

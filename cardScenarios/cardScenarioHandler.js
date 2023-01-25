@@ -1,16 +1,16 @@
 import {scenario} from "./scenario.js";
 import {character} from "./character.js";
 
-export class scenarioHandler
+export class cardScenarioHandler
 {
     constructor(gameHandler){
         
         this.gameHandler = gameHandler;
         
-        this.scenarios = [];
+        this.cardScenarios = [];
         this.gameCharInstances = [];
-        this.lastCreatedScenario = undefined;
-        this.currentScenario;
+        this.lastCreatedCardScenario = undefined;
+        this.currentCardScenario;
     }
     
     AddScenario(id){

@@ -1,5 +1,6 @@
-import {uiHandler} from "./ui.js";
-import {RunTournament} from "./runTournament.js";
+import {uiHandler} from "./ui/ui.js";
+import {RunTournament} from "./systemUtils/runTournament.js";
+import {cardScenarioHandler} from "./cardScenarios/cardScenarioHandler.js"
 
 
 export class gameHandler
@@ -8,10 +9,7 @@ export class gameHandler
         
         this.uiHandler = new uiHandler(this);
 
-        this.scenarioHandler = new scenarioHandler(this);
-
-        this.choiceCount = 0;
-        
+        this.cardScenarioHandler = new cardScenarioHandler(this);        
         
     }
     
