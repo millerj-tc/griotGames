@@ -1,4 +1,4 @@
-import {scenario} from "./scenario.js";
+import {cardScenario} from "./cardScenario.js";
 import {character} from "./character.js";
 
 export class cardScenarioHandler
@@ -8,30 +8,33 @@ export class cardScenarioHandler
         this.gameHandler = gameHandler;
         
         this.cardScenarios = [];
-        this.gameCharInstances = [];
+        //LIMBO PROP this.gameCharInstances = [];
         this.lastCreatedCardScenario = undefined;
         this.currentCardScenario;
     }
     
-    AddScenario(id){
+    AddCardScenario(id){
         
-        const $scenario = new scenario(this,id);
+        const $cardScenario = new cardScenario(this,id);
         
-        if(this.lastCreatedScenario != undefined) {
-            $scenario.previousScenario = this.lastCreatedScenario;
-            this.lastCreatedScenario.nextScenario = $scenario;
+        if(this.lastCreatedCardScenario != undefined) {
+            $cardScenario.previousCardScenario = this.lastCreatedCardScenario;
+            this.lastCreatedScenario.nextScenario = $cardScenario;
         }
         
-        this.scenarios.push($scenario);
+        this.cardScenarios.push($cardScenario);
         
-        if(this.scenarios.length == 1) this.currentScenario = $scenario
+        if(this.cardScenarios.length == 1) this.currentCardScenario = $cardScenario
         
-        this.lastCreatedScenario = $scenario;
+        this.lastCreatedCardScenario = $cardScenario;
         
-        return $scenario
+        return $cardScenario
     }
     
-    GotoScenario(scenario){
+   //////   LIMBO   LINE   //////
+    GotoCardScenario(scenario){
+        
+        console.error("can't we just launch cardScenarios from passive?")
         
         if(scenario == undefined || this.gameHandler.gameOver) return;
         

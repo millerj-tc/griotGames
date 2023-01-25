@@ -1,4 +1,4 @@
-import {ShuffleArray} from "./utils.js";
+import {ShuffleArray} from "../systemUtils/utils.js";
 
 class cardSlot
 {

@@ -14,7 +14,6 @@ export class gameHandler
     }
     
     Start(){
-
         
         window.addEventListener("keydown", function(event) {
 

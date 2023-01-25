@@ -3,6 +3,7 @@
         <script type="module">
             import {gameHandler} from './gameHandler.js';
             window.gameHandler = new gameHandler();
+            window.onload = window.gameHandler.Start;
         </script>
         <link rel="stylesheet" type="text/css" href="style.css"/>
     </head>
