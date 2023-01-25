@@ -29,9 +29,7 @@ export class gameHandler
     }
     
     Start(){
-        
-        const $sgmh = new salonGenreMessageHandler();
-        
+                
         inputReader.inputReceived("salonGenre","start");
             
         const $scen0 = this.scenarioHandler.AddScenario("potfcStory");
