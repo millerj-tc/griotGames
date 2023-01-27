@@ -16,11 +16,9 @@ export class cardScenario
         this.uiHandler = this.cardScenarioHandler.gameHandler.uiHandler;
         this.cardZoneHandler = new cardZoneHandler(this);
         this.stageHandler = new stageHandler(this);
-        this.leftTeamHope = 0;
-        this.rightTeamHope = 0;
         
         this.usesCardZoneAssignment = true;
-        this.playingNoninteractiveStages = false;
+        // LIMBO PROP this.playingNoninteractiveStages = false;
         
         this.scenarioOver = false;
         

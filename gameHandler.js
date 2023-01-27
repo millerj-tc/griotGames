@@ -1,6 +1,8 @@
 import {uiHandler} from "./ui/ui.js";
 import {RunTournament} from "./systemUtils/runTournament.js";
-import {cardScenarioHandler} from "./cardScenarios/cardScenarioHandler.js"
+import {cardScenarioHandler} from "./cardScenarios/cardScenarioHandler.js";
+import {gridDOMHandler} from "./ui/gridDOMHandler.js";
+import {CreateElement} from "./ui/ui.js";
 
 
 export class gameHandler
@@ -14,6 +16,8 @@ export class gameHandler
     }
     
     Start(){
+        
+        const t = CreateElement
         
         window.addEventListener("keydown", function(event) {
 
